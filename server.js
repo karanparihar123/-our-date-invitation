@@ -30,9 +30,7 @@ const pool = new Pool({
 
 const resend = new Resend(RESEND_API_KEY);
 
-
 async function initDb() {
-
   await pool.query(`
     CREATE TABLE IF NOT EXISTS responses (
       id SERIAL PRIMARY KEY,
@@ -41,9 +39,7 @@ async function initDb() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
-
 }
-
 
 app.use(express.json());
 
@@ -59,26 +55,14 @@ app.use(
 ========================================== */
 
 app.post("/api/response", async (req, res) => {
-
   try {
-
     const { answer, date } = req.body || {};
 
-    if (
-      !["yes", "no"].includes(answer) ||
-      !date
-    ) {
-
-      return res
-        .status(400)
-        .json({
-          error: "Invalid response."
-        });
-
+    if (!["yes", "no"].includes(answer) || !date) {
+      return res.status(400).json({
+        error: "Invalid response."
+      });
     }
-
-
-    /* Save response */
 
     await pool.query(
       `
@@ -88,7 +72,6 @@ app.post("/api/response", async (req, res) => {
       `,
       [answer, date]
     );
-
 
     /* ==========================================
        SEND EMAIL NOTIFICATION
@@ -103,11 +86,8 @@ app.post("/api/response", async (req, res) => {
           day: "numeric"
         });
 
-
     try {
-
       await resend.emails.send({
-
         from: "Our Date Invitation <onboarding@resend.dev>",
 
         to: ["karanparihar.iimt@gmail.com"],
@@ -164,43 +144,28 @@ app.post("/api/response", async (req, res) => {
 
           </div>
         `
-
       });
 
       console.log("Notification email sent.");
 
     } catch (emailError) {
-
-      /*
-        Don't fail the booking if the email fails.
-        The date is already safely stored in PostgreSQL.
-      */
-
       console.error(
         "Email notification failed:",
         emailError
       );
-
     }
-
 
     res.json({
       ok: true
     });
 
-
   } catch (err) {
-
     console.error(err);
 
-    res
-      .status(500)
-      .json({
-        error: "Could not save response."
-      });
-
+    res.status(500).json({
+      error: "Could not save response."
+    });
   }
-
 });
 
 
@@ -214,29 +179,21 @@ app.get("/api/responses", async (req, res) => {
     !ADMIN_KEY ||
     req.query.key !== ADMIN_KEY
   ) {
-
-    return res
-      .status(401)
-      .json({
-        error: "Unauthorized."
-      });
-
+    return res.status(401).json({
+      error: "Unauthorized."
+    });
   }
-
 
   try {
 
-    const result =
-      await pool.query(
-        `
-        SELECT
-          answer,
-          selected_date,
-          created_at
-        FROM responses
-        ORDER BY created_at DESC
-        `
-      );
+    const result = await pool.query(`
+      SELECT
+        answer,
+        selected_date,
+        created_at
+      FROM responses
+      ORDER BY created_at DESC
+    `);
 
     res.json(result.rows);
 
@@ -244,11 +201,9 @@ app.get("/api/responses", async (req, res) => {
 
     console.error(err);
 
-    res
-      .status(500)
-      .json({
-        error: "Could not load responses."
-      });
+    res.status(500).json({
+      error: "Could not load responses."
+    });
 
   }
 
@@ -256,29 +211,39 @@ app.get("/api/responses", async (req, res) => {
 
 
 /* ==========================================
-   SERVE WEBSITE
+   WEBSITE ROUTES
 ========================================== */
 
+app.get("/", (req, res) => {
 
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "index.html"
+    )
+  );
+
+});
+
+app.get("/invitation", (req, res) => {
+
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "invitation.html"
+    )
+  );
+
+});
 
 
 /* ==========================================
    START SERVER
 ========================================== */
 
-app.get("/", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "public", "index.html")
-  );
-});
-
-app.get("/invitation", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "public", "invitation.html")
-  );
-});
-
-});initDb()
+initDb()
   .then(() => {
 
     app.listen(
