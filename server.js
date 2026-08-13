@@ -30,7 +30,13 @@ const pool = new Pool({
 
 const resend = new Resend(RESEND_API_KEY);
 
+
+/* ==========================================
+   DATABASE
+========================================== */
+
 async function initDb() {
+
   await pool.query(`
     CREATE TABLE IF NOT EXISTS responses (
       id SERIAL PRIMARY KEY,
@@ -39,7 +45,13 @@ async function initDb() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+
 }
+
+
+/* ==========================================
+   MIDDLEWARE
+========================================== */
 
 app.use(express.json());
 
@@ -55,14 +67,24 @@ app.use(
 ========================================== */
 
 app.post("/api/response", async (req, res) => {
+
   try {
+
     const { answer, date } = req.body || {};
 
-    if (!["yes", "no"].includes(answer) || !date) {
+    if (
+      !["yes", "no"].includes(answer) ||
+      !date
+    ) {
+
       return res.status(400).json({
         error: "Invalid response."
       });
+
     }
+
+
+    /* Save response */
 
     await pool.query(
       `
@@ -73,8 +95,9 @@ app.post("/api/response", async (req, res) => {
       [answer, date]
     );
 
+
     /* ==========================================
-       SEND EMAIL NOTIFICATION
+       SEND EMAIL
     ========================================== */
 
     const formattedDate =
@@ -86,13 +109,19 @@ app.post("/api/response", async (req, res) => {
           day: "numeric"
         });
 
+
     try {
+
       await resend.emails.send({
-        from: "Our Date Invitation <onboarding@resend.dev>",
 
-        to: ["karanparihar.iimt@gmail.com"],
+        from:
+          "Our Date Invitation <onboarding@resend.dev>",
 
-        subject: "❤️ Your Date Has Been Booked!",
+        to:
+          ["karanparihar.iimt@gmail.com"],
+
+        subject:
+          "❤️ Your Date Has Been Booked!",
 
         html: `
           <div style="
@@ -135,37 +164,53 @@ app.post("/api/response", async (req, res) => {
             </div>
 
             <p style="font-size:16px;">
-              Your date invitation has officially been accepted. ❤️
+              Your date invitation has officially been
+              responded to. ❤️
             </p>
 
-            <p style="font-size:14px;color:#777;">
-              Booked through Our Date Invitation
+            <p style="
+              font-size:14px;
+              color:#777;
+            ">
+              Booked through Moment ❤️
             </p>
 
           </div>
         `
+
       });
 
-      console.log("Notification email sent.");
+      console.log(
+        "Notification email sent."
+      );
 
     } catch (emailError) {
+
       console.error(
         "Email notification failed:",
         emailError
       );
+
     }
+
+
+    /* Tell invitation that request succeeded */
 
     res.json({
       ok: true
     });
 
+
   } catch (err) {
+
     console.error(err);
 
     res.status(500).json({
       error: "Could not save response."
     });
+
   }
+
 });
 
 
@@ -179,10 +224,13 @@ app.get("/api/responses", async (req, res) => {
     !ADMIN_KEY ||
     req.query.key !== ADMIN_KEY
   ) {
+
     return res.status(401).json({
       error: "Unauthorized."
     });
+
   }
+
 
   try {
 
@@ -196,6 +244,7 @@ app.get("/api/responses", async (req, res) => {
     `);
 
     res.json(result.rows);
+
 
   } catch (err) {
 
@@ -226,6 +275,7 @@ app.get("/", (req, res) => {
 
 });
 
+
 app.get("/invitation", (req, res) => {
 
   res.sendFile(
@@ -237,6 +287,7 @@ app.get("/invitation", (req, res) => {
   );
 
 });
+
 
 app.get("/create", (req, res) => {
 
@@ -256,6 +307,7 @@ app.get("/create", (req, res) => {
 ========================================== */
 
 initDb()
+
   .then(() => {
 
     app.listen(
@@ -271,6 +323,7 @@ initDb()
     );
 
   })
+
   .catch(err => {
 
     console.error(
