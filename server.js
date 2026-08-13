@@ -238,6 +238,18 @@ app.get("/invitation", (req, res) => {
 
 });
 
+app.get("/create", (req, res) => {
+
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "create.html"
+    )
+  );
+
+});
+
 
 /* ==========================================
    START SERVER
