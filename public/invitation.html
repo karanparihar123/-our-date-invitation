@@ -1,1107 +1,933 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="utf-8">
-
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1"
 >
-
 <title>Moment ❤️</title>
-
 <style>
-
+/* ==========================================
+   RESET
+========================================== */
 *{
   box-sizing:border-box;
 }
-
-html{
-  scroll-behavior:smooth;
-}
-
+html,
 body{
-
   margin:0;
-
+  padding:0;
+  width:100%;
+  min-height:100%;
+}
+/* ==========================================
+   BODY
+========================================== */
+body{
   min-height:100vh;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
-  padding:24px;
-
+  padding:20px;
+  overflow-x:hidden;
   font-family:
     Georgia,
     "Times New Roman",
     serif;
-
   color:#fff;
-
   background:
     radial-gradient(
-      circle at 15% 15%,
-      rgba(255,255,255,.25) 0 1px,
-      transparent 2px
+      circle at 20% 15%,
+      rgba(255,255,255,.18),
+      transparent 25%
     ),
-
     radial-gradient(
-      circle at 85% 75%,
-      rgba(255,210,225,.35) 0 2px,
-      transparent 3px
+      circle at 85% 85%,
+      rgba(255,120,160,.25),
+      transparent 30%
     ),
-
     linear-gradient(
-      135deg,
-      #23091f,
-      #641139 50%,
-      #e85d78
+      145deg,
+      #160817 0%,
+      #3b0c2f 42%,
+      #761842 72%,
+      #d65c7d 100%
     );
-
-  background-size:
-    130px 130px,
-    180px 180px,
-    cover;
-
-  overflow-x:hidden;
-
 }
-
-
+/* ==========================================
+   AMBIENT GLOW
+========================================== */
+.glow{
+  position:fixed;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.22;
+  pointer-events:none;
+  animation:
+    glowMove 8s ease-in-out infinite alternate;
+}
+.glow.one{
+  background:#ff7fa5;
+  top:-120px;
+  left:-100px;
+}
+.glow.two{
+  background:#ffb6cf;
+  right:-120px;
+  bottom:-130px;
+  animation-delay:2s;
+}
+@keyframes glowMove{
+  from{
+    transform:
+      translate(0,0)
+      scale(1);
+  }
+  to{
+    transform:
+      translate(35px,-25px)
+      scale(1.15);
+  }
+}
 /* ==========================================
    FLOATING HEARTS
 ========================================== */
-
-.heart{
-
+.hearts{
   position:fixed;
-
-  bottom:-40px;
-
-  font-size:20px;
-
-  opacity:.55;
-
+  inset:0;
+  overflow:hidden;
   pointer-events:none;
-
-  animation:
-    floatUp linear infinite;
-
 }
-
+.heart{
+  position:absolute;
+  bottom:-50px;
+  opacity:0;
+  animation:
+    rise linear infinite;
+}
 .heart:nth-child(1){
   left:8%;
-  animation-duration:9s;
+  font-size:18px;
+  animation-duration:10s;
 }
-
 .heart:nth-child(2){
-  left:24%;
+  left:23%;
+  font-size:13px;
+  animation-duration:13s;
+  animation-delay:3s;
+}
+.heart:nth-child(3){
+  left:48%;
+  font-size:20px;
+  animation-duration:11s;
+  animation-delay:1s;
+}
+.heart:nth-child(4){
+  left:72%;
+  font-size:15px;
+  animation-duration:14s;
+  animation-delay:4s;
+}
+.heart:nth-child(5){
+  left:91%;
+  font-size:19px;
   animation-duration:12s;
   animation-delay:2s;
 }
-
-.heart:nth-child(3){
-  left:52%;
-  animation-duration:10s;
-  animation-delay:4s;
-}
-
-.heart:nth-child(4){
-  left:76%;
-  animation-duration:13s;
-  animation-delay:1s;
-}
-
-.heart:nth-child(5){
-  left:91%;
-  animation-duration:11s;
-  animation-delay:5s;
-}
-
-
-@keyframes floatUp{
-
+@keyframes rise{
   0%{
     transform:
       translateY(0)
       rotate(0deg);
     opacity:0;
   }
-
   15%{
-    opacity:.55;
+    opacity:.45;
   }
-
+  85%{
+    opacity:.25;
+  }
   100%{
     transform:
-      translateY(-110vh)
-      rotate(25deg);
+      translateY(-115vh)
+      rotate(35deg);
     opacity:0;
   }
-
 }
-
-
+/* ==========================================
+   MAIN CONTAINER
+========================================== */
+.wrapper{
+  width:
+    min(
+      560px,
+      100%
+    );
+  position:relative;
+  z-index:2;
+}
+/* ==========================================
+   BRAND
+========================================== */
+.brand{
+  text-align:center;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  opacity:.65;
+  margin-bottom:20px;
+}
 /* ==========================================
    CARD
 ========================================== */
-
 .card{
-
-  width:min(
-    650px,
-    100%
-  );
-
+  position:relative;
   padding:
-    42px 28px
-    38px;
-
+    38px 26px
+    34px;
   text-align:center;
-
-  background:
-    rgba(255,255,255,.12);
-
   border:
     1px solid
-    rgba(255,255,255,.28);
-
-  border-radius:30px;
-
+    rgba(255,255,255,.22);
+  border-radius:32px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.16),
+      rgba(255,255,255,.07)
+    );
   backdrop-filter:
-    blur(18px);
-
+    blur(22px);
   -webkit-backdrop-filter:
-    blur(18px);
-
+    blur(22px);
   box-shadow:
-    0 25px 70px
-    rgba(0,0,0,.35);
-
+    0 30px 90px
+    rgba(0,0,0,.38);
+  overflow:hidden;
   animation:
-    cardEnter .8s ease-out;
-
+    cardIn .9s ease-out;
 }
-
-
-@keyframes cardEnter{
-
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,.14),
+      transparent 40%
+    );
+  pointer-events:none;
+}
+@keyframes cardIn{
   from{
     opacity:0;
     transform:
-      translateY(25px)
-      scale(.97);
+      translateY(30px)
+      scale(.96);
   }
-
   to{
     opacity:1;
     transform:
       translateY(0)
       scale(1);
   }
-
 }
-
-
 /* ==========================================
-   BRAND
+   OPENING
 ========================================== */
-
-.brand{
-
+.opening{
+  position:relative;
+  z-index:1;
+}
+.small-text{
   font-family:
     Arial,
     sans-serif;
-
   font-size:13px;
-
-  letter-spacing:4px;
-
-  text-transform:uppercase;
-
-  opacity:.75;
-
-  margin-bottom:25px;
-
+  letter-spacing:1.5px;
+  opacity:.72;
+  margin-bottom:18px;
 }
-
-
-/* ==========================================
-   HEART
-========================================== */
-
-.main-heart{
-
-  font-size:48px;
-
-  margin-bottom:12px;
-
+.heart-button{
+  width:86px;
+  height:86px;
+  margin:
+    0 auto
+    22px;
+  border-radius:50%;
+  border:
+    1px solid
+    rgba(255,255,255,.35);
+  background:
+    rgba(255,255,255,.12);
+  color:#fff;
+  font-size:38px;
+  cursor:pointer;
+  box-shadow:
+    0 12px 35px
+    rgba(0,0,0,.25);
   animation:
-    heartbeat 1.8s ease-in-out infinite;
-
+    pulse 2s ease-in-out infinite;
+  transition:
+    transform .25s ease;
 }
-
-
-@keyframes heartbeat{
-
+.heart-button:hover{
+  transform:
+    scale(1.08);
+}
+@keyframes pulse{
   0%,100%{
     transform:scale(1);
   }
-
   50%{
-    transform:scale(1.12);
+    transform:scale(1.07);
   }
-
 }
-
-
+/* ==========================================
+   INVITATION CONTENT
+========================================== */
+.invitation{
+  display:none;
+  position:relative;
+  z-index:1;
+  animation:
+    reveal .8s ease;
+}
+.invitation.show{
+  display:block;
+}
+@keyframes reveal{
+  from{
+    opacity:0;
+    transform:
+      translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:
+      translateY(0);
+  }
+}
 /* ==========================================
    RECIPIENT
 ========================================== */
-
 .recipient{
-
   margin:0;
-
+  font-weight:normal;
   font-size:
     clamp(
-      38px,
-      9vw,
-      64px
+      42px,
+      12vw,
+      72px
     );
-
-  line-height:1.05;
-
-  font-weight:normal;
-
+  line-height:.95;
+  letter-spacing:-1px;
   text-shadow:
-    0 4px 20px
-    rgba(0,0,0,.2);
-
+    0 8px 30px
+    rgba(0,0,0,.25);
 }
-
-
-/* ==========================================
-   OCCASION
-========================================== */
-
 .occasion{
-
-  margin-top:14px;
-
+  margin-top:15px;
   font-family:
     Arial,
     sans-serif;
-
-  font-size:15px;
-
-  letter-spacing:2px;
-
+  font-size:11px;
+  letter-spacing:3px;
   text-transform:uppercase;
-
-  opacity:.8;
-
+  opacity:.65;
 }
-
-
 /* ==========================================
    DIVIDER
 ========================================== */
-
 .divider{
-
-  width:80px;
-
+  width:75px;
   height:1px;
-
   margin:
-    30px auto;
-
+    28px auto;
   background:
-    rgba(255,255,255,.5);
-
+    rgba(255,255,255,.45);
 }
-
-
 /* ==========================================
    MESSAGE
 ========================================== */
-
 .message{
-
+  max-width:470px;
+  margin:
+    0 auto
+    24px;
   font-size:
     clamp(
       21px,
       5vw,
       28px
     );
-
-  line-height:1.5;
-
-  margin:
-    0 auto
-    25px;
-
-  max-width:520px;
-
+  line-height:1.45;
 }
-
-
 .message::before{
   content:"“";
-  opacity:.5;
+  opacity:.45;
 }
-
-
 .message::after{
   content:"”";
-  opacity:.5;
+  opacity:.45;
 }
-
-
 /* ==========================================
-   FROM
+   CREATOR
 ========================================== */
-
 .from{
-
-  font-size:17px;
-
-  opacity:.85;
-
-  margin-bottom:30px;
-
+  font-family:
+    Arial,
+    sans-serif;
+  font-size:14px;
+  opacity:.72;
+  margin-bottom:32px;
 }
-
-
 /* ==========================================
    QUESTION
 ========================================== */
-
 .question{
-
-  font-size:22px;
-
+  font-size:20px;
   margin-bottom:18px;
-
 }
-
-
 /* ==========================================
    BUTTONS
 ========================================== */
-
 .buttons{
-
   display:flex;
-
   gap:12px;
-
   justify-content:center;
-
-  flex-wrap:wrap;
-
 }
-
-
 button{
-
   border:0;
-
-  cursor:pointer;
-
   font-family:
     Arial,
     sans-serif;
-
-  font-size:16px;
-
   font-weight:600;
-
-  padding:
-    14px 25px;
-
+  font-size:15px;
+  cursor:pointer;
   border-radius:999px;
-
+  padding:
+    14px 23px;
   transition:
     transform .2s ease,
     box-shadow .2s ease,
-    opacity .2s ease;
-
+    background .2s ease;
 }
-
-
 button:hover{
-
   transform:
     translateY(-2px);
-
 }
-
-
 button:active{
-
   transform:
     scale(.97);
-
 }
-
-
 .yes{
-
-  color:#941f5a;
-
+  color:#74153f;
   background:#fff;
-
   box-shadow:
-    0 8px 25px
+    0 12px 30px
     rgba(0,0,0,.2);
-
 }
-
-
 .maybe{
-
   color:#fff;
-
   background:
-    rgba(255,255,255,.15);
-
+    rgba(255,255,255,.10);
   border:
     1px solid
-    rgba(255,255,255,.3);
-
+    rgba(255,255,255,.25);
 }
-
-
 /* ==========================================
-   DATE SECTION
+   DATE
 ========================================== */
-
-#dateSection{
-
+.date-section{
   display:none;
-
   margin-top:28px;
-
   animation:
-    fadeIn .5s ease;
-
+    reveal .5s ease;
 }
-
-
-@keyframes fadeIn{
-
-  from{
-    opacity:0;
-    transform:
-      translateY(10px);
-  }
-
-  to{
-    opacity:1;
-    transform:
-      translateY(0);
-  }
-
+.date-title{
+  font-size:18px;
+  margin-bottom:12px;
 }
-
-
-.date-label{
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size:14px;
-
-  opacity:.8;
-
-  margin-bottom:10px;
-
-}
-
-
-input[type="date"]{
-
-  width:100%;
-
-  max-width:300px;
-
+.date-input{
+  width:
+    min(
+      300px,
+      100%
+    );
   padding:
     14px 16px;
-
   border:0;
-
   border-radius:14px;
-
   font-family:
     Arial,
     sans-serif;
-
   font-size:16px;
-
   outline:none;
-
 }
-
-
 .confirm{
-
   margin-top:14px;
-
   color:#fff;
-
-  background:
-    #941f5a;
-
+  background:#941f5a;
   box-shadow:
-    0 8px 25px
+    0 10px 30px
     rgba(0,0,0,.25);
-
 }
-
-
-button:disabled{
-
+.confirm:disabled{
   opacity:.6;
-
   cursor:not-allowed;
-
-  transform:none;
-
 }
-
-
 /* ==========================================
    STATUS
 ========================================== */
-
-#status{
-
-  margin-top:28px;
-
+.status{
+  margin-top:25px;
   font-family:
     Arial,
     sans-serif;
-
-  font-size:16px;
-
-  line-height:1.6;
-
+  font-size:15px;
+  line-height:1.7;
 }
-
-
+.success-heart{
+  display:block;
+  font-size:55px;
+  margin-bottom:10px;
+  animation:
+    successPop .6s ease;
+}
+@keyframes successPop{
+  0%{
+    transform:
+      scale(.3);
+    opacity:0;
+  }
+  70%{
+    transform:
+      scale(1.15);
+  }
+  100%{
+    transform:
+      scale(1);
+    opacity:1;
+  }
+}
 /* ==========================================
    FOOTER
 ========================================== */
-
 .footer{
-
-  margin-top:35px;
-
+  margin-top:28px;
   font-family:
     Arial,
     sans-serif;
-
-  font-size:11px;
-
-  letter-spacing:2px;
-
-  opacity:.45;
-
+  font-size:10px;
+  letter-spacing:3px;
+  opacity:.38;
 }
-
-
+/* ==========================================
+   ERROR
+========================================== */
+.error{
+  font-family:
+    Arial,
+    sans-serif;
+  font-size:15px;
+  padding:25px;
+}
 /* ==========================================
    MOBILE
 ========================================== */
-
-@media(max-width:480px){
-
+@media(max-width:500px){
   body{
-
-    padding:15px;
-
+    padding:14px;
   }
-
   .card{
-
     padding:
-      34px 20px
-      30px;
-
-    border-radius:25px;
-
+      32px 19px
+      28px;
+    border-radius:27px;
   }
-
-  .message{
-
-    font-size:20px;
-
-  }
-
   .buttons{
-
     flex-direction:column;
-
   }
-
-  button{
-
+  .buttons button{
     width:100%;
-
   }
-
+  .recipient{
+    font-size:
+      clamp(
+        42px,
+        15vw,
+        64px
+      );
+  }
 }
-
 </style>
-
 </head>
-
-
 <body>
-
+<!-- Ambient background -->
+<div class="glow one"></div>
+<div class="glow two"></div>
 <!-- Floating hearts -->
-
-<div class="heart">❤️</div>
-<div class="heart">💗</div>
-<div class="heart">💕</div>
-<div class="heart">❤️</div>
-<div class="heart">💗</div>
-
-
-<main class="card">
-
+<div class="hearts">
+  <span class="heart">❤️</span>
+  <span class="heart">💗</span>
+  <span class="heart">💕</span>
+  <span class="heart">❤️</span>
+  <span class="heart">💗</span>
+</div>
+<div class="wrapper">
   <div class="brand">
     Moment
   </div>
-
-
-  <div class="main-heart">
-    ❤️
-  </div>
-
-
-  <h1
-    id="recipientName"
-    class="recipient"
-  >
-    You
-  </h1>
-
-
-  <div
-    id="occasion"
-    class="occasion"
-  >
-    A little invitation
-  </div>
-
-
-  <div class="divider"></div>
-
-
-  <p
-    id="message"
-    class="message"
-  >
-    I have something important
-    to ask you.
-  </p>
-
-
-  <div
-    id="from"
-    class="from"
-  >
-    From someone who likes you ❤️
-  </div>
-
-
-  <div
-    id="question"
-    class="question"
-  >
-    When do I get to steal you
-    for a date?
-  </div>
-
-
-  <div class="buttons">
-
-    <button
-      id="yesButton"
-      class="yes"
+  <main class="card">
+    <!-- ======================================
+         OPENING
+    ======================================= -->
+    <section
+      id="opening"
+      class="opening"
     >
-      Yes ❤️
-    </button>
-
-
-    <button
-      id="maybeButton"
-      class="maybe"
+      <div class="small-text">
+        A little moment for you
+      </div>
+      <button
+        id="openButton"
+        class="heart-button"
+        aria-label="Open invitation"
+      >
+        ❤️
+      </button>
+      <div class="small-text">
+        Tap to open
+      </div>
+    </section>
+    <!-- ======================================
+         INVITATION
+    ======================================= -->
+    <section
+      id="invitation"
+      class="invitation"
     >
-      Maybe later
-    </button>
-
-  </div>
-
-
-  <!-- DATE SELECTION -->
-
-  <section
-    id="dateSection"
-  >
-
-    <div class="date-label">
-      Pick a date ❤️
-    </div>
-
-
-    <input
-      id="dateInput"
-      type="date"
-    >
-
-
-    <br>
-
-
-    <button
-      id="confirmButton"
-      class="confirm"
-    >
-      Confirm date ❤️
-    </button>
-
-  </section>
-
-
-  <div
-    id="status"
-  ></div>
-
-
-  <div class="footer">
-    MADE WITH MOMENT ❤️
-  </div>
-
-</main>
-
-
+      <div
+        id="occasion"
+        class="occasion"
+      >
+        A little invitation
+      </div>
+      <div class="divider"></div>
+      <h1
+        id="recipientName"
+        class="recipient"
+      >
+        You
+      </h1>
+      <div class="divider"></div>
+      <p
+        id="message"
+        class="message"
+      >
+        I have something important
+        to ask you.
+      </p>
+      <div
+        id="from"
+        class="from"
+      >
+        From someone special ❤️
+      </div>
+      <div
+        id="question"
+        class="question"
+      >
+        When do I get to steal you
+        for a date?
+      </div>
+      <div
+        id="buttons"
+        class="buttons"
+      >
+        <button
+          id="yesButton"
+          class="yes"
+        >
+          Yes, it's a date ❤️
+        </button>
+        <button
+          id="maybeButton"
+          class="maybe"
+        >
+          Maybe later
+        </button>
+      </div>
+      <!-- ====================================
+           DATE SELECTION
+      ===================================== -->
+      <section
+        id="dateSection"
+        class="date-section"
+      >
+        <div class="date-title">
+          Pick our date ❤️
+        </div>
+        <input
+          id="dateInput"
+          class="date-input"
+          type="date"
+        >
+        <br>
+        <button
+          id="confirmButton"
+          class="confirm"
+        >
+          Confirm date ❤️
+        </button>
+      </section>
+      <!-- ====================================
+           STATUS
+      ===================================== -->
+      <div
+        id="status"
+        class="status"
+      ></div>
+      <div class="footer">
+        MADE WITH MOMENT ❤️
+      </div>
+    </section>
+  </main>
+</div>
 <script>
-
 /* ==========================================
-   GET INVITATION CODE
+   INVITATION CODE
 ========================================== */
-
-const pathParts =
+const parts =
   window.location.pathname
     .split("/")
     .filter(Boolean);
-
-
 const invitationCode =
-  pathParts[0] === "i"
-    ? pathParts[1]
+  parts[0] === "i"
+    ? parts[1]
     : null;
-
-
 /* ==========================================
    ELEMENTS
 ========================================== */
-
+const opening =
+  document.getElementById(
+    "opening"
+  );
+const openButton =
+  document.getElementById(
+    "openButton"
+  );
+const invitation =
+  document.getElementById(
+    "invitation"
+  );
 const recipientName =
   document.getElementById(
     "recipientName"
   );
-
 const occasion =
   document.getElementById(
     "occasion"
   );
-
 const message =
   document.getElementById(
     "message"
   );
-
 const from =
   document.getElementById(
     "from"
   );
-
 const yesButton =
   document.getElementById(
     "yesButton"
   );
-
 const maybeButton =
   document.getElementById(
     "maybeButton"
   );
-
+const buttons =
+  document.getElementById(
+    "buttons"
+  );
 const dateSection =
   document.getElementById(
     "dateSection"
   );
-
 const dateInput =
   document.getElementById(
     "dateInput"
   );
-
 const confirmButton =
   document.getElementById(
     "confirmButton"
   );
-
 const status =
   document.getElementById(
     "status"
   );
-
-
+/* ==========================================
+   OPEN INVITATION
+========================================== */
+openButton.addEventListener(
+  "click",
+  () => {
+    opening.style.display =
+      "none";
+    invitation.classList.add(
+      "show"
+    );
+  }
+);
 /* ==========================================
    LOAD INVITATION
 ========================================== */
-
 async function loadInvitation(){
-
   if(!invitationCode){
-
-    status.textContent =
-      "This invitation link is invalid.";
-
-    yesButton.disabled =
-      true;
-
-    maybeButton.disabled =
-      true;
-
+    opening.innerHTML =
+      `
+        <div class="error">
+          This invitation link is invalid. ❤️
+        </div>
+      `;
     return;
-
   }
-
-
   try{
-
     const response =
       await fetch(
         `/api/invitations/${invitationCode}`
       );
-
-
     const data =
       await response.json();
-
-
     if(!response.ok){
-
       throw new Error(
         data.error ||
         "Invitation not found."
       );
-
     }
-
-
-    /* --------------------------------------
-       PERSONALIZATION
-    -------------------------------------- */
-
     recipientName.textContent =
       data.recipient_name;
-
-
     if(data.occasion){
-
       occasion.textContent =
         data.occasion;
-
     }
-
-
     if(data.message){
-
       message.textContent =
         data.message;
-
     }
-
-
     if(data.creator_name){
-
       from.textContent =
         `From ${data.creator_name} ❤️`;
-
     }
-
-
     document.title =
       `${data.recipient_name} ❤️ | Moment`;
-
-
   }catch(error){
-
     console.error(error);
-
-    status.textContent =
-      error.message ||
-      "Could not load invitation.";
-
-    yesButton.disabled =
-      true;
-
-    maybeButton.disabled =
-      true;
-
+    opening.innerHTML =
+      `
+        <div class="error">
+          ${error.message ||
+            "Could not load invitation."}
+        </div>
+      `;
   }
-
 }
-
-
 /* ==========================================
    YES
 ========================================== */
-
 yesButton.addEventListener(
   "click",
   () => {
-
+    buttons.style.display =
+      "none";
     dateSection.style.display =
       "block";
-
-    yesButton.style.display =
-      "none";
-
-    maybeButton.style.display =
-      "none";
-
     dateInput.focus();
-
   }
 );
-
-
 /* ==========================================
    MAYBE
 ========================================== */
-
 maybeButton.addEventListener(
   "click",
   () => {
-
-    yesButton.style.display =
+    buttons.style.display =
       "none";
-
-    maybeButton.style.display =
-      "none";
-
     status.innerHTML =
       `
+        <span class="success-heart">
+          💌
+        </span>
         <strong>
-          I'll take that as a "maybe". 😌❤️
+          I'll take that as a maybe. 😌❤️
         </strong>
         <br>
         I'll be waiting.
       `;
-
   }
 );
-
-
 /* ==========================================
    CONFIRM DATE
 ========================================== */
-
 confirmButton.addEventListener(
   "click",
   async () => {
-
     const selectedDate =
       dateInput.value;
-
-
     if(!selectedDate){
-
       status.textContent =
         "Please choose a date ❤️";
-
       return;
-
     }
-
-
     confirmButton.disabled =
       true;
-
     confirmButton.textContent =
       "Saving...";
-
-
     try{
-
       const response =
         await fetch(
           "/api/response",
           {
-
             method:"POST",
-
             headers:{
               "Content-Type":
                 "application/json"
             },
-
             body:
               JSON.stringify({
-
                 answer:"yes",
-
                 date:
                   selectedDate,
-
                 invitationCode
-
               })
-
           }
         );
-
-
       const data =
         await response.json();
-
-
       if(!response.ok){
-
         throw new Error(
           data.error ||
           "Could not save response."
         );
-
       }
-
-
       dateSection.style.display =
         "none";
-
-
       status.innerHTML =
         `
+          <span class="success-heart">
+            ❤️
+          </span>
           <strong>
-            It's a date! ❤️
+            It's a date!
           </strong>
-
-          <br><br>
-
+          <br>
           ${new Date(
             selectedDate +
             "T00:00:00"
@@ -1114,45 +940,27 @@ confirmButton.addEventListener(
               day:"numeric"
             }
           )}
-
           <br><br>
-
-          <span style="opacity:.75;">
+          <span style="opacity:.7;">
             See you then. 🥰
           </span>
         `;
-
-
     }catch(error){
-
       console.error(error);
-
-
       status.textContent =
         error.message ||
         "Something went wrong.";
-
-
       confirmButton.disabled =
         false;
-
       confirmButton.textContent =
         "Confirm date ❤️";
-
     }
-
   }
 );
-
-
 /* ==========================================
    LOAD
 ========================================== */
-
 loadInvitation();
-
 </script>
-
 </body>
-
 </html>
