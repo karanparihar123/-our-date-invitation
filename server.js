@@ -72,7 +72,7 @@ async function initDb() {
 
 
   /* ------------------------------------------
-     ADD EMAIL TO EXISTING TABLE
+     ADD CREATOR EMAIL TO OLD DATABASES
   ------------------------------------------ */
 
   await pool.query(`
@@ -97,7 +97,7 @@ async function initDb() {
 
 
   /* ------------------------------------------
-     RESPONSE TABLE MIGRATION
+     ADD INVITATION CODE TO OLD DATABASES
   ------------------------------------------ */
 
   await pool.query(`
@@ -106,10 +106,7 @@ async function initDb() {
   `);
 
 
-  console.log(
-    "Database initialized successfully."
-  );
-
+  console.log("Database initialized successfully.");
 }
 
 
@@ -191,11 +188,10 @@ app.post(
 
 
       /* --------------------------------------
-         GENERATE UNIQUE CODE
+         GENERATE UNIQUE INVITATION CODE
       -------------------------------------- */
 
       let invitationCode;
-
       let isUnique = false;
 
 
@@ -264,6 +260,12 @@ app.post(
 
       const invitationUrl =
         `${req.protocol}://${req.get("host")}/i/${invitationCode}`;
+
+
+      console.log(
+        "Invitation created:",
+        invitationCode
+      );
 
 
       res.json({
@@ -338,6 +340,11 @@ app.get(
 
       }
 
+
+      /* IMPORTANT:
+         creator_email is intentionally NOT returned.
+         The recipient does not need to see it.
+      */
 
       res.json(
         result.rows[0]
@@ -423,7 +430,7 @@ app.post(
 
 
       /* --------------------------------------
-         FIND CREATOR EMAIL
+         FIND CREATOR
       -------------------------------------- */
 
       let creatorEmail = null;
@@ -468,6 +475,17 @@ app.post(
       }
 
 
+      console.log(
+        "Response received:",
+        {
+          invitationCode,
+          answer,
+          date,
+          creatorEmail
+        }
+      );
+
+
       /* --------------------------------------
          FORMAT DATE
       -------------------------------------- */
@@ -494,7 +512,10 @@ app.post(
 
         try {
 
-          await resend.emails.send({
+          const {
+            data,
+            error
+          } = await resend.emails.send({
 
             from:
               "Our Date Invitation <onboarding@resend.dev>",
@@ -557,19 +578,34 @@ app.post(
 
               </div>
             `
-
           });
 
 
-          console.log(
-            `Notification email sent to ${creatorEmail}`
-          );
+          /* --------------------------------------
+             CHECK RESEND RESPONSE
+          -------------------------------------- */
+
+          if (error) {
+
+            console.error(
+              "RESEND ERROR:",
+              error
+            );
+
+          } else {
+
+            console.log(
+              "RESEND SUCCESS:",
+              data
+            );
+
+          }
 
 
         } catch (emailError) {
 
           console.error(
-            "Email notification failed:",
+            "RESEND EXCEPTION:",
             emailError
           );
 
@@ -578,7 +614,7 @@ app.post(
       } else {
 
         console.warn(
-          "No creator email found for invitation:",
+          "NO CREATOR EMAIL FOUND FOR INVITATION:",
           invitationCode
         );
 
@@ -586,7 +622,7 @@ app.post(
 
 
       /* --------------------------------------
-         RESPONSE
+         RESPONSE TO BROWSER
       -------------------------------------- */
 
       res.json({
@@ -661,7 +697,10 @@ app.get(
 
     } catch (err) {
 
-      console.error(err);
+      console.error(
+        "Could not load responses:",
+        err
+      );
 
 
       res
