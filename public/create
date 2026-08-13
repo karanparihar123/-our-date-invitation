@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<title>Create Your Invitation ❤️</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Georgia,serif;
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      #fff 0 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      #ffd5df 0 2px,
+      transparent 3px
+    ),
+    linear-gradient(
+      135deg,
+      #280b25,
+      #711441 50%,
+      #ff7189
+    );
+
+  background-size:
+    120px 120px,
+    160px 160px,
+    cover;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+}
+
+header{
+  padding:25px 0;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+}
+
+.main{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  padding:40px 0 80px;
+}
+
+.panel{
+  padding:30px;
+  border-radius:28px;
+
+  background:#ffffff18;
+
+  border:1px solid #ffffff35;
+
+  backdrop-filter:blur(15px);
+
+  box-shadow:
+    0 25px 70px #22001955;
+}
+
+h1{
+  font-size:42px;
+  margin-top:0;
+}
+
+h2{
+  margin-top:0;
+}
+
+label{
+  display:block;
+  margin-top:20px;
+  margin-bottom:7px;
+  font-size:15px;
+  opacity:.9;
+}
+
+input,
+textarea,
+select{
+
+  width:100%;
+
+  padding:14px;
+
+  border:0;
+
+  border-radius:12px;
+
+  font-family:Georgia,serif;
+
+  font-size:16px;
+
+  background:#ffffffee;
+
+  color:#3a102d;
+
+  outline:none;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+button{
+
+  border:0;
+
+  border-radius:999px;
+
+  padding:15px 28px;
+
+  margin-top:25px;
+
+  background:#fff;
+
+  color:#941f5a;
+
+  font-family:Georgia,serif;
+
+  font-size:17px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+button:hover{
+  transform:translateY(-2px);
+}
+
+.preview{
+  min-height:500px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+.preview-card{
+
+  width:100%;
+
+  padding:40px 25px;
+
+  text-align:center;
+
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #57113e,
+      #b62d66
+    );
+
+  box-shadow:
+    0 20px 60px #20001877;
+}
+
+.emoji{
+  font-size:60px;
+}
+
+.preview-card h2{
+  font-size:32px;
+  line-height:1.2;
+}
+
+.preview-card p{
+  font-size:18px;
+  line-height:1.6;
+}
+
+.small{
+  font-size:13px;
+  opacity:.65;
+}
+
+@media(max-width:750px){
+
+  .main{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:34px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header>
+
+<div class="logo">
+  Moment ❤️
+</div>
+
+</header>
+
+
+<div class="main">
+
+
+<!-- =====================================
+     BUILDER
+===================================== -->
+
+<div class="panel">
+
+<h1>
+  Create your invitation ✨
+</h1>
+
+<p>
+  Tell us a little about your special moment.
+</p>
+
+
+<label for="yourName">
+  Your name
+</label>
+
+<input
+  id="yourName"
+  type="text"
+  placeholder="e.g. Karan"
+  maxlength="50"
+>
+
+
+<label for="theirName">
+  Their name
+</label>
+
+<input
+  id="theirName"
+  type="text"
+  placeholder="e.g. Someone special ❤️"
+  maxlength="50"
+>
+
+
+<label for="occasion">
+  What's the occasion?
+</label>
+
+<select id="occasion">
+
+<option value="date">
+  ❤️ Date
+</option>
+
+<option value="birthday">
+  🎂 Birthday
+</option>
+
+<option value="proposal">
+  💍 Proposal
+</option>
+
+<option value="anniversary">
+  🥂 Anniversary
+</option>
+
+<option value="party">
+  🎉 Party
+</option>
+
+</select>
+
+
+<label for="message">
+  Your message
+</label>
+
+<textarea
+  id="message"
+  maxlength="300"
+  placeholder="Write something from the heart..."
+></textarea>
+
+
+<button
+  type="button"
+  id="previewButton"
+>
+  Preview my invitation ❤️
+</button>
+
+</div>
+
+
+<!-- =====================================
+     LIVE PREVIEW
+===================================== -->
+
+<div class="panel preview">
+
+<div class="preview-card">
+
+<div
+  class="emoji"
+  id="previewEmoji"
+>
+  ❤️
+</div>
+
+<h2 id="previewTitle">
+  When do I get to steal you for a date?
+</h2>
+
+<p id="previewMessage">
+  Just you, me, and a little time together. ❤️
+</p>
+
+<p class="small">
+  Created with Moment
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+
+const yourName =
+  document.getElementById("yourName");
+
+const theirName =
+  document.getElementById("theirName");
+
+const occasion =
+  document.getElementById("occasion");
+
+const message =
+  document.getElementById("message");
+
+const previewTitle =
+  document.getElementById("previewTitle");
+
+const previewMessage =
+  document.getElementById("previewMessage");
+
+const previewEmoji =
+  document.getElementById("previewEmoji");
+
+const previewButton =
+  document.getElementById("previewButton");
+
+
+/* =====================================
+   OCCASION DATA
+===================================== */
+
+const occasionData = {
+
+  date:{
+    emoji:"❤️",
+    title:"When do I get to steal you for a date?"
+  },
+
+  birthday:{
+    emoji:"🎂",
+    title:"Want to celebrate your special day together?"
+  },
+
+  proposal:{
+    emoji:"💍",
+    title:"Will you say yes?"
+  },
+
+  anniversary:{
+    emoji:"🥂",
+    title:"Another chapter of our story ❤️"
+  },
+
+  party:{
+    emoji:"🎉",
+    title:"You're invited!"
+  }
+
+};
+
+
+/* =====================================
+   UPDATE PREVIEW
+===================================== */
+
+function updatePreview(){
+
+  const selected =
+    occasionData[occasion.value];
+
+
+  previewEmoji.textContent =
+    selected.emoji;
+
+
+  previewTitle.textContent =
+    selected.title;
+
+
+  const customMessage =
+    message.value.trim();
+
+
+  if(customMessage){
+
+    previewMessage.textContent =
+      customMessage;
+
+  }else{
+
+    previewMessage.textContent =
+      "Just you, me, and a little time together. ❤️";
+
+  }
+
+}
+
+
+occasion.addEventListener(
+  "change",
+  updatePreview
+);
+
+
+message.addEventListener(
+  "input",
+  updatePreview
+);
+
+
+/* =====================================
+   PREVIEW BUTTON
+===================================== */
+
+previewButton.addEventListener(
+  "click",
+  () => {
+
+    const creator =
+      yourName.value.trim();
+
+    const recipient =
+      theirName.value.trim();
+
+
+    if(!creator){
+
+      alert(
+        "Please enter your name ❤️"
+      );
+
+      yourName.focus();
+
+      return;
+
+    }
+
+
+    if(!recipient){
+
+      alert(
+        "Please enter their name ❤️"
+      );
+
+      theirName.focus();
+
+      return;
+
+    }
+
+
+    updatePreview();
+
+
+    alert(
+      "Your invitation preview is ready! ❤️\n\n" +
+      "Next we'll turn this into a shareable invitation link."
+    );
+
+  }
+);
+
+
+</script>
+
+</body>
+
+</html>
