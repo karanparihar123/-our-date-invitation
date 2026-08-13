@@ -274,10 +274,10 @@ const playfulTwo = document.getElementById("playfulTwo");
 const two = document.getElementById("two");
 const three = document.getElementById("three");
 
-let answer = "";
+let answer = "yes";
 
 
-/* TODAY'S DATE - LOCAL TIME */
+/* GET TODAY'S DATE USING LOCAL TIME */
 const today = new Date();
 
 const localToday =
@@ -285,10 +285,14 @@ const localToday =
   String(today.getMonth() + 1).padStart(2, "0") + "-" +
   String(today.getDate()).padStart(2, "0");
 
-document.getElementById("date").min = localToday;
+
+/* SET MINIMUM DATE TO TODAY */
+const dateInput = document.getElementById("date");
+
+dateInput.min = localToday;
 
 
-/* SHOW DATE PICKER */
+/* SHOW DATE SELECTION */
 function showDate(){
 
   answer = "yes";
@@ -304,7 +308,9 @@ function showDate(){
 
 /* YES BUTTON */
 document.getElementById("yes").addEventListener("click",()=>{
+
   showDate();
+
 });
 
 
@@ -346,15 +352,29 @@ document.getElementById("finalYes").addEventListener("click",()=>{
 /* CONFIRM DATE */
 document.getElementById("confirm").addEventListener("click",async()=>{
 
-  const value = document.getElementById("date").value;
+  const value = dateInput.value;
 
+
+  /* NO DATE SELECTED */
   if(!value){
+
     alert("Please pick a date first ❤️");
     return;
+
+  }
+
+
+  /* PREVENT PAST DATES */
+  if(value < localToday){
+
+    alert("Please choose today or a future date ❤️");
+    return;
+
   }
 
 
   const d = new Date(value + "T00:00:00");
+
 
   const formatted = d.toLocaleDateString(undefined,{
     weekday:"long",
@@ -364,22 +384,34 @@ document.getElementById("confirm").addEventListener("click",async()=>{
   });
 
 
+  /* SAVE RESPONSE TO DATABASE */
   try{
 
     const r = await fetch("/api/response",{
+
       method:"POST",
+
       headers:{
         "Content-Type":"application/json"
       },
+
       body:JSON.stringify({
+
         answer:answer,
+
         date:value
+
       })
+
     });
 
+
     if(!r.ok){
+
       throw new Error();
+
     }
+
 
   }catch(e){
 
@@ -389,9 +421,11 @@ document.getElementById("confirm").addEventListener("click",async()=>{
   }
 
 
+  /* SHOW CONFIRMATION */
   document.getElementById("picked").textContent = formatted;
 
   two.classList.add("hidden");
+
   three.classList.remove("hidden");
 
 });
