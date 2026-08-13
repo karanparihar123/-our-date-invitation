@@ -38,8 +38,22 @@ const resend = new Resend(RESEND_API_KEY);
 async function initDb() {
 
   await pool.query(`
+    CREATE TABLE IF NOT EXISTS invitations (
+      id SERIAL PRIMARY KEY,
+      invitation_code VARCHAR(20) UNIQUE NOT NULL,
+      creator_name TEXT NOT NULL,
+      recipient_name TEXT NOT NULL,
+      occasion TEXT NOT NULL,
+      message TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS responses (
       id SERIAL PRIMARY KEY,
+      invitation_code VARCHAR(20),
       answer TEXT NOT NULL,
       selected_date DATE NOT NULL,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -47,7 +61,6 @@ async function initDb() {
   `);
 
 }
-
 
 /* ==========================================
    MIDDLEWARE
