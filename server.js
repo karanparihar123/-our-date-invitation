@@ -44,9 +44,7 @@ const pool = new Pool({
    RESEND
 ========================================== */
 
-const resend = new Resend(
-  RESEND_API_KEY
-);
+const resend = new Resend(RESEND_API_KEY);
 
 
 /* ==========================================
@@ -56,70 +54,52 @@ const resend = new Resend(
 async function initDb() {
 
   /* ------------------------------------------
-     INVITATIONS
+     INVITATIONS TABLE
   ------------------------------------------ */
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS invitations (
-
       id SERIAL PRIMARY KEY,
-
-      invitation_code
-        VARCHAR(20)
-        UNIQUE
-        NOT NULL,
-
-      creator_name
-        TEXT
-        NOT NULL,
-
-      recipient_name
-        TEXT
-        NOT NULL,
-
-      occasion
-        TEXT
-        NOT NULL,
-
-      message
-        TEXT,
-
-      created_at
-        TIMESTAMPTZ
-        NOT NULL
-        DEFAULT NOW()
-
+      invitation_code VARCHAR(20) UNIQUE NOT NULL,
+      creator_name TEXT NOT NULL,
+      recipient_name TEXT NOT NULL,
+      occasion TEXT NOT NULL,
+      message TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
 
 
   /* ------------------------------------------
-     RESPONSES
+     RESPONSES TABLE
   ------------------------------------------ */
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS responses (
-
       id SERIAL PRIMARY KEY,
-
-      invitation_code
-        VARCHAR(20),
-
-      answer
-        TEXT
-        NOT NULL,
-
-      selected_date
-        DATE
-        NOT NULL,
-
-      created_at
-        TIMESTAMPTZ
-        NOT NULL
-        DEFAULT NOW()
-
+      invitation_code VARCHAR(20),
+      answer TEXT NOT NULL,
+      selected_date DATE NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+
+
+  /* ------------------------------------------
+     DATABASE MIGRATION
+     
+     If the responses table already existed
+     before invitation_code was introduced,
+     add the missing column automatically.
+  ------------------------------------------ */
+
+  await pool.query(`
+    ALTER TABLE responses
+    ADD COLUMN IF NOT EXISTS invitation_code VARCHAR(20)
+  `);
+
+
+  console.log("Database initialized successfully.");
 
 }
 
@@ -128,21 +108,11 @@ async function initDb() {
    MIDDLEWARE
 ========================================== */
 
-app.use(
-  express.json()
-);
-
-
-/* ==========================================
-   STATIC FILES
-========================================== */
+app.use(express.json());
 
 app.use(
   express.static(
-    path.join(
-      __dirname,
-      "public"
-    )
+    path.join(__dirname, "public")
   )
 );
 
@@ -230,23 +200,14 @@ app.post(
 
       await pool.query(
         `
-        INSERT INTO invitations
-        (
+        INSERT INTO invitations (
           invitation_code,
           creator_name,
           recipient_name,
           occasion,
           message
         )
-
-        VALUES
-        (
-          $1,
-          $2,
-          $3,
-          $4,
-          $5
-        )
+        VALUES ($1, $2, $3, $4, $5)
         `,
         [
           invitationCode,
@@ -265,19 +226,13 @@ app.post(
       -------------------------------------- */
 
       const invitationUrl =
-        `${req.protocol}://${req.get(
-          "host"
-        )}/i/${invitationCode}`;
+        `${req.protocol}://${req.get("host")}/i/${invitationCode}`;
 
 
       res.json({
-
         ok: true,
-
         invitationCode,
-
         invitationUrl
-
       });
 
 
@@ -395,9 +350,7 @@ app.post(
       -------------------------------------- */
 
       if (
-        !["yes", "no"].includes(
-          answer
-        ) ||
+        !["yes", "no"].includes(answer) ||
         !date
       ) {
 
@@ -417,19 +370,12 @@ app.post(
 
       await pool.query(
         `
-        INSERT INTO responses
-        (
+        INSERT INTO responses (
           invitation_code,
           answer,
           selected_date
         )
-
-        VALUES
-        (
-          $1,
-          $2,
-          $3
-        )
+        VALUES ($1, $2, $3)
         `,
         [
           invitationCode || null,
@@ -446,21 +392,13 @@ app.post(
       const formattedDate =
         new Date(
           date + "T00:00:00"
-        )
-        .toLocaleDateString(
+        ).toLocaleDateString(
           "en-IN",
           {
-            weekday:
-              "long",
-
-            year:
-              "numeric",
-
-            month:
-              "long",
-
-            day:
-              "numeric"
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
           }
         );
 
@@ -476,97 +414,60 @@ app.post(
           from:
             "Our Date Invitation <onboarding@resend.dev>",
 
-          to:
-            [
-              "karanparihar.iimt@gmail.com"
-            ],
+          to: [
+            "karanparihar.iimt@gmail.com"
+          ],
 
           subject:
             "❤️ Your Date Has Been Booked!",
 
           html: `
             <div style="
-              font-family:Arial,sans-serif;
-              max-width:600px;
-              margin:auto;
-              padding:30px;
-              text-align:center;
-              background:#fff5f7;
-              border-radius:20px;
+              font-family: Arial, sans-serif;
+              max-width: 600px;
+              margin: auto;
+              padding: 30px;
+              text-align: center;
+              background: #fff5f7;
+              border-radius: 20px;
             ">
 
-              <h1
-                style="
-                  color:#941f5a;
-                "
-              >
+              <h1 style="color:#941f5a;">
                 💖 It's a date!
               </h1>
 
-
-              <p
-                style="
-                  font-size:18px;
-                "
-              >
-                Someone just booked
-                a date with you. 🥰
+              <p style="font-size:18px;">
+                Someone just booked a date
+                with you. 🥰
               </p>
 
+              <div style="
+                background:white;
+                padding:20px;
+                border-radius:15px;
+                margin:25px 0;
+              ">
 
-              <div
-                style="
-                  background:white;
-                  padding:20px;
-                  border-radius:15px;
-                  margin:25px 0;
-                "
-              >
-
-                <p
-                  style="
-                    font-size:16px;
-                  "
-                >
-                  📅
-                  <strong>
-                    Date
-                  </strong>
+                <p style="font-size:16px;">
+                  📅 <strong>Date</strong>
                 </p>
 
-
-                <p
-                  style="
-                    font-size:22px;
-                    color:#941f5a;
-                    font-weight:bold;
-                  "
-                >
+                <p style="
+                  font-size:22px;
+                  color:#941f5a;
+                ">
                   ${formattedDate}
                 </p>
 
               </div>
 
-
-              <p
-                style="
-                  font-size:16px;
-                "
-              >
-                Your date invitation
-                has officially been
-                responded to. ❤️
+              <p>
+                Your date invitation has
+                officially been responded to. ❤️
               </p>
 
-
-              <p
-                style="
-                  font-size:14px;
-                  color:#777;
-                "
-              >
-                Booked through
-                Moment ❤️
+              <p>
+                Booked through Moment ❤️
               </p>
 
             </div>
@@ -590,6 +491,10 @@ app.post(
       }
 
 
+      /* --------------------------------------
+         RESPONSE
+      -------------------------------------- */
+
       res.json({
         ok: true
       });
@@ -597,7 +502,10 @@ app.post(
 
     } catch (err) {
 
-      console.error(err);
+      console.error(
+        "Could not save response:",
+        err
+      );
 
 
       res
@@ -621,10 +529,13 @@ app.get(
   "/api/responses",
   async (req, res) => {
 
+    /* --------------------------------------
+       ADMIN AUTHENTICATION
+    -------------------------------------- */
+
     if (
       !ADMIN_KEY ||
-      req.query.key !==
-        ADMIN_KEY
+      req.query.key !== ADMIN_KEY
     ) {
 
       return res
@@ -647,11 +558,8 @@ app.get(
             answer,
             selected_date,
             created_at
-
           FROM responses
-
-          ORDER BY
-            created_at DESC
+          ORDER BY created_at DESC
           `
         );
 
