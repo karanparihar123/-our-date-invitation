@@ -62,11 +62,22 @@ async function initDb() {
       id SERIAL PRIMARY KEY,
       invitation_code VARCHAR(20) UNIQUE NOT NULL,
       creator_name TEXT NOT NULL,
+      creator_email TEXT,
       recipient_name TEXT NOT NULL,
       occasion TEXT NOT NULL,
       message TEXT,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
+  `);
+
+
+  /* ------------------------------------------
+     ADD EMAIL TO EXISTING TABLE
+  ------------------------------------------ */
+
+  await pool.query(`
+    ALTER TABLE invitations
+    ADD COLUMN IF NOT EXISTS creator_email TEXT
   `);
 
 
@@ -86,11 +97,7 @@ async function initDb() {
 
 
   /* ------------------------------------------
-     DATABASE MIGRATION
-     
-     If the responses table already existed
-     before invitation_code was introduced,
-     add the missing column automatically.
+     RESPONSE TABLE MIGRATION
   ------------------------------------------ */
 
   await pool.query(`
@@ -99,7 +106,9 @@ async function initDb() {
   `);
 
 
-  console.log("Database initialized successfully.");
+  console.log(
+    "Database initialized successfully."
+  );
 
 }
 
@@ -129,6 +138,7 @@ app.post(
 
       const {
         creatorName,
+        creatorEmail,
         recipientName,
         occasion,
         message
@@ -141,6 +151,7 @@ app.post(
 
       if (
         !creatorName ||
+        !creatorEmail ||
         !recipientName ||
         !occasion
       ) {
@@ -149,7 +160,31 @@ app.post(
           .status(400)
           .json({
             error:
-              "Missing required invitation details."
+              "Please complete all required fields."
+          });
+
+      }
+
+
+      /* --------------------------------------
+         EMAIL VALIDATION
+      -------------------------------------- */
+
+      const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+      if (
+        !emailPattern.test(
+          creatorEmail.trim()
+        )
+      ) {
+
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please enter a valid email address."
           });
 
       }
@@ -203,15 +238,17 @@ app.post(
         INSERT INTO invitations (
           invitation_code,
           creator_name,
+          creator_email,
           recipient_name,
           occasion,
           message
         )
-        VALUES ($1, $2, $3, $4, $5)
+        VALUES ($1, $2, $3, $4, $5, $6)
         `,
         [
           invitationCode,
           creatorName.trim(),
+          creatorEmail.trim(),
           recipientName.trim(),
           occasion,
           message
@@ -386,6 +423,52 @@ app.post(
 
 
       /* --------------------------------------
+         FIND CREATOR EMAIL
+      -------------------------------------- */
+
+      let creatorEmail = null;
+      let creatorName = null;
+      let recipientName = null;
+
+
+      if (invitationCode) {
+
+        const invitationResult =
+          await pool.query(
+            `
+            SELECT
+              creator_email,
+              creator_name,
+              recipient_name
+            FROM invitations
+            WHERE invitation_code = $1
+            `,
+            [invitationCode]
+          );
+
+
+        if (
+          invitationResult.rows.length > 0
+        ) {
+
+          creatorEmail =
+            invitationResult.rows[0]
+              .creator_email;
+
+          creatorName =
+            invitationResult.rows[0]
+              .creator_name;
+
+          recipientName =
+            invitationResult.rows[0]
+              .recipient_name;
+
+        }
+
+      }
+
+
+      /* --------------------------------------
          FORMAT DATE
       -------------------------------------- */
 
@@ -404,88 +487,99 @@ app.post(
 
 
       /* ======================================
-         SEND EMAIL
+         SEND EMAIL TO CREATOR
       ====================================== */
 
-      try {
+      if (creatorEmail) {
 
-        await resend.emails.send({
+        try {
 
-          from:
-            "Our Date Invitation <onboarding@resend.dev>",
+          await resend.emails.send({
 
-          to: [
-            "karanparihar.iimt@gmail.com"
-          ],
+            from:
+              "Our Date Invitation <onboarding@resend.dev>",
 
-          subject:
-            "❤️ Your Date Has Been Booked!",
+            to: [
+              creatorEmail
+            ],
 
-          html: `
-            <div style="
-              font-family: Arial, sans-serif;
-              max-width: 600px;
-              margin: auto;
-              padding: 30px;
-              text-align: center;
-              background: #fff5f7;
-              border-radius: 20px;
-            ">
+            subject:
+              "❤️ Your Date Has Been Booked!",
 
-              <h1 style="color:#941f5a;">
-                💖 It's a date!
-              </h1>
-
-              <p style="font-size:18px;">
-                Someone just booked a date
-                with you. 🥰
-              </p>
-
+            html: `
               <div style="
-                background:white;
-                padding:20px;
-                border-radius:15px;
-                margin:25px 0;
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: auto;
+                padding: 30px;
+                text-align: center;
+                background: #fff5f7;
+                border-radius: 20px;
               ">
 
-                <p style="font-size:16px;">
-                  📅 <strong>Date</strong>
+                <h1 style="color:#941f5a;">
+                  💖 It's a date!
+                </h1>
+
+                <p style="font-size:18px;">
+                  ${recipientName || "Someone"}
+                  just booked a date with you. 🥰
                 </p>
 
-                <p style="
-                  font-size:22px;
-                  color:#941f5a;
+                <div style="
+                  background:white;
+                  padding:20px;
+                  border-radius:15px;
+                  margin:25px 0;
                 ">
-                  ${formattedDate}
+
+                  <p style="font-size:16px;">
+                    📅 <strong>Date</strong>
+                  </p>
+
+                  <p style="
+                    font-size:22px;
+                    color:#941f5a;
+                  ">
+                    ${formattedDate}
+                  </p>
+
+                </div>
+
+                <p>
+                  Your invitation has officially
+                  been responded to. ❤️
+                </p>
+
+                <p>
+                  Booked through Moment ❤️
                 </p>
 
               </div>
+            `
 
-              <p>
-                Your date invitation has
-                officially been responded to. ❤️
-              </p>
-
-              <p>
-                Booked through Moment ❤️
-              </p>
-
-            </div>
-          `
-
-        });
+          });
 
 
-        console.log(
-          "Notification email sent."
-        );
+          console.log(
+            `Notification email sent to ${creatorEmail}`
+          );
 
 
-      } catch (emailError) {
+        } catch (emailError) {
 
-        console.error(
-          "Email notification failed:",
-          emailError
+          console.error(
+            "Email notification failed:",
+            emailError
+          );
+
+        }
+
+      } else {
+
+        console.warn(
+          "No creator email found for invitation:",
+          invitationCode
         );
 
       }
@@ -528,10 +622,6 @@ app.post(
 app.get(
   "/api/responses",
   async (req, res) => {
-
-    /* --------------------------------------
-       ADMIN AUTHENTICATION
-    -------------------------------------- */
 
     if (
       !ADMIN_KEY ||
