@@ -259,24 +259,26 @@ app.get("/api/responses", async (req, res) => {
    SERVE WEBSITE
 ========================================== */
 
-app.get("*", (req, res) => {
 
-  res.sendFile(
-    path.join(
-      __dirname,
-      "public",
-      "index.html"
-    )
-  );
-
-});
 
 
 /* ==========================================
    START SERVER
 ========================================== */
 
-initDb()
+app.get("/", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "public", "index.html")
+  );
+});
+
+app.get("/invitation", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "public", "invitation.html")
+  );
+});
+
+});initDb()
   .then(() => {
 
     app.listen(
