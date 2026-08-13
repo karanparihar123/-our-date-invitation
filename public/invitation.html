@@ -1,705 +1,824 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Our Date Invitation ❤️</title>
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<title>Your Invitation ❤️</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
+
   margin:0;
+
   min-height:100vh;
-  overflow:hidden;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:30px;
+
   font-family:Georgia,serif;
+
   color:#fff;
+
   background:
-    radial-gradient(circle at 15% 15%,#fff 0 1px,transparent 2px),
-    radial-gradient(circle at 80% 30%,#ffd5df 0 2px,transparent 3px),
-    linear-gradient(135deg,#381034,#8f2058 48%,#ff788e);
-  background-size:120px 120px,160px 160px,cover;
-  display:grid;
-  place-items:center;
+    radial-gradient(
+      circle at 20% 20%,
+      #fff 0 1px,
+      transparent 2px
+    ),
+
+    radial-gradient(
+      circle at 80% 70%,
+      #ffd5df 0 2px,
+      transparent 3px
+    ),
+
+    linear-gradient(
+      135deg,
+      #280b25,
+      #711441 50%,
+      #ff7189
+    );
+
+  background-size:
+    130px 130px,
+    170px 170px,
+    cover;
+
 }
+
 
 .card{
-  width:min(92vw,570px);
-  padding:42px 28px;
+
+  width:min(
+    650px,
+    100%
+  );
+
+  padding:45px 30px;
+
   text-align:center;
-  border:1px solid #ffffff55;
+
   border-radius:30px;
-  background:#ffffff1c;
-  backdrop-filter:blur(16px);
-  box-shadow:0 25px 80px #28001988;
-  position:relative;
-  z-index:5;
+
+  background:#ffffff18;
+
+  border:
+    1px solid
+    #ffffff35;
+
+  backdrop-filter:
+    blur(18px);
+
+  box-shadow:
+    0 30px 80px
+    #22001966;
+
 }
 
-h1{
-  font-size:clamp(31px,7vw,50px);
-  line-height:1.08;
-  margin:8px 0 16px;
-}
 
 .emoji{
-  font-size:55px;
+
+  font-size:70px;
+
+  margin-bottom:15px;
+
 }
 
-p{
-  font-size:19px;
-  line-height:1.55;
+
+h1{
+
+  margin:10px 0;
+
+  font-size:42px;
+
 }
+
+
+h2{
+
+  margin:15px 0 25px;
+
+  font-size:28px;
+
+}
+
+
+.message{
+
+  font-size:20px;
+
+  line-height:1.7;
+
+  margin:25px auto;
+
+  max-width:520px;
+
+}
+
+
+.from{
+
+  font-size:16px;
+
+  opacity:.8;
+
+}
+
 
 .buttons{
+
+  margin-top:35px;
+
   display:flex;
+
   justify-content:center;
-  gap:14px;
+
+  gap:15px;
+
   flex-wrap:wrap;
-  margin-top:28px;
+
 }
+
 
 button{
-  position:relative;
-  z-index:20;
+
   border:0;
+
   border-radius:999px;
-  padding:14px 30px;
-  font:18px Georgia;
+
+  padding:15px 28px;
+
+  font-family:Georgia,serif;
+
+  font-size:17px;
+
+  font-weight:bold;
+
   cursor:pointer;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
+
 }
+
 
 .yes{
-  background:white;
+
+  background:#fff;
+
   color:#941f5a;
+
 }
+
 
 .no{
+
   background:#ffffff22;
-  color:white;
-  border:1px solid #ffffff77;
+
+  color:#fff;
+
+  border:
+    1px solid
+    #ffffff55;
+
 }
 
-input{
-  padding:15px;
-  border:0;
-  border-radius:14px;
-  font-size:17px;
-  width:min(100%,300px);
-  margin:12px;
-  font-family:Georgia,serif;
+
+.date-section{
+
+  display:none;
+
+  margin-top:30px;
+
 }
+
+
+.date-section p{
+
+  font-size:17px;
+
+}
+
+
+input[type="date"]{
+
+  padding:13px;
+
+  border:0;
+
+  border-radius:12px;
+
+  font-size:16px;
+
+}
+
 
 .confirm{
-  background:white;
+
+  margin-top:15px;
+
+  background:#fff;
+
   color:#941f5a;
+
 }
 
-.hidden{
-  display:none!important;
+
+.status{
+
+  margin-top:25px;
+
+  font-size:18px;
+
+  line-height:1.6;
+
 }
 
-.small{
-  font-size:14px;
-  opacity:.82;
+
+.error{
+
+  color:#ffd5df;
+
 }
 
-.heart{
-  position:fixed;
-  bottom:-50px;
-  font-size:25px;
-  opacity:.6;
-  animation:float 8s linear infinite;
-  z-index:1;
-}
 
-.h1{left:10%;animation-delay:0s}
-.h2{left:30%;animation-delay:2s}
-.h3{left:55%;animation-delay:4s}
-.h4{left:80%;animation-delay:1s}
+@media(max-width:600px){
 
-@keyframes float{
-  0%{
-    transform:translateY(0);
-    opacity:0;
+  h1{
+    font-size:34px;
   }
-  15%{opacity:.6}
-  100%{
-    transform:translateY(-115vh) rotate(30deg);
-    opacity:0;
+
+  h2{
+    font-size:24px;
   }
+
+  .message{
+    font-size:18px;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="heart h1">♥</div>
-<div class="heart h2">♡</div>
-<div class="heart h3">♥</div>
-<div class="heart h4">♡</div>
 
-<main class="card">
+<div class="card">
 
-<!-- ================= FIRST PAGE ================= -->
 
-<section id="one">
+<div
+  class="emoji"
+  id="emoji"
+>
+  ❤️
+</div>
 
-<div class="emoji">🌹</div>
 
-<h1>
-Will you let me steal you away for a date? ❤️
+<h1 id="recipient">
+  Loading...
 </h1>
 
-<p>
-Just you, me, and a little time together. 🥰
-</p>
 
-<div class="buttons">
+<h2 id="title">
+  Your invitation
+</h2>
 
-<button class="yes" id="yes">
-Yes, absolutely 💕
+
+<div
+  class="message"
+  id="message"
+>
+  Please wait...
+</div>
+
+
+<div
+  class="from"
+  id="from"
+></div>
+
+
+<div
+  class="buttons"
+  id="buttons"
+>
+
+<button
+  class="yes"
+  id="yesButton"
+>
+  Yes ❤️
 </button>
 
-<button class="no" id="no">
-No 🙈
+
+<button
+  class="no"
+  id="noButton"
+>
+  Maybe later
 </button>
 
 </div>
 
-<p class="small">
-Choose wisely… I might ask again. 😏❤️
-</p>
 
-</section>
-
-
-<!-- ================= NO PAGE ================= -->
-
-<section id="noPage" class="hidden">
-
-<div class="emoji">🥺</div>
-
-<h1>
-Are you sure? 👀
-</h1>
+<div
+  class="date-section"
+  id="dateSection"
+>
 
 <p>
-I was really hoping you'd say yes… ❤️
+  Pick a date ❤️
 </p>
 
-<div class="buttons">
-
-<button class="yes" id="askAgain">
-Okay, ask me again 💕
-</button>
-
-<button class="no" id="stillNo">
-Still no 🙈
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ================= SECOND NO PAGE ================= -->
-
-<section id="noPageTwo" class="hidden">
-
-<div class="emoji">😏</div>
-
-<h1>
-Nice try! 😂❤️
-</h1>
-
-<p>
-I'll give you one more chance to reconsider…
-</p>
-
-<div class="buttons">
-
-<button class="yes" id="finalYes">
-Okay fine… YES 💕
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ================= SPECIAL DAY VALIDATION ================= -->
-
-<section id="validation" class="hidden">
-
-<div class="emoji">🔐❤️</div>
-
-<h1>
-One little check… 🥰
-</h1>
-
-<p>
-Before we plan our date,
-</p>
-
-<p>
-<strong>
-when did our story begin? ❤️
-</strong>
-</p>
 
 <input
-id="specialDate"
-type="date"
+  type="date"
+  id="dateInput"
 >
+
 
 <br>
 
-<button class="confirm" id="validateSpecialDate">
-That's our special day ❤️
-</button>
 
-<p class="small">
-You definitely remember this one… 🥹
-</p>
-
-</section>
-
-
-<!-- ================= BOOKING PAGE ================= -->
-
-<section id="booking" class="hidden">
-
-<div class="emoji">💖</div>
-
-<h1>
-Okay, it's really you! 🥰
-</h1>
-
-<p>
-Now let's choose a day that's just ours. ❤️
-</p>
-
-<p>
-<strong>
-When do I get to steal you away? 😏
-</strong>
-</p>
-
-<input
-id="date"
-type="date"
-autocomplete="off"
+<button
+  class="confirm"
+  id="confirmButton"
 >
-
-<br>
-
-<button class="confirm" id="confirmDate">
-Confirm our date 💖
+  Confirm date ❤️
 </button>
 
-</section>
+</div>
 
 
-<!-- ================= FINAL PAGE ================= -->
+<div
+  class="status"
+  id="status"
+></div>
 
-<section id="success" class="hidden">
 
-<div class="emoji">💖✨</div>
-
-<h1>
-It's a date!
-</h1>
-
-<p>
-You've picked:
-</p>
-
-<p>
-<strong id="picked"></strong>
-</p>
-
-<p>
-I can't wait to see you. ❤️
-</p>
-
-<p class="small">
-Your date has been booked. 🥹
-</p>
-
-</section>
-
-</main>
+</div>
 
 
 <script>
 
-/* =====================================================
+
+/* =====================================
    ELEMENTS
-===================================================== */
+===================================== */
 
-const one =
-document.getElementById("one");
+const recipient =
+  document.getElementById(
+    "recipient"
+  );
 
-const noPage =
-document.getElementById("noPage");
+const title =
+  document.getElementById(
+    "title"
+  );
 
-const noPageTwo =
-document.getElementById("noPageTwo");
+const message =
+  document.getElementById(
+    "message"
+  );
 
-const validation =
-document.getElementById("validation");
+const from =
+  document.getElementById(
+    "from"
+  );
 
-const booking =
-document.getElementById("booking");
+const emoji =
+  document.getElementById(
+    "emoji"
+  );
 
-const success =
-document.getElementById("success");
+const buttons =
+  document.getElementById(
+    "buttons"
+  );
 
-const specialDateInput =
-document.getElementById("specialDate");
+const yesButton =
+  document.getElementById(
+    "yesButton"
+  );
+
+const noButton =
+  document.getElementById(
+    "noButton"
+  );
+
+const dateSection =
+  document.getElementById(
+    "dateSection"
+  );
 
 const dateInput =
-document.getElementById("date");
+  document.getElementById(
+    "dateInput"
+  );
+
+const confirmButton =
+  document.getElementById(
+    "confirmButton"
+  );
+
+const status =
+  document.getElementById(
+    "status"
+  );
 
 
-/* =====================================================
-   YOUR SPECIAL DAY
-   06/10/2017 = 6 October 2017
-===================================================== */
+/* =====================================
+   OCCASION DATA
+===================================== */
 
-const SPECIAL_DATE = "2017-10-06";
+const occasionData = {
+
+  date:{
+    emoji:"❤️",
+    title:
+      "When do I get to steal you for a date?"
+  },
+
+  birthday:{
+    emoji:"🎂",
+    title:
+      "Want to celebrate your special day together?"
+  },
+
+  proposal:{
+    emoji:"💍",
+    title:
+      "Will you say yes?"
+  },
+
+  anniversary:{
+    emoji:"🥂",
+    title:
+      "Another chapter of our story ❤️"
+  },
+
+  party:{
+    emoji:"🎉",
+    title:
+      "You're invited!"
+  }
+
+};
 
 
-/* =====================================================
-   GET TODAY'S DATE
-   Uses local date, not UTC.
-===================================================== */
+/* =====================================
+   GET INVITATION CODE
+===================================== */
 
-function getToday(){
+const pathParts =
+  window.location
+    .pathname
+    .split("/")
+    .filter(Boolean);
 
-const now = new Date();
 
-return (
-now.getFullYear() +
-"-" +
-String(now.getMonth()+1).padStart(2,"0") +
-"-" +
-String(now.getDate()).padStart(2,"0")
-);
+/*
+
+Expected:
+
+/i/abc123
+
+pathParts becomes:
+
+["i","abc123"]
+
+*/
+
+const invitationCode =
+  pathParts[0] === "i"
+    ? pathParts[1]
+    : null;
+
+
+/* =====================================
+   LOAD INVITATION
+===================================== */
+
+async function loadInvitation(){
+
+  if(!invitationCode){
+
+    recipient.textContent =
+      "Invitation not found";
+
+    message.textContent =
+      "This invitation link is invalid.";
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        `/api/invitations/${invitationCode}`
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error ||
+        "Invitation not found."
+      );
+
+    }
+
+
+    /* ----------------------------------
+       FILL PAGE
+    ---------------------------------- */
+
+    recipient.textContent =
+      data.recipient_name;
+
+
+    const selected =
+      occasionData[
+        data.occasion
+      ] ||
+      occasionData.date;
+
+
+    emoji.textContent =
+      selected.emoji;
+
+
+    title.textContent =
+      selected.title;
+
+
+    message.textContent =
+      data.message ||
+      "Just you, me, and a little time together. ❤️";
+
+
+    from.textContent =
+      `From ${data.creator_name} ❤️`;
+
+
+  } catch(error){
+
+    console.error(error);
+
+
+    recipient.textContent =
+      "Invitation not found";
+
+
+    title.textContent =
+      "Something went wrong";
+
+
+    message.textContent =
+      error.message;
+
+
+    buttons.style.display =
+      "none";
+
+  }
 
 }
 
 
-/* =====================================================
-   SET MINIMUM BOOKING DATE
-===================================================== */
+/* =====================================
+   YES
+===================================== */
 
-function setBookingMinimumDate(){
+yesButton.addEventListener(
+  "click",
+  () => {
 
-dateInput.min = getToday();
+    dateSection.style.display =
+      "block";
 
-}
+    status.textContent =
+      "Yay! ❤️ Pick a date.";
 
+    yesButton.style.display =
+      "none";
 
-/* =====================================================
-   SHOW SPECIAL DATE VALIDATION
-===================================================== */
+    noButton.style.display =
+      "none";
 
-function showValidation(){
-
-one.classList.add("hidden");
-noPage.classList.add("hidden");
-noPageTwo.classList.add("hidden");
-booking.classList.add("hidden");
-
-validation.classList.remove("hidden");
-
-}
-
-
-/* =====================================================
-   YES BUTTON
-===================================================== */
-
-document
-.getElementById("yes")
-.addEventListener("click",function(){
-
-showValidation();
-
-});
-
-
-/* =====================================================
-   NO BUTTON
-===================================================== */
-
-document
-.getElementById("no")
-.addEventListener("click",function(){
-
-one.classList.add("hidden");
-
-noPage.classList.remove("hidden");
-
-});
-
-
-/* =====================================================
-   ASK AGAIN
-===================================================== */
-
-document
-.getElementById("askAgain")
-.addEventListener("click",function(){
-
-noPage.classList.add("hidden");
-
-one.classList.remove("hidden");
-
-});
-
-
-/* =====================================================
-   STILL NO
-===================================================== */
-
-document
-.getElementById("stillNo")
-.addEventListener("click",function(){
-
-noPage.classList.add("hidden");
-
-noPageTwo.classList.remove("hidden");
-
-});
-
-
-/* =====================================================
-   FINAL YES
-===================================================== */
-
-document
-.getElementById("finalYes")
-.addEventListener("click",function(){
-
-showValidation();
-
-});
-
-
-/* =====================================================
-   SPECIAL DATE VALIDATION
-===================================================== */
-
-document
-.getElementById("validateSpecialDate")
-.addEventListener("click",function(){
-
-const entered =
-specialDateInput.value;
-
-
-/* Nothing entered */
-
-if(!entered){
-
-alert(
-"Come on… you definitely remember this one! 🥺❤️"
-);
-
-return;
-
-}
-
-
-/* Wrong date */
-
-if(entered !== SPECIAL_DATE){
-
-specialDateInput.value = "";
-
-alert(
-"Hmm… that's not our special day. 😏❤️\n\nTry again!"
-);
-
-return;
-
-}
-
-
-/* Correct date */
-
-setBookingMinimumDate();
-
-validation.classList.add("hidden");
-
-booking.classList.remove("hidden");
-
-});
-
-
-/* =====================================================
-   BOOKING DATE CHANGE VALIDATION
-===================================================== */
-
-dateInput
-.addEventListener("change",function(){
-
-const selected =
-dateInput.value;
-
-const today =
-getToday();
-
-
-if(!selected){
-return;
-}
-
-
-if(selected < today){
-
-dateInput.value = "";
-
-alert(
-"That date has already passed ❤️\n\nPlease choose today or a future date."
-);
-
-}
-
-});
-
-
-/* =====================================================
-   CONFIRM BOOKING
-===================================================== */
-
-document
-.getElementById("confirmDate")
-.addEventListener("click",async function(){
-
-const selected =
-dateInput.value;
-
-const today =
-getToday();
-
-
-/* No date */
-
-if(!selected){
-
-alert(
-"Please pick a date first ❤️"
-);
-
-return;
-
-}
-
-
-/* Past date protection */
-
-if(selected < today){
-
-dateInput.value = "";
-
-alert(
-"Please choose today or a future date ❤️"
-);
-
-return;
-
-}
-
-
-/* Format selected date */
-
-const dateObject =
-new Date(selected + "T00:00:00");
-
-const formatted =
-dateObject.toLocaleDateString(
-undefined,
-{
-weekday:"long",
-year:"numeric",
-month:"long",
-day:"numeric"
-}
+  }
 );
 
 
-/* =====================================================
-   SAVE TO YOUR EXISTING DATABASE
-===================================================== */
+/* =====================================
+   NO
+===================================== */
 
-try{
+noButton.addEventListener(
+  "click",
+  async () => {
 
-const response =
-await fetch(
-"/api/response",
-{
-method:"POST",
+    status.textContent =
+      "That's okay ❤️";
 
-headers:{
-"Content-Type":"application/json"
-},
 
-body:JSON.stringify({
-answer:"yes",
-date:selected
-})
+    buttons.style.display =
+      "none";
 
-}
+
+    try {
+
+      await fetch(
+        "/api/response",
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              answer:"no",
+
+              date:
+                new Date()
+                  .toISOString()
+                  .split("T")[0],
+
+              invitationCode
+
+            })
+
+        }
+      );
+
+
+    } catch(error){
+
+      console.error(error);
+
+    }
+
+  }
 );
 
 
-if(!response.ok){
+/* =====================================
+   CONFIRM DATE
+===================================== */
 
-throw new Error("Could not save");
+confirmButton.addEventListener(
+  "click",
+  async () => {
 
-}
+    const selectedDate =
+      dateInput.value;
 
 
-}catch(error){
+    if(!selectedDate){
 
-alert(
-"I couldn't save the date right now. Please try again."
+      alert(
+        "Please choose a date ❤️"
+      );
+
+      return;
+
+    }
+
+
+    confirmButton.disabled =
+      true;
+
+    confirmButton.textContent =
+      "Saving...";
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/response",
+          {
+
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+
+                answer:"yes",
+
+                date:
+                  selectedDate,
+
+                invitationCode
+
+              })
+
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if(!response.ok){
+
+        throw new Error(
+          data.error ||
+          "Could not save response."
+        );
+
+      }
+
+
+      dateSection.style.display =
+        "none";
+
+
+      status.innerHTML =
+        `
+          <strong>
+            It's a date! ❤️
+          </strong>
+          <br><br>
+          ${new Date(
+            selectedDate + "T00:00:00"
+          ).toLocaleDateString(
+            "en-IN",
+            {
+              weekday:"long",
+              year:"numeric",
+              month:"long",
+              day:"numeric"
+            }
+          )}
+        `;
+
+
+    } catch(error){
+
+      console.error(error);
+
+
+      status.textContent =
+        error.message ||
+        "Something went wrong.";
+
+
+      confirmButton.disabled =
+        false;
+
+      confirmButton.textContent =
+        "Confirm date ❤️";
+
+    }
+
+  }
 );
 
-return;
 
-}
+/* =====================================
+   LOAD
+===================================== */
 
-
-/* =====================================================
-   SUCCESS SCREEN
-===================================================== */
-
-document
-.getElementById("picked")
-.textContent =
-formatted;
-
-booking.classList.add("hidden");
-
-success.classList.remove("hidden");
-
-});
-
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-setBookingMinimumDate();
+loadInvitation();
 
 </script>
 
 </body>
+
 </html>
