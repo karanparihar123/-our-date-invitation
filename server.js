@@ -110,7 +110,7 @@ app.post("/api/response", async (req, res) => {
 
         from: "Our Date Invitation <onboarding@resend.dev>",
 
-        to: ["karanparihar.pk@gmail.com"],
+        to: ["karanparihar.iimt@gmail.com"],
 
         subject: "❤️ Your Date Has Been Booked!",
 
