@@ -62,6 +62,7 @@ async function initDb() {
 
 }
 
+
 /* ==========================================
    MIDDLEWARE
 ========================================== */
@@ -83,7 +84,11 @@ app.post("/api/response", async (req, res) => {
 
   try {
 
-    const { answer, date } = req.body || {};
+    const {
+      answer,
+      date
+    } = req.body || {};
+
 
     if (
       !["yes", "no"].includes(answer) ||
@@ -96,8 +101,6 @@ app.post("/api/response", async (req, res) => {
 
     }
 
-
-    /* Save response */
 
     await pool.query(
       `
@@ -177,8 +180,8 @@ app.post("/api/response", async (req, res) => {
             </div>
 
             <p style="font-size:16px;">
-              Your date invitation has officially been
-              responded to. ❤️
+              Your date invitation has officially
+              been responded to. ❤️
             </p>
 
             <p style="
@@ -193,9 +196,11 @@ app.post("/api/response", async (req, res) => {
 
       });
 
+
       console.log(
         "Notification email sent."
       );
+
 
     } catch (emailError) {
 
@@ -206,8 +211,6 @@ app.post("/api/response", async (req, res) => {
 
     }
 
-
-    /* Tell invitation that request succeeded */
 
     res.json({
       ok: true
@@ -249,6 +252,7 @@ app.get("/api/responses", async (req, res) => {
 
     const result = await pool.query(`
       SELECT
+        invitation_code,
         answer,
         selected_date,
         created_at
