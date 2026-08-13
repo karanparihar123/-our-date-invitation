@@ -1,785 +1,526 @@
-const express = require("express");
-const { Pool } = require("pg");
-const path = require("path");
-const { Resend } = require("resend");
-
-const app = express();
-
-const PORT = process.env.PORT || 3000;
-const DATABASE_URL = process.env.DATABASE_URL;
-const ADMIN_KEY = process.env.ADMIN_KEY;
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-
-
-/* ==========================================
-   ENVIRONMENT CHECKS
-========================================== */
-
-if (!DATABASE_URL) {
-  console.error("DATABASE_URL is missing.");
-  process.exit(1);
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+<title>Create Your Invitation ❤️</title>
+<style>
+* {
+  box-sizing: border-box;
 }
-
-if (!RESEND_API_KEY) {
-  console.error("RESEND_API_KEY is missing.");
-  process.exit(1);
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Georgia, serif;
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      #fff 0 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      #ffd5df 0 2px,
+      transparent 3px
+    ),
+    linear-gradient(
+      135deg,
+      #280b25,
+      #711441 50%,
+      #ff7189
+    );
+  background-size:
+    120px 120px,
+    160px 160px,
+    cover;
 }
-
-
-/* ==========================================
-   DATABASE
-========================================== */
-
-const pool = new Pool({
-  connectionString: DATABASE_URL,
-
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? { rejectUnauthorized: false }
-      : false
-});
-
-
-/* ==========================================
-   RESEND
-========================================== */
-
-const resend = new Resend(
-  RESEND_API_KEY
-);
-
-
-/* ==========================================
-   DATABASE INITIALIZATION
-========================================== */
-
-async function initDb() {
-
-  /* ------------------------------------------
-     INVITATIONS
-  ------------------------------------------ */
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS invitations (
-
-      id SERIAL PRIMARY KEY,
-
-      invitation_code
-        VARCHAR(20)
-        UNIQUE
-        NOT NULL,
-
-      creator_name
-        TEXT
-        NOT NULL,
-
-      recipient_name
-        TEXT
-        NOT NULL,
-
-      occasion
-        TEXT
-        NOT NULL,
-
-      message
-        TEXT,
-
-      created_at
-        TIMESTAMPTZ
-        NOT NULL
-        DEFAULT NOW()
-
-    )
-  `);
-
-
-  /* ------------------------------------------
-     RESPONSES
-  ------------------------------------------ */
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS responses (
-
-      id SERIAL PRIMARY KEY,
-
-      invitation_code
-        VARCHAR(20),
-
-      answer
-        TEXT
-        NOT NULL,
-
-      selected_date
-        DATE
-        NOT NULL,
-
-      created_at
-        TIMESTAMPTZ
-        NOT NULL
-        DEFAULT NOW()
-
-    )
-  `);
-
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
 }
-
-
-/* ==========================================
-   MIDDLEWARE
-========================================== */
-
-app.use(
-  express.json()
+header {
+  padding: 25px 0;
+}
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+  padding: 40px 0 80px;
+}
+.panel {
+  padding: 30px;
+  border-radius: 28px;
+  background: #ffffff18;
+  border: 1px solid #ffffff35;
+  backdrop-filter: blur(15px);
+  box-shadow:
+    0 25px 70px #22001955;
+}
+h1 {
+  font-size: 42px;
+  margin-top: 0;
+}
+label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 7px;
+  font-size: 15px;
+}
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  background: #ffffffee;
+  color: #3a102d;
+  outline: none;
+}
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 15px 28px;
+  margin-top: 25px;
+  background: #fff;
+  color: #941f5a;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover {
+  transform: translateY(-2px);
+}
+button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+.preview {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preview-card {
+  width: 100%;
+  padding: 40px 25px;
+  text-align: center;
+  border-radius: 25px;
+  background:
+    linear-gradient(
+      135deg,
+      #57113e,
+      #b62d66
+    );
+  box-shadow:
+    0 20px 60px #20001877;
+}
+.emoji {
+  font-size: 60px;
+}
+.preview-card h2 {
+  font-size: 32px;
+  line-height: 1.2;
+}
+.preview-card p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.result {
+  display: none;
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 18px;
+  background: #ffffff18;
+  border: 1px solid #ffffff35;
+}
+.result a {
+  color: #fff;
+  word-break: break-all;
+}
+.copy-button {
+  margin-top: 12px;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+@media (max-width: 750px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 34px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="logo">
+  Moment ❤️
+</div>
+</header>
+<div class="main">
+<!-- =====================================
+     BUILDER
+===================================== -->
+<div class="panel">
+<h1>
+  Create your invitation ✨
+</h1>
+<p>
+  Tell us a little about your special moment.
+</p>
+<label for="yourName">
+  Your name
+</label>
+<input
+  id="yourName"
+  type="text"
+  placeholder="e.g. Karan"
+  maxlength="50"
+>
+<label for="theirName">
+  Their name
+</label>
+<input
+  id="theirName"
+  type="text"
+  placeholder="e.g. Someone special ❤️"
+  maxlength="50"
+>
+<label for="occasion">
+  What's the occasion?
+</label>
+<select id="occasion">
+<option value="date">
+  ❤️ Date
+</option>
+<option value="birthday">
+  🎂 Birthday
+</option>
+<option value="proposal">
+  💍 Proposal
+</option>
+<option value="anniversary">
+  🥂 Anniversary
+</option>
+<option value="party">
+  🎉 Party
+</option>
+</select>
+<label for="message">
+  Your message
+</label>
+<textarea
+  id="message"
+  maxlength="300"
+  placeholder="Write something from the heart..."
+></textarea>
+<button
+  type="button"
+  id="createButton"
+>
+  Create my invitation ❤️
+</button>
+<div
+  class="result"
+  id="result"
+>
+<strong>
+  Your invitation is ready! 🎉
+</strong>
+<p>
+  Share this link:
+</p>
+<a
+  id="invitationLink"
+  href="#"
+  target="_blank"
+></a>
+<br>
+<button
+  class="copy-button"
+  type="button"
+  id="copyButton"
+>
+  Copy link 🔗
+</button>
+</div>
+</div>
+<!-- =====================================
+     LIVE PREVIEW
+===================================== -->
+<div class="panel preview">
+<div class="preview-card">
+<div
+  class="emoji"
+  id="previewEmoji"
+>
+  ❤️
+</div>
+<h2 id="previewTitle">
+  When do I get to steal you for a date?
+</h2>
+<p id="previewMessage">
+  Just you, me, and a little time together. ❤️
+</p>
+<p>
+<small>
+  Created with Moment
+</small>
+</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+/* =====================================
+   ELEMENTS
+===================================== */
+const yourName =
+  document.getElementById(
+    "yourName"
+  );
+const theirName =
+  document.getElementById(
+    "theirName"
+  );
+const occasion =
+  document.getElementById(
+    "occasion"
+  );
+const message =
+  document.getElementById(
+    "message"
+  );
+const previewTitle =
+  document.getElementById(
+    "previewTitle"
+  );
+const previewMessage =
+  document.getElementById(
+    "previewMessage"
+  );
+const previewEmoji =
+  document.getElementById(
+    "previewEmoji"
+  );
+const createButton =
+  document.getElementById(
+    "createButton"
+  );
+const result =
+  document.getElementById(
+    "result"
+  );
+const invitationLink =
+  document.getElementById(
+    "invitationLink"
+  );
+const copyButton =
+  document.getElementById(
+    "copyButton"
+  );
+/* =====================================
+   OCCASION DATA
+===================================== */
+const occasionData = {
+  date: {
+    emoji: "❤️",
+    title:
+      "When do I get to steal you for a date?"
+  },
+  birthday: {
+    emoji: "🎂",
+    title:
+      "Want to celebrate your special day together?"
+  },
+  proposal: {
+    emoji: "💍",
+    title:
+      "Will you say yes?"
+  },
+  anniversary: {
+    emoji: "🥂",
+    title:
+      "Another chapter of our story ❤️"
+  },
+  party: {
+    emoji: "🎉",
+    title:
+      "You're invited!"
+  }
+};
+/* =====================================
+   UPDATE PREVIEW
+===================================== */
+function updatePreview() {
+  const selected =
+    occasionData[
+      occasion.value
+    ];
+  previewEmoji.textContent =
+    selected.emoji;
+  previewTitle.textContent =
+    selected.title;
+  const customMessage =
+    message.value.trim();
+  if (customMessage) {
+    previewMessage.textContent =
+      customMessage;
+  } else {
+    previewMessage.textContent =
+      "Just you, me, and a little time together. ❤️";
+  }
+}
+occasion.addEventListener(
+  "change",
+  updatePreview
 );
-
-
-/* ==========================================
-   STATIC FILES
-========================================== */
-
-app.use(
-  express.static(
-    path.join(
-      __dirname,
-      "public"
-    )
-  )
+message.addEventListener(
+  "input",
+  updatePreview
 );
-
-
-/* ==========================================
+/* =====================================
    CREATE INVITATION
-========================================== */
-
-app.post(
-  "/api/invitations",
-  async (req, res) => {
-
-    try {
-
-      const {
-        creatorName,
-        recipientName,
-        occasion,
-        message
-      } = req.body || {};
-
-
-      /* --------------------------------------
-         VALIDATION
-      -------------------------------------- */
-
-      if (
-        !creatorName ||
-        !recipientName ||
-        !occasion
-      ) {
-
-        return res
-          .status(400)
-          .json({
-            error:
-              "Missing required invitation details."
-          });
-
-      }
-
-
-      /* --------------------------------------
-         GENERATE UNIQUE CODE
-      -------------------------------------- */
-
-      let invitationCode;
-
-      let isUnique = false;
-
-
-      while (!isUnique) {
-
-        invitationCode =
-          Math.random()
-            .toString(36)
-            .substring(2, 10);
-
-
-        const existing =
-          await pool.query(
-            `
-            SELECT id
-            FROM invitations
-            WHERE invitation_code = $1
-            `,
-            [invitationCode]
-          );
-
-
-        if (
-          existing.rows.length === 0
-        ) {
-
-          isUnique = true;
-
-        }
-
-      }
-
-
-      /* --------------------------------------
-         SAVE INVITATION
-      -------------------------------------- */
-
-      await pool.query(
-        `
-        INSERT INTO invitations
-        (
-          invitation_code,
-          creator_name,
-          recipient_name,
-          occasion,
-          message
-        )
-
-        VALUES
-        (
-          $1,
-          $2,
-          $3,
-          $4,
-          $5
-        )
-        `,
-        [
-          invitationCode,
-          creatorName.trim(),
-          recipientName.trim(),
-          occasion,
-          message
-            ? message.trim()
-            : null
-        ]
+===================================== */
+createButton.addEventListener(
+  "click",
+  async () => {
+    const creatorName =
+      yourName.value.trim();
+    const recipientName =
+      theirName.value.trim();
+    const selectedOccasion =
+      occasion.value;
+    const customMessage =
+      message.value.trim();
+    /* ----------------------------------
+       VALIDATION
+    ---------------------------------- */
+    if (!creatorName) {
+      alert(
+        "Please enter your name ❤️"
       );
-
-
-      /* --------------------------------------
-         CREATE SHAREABLE URL
-      -------------------------------------- */
-
-      const invitationUrl =
-        `${req.protocol}://${req.get(
-          "host"
-        )}/i/${invitationCode}`;
-
-
-      res.json({
-
-        ok: true,
-
-        invitationCode,
-
-        invitationUrl
-
-      });
-
-
-    } catch (err) {
-
-      console.error(
-        "Could not create invitation:",
-        err
-      );
-
-
-      res
-        .status(500)
-        .json({
-          error:
-            "Could not create invitation."
-        });
-
+      yourName.focus();
+      return;
     }
-
-  }
-);
-
-
-/* ==========================================
-   GET PERSONALIZED INVITATION
-========================================== */
-
-app.get(
-  "/api/invitations/:code",
-  async (req, res) => {
-
-    try {
-
-      const code =
-        req.params.code;
-
-
-      const result =
-        await pool.query(
-          `
-          SELECT
-            invitation_code,
-            creator_name,
-            recipient_name,
-            occasion,
-            message,
-            created_at
-          FROM invitations
-          WHERE invitation_code = $1
-          `,
-          [code]
-        );
-
-
-      if (
-        result.rows.length === 0
-      ) {
-
-        return res
-          .status(404)
-          .json({
-            error:
-              "Invitation not found."
-          });
-
-      }
-
-
-      res.json(
-        result.rows[0]
+    if (!recipientName) {
+      alert(
+        "Please enter their name ❤️"
       );
-
-
-    } catch (err) {
-
-      console.error(
-        "Could not load invitation:",
-        err
-      );
-
-
-      res
-        .status(500)
-        .json({
-          error:
-            "Could not load invitation."
-        });
-
+      theirName.focus();
+      return;
     }
-
-  }
-);
-
-
-/* ==========================================
-   SAVE DATE RESPONSE
-========================================== */
-
-app.post(
-  "/api/response",
-  async (req, res) => {
-
+    /* ----------------------------------
+       BUTTON STATE
+    ---------------------------------- */
+    createButton.disabled =
+      true;
+    createButton.textContent =
+      "Creating your invitation...";
     try {
-
-      const {
-        answer,
-        date,
-        invitationCode
-      } = req.body || {};
-
-
-      /* --------------------------------------
-         VALIDATION
-      -------------------------------------- */
-
-      if (
-        !["yes", "no"].includes(
-          answer
-        ) ||
-        !date
-      ) {
-
-        return res
-          .status(400)
-          .json({
-            error:
-              "Invalid response."
-          });
-
-      }
-
-
-      /* --------------------------------------
-         SAVE RESPONSE
-      -------------------------------------- */
-
-      await pool.query(
-        `
-        INSERT INTO responses
-        (
-          invitation_code,
-          answer,
-          selected_date
-        )
-
-        VALUES
-        (
-          $1,
-          $2,
-          $3
-        )
-        `,
-        [
-          invitationCode || null,
-          answer,
-          date
-        ]
-      );
-
-
-      /* --------------------------------------
-         FORMAT DATE
-      -------------------------------------- */
-
-      const formattedDate =
-        new Date(
-          date + "T00:00:00"
-        )
-        .toLocaleDateString(
-          "en-IN",
+      /* --------------------------------
+         SEND TO SERVER
+      -------------------------------- */
+      const response =
+        await fetch(
+          "/api/invitations",
           {
-            weekday:
-              "long",
-
-            year:
-              "numeric",
-
-            month:
-              "long",
-
-            day:
-              "numeric"
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+            body:
+              JSON.stringify({
+                creatorName,
+                recipientName,
+                occasion:
+                  selectedOccasion,
+                message:
+                  customMessage
+              })
           }
         );
-
-
-      /* ======================================
-         SEND EMAIL
-      ====================================== */
-
-      try {
-
-        await resend.emails.send({
-
-          from:
-            "Our Date Invitation <onboarding@resend.dev>",
-
-          to:
-            [
-              "karanparihar.iimt@gmail.com"
-            ],
-
-          subject:
-            "❤️ Your Date Has Been Booked!",
-
-          html: `
-            <div style="
-              font-family:Arial,sans-serif;
-              max-width:600px;
-              margin:auto;
-              padding:30px;
-              text-align:center;
-              background:#fff5f7;
-              border-radius:20px;
-            ">
-
-              <h1
-                style="
-                  color:#941f5a;
-                "
-              >
-                💖 It's a date!
-              </h1>
-
-
-              <p
-                style="
-                  font-size:18px;
-                "
-              >
-                Someone just booked
-                a date with you. 🥰
-              </p>
-
-
-              <div
-                style="
-                  background:white;
-                  padding:20px;
-                  border-radius:15px;
-                  margin:25px 0;
-                "
-              >
-
-                <p
-                  style="
-                    font-size:16px;
-                  "
-                >
-                  📅
-                  <strong>
-                    Date
-                  </strong>
-                </p>
-
-
-                <p
-                  style="
-                    font-size:22px;
-                    color:#941f5a;
-                    font-weight:bold;
-                  "
-                >
-                  ${formattedDate}
-                </p>
-
-              </div>
-
-
-              <p
-                style="
-                  font-size:16px;
-                "
-              >
-                Your date invitation
-                has officially been
-                responded to. ❤️
-              </p>
-
-
-              <p
-                style="
-                  font-size:14px;
-                  color:#777;
-                "
-              >
-                Booked through
-                Moment ❤️
-              </p>
-
-            </div>
-          `
-
-        });
-
-
-        console.log(
-          "Notification email sent."
+      const data =
+        await response.json();
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Could not create invitation."
         );
-
-
-      } catch (emailError) {
-
-        console.error(
-          "Email notification failed:",
-          emailError
-        );
-
       }
-
-
-      res.json({
-        ok: true
-      });
-
-
-    } catch (err) {
-
-      console.error(err);
-
-
-      res
-        .status(500)
-        .json({
-          error:
-            "Could not save response."
-        });
-
-    }
-
-  }
-);
-
-
-/* ==========================================
-   VIEW SAVED RESPONSES
-========================================== */
-
-app.get(
-  "/api/responses",
-  async (req, res) => {
-
-    if (
-      !ADMIN_KEY ||
-      req.query.key !==
-        ADMIN_KEY
-    ) {
-
-      return res
-        .status(401)
-        .json({
-          error:
-            "Unauthorized."
-        });
-
-    }
-
-
-    try {
-
-      const result =
-        await pool.query(
-          `
-          SELECT
-            invitation_code,
-            answer,
-            selected_date,
-            created_at
-
-          FROM responses
-
-          ORDER BY
-            created_at DESC
-          `
-        );
-
-
-      res.json(
-        result.rows
+      /* --------------------------------
+         SHOW LINK
+      -------------------------------- */
+      invitationLink.href =
+        data.invitationUrl;
+      invitationLink.textContent =
+        data.invitationUrl;
+      result.style.display =
+        "block";
+      createButton.textContent =
+        "Invitation created ❤️";
+    } catch (error) {
+      console.error(error);
+      alert(
+        error.message ||
+        "Something went wrong."
       );
-
-
-    } catch (err) {
-
-      console.error(err);
-
-
-      res
-        .status(500)
-        .json({
-          error:
-            "Could not load responses."
-        });
-
+      createButton.disabled =
+        false;
+      createButton.textContent =
+        "Create my invitation ❤️";
     }
-
   }
 );
-
-
-/* ==========================================
-   PERSONALIZED INVITATION PAGE
-========================================== */
-
-app.get(
-  "/i/:code",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "invitation.html"
-      )
-    );
-
+/* =====================================
+   COPY LINK
+===================================== */
+copyButton.addEventListener(
+  "click",
+  async () => {
+    try {
+      await navigator.clipboard.writeText(
+        invitationLink.href
+      );
+      copyButton.textContent =
+        "Copied! ❤️";
+      setTimeout(
+        () => {
+          copyButton.textContent =
+            "Copy link 🔗";
+        },
+        2000
+      );
+    } catch (error) {
+      alert(
+        "Please copy the link manually."
+      );
+    }
   }
 );
-
-
-/* ==========================================
-   WEBSITE ROUTES
-========================================== */
-
-app.get(
-  "/",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "index.html"
-      )
-    );
-
-  }
-);
-
-
-app.get(
-  "/invitation",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "invitation.html"
-      )
-    );
-
-  }
-);
-
-
-app.get(
-  "/create",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "create.html"
-      )
-    );
-
-  }
-);
-
-
-/* ==========================================
-   START SERVER
-========================================== */
-
-initDb()
-
-  .then(() => {
-
-    app.listen(
-      PORT,
-      "0.0.0.0",
-      () => {
-
-        console.log(
-          `Running on ${PORT}`
-        );
-
-      }
-    );
-
-  })
-
-  .catch(err => {
-
-    console.error(
-      "Database initialization failed:",
-      err
-    );
-
-    process.exit(1);
-
-  });
+/* =====================================
+   INITIAL PREVIEW
+===================================== */
+updatePreview();
+</script>
+</body>
+</html>
