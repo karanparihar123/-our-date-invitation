@@ -42,9 +42,7 @@ h1{
   margin:8px 0 16px;
 }
 
-.emoji{
-  font-size:55px;
-}
+.emoji{font-size:55px}
 
 p{
   font-size:19px;
@@ -96,9 +94,7 @@ input{
   color:#941f5a;
 }
 
-.hidden{
-  display:none!important;
-}
+.hidden{display:none!important}
 
 .small{
   font-size:14px;
@@ -124,9 +120,7 @@ input{
     transform:translateY(0);
     opacity:0;
   }
-  15%{
-    opacity:.6;
-  }
+  15%{opacity:.6}
   100%{
     transform:translateY(-115vh) rotate(30deg);
     opacity:0;
@@ -170,7 +164,7 @@ input{
 </section>
 
 
-<!-- PLAYFUL NO SCREEN -->
+<!-- FIRST NO -->
 <section id="playful" class="hidden">
 
   <div class="emoji">🥺</div>
@@ -194,7 +188,7 @@ input{
 </section>
 
 
-<!-- SECOND PLAYFUL NO SCREEN -->
+<!-- SECOND NO -->
 <section id="playfulTwo" class="hidden">
 
   <div class="emoji">😏</div>
@@ -214,24 +208,22 @@ input{
 </section>
 
 
-<!-- DATE SELECTION -->
+<!-- DATE SCREEN -->
 <section id="two" class="hidden">
 
   <div class="emoji">🥰</div>
 
-  <h1 id="title">
-    Thank you for saying yes! ❤️
-  </h1>
+  <h1>Thank you for saying yes! ❤️</h1>
 
-  <p id="message">
-    Now let's make our date official! 💕
-  </p>
+  <p>Now let's make our date official! 💕</p>
 
-  <p>
-    Pick a date for us. 📅
-  </p>
+  <p>Pick a date for us. 📅</p>
 
-  <input id="date" type="date">
+  <input
+    id="date"
+    type="date"
+    autocomplete="off"
+  >
 
   <br>
 
@@ -253,9 +245,7 @@ input{
     You've picked <strong id="picked"></strong>.
   </p>
 
-  <p>
-    I can't wait to see you. ❤️
-  </p>
+  <p>I can't wait to see you. ❤️</p>
 
   <p class="small">
     Your response has been saved. 🥹
@@ -274,28 +264,85 @@ const playfulTwo = document.getElementById("playfulTwo");
 const two = document.getElementById("two");
 const three = document.getElementById("three");
 
+const dateInput = document.getElementById("date");
+
 let answer = "yes";
 
 
-/* GET TODAY'S DATE USING LOCAL TIME */
-const today = new Date();
+/*
+  GET TODAY USING LOCAL DATE
+  This avoids UTC/time-zone problems.
+*/
+function getLocalDate(){
 
-const localToday =
-  today.getFullYear() + "-" +
-  String(today.getMonth() + 1).padStart(2, "0") + "-" +
-  String(today.getDate()).padStart(2, "0");
+  const now = new Date();
+
+  return (
+    now.getFullYear() +
+    "-" +
+    String(now.getMonth() + 1).padStart(2,"0") +
+    "-" +
+    String(now.getDate()).padStart(2,"0")
+  );
+
+}
 
 
-/* SET MINIMUM DATE TO TODAY */
-const dateInput = document.getElementById("date");
+/*
+  SET TODAY AS MINIMUM DATE
+*/
+function setMinimumDate(){
 
-dateInput.min = localToday;
+  const today = getLocalDate();
+
+  dateInput.min = today;
+
+}
 
 
-/* SHOW DATE SELECTION */
+/*
+  CHECK DATE WHEN USER SELECTS IT
+*/
+dateInput.addEventListener("change",function(){
+
+  const today = getLocalDate();
+  const selectedDate = dateInput.value;
+
+  if(!selectedDate){
+    return;
+  }
+
+  if(selectedDate < today){
+
+    dateInput.value = "";
+
+    alert(
+      "That date has already passed ❤️\n\nPlease choose today or a future date."
+    );
+
+  }
+
+});
+
+
+/*
+  ALSO CHECK WHEN USER OPENS THE DATE FIELD
+*/
+dateInput.addEventListener("focus",function(){
+
+  setMinimumDate();
+
+});
+
+
+/*
+  SHOW DATE SCREEN
+*/
 function showDate(){
 
   answer = "yes";
+
+  setMinimumDate();
 
   one.classList.add("hidden");
   playful.classList.add("hidden");
@@ -306,16 +353,20 @@ function showDate(){
 }
 
 
-/* YES BUTTON */
-document.getElementById("yes").addEventListener("click",()=>{
+/*
+  YES
+*/
+document.getElementById("yes").addEventListener("click",function(){
 
   showDate();
 
 });
 
 
-/* NO BUTTON */
-document.getElementById("no").addEventListener("click",()=>{
+/*
+  NO
+*/
+document.getElementById("no").addEventListener("click",function(){
 
   one.classList.add("hidden");
   playful.classList.remove("hidden");
@@ -323,8 +374,10 @@ document.getElementById("no").addEventListener("click",()=>{
 });
 
 
-/* ASK AGAIN */
-document.getElementById("askAgain").addEventListener("click",()=>{
+/*
+  ASK AGAIN
+*/
+document.getElementById("askAgain").addEventListener("click",function(){
 
   playful.classList.add("hidden");
   one.classList.remove("hidden");
@@ -332,8 +385,10 @@ document.getElementById("askAgain").addEventListener("click",()=>{
 });
 
 
-/* STILL NO */
-document.getElementById("stillNo").addEventListener("click",()=>{
+/*
+  STILL NO
+*/
+document.getElementById("stillNo").addEventListener("click",function(){
 
   playful.classList.add("hidden");
   playfulTwo.classList.remove("hidden");
@@ -341,40 +396,57 @@ document.getElementById("stillNo").addEventListener("click",()=>{
 });
 
 
-/* FINAL YES */
-document.getElementById("finalYes").addEventListener("click",()=>{
+/*
+  FINAL YES
+*/
+document.getElementById("finalYes").addEventListener("click",function(){
 
   showDate();
 
 });
 
 
-/* CONFIRM DATE */
-document.getElementById("confirm").addEventListener("click",async()=>{
+/*
+  CONFIRM DATE
+*/
+document.getElementById("confirm").addEventListener("click",async function(){
 
+  const today = getLocalDate();
   const value = dateInput.value;
 
 
-  /* NO DATE SELECTED */
+  /*
+    NO DATE
+  */
   if(!value){
 
     alert("Please pick a date first ❤️");
+
     return;
 
   }
 
 
-  /* PREVENT PAST DATES */
-  if(value < localToday){
+  /*
+    FINAL PAST-DATE PROTECTION
+  */
+  if(value < today){
 
-    alert("Please choose today or a future date ❤️");
+    dateInput.value = "";
+
+    alert(
+      "Please choose today or a future date ❤️"
+    );
+
     return;
 
   }
 
 
+  /*
+    FORMAT DATE
+  */
   const d = new Date(value + "T00:00:00");
-
 
   const formatted = d.toLocaleDateString(undefined,{
     weekday:"long",
@@ -384,44 +456,49 @@ document.getElementById("confirm").addEventListener("click",async()=>{
   });
 
 
-  /* SAVE RESPONSE TO DATABASE */
+  /*
+    SAVE TO DATABASE
+  */
   try{
 
-    const r = await fetch("/api/response",{
+    const response = await fetch(
+      "/api/response",
+      {
+        method:"POST",
 
-      method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
 
-      headers:{
-        "Content-Type":"application/json"
-      },
-
-      body:JSON.stringify({
-
-        answer:answer,
-
-        date:value
-
-      })
-
-    });
+        body:JSON.stringify({
+          answer:answer,
+          date:value
+        })
+      }
+    );
 
 
-    if(!r.ok){
+    if(!response.ok){
 
-      throw new Error();
+      throw new Error("Save failed");
 
     }
 
 
-  }catch(e){
+  }catch(error){
 
-    alert("I couldn't save the date right now. Please try again.");
+    alert(
+      "I couldn't save the date right now. Please try again."
+    );
+
     return;
 
   }
 
 
-  /* SHOW CONFIRMATION */
+  /*
+    SHOW FINAL SCREEN
+  */
   document.getElementById("picked").textContent = formatted;
 
   two.classList.add("hidden");
@@ -429,6 +506,12 @@ document.getElementById("confirm").addEventListener("click",async()=>{
   three.classList.remove("hidden");
 
 });
+
+
+/*
+  INITIAL SETUP
+*/
+setMinimumDate();
 
 </script>
 
