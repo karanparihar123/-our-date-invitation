@@ -8,7 +8,12 @@
 
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta
+  name="theme-color"
+  content="#3b0c2f"
 >
 
 <title>Moment ❤️</title>
@@ -31,19 +36,16 @@ body{
   min-height:100%;
 }
 
-
-/* ==========================================
-   BODY
-========================================== */
+html{
+  overflow-x:hidden;
+}
 
 body{
-
   min-height:100vh;
+  min-height:100dvh;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
   padding:20px;
@@ -77,7 +79,6 @@ body{
       #761842 72%,
       #d65c7d 100%
     );
-
 }
 
 
@@ -86,11 +87,9 @@ body{
 ========================================== */
 
 .glow{
-
   position:fixed;
 
   width:320px;
-
   height:320px;
 
   border-radius:50%;
@@ -101,50 +100,38 @@ body{
 
   pointer-events:none;
 
+  z-index:0;
+
   animation:
     glowMove 8s ease-in-out infinite alternate;
-
 }
 
 .glow.one{
-
   background:#ff7fa5;
-
   top:-120px;
-
   left:-100px;
-
 }
 
 .glow.two{
-
   background:#ffb6cf;
-
   right:-120px;
-
   bottom:-130px;
 
   animation-delay:2s;
-
 }
-
 
 @keyframes glowMove{
 
   from{
-
     transform:
       translate(0,0)
       scale(1);
-
   }
 
   to{
-
     transform:
       translate(35px,-25px)
       scale(1.15);
-
   }
 
 }
@@ -155,19 +142,17 @@ body{
 ========================================== */
 
 .hearts{
-
   position:fixed;
-
   inset:0;
 
   overflow:hidden;
 
   pointer-events:none;
 
+  z-index:0;
 }
 
 .heart{
-
   position:absolute;
 
   bottom:-50px;
@@ -176,100 +161,66 @@ body{
 
   animation:
     rise linear infinite;
-
 }
 
 .heart:nth-child(1){
-
   left:8%;
-
   font-size:18px;
-
   animation-duration:10s;
-
 }
 
 .heart:nth-child(2){
-
   left:23%;
-
   font-size:13px;
-
   animation-duration:13s;
-
   animation-delay:3s;
-
 }
 
 .heart:nth-child(3){
-
   left:48%;
-
   font-size:20px;
-
   animation-duration:11s;
-
   animation-delay:1s;
-
 }
 
 .heart:nth-child(4){
-
   left:72%;
-
   font-size:15px;
-
   animation-duration:14s;
-
   animation-delay:4s;
-
 }
 
 .heart:nth-child(5){
-
   left:91%;
-
   font-size:19px;
-
   animation-duration:12s;
-
   animation-delay:2s;
-
 }
-
 
 @keyframes rise{
 
   0%{
-
     transform:
       translateY(0)
       rotate(0deg);
 
     opacity:0;
-
   }
 
   15%{
-
     opacity:.45;
-
   }
 
   85%{
-
     opacity:.25;
-
   }
 
   100%{
-
     transform:
       translateY(-115vh)
       rotate(35deg);
 
     opacity:0;
-
   }
 
 }
@@ -290,7 +241,6 @@ body{
   position:relative;
 
   z-index:2;
-
 }
 
 
@@ -315,7 +265,6 @@ body{
   opacity:.65;
 
   margin-bottom:20px;
-
 }
 
 
@@ -326,6 +275,8 @@ body{
 .card{
 
   position:relative;
+
+  width:100%;
 
   padding:
     38px 26px
@@ -360,7 +311,6 @@ body{
 
   animation:
     cardIn .9s ease-out;
-
 }
 
 .card::before{
@@ -382,27 +332,22 @@ body{
 
 }
 
-
 @keyframes cardIn{
 
   from{
-
     opacity:0;
 
     transform:
       translateY(30px)
       scale(.96);
-
   }
 
   to{
-
     opacity:1;
 
     transform:
       translateY(0)
       scale(1);
-
   }
 
 }
@@ -418,6 +363,11 @@ body{
 
   z-index:1;
 
+  display:block;
+}
+
+.opening.hidden{
+  display:none;
 }
 
 .small-text{
@@ -433,18 +383,20 @@ body{
   opacity:.72;
 
   margin-bottom:18px;
-
 }
 
 .heart-button{
 
   width:86px;
-
   height:86px;
 
   margin:
     0 auto
     22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
   border-radius:50%;
 
@@ -471,28 +423,27 @@ body{
   transition:
     transform .25s ease;
 
+  -webkit-tap-highlight-color:transparent;
+
+  touch-action:manipulation;
 }
 
 .heart-button:hover{
-
-  transform:
-    scale(1.08);
-
+  transform:scale(1.08);
 }
 
+.heart-button:active{
+  transform:scale(.95);
+}
 
 @keyframes pulse{
 
   0%,100%{
-
     transform:scale(1);
-
   }
 
   50%{
-
     transform:scale(1.07);
-
   }
 
 }
@@ -510,36 +461,31 @@ body{
 
   z-index:1;
 
-  animation:
-    reveal .8s ease;
-
+  width:100%;
 }
 
 .invitation.show{
 
   display:block;
 
+  animation:
+    reveal .8s ease;
 }
-
 
 @keyframes reveal{
 
   from{
-
     opacity:0;
 
     transform:
       translateY(18px);
-
   }
 
   to{
-
     opacity:1;
 
     transform:
       translateY(0);
-
   }
 
 }
@@ -570,6 +516,7 @@ body{
     0 8px 30px
     rgba(0,0,0,.25);
 
+  overflow-wrap:anywhere;
 }
 
 .occasion{
@@ -587,7 +534,6 @@ body{
   text-transform:uppercase;
 
   opacity:.65;
-
 }
 
 
@@ -598,7 +544,6 @@ body{
 .divider{
 
   width:75px;
-
   height:1px;
 
   margin:
@@ -606,7 +551,6 @@ body{
 
   background:
     rgba(255,255,255,.45);
-
 }
 
 
@@ -631,6 +575,7 @@ body{
 
   line-height:1.45;
 
+  overflow-wrap:anywhere;
 }
 
 .message::before{
@@ -638,7 +583,6 @@ body{
   content:"“";
 
   opacity:.45;
-
 }
 
 .message::after{
@@ -646,7 +590,6 @@ body{
   content:"”";
 
   opacity:.45;
-
 }
 
 
@@ -666,6 +609,7 @@ body{
 
   margin-bottom:32px;
 
+  overflow-wrap:anywhere;
 }
 
 
@@ -679,6 +623,7 @@ body{
 
   margin-bottom:18px;
 
+  line-height:1.4;
 }
 
 
@@ -694,6 +639,7 @@ body{
 
   justify-content:center;
 
+  width:100%;
 }
 
 button{
@@ -720,20 +666,17 @@ button{
     box-shadow .2s ease,
     background .2s ease;
 
+  -webkit-tap-highlight-color:transparent;
+
+  touch-action:manipulation;
 }
 
 button:hover{
-
-  transform:
-    translateY(-2px);
-
+  transform:translateY(-2px);
 }
 
 button:active{
-
-  transform:
-    scale(.97);
-
+  transform:scale(.97);
 }
 
 .yes{
@@ -745,7 +688,6 @@ button:active{
   box-shadow:
     0 12px 30px
     rgba(0,0,0,.2);
-
 }
 
 .maybe{
@@ -758,7 +700,6 @@ button:active{
   border:
     1px solid
     rgba(255,255,255,.25);
-
 }
 
 
@@ -774,7 +715,6 @@ button:active{
 
   animation:
     reveal .5s ease;
-
 }
 
 .date-title{
@@ -782,7 +722,6 @@ button:active{
   font-size:18px;
 
   margin-bottom:12px;
-
 }
 
 .date-input{
@@ -808,6 +747,11 @@ button:active{
 
   outline:none;
 
+  color:#301020;
+
+  background:#fff;
+
+  -webkit-appearance:auto;
 }
 
 .confirm{
@@ -821,7 +765,6 @@ button:active{
   box-shadow:
     0 10px 30px
     rgba(0,0,0,.25);
-
 }
 
 .confirm:disabled{
@@ -829,7 +772,6 @@ button:active{
   opacity:.6;
 
   cursor:not-allowed;
-
 }
 
 
@@ -849,6 +791,7 @@ button:active{
 
   line-height:1.7;
 
+  overflow-wrap:anywhere;
 }
 
 .success-heart{
@@ -861,35 +804,24 @@ button:active{
 
   animation:
     successPop .6s ease;
-
 }
-
 
 @keyframes successPop{
 
   0%{
-
-    transform:
-      scale(.3);
+    transform:scale(.3);
 
     opacity:0;
-
   }
 
   70%{
-
-    transform:
-      scale(1.15);
-
+    transform:scale(1.15);
   }
 
   100%{
-
-    transform:
-      scale(1);
+    transform:scale(1);
 
     opacity:1;
-
   }
 
 }
@@ -912,7 +844,6 @@ button:active{
   letter-spacing:3px;
 
   opacity:.38;
-
 }
 
 
@@ -930,6 +861,7 @@ button:active{
 
   padding:25px;
 
+  line-height:1.6;
 }
 
 
@@ -941,30 +873,41 @@ button:active{
 
   body{
 
-    padding:14px;
+    padding:
+      14px;
+
+    align-items:center;
 
   }
 
+  .wrapper{
+
+    width:100%;
+  }
+
   .card{
+
+    width:100%;
 
     padding:
       32px 19px
       28px;
 
     border-radius:27px;
-
   }
 
   .buttons{
 
     flex-direction:column;
 
+    gap:10px;
   }
 
   .buttons button{
 
     width:100%;
 
+    min-height:50px;
   }
 
   .recipient{
@@ -975,7 +918,65 @@ button:active{
         15vw,
         64px
       );
+  }
 
+  .question{
+
+    font-size:19px;
+  }
+
+  .date-input{
+
+    width:100%;
+
+    min-height:50px;
+  }
+
+  .confirm{
+
+    width:100%;
+
+    min-height:50px;
+  }
+
+}
+
+
+/* ==========================================
+   VERY SMALL PHONES
+========================================== */
+
+@media(max-width:360px){
+
+  body{
+    padding:10px;
+  }
+
+  .card{
+
+    padding:
+      28px 15px
+      24px;
+
+    border-radius:23px;
+  }
+
+  .brand{
+
+    margin-bottom:14px;
+  }
+
+  .heart-button{
+
+    width:78px;
+    height:78px;
+
+    font-size:34px;
+  }
+
+  .message{
+
+    font-size:20px;
   }
 
 }
@@ -988,37 +989,48 @@ button:active{
 <body>
 
 
-<!-- Ambient background -->
+<!-- ==========================================
+     AMBIENT EFFECTS
+========================================== -->
 
-<div class="glow one"></div>
+<div
+  class="glow one"
+  aria-hidden="true"
+></div>
 
-<div class="glow two"></div>
+<div
+  class="glow two"
+  aria-hidden="true"
+></div>
 
 
-<!-- Floating hearts -->
+<!-- ==========================================
+     FLOATING HEARTS
+========================================== -->
 
-<div class="hearts">
+<div
+  class="hearts"
+  aria-hidden="true"
+>
 
   <span class="heart">❤️</span>
-
   <span class="heart">💗</span>
-
   <span class="heart">💕</span>
-
   <span class="heart">❤️</span>
-
   <span class="heart">💗</span>
 
 </div>
 
 
+<!-- ==========================================
+     MAIN
+========================================== -->
+
 <div class="wrapper">
 
 
   <div class="brand">
-
     Moment
-
   </div>
 
 
@@ -1035,27 +1047,22 @@ button:active{
     >
 
       <div class="small-text">
-
         A little moment for you
-
       </div>
 
 
       <button
+        type="button"
         id="openButton"
         class="heart-button"
         aria-label="Open invitation"
       >
-
         ❤️
-
       </button>
 
 
       <div class="small-text">
-
         Tap to open
-
       </div>
 
     </section>
@@ -1068,6 +1075,7 @@ button:active{
     <section
       id="invitation"
       class="invitation"
+      aria-live="polite"
     >
 
 
@@ -1075,9 +1083,7 @@ button:active{
         id="occasion"
         class="occasion"
       >
-
         A little invitation
-
       </div>
 
 
@@ -1088,9 +1094,7 @@ button:active{
         id="recipientName"
         class="recipient"
       >
-
         You
-
       </h1>
 
 
@@ -1101,10 +1105,8 @@ button:active{
         id="message"
         class="message"
       >
-
         I have something important
         to ask you.
-
       </p>
 
 
@@ -1112,9 +1114,7 @@ button:active{
         id="from"
         class="from"
       >
-
         From someone special ❤️
-
       </div>
 
 
@@ -1122,12 +1122,14 @@ button:active{
         id="question"
         class="question"
       >
-
         When do I get to steal you
         for a date?
-
       </div>
 
+
+      <!-- ====================================
+           ANSWER BUTTONS
+      ===================================== -->
 
       <div
         id="buttons"
@@ -1135,22 +1137,20 @@ button:active{
       >
 
         <button
+          type="button"
           id="yesButton"
           class="yes"
         >
-
           Yes, it's a date ❤️
-
         </button>
 
 
         <button
+          type="button"
           id="maybeButton"
           class="maybe"
         >
-
           Maybe later
-
         </button>
 
       </div>
@@ -1166,9 +1166,7 @@ button:active{
       >
 
         <div class="date-title">
-
           Pick our date ❤️
-
         </div>
 
 
@@ -1176,7 +1174,7 @@ button:active{
           id="dateInput"
           class="date-input"
           type="date"
-          required
+          autocomplete="off"
         >
 
 
@@ -1184,12 +1182,11 @@ button:active{
 
 
         <button
+          type="button"
           id="confirmButton"
           class="confirm"
         >
-
           Confirm date ❤️
-
         </button>
 
       </section>
@@ -1202,13 +1199,12 @@ button:active{
       <div
         id="status"
         class="status"
+        aria-live="polite"
       ></div>
 
 
       <div class="footer">
-
         MADE WITH MOMENT ❤️
-
       </div>
 
 
@@ -1217,12 +1213,10 @@ button:active{
 
   </main>
 
-
 </div>
 
 
 <script>
-
 
 /* ==========================================
    INVITATION CODE
@@ -1232,7 +1226,6 @@ const parts =
   window.location.pathname
     .split("/")
     .filter(Boolean);
-
 
 const invitationCode =
   parts[0] === "i"
@@ -1245,95 +1238,54 @@ const invitationCode =
 ========================================== */
 
 const opening =
-  document.getElementById(
-    "opening"
-  );
-
+  document.getElementById("opening");
 
 const openButton =
-  document.getElementById(
-    "openButton"
-  );
-
+  document.getElementById("openButton");
 
 const invitation =
-  document.getElementById(
-    "invitation"
-  );
-
+  document.getElementById("invitation");
 
 const recipientName =
-  document.getElementById(
-    "recipientName"
-  );
-
+  document.getElementById("recipientName");
 
 const occasion =
-  document.getElementById(
-    "occasion"
-  );
-
+  document.getElementById("occasion");
 
 const message =
-  document.getElementById(
-    "message"
-  );
-
+  document.getElementById("message");
 
 const from =
-  document.getElementById(
-    "from"
-  );
-
+  document.getElementById("from");
 
 const yesButton =
-  document.getElementById(
-    "yesButton"
-  );
-
+  document.getElementById("yesButton");
 
 const maybeButton =
-  document.getElementById(
-    "maybeButton"
-  );
-
+  document.getElementById("maybeButton");
 
 const buttons =
-  document.getElementById(
-    "buttons"
-  );
-
+  document.getElementById("buttons");
 
 const dateSection =
-  document.getElementById(
-    "dateSection"
-  );
-
+  document.getElementById("dateSection");
 
 const dateInput =
-  document.getElementById(
-    "dateInput"
-  );
-
+  document.getElementById("dateInput");
 
 const confirmButton =
-  document.getElementById(
-    "confirmButton"
-  );
-
+  document.getElementById("confirmButton");
 
 const status =
-  document.getElementById(
-    "status"
-  );
+  document.getElementById("status");
 
 
 /* ==========================================
-   LOCAL TODAY DATE
-   Avoid UTC date mismatch
+   GET TODAY IN LOCAL DATE FORMAT
+   Avoids UTC timezone problems.
 ========================================== */
 
-function getLocalDateString(){
+function getToday(){
 
   const now =
     new Date();
@@ -1352,12 +1304,10 @@ function getLocalDateString(){
     ).padStart(2,"0");
 
   return `${year}-${month}-${day}`;
-
 }
 
-
 const today =
-  getLocalDateString();
+  getToday();
 
 
 /* ==========================================
@@ -1372,17 +1322,49 @@ dateInput.min =
    OPEN INVITATION
 ========================================== */
 
+function openInvitation(){
+
+  opening.classList.add(
+    "hidden"
+  );
+
+  invitation.classList.add(
+    "show"
+  );
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ==========================================
+   CLICK
+========================================== */
+
 openButton.addEventListener(
   "click",
-  () => {
+  openInvitation
+);
 
-    opening.style.display =
-      "none";
 
-    invitation.classList.add(
-      "show"
-    );
+/* ==========================================
+   TOUCH SUPPORT
+========================================== */
 
+openButton.addEventListener(
+  "touchend",
+  function(event){
+
+    event.preventDefault();
+
+    openInvitation();
+
+  },
+  {
+    passive:false
   }
 );
 
@@ -1398,14 +1380,11 @@ async function loadInvitation(){
     opening.innerHTML =
       `
         <div class="error">
-
           This invitation link is invalid. ❤️
-
         </div>
       `;
 
     return;
-
   }
 
 
@@ -1413,7 +1392,9 @@ async function loadInvitation(){
 
     const response =
       await fetch(
-        `/api/invitations/${invitationCode}`
+        `/api/invitations/${encodeURIComponent(
+          invitationCode
+        )}`
       );
 
 
@@ -1432,7 +1413,8 @@ async function loadInvitation(){
 
 
     recipientName.textContent =
-      data.recipient_name;
+      data.recipient_name ||
+      "You";
 
 
     if(data.occasion){
@@ -1460,7 +1442,7 @@ async function loadInvitation(){
 
 
     document.title =
-      `${data.recipient_name} ❤️ | Moment`;
+      `${data.recipient_name || "Moment"} ❤️ | Moment`;
 
   }
 
@@ -1473,12 +1455,10 @@ async function loadInvitation(){
     opening.innerHTML =
       `
         <div class="error">
-
           ${
             error.message ||
             "Could not load invitation."
           }
-
         </div>
       `;
 
@@ -1493,13 +1473,19 @@ async function loadInvitation(){
 
 yesButton.addEventListener(
   "click",
-  () => {
+  function(){
 
     buttons.style.display =
       "none";
 
     dateSection.style.display =
       "block";
+
+    status.textContent =
+      "";
+
+    dateInput.min =
+      today;
 
     dateInput.focus();
 
@@ -1513,29 +1499,27 @@ yesButton.addEventListener(
 
 maybeButton.addEventListener(
   "click",
-  () => {
+  function(){
 
     buttons.style.display =
+      "none";
+
+    dateSection.style.display =
       "none";
 
     status.innerHTML =
       `
         <span class="success-heart">
-
           💌
-
         </span>
 
         <strong>
-
           I'll take that as a maybe. 😌❤️
-
         </strong>
 
         <br>
 
         I'll be waiting.
-
       `;
 
   }
@@ -1548,8 +1532,7 @@ maybeButton.addEventListener(
 
 confirmButton.addEventListener(
   "click",
-  async () => {
-
+  async function(){
 
     const selectedDate =
       dateInput.value;
@@ -1566,15 +1549,15 @@ confirmButton.addEventListener(
 
 
     /* --------------------------------------
-       EXTRA FRONTEND VALIDATION
-       Prevent past dates even if browser
-       ignores the min attribute.
+       FRONTEND VALIDATION
     -------------------------------------- */
 
     if(selectedDate < today){
 
       status.textContent =
         "Please choose today or a future date ❤️";
+
+      dateInput.focus();
 
       return;
 
@@ -1583,7 +1566,6 @@ confirmButton.addEventListener(
 
     confirmButton.disabled =
       true;
-
 
     confirmButton.textContent =
       "Saving...";
@@ -1637,45 +1619,40 @@ confirmButton.addEventListener(
         "none";
 
 
+      const displayDate =
+        new Date(
+          selectedDate +
+          "T00:00:00"
+        ).toLocaleDateString(
+          "en-IN",
+          {
+            weekday:"long",
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+          }
+        );
+
+
       status.innerHTML =
         `
           <span class="success-heart">
-
             ❤️
-
           </span>
 
           <strong>
-
             It's a date!
-
           </strong>
 
           <br>
 
-          ${
-            new Date(
-              selectedDate +
-              "T00:00:00"
-            ).toLocaleDateString(
-              "en-IN",
-              {
-                weekday:"long",
-                year:"numeric",
-                month:"long",
-                day:"numeric"
-              }
-            )
-          }
+          ${displayDate}
 
           <br><br>
 
           <span style="opacity:.7;">
-
             See you then. 🥰
-
           </span>
-
         `;
 
     }
@@ -1694,7 +1671,6 @@ confirmButton.addEventListener(
       confirmButton.disabled =
         false;
 
-
       confirmButton.textContent =
         "Confirm date ❤️";
 
@@ -1709,7 +1685,6 @@ confirmButton.addEventListener(
 ========================================== */
 
 loadInvitation();
-
 
 </script>
 
