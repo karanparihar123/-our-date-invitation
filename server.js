@@ -1,377 +1,3 @@
-const express = require("express");
-const { Pool } = require("pg");
-const path = require("path");
-const { Resend } = require("resend");
-
-const app = express();
-
-const PORT = process.env.PORT || 3000;
-const DATABASE_URL = process.env.DATABASE_URL;
-const ADMIN_KEY = process.env.ADMIN_KEY;
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-
-
-/* ==========================================
-   ENVIRONMENT CHECKS
-========================================== */
-
-if (!DATABASE_URL) {
-  console.error("DATABASE_URL is missing.");
-  process.exit(1);
-}
-
-if (!RESEND_API_KEY) {
-  console.error("RESEND_API_KEY is missing.");
-  process.exit(1);
-}
-
-
-/* ==========================================
-   DATABASE
-========================================== */
-
-const pool = new Pool({
-  connectionString: DATABASE_URL,
-
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? { rejectUnauthorized: false }
-      : false
-});
-
-
-/* ==========================================
-   RESEND
-========================================== */
-
-const resend = new Resend(RESEND_API_KEY);
-
-
-/* ==========================================
-   DATABASE INITIALIZATION
-========================================== */
-
-async function initDb() {
-
-  /* ------------------------------------------
-     INVITATIONS TABLE
-  ------------------------------------------ */
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS invitations (
-      id SERIAL PRIMARY KEY,
-      invitation_code VARCHAR(20) UNIQUE NOT NULL,
-      creator_name TEXT NOT NULL,
-      creator_email TEXT,
-      recipient_name TEXT NOT NULL,
-      occasion TEXT NOT NULL,
-      message TEXT,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `);
-
-
-  /* ------------------------------------------
-     ADD CREATOR EMAIL TO OLD DATABASES
-  ------------------------------------------ */
-
-  await pool.query(`
-    ALTER TABLE invitations
-    ADD COLUMN IF NOT EXISTS creator_email TEXT
-  `);
-
-
-  /* ------------------------------------------
-     RESPONSES TABLE
-  ------------------------------------------ */
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS responses (
-      id SERIAL PRIMARY KEY,
-      invitation_code VARCHAR(20),
-      answer TEXT NOT NULL,
-      selected_date DATE NOT NULL,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `);
-
-
-  /* ------------------------------------------
-     ADD INVITATION CODE TO OLD DATABASES
-  ------------------------------------------ */
-
-  await pool.query(`
-    ALTER TABLE responses
-    ADD COLUMN IF NOT EXISTS invitation_code VARCHAR(20)
-  `);
-
-
-  console.log("Database initialized successfully.");
-}
-
-
-/* ==========================================
-   MIDDLEWARE
-========================================== */
-
-app.use(express.json());
-
-app.use(
-  express.static(
-    path.join(__dirname, "public")
-  )
-);
-
-
-/* ==========================================
-   CREATE INVITATION
-========================================== */
-
-app.post(
-  "/api/invitations",
-  async (req, res) => {
-
-    try {
-
-      const {
-        creatorName,
-        creatorEmail,
-        recipientName,
-        occasion,
-        message
-      } = req.body || {};
-
-
-      /* --------------------------------------
-         VALIDATION
-      -------------------------------------- */
-
-      if (
-        !creatorName ||
-        !creatorEmail ||
-        !recipientName ||
-        !occasion
-      ) {
-
-        return res
-          .status(400)
-          .json({
-            error:
-              "Please complete all required fields."
-          });
-
-      }
-
-
-      /* --------------------------------------
-         EMAIL VALIDATION
-      -------------------------------------- */
-
-      const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-      if (
-        !emailPattern.test(
-          creatorEmail.trim()
-        )
-      ) {
-
-        return res
-          .status(400)
-          .json({
-            error:
-              "Please enter a valid email address."
-          });
-
-      }
-
-
-      /* --------------------------------------
-         GENERATE UNIQUE INVITATION CODE
-      -------------------------------------- */
-
-      let invitationCode;
-      let isUnique = false;
-
-
-      while (!isUnique) {
-
-        invitationCode =
-          Math.random()
-            .toString(36)
-            .substring(2, 10);
-
-
-        const existing =
-          await pool.query(
-            `
-            SELECT id
-            FROM invitations
-            WHERE invitation_code = $1
-            `,
-            [invitationCode]
-          );
-
-
-        if (
-          existing.rows.length === 0
-        ) {
-
-          isUnique = true;
-
-        }
-
-      }
-
-
-      /* --------------------------------------
-         SAVE INVITATION
-      -------------------------------------- */
-
-      await pool.query(
-        `
-        INSERT INTO invitations (
-          invitation_code,
-          creator_name,
-          creator_email,
-          recipient_name,
-          occasion,
-          message
-        )
-        VALUES ($1, $2, $3, $4, $5, $6)
-        `,
-        [
-          invitationCode,
-          creatorName.trim(),
-          creatorEmail.trim(),
-          recipientName.trim(),
-          occasion,
-          message
-            ? message.trim()
-            : null
-        ]
-      );
-
-
-      /* --------------------------------------
-         CREATE SHAREABLE URL
-      -------------------------------------- */
-
-      const invitationUrl =
-        `${req.protocol}://${req.get("host")}/i/${invitationCode}`;
-
-
-      console.log(
-        "Invitation created:",
-        invitationCode
-      );
-
-
-      res.json({
-        ok: true,
-        invitationCode,
-        invitationUrl
-      });
-
-
-    } catch (err) {
-
-      console.error(
-        "Could not create invitation:",
-        err
-      );
-
-
-      res
-        .status(500)
-        .json({
-          error:
-            "Could not create invitation."
-        });
-
-    }
-
-  }
-);
-
-
-/* ==========================================
-   GET PERSONALIZED INVITATION
-========================================== */
-
-app.get(
-  "/api/invitations/:code",
-  async (req, res) => {
-
-    try {
-
-      const code =
-        req.params.code;
-
-
-      const result =
-        await pool.query(
-          `
-          SELECT
-            invitation_code,
-            creator_name,
-            recipient_name,
-            occasion,
-            message,
-            created_at
-          FROM invitations
-          WHERE invitation_code = $1
-          `,
-          [code]
-        );
-
-
-      if (
-        result.rows.length === 0
-      ) {
-
-        return res
-          .status(404)
-          .json({
-            error:
-              "Invitation not found."
-          });
-
-      }
-
-
-      /* IMPORTANT:
-         creator_email is intentionally NOT returned.
-         The recipient does not need to see it.
-      */
-
-      res.json(
-        result.rows[0]
-      );
-
-
-    } catch (err) {
-
-      console.error(
-        "Could not load invitation:",
-        err
-      );
-
-
-      res
-        .status(500)
-        .json({
-          error:
-            "Could not load invitation."
-        });
-
-    }
-
-  }
-);
-
-
 /* ==========================================
    SAVE DATE RESPONSE
 ========================================== */
@@ -390,7 +16,7 @@ app.post(
 
 
       /* --------------------------------------
-         VALIDATION
+         BASIC VALIDATION
       -------------------------------------- */
 
       if (
@@ -403,6 +29,72 @@ app.post(
           .json({
             error:
               "Invalid response."
+          });
+
+      }
+
+
+      /* --------------------------------------
+         DATE FORMAT VALIDATION
+         Expected format: YYYY-MM-DD
+      -------------------------------------- */
+
+      if (
+        !/^\d{4}-\d{2}-\d{2}$/.test(date)
+      ) {
+
+        return res
+          .status(400)
+          .json({
+            error:
+              "Invalid date format."
+          });
+
+      }
+
+
+      /* --------------------------------------
+         SERVER-SIDE DATE VALIDATION
+         Prevent dates before today.
+         
+         IMPORTANT:
+         This uses the server's local date.
+         Since your app is intended for India,
+         we explicitly calculate today's date
+         using Asia/Kolkata.
+      -------------------------------------- */
+
+      function getTodayIndia() {
+
+        const formatter =
+          new Intl.DateTimeFormat(
+            "en-CA",
+            {
+              timeZone: "Asia/Kolkata",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit"
+            }
+          );
+
+        return formatter.format(
+          new Date()
+        );
+
+      }
+
+
+      const todayIndia =
+        getTodayIndia();
+
+
+      if (date < todayIndia) {
+
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please choose today or a future date."
           });
 
       }
@@ -649,174 +341,3 @@ app.post(
 
   }
 );
-
-
-/* ==========================================
-   VIEW SAVED RESPONSES
-========================================== */
-
-app.get(
-  "/api/responses",
-  async (req, res) => {
-
-    if (
-      !ADMIN_KEY ||
-      req.query.key !== ADMIN_KEY
-    ) {
-
-      return res
-        .status(401)
-        .json({
-          error:
-            "Unauthorized."
-        });
-
-    }
-
-
-    try {
-
-      const result =
-        await pool.query(
-          `
-          SELECT
-            invitation_code,
-            answer,
-            selected_date,
-            created_at
-          FROM responses
-          ORDER BY created_at DESC
-          `
-        );
-
-
-      res.json(
-        result.rows
-      );
-
-
-    } catch (err) {
-
-      console.error(
-        "Could not load responses:",
-        err
-      );
-
-
-      res
-        .status(500)
-        .json({
-          error:
-            "Could not load responses."
-        });
-
-    }
-
-  }
-);
-
-
-/* ==========================================
-   PERSONALIZED INVITATION PAGE
-========================================== */
-
-app.get(
-  "/i/:code",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "invitation.html"
-      )
-    );
-
-  }
-);
-
-
-/* ==========================================
-   WEBSITE ROUTES
-========================================== */
-
-app.get(
-  "/",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "index.html"
-      )
-    );
-
-  }
-);
-
-
-app.get(
-  "/invitation",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "invitation.html"
-      )
-    );
-
-  }
-);
-
-
-app.get(
-  "/create",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "create.html"
-      )
-    );
-
-  }
-);
-
-
-/* ==========================================
-   START SERVER
-========================================== */
-
-initDb()
-
-  .then(() => {
-
-    app.listen(
-      PORT,
-      "0.0.0.0",
-      () => {
-
-        console.log(
-          `Running on ${PORT}`
-        );
-
-      }
-    );
-
-  })
-
-  .catch(err => {
-
-    console.error(
-      "Database initialization failed:",
-      err
-    );
-
-    process.exit(1);
-
-  });
