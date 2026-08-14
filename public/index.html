@@ -115,15 +115,19 @@ body{
 @keyframes glowMove{
 
   from{
+
     transform:
       translate(0,0)
       scale(1);
+
   }
 
   to{
+
     transform:
       translate(35px,-20px)
       scale(1.15);
+
   }
 
 }
@@ -151,7 +155,7 @@ body{
 
   position:absolute;
 
-  bottom:-40px;
+  bottom:-50px;
 
   opacity:0;
 
@@ -161,59 +165,96 @@ body{
 }
 
 .heart:nth-child(1){
-  left:8%;
+
+  left:7%;
+
+  font-size:18px;
+
   animation-duration:11s;
+
 }
 
 .heart:nth-child(2){
-  left:28%;
+
+  left:25%;
+
+  font-size:14px;
+
   animation-duration:14s;
+
   animation-delay:2s;
+
 }
 
 .heart:nth-child(3){
-  left:52%;
+
+  left:50%;
+
+  font-size:22px;
+
   animation-duration:10s;
+
   animation-delay:4s;
+
 }
 
 .heart:nth-child(4){
-  left:75%;
+
+  left:74%;
+
+  font-size:16px;
+
   animation-duration:13s;
+
   animation-delay:1s;
+
 }
 
 .heart:nth-child(5){
+
   left:91%;
+
+  font-size:20px;
+
   animation-duration:12s;
+
   animation-delay:5s;
+
 }
 
 
 @keyframes floatUp{
 
   0%{
+
     transform:
       translateY(0)
       rotate(0deg);
 
     opacity:0;
+
   }
 
   15%{
-    opacity:.35;
+
+    opacity:.38;
+
   }
 
-  85%{
+  80%{
+
     opacity:.2;
+
   }
 
   100%{
+
     transform:
       translateY(-115vh)
-      rotate(30deg);
+      rotate(35deg);
 
     opacity:0;
+
   }
 
 }
@@ -227,19 +268,19 @@ body{
 
   position:relative;
 
-  z-index:5;
+  z-index:10;
 
   width:
     min(
       1100px,
-      calc(100% - 40px)
+      calc(100% - 32px)
     );
 
   margin:
     0 auto;
 
   padding:
-    24px 0;
+    20px 0;
 
   display:flex;
 
@@ -259,19 +300,59 @@ body{
 
   font-size:26px;
 
-  letter-spacing:-.5px;
+  letter-spacing:-.6px;
 
 }
 
 
-.logo span{
+.logo-heart{
 
   font-size:20px;
 
 }
 
 
-.nav-button{
+.nav-actions{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+}
+
+
+.login-button{
+
+  border:0;
+
+  background:transparent;
+
+  color:
+    rgba(255,255,255,.75);
+
+  font-size:13px;
+
+  padding:
+    10px 12px;
+
+  cursor:pointer;
+
+  transition:
+    color .2s ease;
+
+}
+
+
+.login-button:hover{
+
+  color:#fff;
+
+}
+
+
+.create-nav{
 
   display:inline-flex;
 
@@ -290,12 +371,14 @@ body{
 
   font-size:13px;
 
+  font-weight:600;
+
   border:
     1px solid
     rgba(255,255,255,.22);
 
   background:
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.09);
 
   backdrop-filter:
     blur(12px);
@@ -307,13 +390,13 @@ body{
 }
 
 
-.nav-button:hover{
+.create-nav:hover{
 
   transform:
     translateY(-2px);
 
   background:
-    rgba(255,255,255,.15);
+    rgba(255,255,255,.16);
 
 }
 
@@ -331,7 +414,7 @@ body{
   width:
     min(
       1100px,
-      calc(100% - 40px)
+      calc(100% - 32px)
     );
 
   margin:
@@ -347,20 +430,20 @@ body{
 .hero{
 
   min-height:
-    calc(100vh - 80px);
+    calc(100vh - 76px);
 
   display:grid;
 
   grid-template-columns:
-    1.1fr
-    .9fr;
+    1.08fr
+    .92fr;
 
   align-items:center;
 
   gap:60px;
 
   padding:
-    45px 0
+    40px 0
     80px;
 
 }
@@ -369,7 +452,7 @@ body{
 .hero-content{
 
   animation:
-    heroIn .9s ease-out;
+    heroIn .85s ease-out;
 
 }
 
@@ -394,13 +477,14 @@ body{
   background:
     rgba(255,255,255,.07);
 
-  font-size:11px;
+  font-size:10px;
 
   letter-spacing:2px;
 
   text-transform:uppercase;
 
-  opacity:.75;
+  color:
+    rgba(255,255,255,.75);
 
 }
 
@@ -420,15 +504,14 @@ body{
 
   font-size:
     clamp(
-      54px,
+      52px,
       8vw,
-      92px
+      88px
     );
 
-  line-height:.92;
+  line-height:.94;
 
-  letter-spacing:
-    -4px;
+  letter-spacing:-4px;
 
 }
 
@@ -464,7 +547,7 @@ body{
   line-height:1.7;
 
   color:
-    rgba(255,255,255,.72);
+    rgba(255,255,255,.68);
 
 }
 
@@ -490,8 +573,10 @@ body{
 
   justify-content:center;
 
+  min-height:50px;
+
   padding:
-    15px 22px;
+    14px 22px;
 
   border-radius:999px;
 
@@ -510,7 +595,8 @@ body{
     rgba(0,0,0,.22);
 
   transition:
-    transform .2s ease;
+    transform .2s ease,
+    box-shadow .2s ease;
 
 }
 
@@ -519,6 +605,10 @@ body{
 
   transform:
     translateY(-3px);
+
+  box-shadow:
+    0 18px 40px
+    rgba(0,0,0,.28);
 
 }
 
@@ -531,8 +621,10 @@ body{
 
   justify-content:center;
 
+  min-height:50px;
+
   padding:
-    15px 22px;
+    14px 22px;
 
   border-radius:999px;
 
@@ -541,21 +633,32 @@ body{
   color:#fff;
 
   background:
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.07);
 
   border:
     1px solid
-    rgba(255,255,255,.2);
+    rgba(255,255,255,.18);
 
   font-weight:600;
 
   font-size:14px;
 
+  transition:
+    background .2s ease;
+
+}
+
+
+.secondary:hover{
+
+  background:
+    rgba(255,255,255,.13);
+
 }
 
 
 /* ==========================================
-   HERO CARD
+   HERO PREVIEW
 ========================================== */
 
 .preview-wrap{
@@ -565,12 +668,14 @@ body{
   justify-content:center;
 
   animation:
-    previewIn 1s ease-out .15s both;
+    previewIn 1s ease-out .1s both;
 
 }
 
 
 .preview{
+
+  position:relative;
 
   width:
     min(
@@ -578,7 +683,7 @@ body{
       100%
     );
 
-  min-height:480px;
+  min-height:475px;
 
   padding:
     35px 28px;
@@ -603,7 +708,7 @@ body{
     linear-gradient(
       145deg,
       rgba(255,255,255,.17),
-      rgba(255,255,255,.06)
+      rgba(255,255,255,.055)
     );
 
   backdrop-filter:
@@ -618,6 +723,25 @@ body{
 
   transition:
     transform .35s ease;
+
+}
+
+
+.preview::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:12px;
+
+  border-radius:26px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.07);
+
+  pointer-events:none;
 
 }
 
@@ -639,7 +763,7 @@ body{
 
   text-transform:uppercase;
 
-  opacity:.55;
+  opacity:.52;
 
 }
 
@@ -647,24 +771,29 @@ body{
 .preview-heart{
 
   margin:
-    25px 0;
+    24px 0;
 
-  font-size:72px;
+  font-size:70px;
 
   animation:
-    heartbeat 2s ease-in-out infinite;
+    heartbeat 2.2s ease-in-out infinite;
 
 }
 
 
 @keyframes heartbeat{
 
-  0%,100%{
+  0%,
+  100%{
+
     transform:scale(1);
+
   }
 
   50%{
+
     transform:scale(1.08);
+
   }
 
 }
@@ -681,7 +810,7 @@ body{
 
   font-weight:normal;
 
-  font-size:42px;
+  font-size:40px;
 
 }
 
@@ -718,11 +847,11 @@ body{
 
 .preview-from{
 
-  margin-top:25px;
+  margin-top:24px;
 
   font-size:12px;
 
-  opacity:.55;
+  opacity:.5;
 
 }
 
@@ -757,7 +886,7 @@ body{
     opacity:0;
 
     transform:
-      rotate(6deg)
+      rotate(7deg)
       translateY(30px);
 
   }
@@ -804,7 +933,8 @@ body{
 
   text-transform:uppercase;
 
-  opacity:.5;
+  color:
+    rgba(255,255,255,.5);
 
 }
 
@@ -838,7 +968,7 @@ body{
   margin:0;
 
   color:
-    rgba(255,255,255,.65);
+    rgba(255,255,255,.62);
 
   line-height:1.7;
 
@@ -846,7 +976,7 @@ body{
 
 
 /* ==========================================
-   STEPS
+   HOW IT WORKS
 ========================================== */
 
 .steps{
@@ -865,7 +995,7 @@ body{
 
   padding:30px;
 
-  min-height:230px;
+  min-height:225px;
 
   border:
     1px solid
@@ -879,6 +1009,21 @@ body{
   backdrop-filter:
     blur(14px);
 
+  transition:
+    transform .25s ease,
+    background .25s ease;
+
+}
+
+
+.step:hover{
+
+  transform:
+    translateY(-5px);
+
+  background:
+    rgba(255,255,255,.08);
+
 }
 
 
@@ -891,7 +1036,7 @@ body{
 
   font-size:18px;
 
-  opacity:.45;
+  opacity:.42;
 
 }
 
@@ -928,7 +1073,7 @@ body{
   margin:0;
 
   color:
-    rgba(255,255,255,.58);
+    rgba(255,255,255,.56);
 
   line-height:1.6;
 
@@ -946,8 +1091,8 @@ body{
   display:grid;
 
   grid-template-columns:
-    .85fr
-    1.15fr;
+    .9fr
+    1.1fr;
 
   gap:60px;
 
@@ -959,7 +1104,7 @@ body{
 .experience-copy p{
 
   color:
-    rgba(255,255,255,.65);
+    rgba(255,255,255,.64);
 
   line-height:1.8;
 
@@ -972,7 +1117,7 @@ body{
 
   display:grid;
 
-  gap:12px;
+  gap:13px;
 
   margin-top:25px;
 
@@ -997,6 +1142,8 @@ body{
 
 .feature-dot{
 
+  flex:0 0 auto;
+
   width:9px;
   height:9px;
 
@@ -1013,7 +1160,100 @@ body{
 
 
 /* ==========================================
-   CTA
+   MOMENT STORIES
+========================================== */
+
+.stories{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:16px;
+
+}
+
+
+.story{
+
+  min-height:245px;
+
+  padding:28px;
+
+  border-radius:25px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.13);
+
+  background:
+    rgba(255,255,255,.055);
+
+  backdrop-filter:
+    blur(14px);
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+
+  transition:
+    transform .25s ease;
+
+}
+
+
+.story:hover{
+
+  transform:
+    translateY(-5px);
+
+}
+
+
+.story-icon{
+
+  font-size:27px;
+
+}
+
+
+.story-text{
+
+  margin:
+    22px 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
+
+  line-height:1.55;
+
+  color:
+    rgba(255,255,255,.9);
+
+}
+
+
+.story-label{
+
+  font-size:11px;
+
+  color:
+    rgba(255,255,255,.45);
+
+  letter-spacing:.5px;
+
+}
+
+
+/* ==========================================
+   FINAL CTA
 ========================================== */
 
 .cta{
@@ -1050,6 +1290,9 @@ body{
 
   font-size:38px;
 
+  animation:
+    heartbeat 2.2s ease-in-out infinite;
+
 }
 
 
@@ -1084,9 +1327,165 @@ body{
   max-width:500px;
 
   color:
-    rgba(255,255,255,.65);
+    rgba(255,255,255,.64);
 
   line-height:1.7;
+
+}
+
+
+/* ==========================================
+   LOGIN COMING SOON MODAL
+========================================== */
+
+.modal-backdrop{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+  background:
+    rgba(10,3,12,.68);
+
+  backdrop-filter:
+    blur(10px);
+
+}
+
+
+.modal-backdrop.show{
+
+  display:flex;
+
+}
+
+
+.login-modal{
+
+  width:
+    min(
+      390px,
+      100%
+    );
+
+  padding:
+    34px 28px;
+
+  text-align:center;
+
+  border:
+    1px solid
+    rgba(255,255,255,.2);
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(90,18,60,.95),
+      rgba(35,8,31,.96)
+    );
+
+  box-shadow:
+    0 30px 80px
+    rgba(0,0,0,.45);
+
+  animation:
+    modalIn .25s ease-out;
+
+}
+
+
+.login-modal-heart{
+
+  font-size:42px;
+
+}
+
+
+.login-modal h3{
+
+  margin:
+    15px 0 10px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:30px;
+
+  font-weight:normal;
+
+}
+
+
+.login-modal p{
+
+  margin:
+    0 0 22px;
+
+  color:
+    rgba(255,255,255,.65);
+
+  line-height:1.6;
+
+  font-size:14px;
+
+}
+
+
+.close-modal{
+
+  border:0;
+
+  border-radius:999px;
+
+  padding:
+    12px 22px;
+
+  cursor:pointer;
+
+  font-weight:700;
+
+  color:#74153f;
+
+  background:#fff;
+
+}
+
+
+@keyframes modalIn{
+
+  from{
+
+    opacity:0;
+
+    transform:
+      translateY(12px)
+      scale(.97);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
 
 }
 
@@ -1104,7 +1503,7 @@ footer{
   width:
     min(
       1100px,
-      calc(100% - 40px)
+      calc(100% - 32px)
     );
 
   margin:
@@ -1117,6 +1516,8 @@ footer{
 
   justify-content:space-between;
 
+  gap:20px;
+
   color:
     rgba(255,255,255,.38);
 
@@ -1125,7 +1526,7 @@ footer{
 }
 
 
-footer span{
+footer span:first-child{
 
   letter-spacing:2px;
 
@@ -1137,6 +1538,13 @@ footer span{
 ========================================== */
 
 @media(max-width:800px){
+
+  .nav{
+
+    padding-top:16px;
+
+  }
+
 
   .hero{
 
@@ -1150,11 +1558,13 @@ footer span{
 
   }
 
+
   .hero-content{
 
     text-align:center;
 
   }
+
 
   .hero p{
 
@@ -1162,11 +1572,13 @@ footer span{
 
   }
 
+
   .hero-actions{
 
     justify-content:center;
 
   }
+
 
   .preview{
 
@@ -1174,17 +1586,26 @@ footer span{
 
   }
 
+
   .steps{
 
     grid-template-columns:1fr;
 
   }
 
+
   .experience{
 
     grid-template-columns:1fr;
 
-    gap:30px;
+    gap:35px;
+
+  }
+
+
+  .stories{
+
+    grid-template-columns:1fr;
 
   }
 
@@ -1202,11 +1623,6 @@ footer span{
 
   }
 
-  .nav{
-
-    padding-top:18px;
-
-  }
 
   .logo{
 
@@ -1214,17 +1630,77 @@ footer span{
 
   }
 
-  .hero h1{
 
-    letter-spacing:-2.5px;
+  .logo-heart{
+
+    font-size:18px;
 
   }
+
+
+  .nav-actions{
+
+    gap:3px;
+
+  }
+
+
+  .login-button{
+
+    padding:
+      9px 7px;
+
+    font-size:12px;
+
+  }
+
+
+  .create-nav{
+
+    padding:
+      9px 12px;
+
+    font-size:12px;
+
+  }
+
+
+  .hero{
+
+    padding-bottom:55px;
+
+  }
+
+
+  .hero h1{
+
+    font-size:
+      clamp(
+        50px,
+        15vw,
+        68px
+      );
+
+    letter-spacing:-3px;
+
+  }
+
 
   .hero p{
 
     font-size:16px;
 
   }
+
+
+  .hero-actions{
+
+    flex-direction:column;
+
+    width:100%;
+
+  }
+
 
   .primary,
   .secondary{
@@ -1233,11 +1709,13 @@ footer span{
 
   }
 
-  .hero-actions{
 
-    flex-direction:column;
+  .preview{
+
+    min-height:405px;
 
   }
+
 
   .section{
 
@@ -1246,26 +1724,47 @@ footer span{
 
   }
 
+
+  .section h2{
+
+    letter-spacing:-1.5px;
+
+  }
+
+
   .step{
+
+    min-height:auto;
 
     padding:25px;
 
   }
+
+
+  .story{
+
+    min-height:215px;
+
+  }
+
 
   .cta{
 
     padding:
       50px 22px;
 
+    margin-bottom:65px;
+
   }
+
 
   footer{
 
     flex-direction:column;
 
-    gap:10px;
-
     text-align:center;
+
+    align-items:center;
 
   }
 
@@ -1279,20 +1778,25 @@ footer span{
 <body>
 
 
-<!-- Ambient glow -->
+<!-- ==========================================
+     AMBIENT EFFECTS
+========================================== -->
 
 <div class="glow one"></div>
+
 <div class="glow two"></div>
 
-
-<!-- Floating hearts -->
 
 <div class="hearts">
 
   <span class="heart">❤️</span>
+
   <span class="heart">💗</span>
+
   <span class="heart">💕</span>
+
   <span class="heart">❤️</span>
+
   <span class="heart">💗</span>
 
 </div>
@@ -1305,16 +1809,34 @@ footer span{
 <nav class="nav">
 
   <div class="logo">
-    Moment <span>❤️</span>
+
+    Moment
+    <span class="logo-heart">❤️</span>
+
   </div>
 
 
-  <a
-    href="/create"
-    class="nav-button"
-  >
-    Create
-  </a>
+  <div class="nav-actions">
+
+
+    <button
+      type="button"
+      class="login-button"
+      id="loginButton"
+    >
+      Login
+    </button>
+
+
+    <a
+      href="/create"
+      class="create-nav"
+    >
+      Create an Invite ❤️
+    </a>
+
+
+  </div>
 
 </nav>
 
@@ -1333,7 +1855,9 @@ footer span{
 
 
     <div class="eyebrow">
+
       Made for meaningful moments ❤️
+
     </div>
 
 
@@ -1351,7 +1875,7 @@ footer span{
       Create a beautiful little invitation,
       send it to someone special,
       and turn an ordinary question
-      into something they will remember.
+      into something they'll remember.
 
     </p>
 
@@ -1363,7 +1887,7 @@ footer span{
         href="/create"
         class="primary"
       >
-        Create an Invitation ❤️
+        Create an Invite ❤️
       </a>
 
 
@@ -1371,8 +1895,9 @@ footer span{
         href="#how"
         class="secondary"
       >
-        How it works
+        See how it works
       </a>
+
 
     </div>
 
@@ -1380,7 +1905,9 @@ footer span{
   </div>
 
 
-  <!-- Preview -->
+  <!-- ========================================
+       HERO PREVIEW
+  ========================================= -->
 
   <div class="preview-wrap">
 
@@ -1388,17 +1915,23 @@ footer span{
 
 
       <div class="preview-label">
+
         A little invitation
+
       </div>
 
 
       <div class="preview-heart">
+
         ❤️
+
       </div>
 
 
       <h2>
+
         Someone special
+
       </h2>
 
 
@@ -1440,13 +1973,18 @@ footer span{
 
   <div class="section-header">
 
+
     <div class="section-label">
+
       Simple by design
+
     </div>
 
 
     <h2>
+
       Three little steps.
+
     </h2>
 
 
@@ -1458,6 +1996,7 @@ footer span{
 
     </p>
 
+
   </div>
 
 
@@ -1466,18 +2005,25 @@ footer span{
 
     <article class="step">
 
+
       <div class="step-number">
+
         01
+
       </div>
 
 
       <div class="step-icon">
+
         ✍️
+
       </div>
 
 
       <h3>
+
         Create
+
       </h3>
 
 
@@ -1489,23 +2035,31 @@ footer span{
 
       </p>
 
+
     </article>
 
 
     <article class="step">
 
+
       <div class="step-number">
+
         02
+
       </div>
 
 
       <div class="step-icon">
+
         💌
+
       </div>
 
 
       <h3>
+
         Share
+
       </h3>
 
 
@@ -1513,27 +2067,35 @@ footer span{
 
         Moment creates a
         unique invitation link
-        that you can send anywhere.
+        you can send anywhere.
 
       </p>
+
 
     </article>
 
 
     <article class="step">
 
+
       <div class="step-number">
+
         03
+
       </div>
 
 
       <div class="step-icon">
+
         🥰
+
       </div>
 
 
       <h3>
+
         Make the moment
+
       </h3>
 
 
@@ -1544,6 +2106,7 @@ footer span{
         if they're in.
 
       </p>
+
 
     </article>
 
@@ -1558,9 +2121,7 @@ footer span{
      EXPERIENCE
 ========================================== -->
 
-<section
-  class="section container"
->
+<section class="section container">
 
 
   <div class="experience">
@@ -1570,12 +2131,16 @@ footer span{
 
 
       <div class="section-label">
+
         More than a link
+
       </div>
 
 
       <h2>
+
         A little experience.
+
       </h2>
 
 
@@ -1636,21 +2201,28 @@ footer span{
 
     <div class="preview-wrap">
 
+
       <div class="preview">
 
 
         <div class="preview-label">
+
           Your moment
+
         </div>
 
 
         <div class="preview-heart">
+
           💗
+
         </div>
 
 
         <h2>
+
           It's a date!
+
         </h2>
 
 
@@ -1673,7 +2245,136 @@ footer span{
 
       </div>
 
+
     </div>
+
+
+  </div>
+
+
+</section>
+
+
+<!-- ==========================================
+     MOMENT STORIES
+========================================== -->
+
+<section class="section container">
+
+
+  <div class="section-header">
+
+
+    <div class="section-label">
+
+      The feeling we're creating
+
+    </div>
+
+
+    <h2>
+
+      Made for moments.
+
+    </h2>
+
+
+    <p>
+
+      A little inspiration for the kind
+      of memories Moment is made for.
+
+    </p>
+
+
+  </div>
+
+
+  <div class="stories">
+
+
+    <article class="story">
+
+
+      <div class="story-icon">
+
+        ❤️
+
+      </div>
+
+
+      <div class="story-text">
+
+        "Sometimes asking the question
+        is the hardest part."
+
+      </div>
+
+
+      <div class="story-label">
+
+        FOR THE FIRST DATE
+
+      </div>
+
+
+    </article>
+
+
+    <article class="story">
+
+
+      <div class="story-icon">
+
+        💕 
+
+      </div>
+
+
+      <div class="story-text">
+
+        "Turn an ordinary plan
+        into something worth remembering."
+
+      </div>
+
+
+      <div class="story-label">
+
+        FOR SOMEONE SPECIAL
+
+      </div>
+
+
+    </article>
+
+
+    <article class="story">
+
+
+      <div class="story-icon">
+
+        🥰
+
+      </div>
+
+
+      <div class="story-text">
+
+        "Because a yes deserves
+        a little celebration."
+
+      </div>
+
+
+      <div class="story-label">
+
+        FOR THE MOMENT AFTER
+
+      </div>
+
+
+    </article>
 
 
   </div>
@@ -1693,20 +2394,23 @@ footer span{
 
 
     <div class="cta-heart">
+
       ❤️
+
     </div>
 
 
     <h2>
+
       Ready to make a moment?
+
     </h2>
 
 
     <p>
 
-      Sometimes the simplest
-      question deserves a
-      beautiful answer.
+      Sometimes the simplest question
+      deserves a beautiful answer.
 
     </p>
 
@@ -1715,7 +2419,9 @@ footer span{
       href="/create"
       class="primary"
     >
-      Create your invitation
+
+      Create an Invite ❤️
+
     </a>
 
 
@@ -1734,15 +2440,165 @@ footer span{
 
 <footer>
 
-  <span>
-    MOMENT ❤️
-  </span>
 
   <span>
-    Made for the moments that matter.
+
+    MOMENT ❤️
+
   </span>
+
+
+  <span>
+
+    Made for the moments that matter.
+
+  </span>
+
 
 </footer>
+
+
+<!-- ==========================================
+     LOGIN COMING SOON
+========================================== -->
+
+<div
+  class="modal-backdrop"
+  id="loginModal"
+>
+
+
+  <div
+    class="login-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="loginTitle"
+  >
+
+
+    <div class="login-modal-heart">
+
+      ❤️
+
+    </div>
+
+
+    <h3 id="loginTitle">
+
+      Login is coming soon.
+
+    </h3>
+
+
+    <p>
+
+      We're working on a way for you
+      to keep track of all the moments
+      you've created.
+
+    </p>
+
+
+    <button
+      type="button"
+      class="close-modal"
+      id="closeLogin"
+    >
+
+      Got it ❤️
+
+    </button>
+
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   LOGIN MODAL
+========================================== */
+
+const loginButton =
+  document.getElementById(
+    "loginButton"
+  );
+
+const loginModal =
+  document.getElementById(
+    "loginModal"
+  );
+
+const closeLogin =
+  document.getElementById(
+    "closeLogin"
+  );
+
+
+loginButton.addEventListener(
+  "click",
+  () => {
+
+    loginModal.classList.add(
+      "show"
+    );
+
+  }
+);
+
+
+closeLogin.addEventListener(
+  "click",
+  () => {
+
+    loginModal.classList.remove(
+      "show"
+    );
+
+  }
+);
+
+
+loginModal.addEventListener(
+  "click",
+  (event) => {
+
+    if(
+      event.target ===
+      loginModal
+    ){
+
+      loginModal.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if(
+      event.key === "Escape"
+    ){
+
+      loginModal.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
+);
+
+</script>
 
 
 </body>
