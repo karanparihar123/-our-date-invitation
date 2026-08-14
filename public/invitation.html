@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 
@@ -1175,7 +1176,7 @@ button:active{
           id="dateInput"
           class="date-input"
           type="date"
-          min=""
+          required
         >
 
 
@@ -1328,16 +1329,43 @@ const status =
 
 
 /* ==========================================
+   LOCAL TODAY DATE
+   Avoid UTC date mismatch
+========================================== */
+
+function getLocalDateString(){
+
+  const now =
+    new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(2,"0");
+
+  const day =
+    String(
+      now.getDate()
+    ).padStart(2,"0");
+
+  return `${year}-${month}-${day}`;
+
+}
+
+
+const today =
+  getLocalDateString();
+
+
+/* ==========================================
    DISABLE PAST DATES
 ========================================== */
 
-const today =
-  new Date()
-    .toISOString()
-    .split("T")[0];
-
-
-dateInput.min = today;
+dateInput.min =
+  today;
 
 
 /* ==========================================
@@ -1539,8 +1567,8 @@ confirmButton.addEventListener(
 
     /* --------------------------------------
        EXTRA FRONTEND VALIDATION
-       Prevent past dates even if manually
-       entered or browser ignores min.
+       Prevent past dates even if browser
+       ignores the min attribute.
     -------------------------------------- */
 
     if(selectedDate < today){
@@ -1689,3 +1717,4 @@ loadInvitation();
 </body>
 
 </html>
+```
