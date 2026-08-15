@@ -3,1774 +3,1762 @@
 
 <head>
 
-<meta charset="utf-8">
+  <meta charset="utf-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-<title>Moment ❤️ — Make it a moment</title>
+  <title>Moment ❤️</title>
 
-<style>
 
-/* ==========================================
-   RESET
-========================================== */
+  <style>
 
-*{
-  box-sizing:border-box;
-}
+    /* ==========================================
+       RESET
+    ========================================== */
 
-html{
-  scroll-behavior:smooth;
-}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-body{
 
-  margin:0;
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #160817;
+    }
 
-  min-height:100vh;
 
-  overflow-x:hidden;
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
 
-  color:#fff;
+      overflow-x: hidden;
+      overflow-y: auto;
 
-  background:
-    radial-gradient(
-      circle at 15% 10%,
-      rgba(255,255,255,.12),
-      transparent 25%
-    ),
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-    radial-gradient(
-      circle at 90% 75%,
-      rgba(255,105,150,.18),
-      transparent 30%
-    ),
+      color: #fff;
 
-    linear-gradient(
-      145deg,
-      #160817 0%,
-      #3b0c2f 42%,
-      #761842 72%,
-      #d65c7d 100%
-    );
+      background:
+        radial-gradient(
+          circle at 20% 15%,
+          rgba(255,255,255,.18),
+          transparent 25%
+        ),
 
-}
+        radial-gradient(
+          circle at 85% 85%,
+          rgba(255,120,160,.25),
+          transparent 30%
+        ),
 
+        linear-gradient(
+          145deg,
+          #160817 0%,
+          #3b0c2f 42%,
+          #761842 72%,
+          #d65c7d 100%
+        );
+    }
 
-/* ==========================================
-   AMBIENT GLOW
-========================================== */
 
-.glow{
+    /* ==========================================
+       PAGE
+    ========================================== */
 
-  position:fixed;
+    .page {
 
-  width:360px;
-  height:360px;
+      width: 100%;
 
-  border-radius:50%;
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
 
-  filter:blur(100px);
+      display: flex;
 
-  opacity:.18;
+      align-items: center;
+      justify-content: center;
 
-  pointer-events:none;
+      padding:
+        max(20px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-right))
+        max(20px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
 
-  z-index:0;
+      position: relative;
 
-  animation:
-    glowMove 9s ease-in-out infinite alternate;
+      z-index: 1;
+    }
 
-}
 
-.glow.one{
+    /* ==========================================
+       GLOW
+    ========================================== */
 
-  background:#ff719b;
+    .glow {
 
-  top:-160px;
-  left:-120px;
+      position: fixed;
 
-}
+      width: 320px;
+      height: 320px;
 
-.glow.two{
+      border-radius: 50%;
 
-  background:#ffb3ca;
+      filter: blur(90px);
 
-  right:-150px;
-  bottom:-150px;
+      opacity: .22;
 
-  animation-delay:3s;
+      pointer-events: none;
 
-}
+      z-index: 0;
 
+      animation:
+        glowMove 8s ease-in-out infinite alternate;
+    }
 
-@keyframes glowMove{
 
-  from{
+    .glow.one {
 
-    transform:
-      translate(0,0)
-      scale(1);
+      background: #ff7fa5;
 
-  }
+      top: -120px;
+      left: -100px;
+    }
 
-  to{
 
-    transform:
-      translate(35px,-20px)
-      scale(1.15);
+    .glow.two {
 
-  }
+      background: #ffb6cf;
 
-}
+      right: -120px;
+      bottom: -130px;
 
+      animation-delay: 2s;
+    }
 
-/* ==========================================
-   FLOATING HEARTS
-========================================== */
 
-.hearts{
+    @keyframes glowMove {
 
-  position:fixed;
+      from {
+        transform:
+          translate(0,0)
+          scale(1);
+      }
 
-  inset:0;
+      to {
+        transform:
+          translate(35px,-25px)
+          scale(1.15);
+      }
+    }
 
-  overflow:hidden;
 
-  pointer-events:none;
+    /* ==========================================
+       FLOATING HEARTS
+    ========================================== */
 
-  z-index:0;
+    .hearts {
 
-}
+      position: fixed;
 
-.heart{
+      inset: 0;
 
-  position:absolute;
+      width: 100%;
+      height: 100%;
 
-  bottom:-50px;
+      overflow: hidden;
 
-  opacity:0;
+      pointer-events: none;
 
-  animation:
-    floatUp linear infinite;
+      z-index: 1;
+    }
 
-}
 
-.heart:nth-child(1){
+    .heart {
 
-  left:7%;
+      position: absolute;
 
-  font-size:18px;
+      bottom: -50px;
 
-  animation-duration:11s;
+      opacity: 0;
 
-}
+      animation:
+        rise linear infinite;
+    }
 
-.heart:nth-child(2){
 
-  left:25%;
+    .heart:nth-child(1) {
 
-  font-size:14px;
+      left: 8%;
 
-  animation-duration:14s;
+      font-size: 18px;
 
-  animation-delay:2s;
+      animation-duration: 10s;
+    }
 
-}
 
-.heart:nth-child(3){
+    .heart:nth-child(2) {
 
-  left:50%;
+      left: 23%;
 
-  font-size:22px;
+      font-size: 13px;
 
-  animation-duration:10s;
+      animation-duration: 13s;
 
-  animation-delay:4s;
+      animation-delay: 3s;
+    }
 
-}
 
-.heart:nth-child(4){
+    .heart:nth-child(3) {
 
-  left:74%;
+      left: 48%;
 
-  font-size:16px;
+      font-size: 20px;
 
-  animation-duration:13s;
+      animation-duration: 11s;
 
-  animation-delay:1s;
+      animation-delay: 1s;
+    }
 
-}
 
-.heart:nth-child(5){
+    .heart:nth-child(4) {
 
-  left:91%;
+      left: 72%;
 
-  font-size:20px;
+      font-size: 15px;
 
-  animation-duration:12s;
+      animation-duration: 14s;
 
-  animation-delay:5s;
+      animation-delay: 4s;
+    }
 
-}
 
+    .heart:nth-child(5) {
 
-@keyframes floatUp{
+      left: 91%;
 
-  0%{
+      font-size: 19px;
 
-    transform:
-      translateY(0)
-      rotate(0deg);
+      animation-duration: 12s;
 
-    opacity:0;
+      animation-delay: 2s;
+    }
 
-  }
 
-  15%{
+    @keyframes rise {
 
-    opacity:.38;
+      0% {
 
-  }
+        transform:
+          translateY(0)
+          rotate(0deg);
 
-  80%{
+        opacity: 0;
+      }
 
-    opacity:.2;
+      15% {
 
-  }
+        opacity: .45;
+      }
 
-  100%{
+      85% {
 
-    transform:
-      translateY(-115vh)
-      rotate(35deg);
+        opacity: .25;
+      }
 
-    opacity:0;
+      100% {
 
-  }
+        transform:
+          translateY(-115vh)
+          rotate(35deg);
 
-}
+        opacity: 0;
+      }
+    }
 
 
-/* ==========================================
-   NAVIGATION
-========================================== */
+    /* ==========================================
+       WRAPPER
+    ========================================== */
 
-.nav{
+    .wrapper {
 
-  position:relative;
+      width: min(560px, 100%);
 
-  z-index:10;
+      position: relative;
 
-  width:
-    min(
-      1100px,
-      calc(100% - 32px)
-    );
+      z-index: 3;
 
-  margin:
-    0 auto;
+      margin: auto;
+    }
 
-  padding:
-    20px 0;
 
-  display:flex;
+    /* ==========================================
+       BRAND
+    ========================================== */
 
-  align-items:center;
+    .brand {
 
-  justify-content:space-between;
+      text-align: center;
 
-}
+      font-family:
+        Arial,
+        sans-serif;
 
+      font-size: 11px;
 
-.logo{
+      letter-spacing: 5px;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      text-transform: uppercase;
 
-  font-size:26px;
+      opacity: .65;
 
-  letter-spacing:-.6px;
+      margin-bottom: 20px;
+    }
 
-}
 
+    /* ==========================================
+       CARD
+    ========================================== */
 
-.logo-heart{
+    .card {
 
-  font-size:20px;
+      position: relative;
 
-}
+      width: 100%;
 
+      padding:
+        38px 26px
+        34px;
 
-.nav-actions{
+      text-align: center;
 
-  display:flex;
+      border:
+        1px solid
+        rgba(255,255,255,.22);
 
-  align-items:center;
+      border-radius: 32px;
 
-  gap:10px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.16),
+          rgba(255,255,255,.07)
+        );
 
-}
+      backdrop-filter:
+        blur(22px);
 
+      -webkit-backdrop-filter:
+        blur(22px);
 
-.login-button{
+      box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.38);
 
-  border:0;
+      overflow: hidden;
 
-  background:transparent;
+      animation:
+        cardIn .9s ease-out;
+    }
 
-  color:
-    rgba(255,255,255,.75);
 
-  font-size:13px;
+    .card::before {
 
-  padding:
-    10px 12px;
+      content: "";
 
-  cursor:pointer;
+      position: absolute;
 
-  transition:
-    color .2s ease;
+      inset: 0;
 
-}
+      background:
+        linear-gradient(
+          120deg,
+          rgba(255,255,255,.14),
+          transparent 40%
+        );
 
+      pointer-events: none;
+    }
 
-.login-button:hover{
 
-  color:#fff;
+    @keyframes cardIn {
 
-}
+      from {
 
+        opacity: 0;
 
-.create-nav{
+        transform:
+          translateY(30px)
+          scale(.96);
+      }
 
-  display:inline-flex;
+      to {
 
-  align-items:center;
+        opacity: 1;
 
-  justify-content:center;
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
 
-  padding:
-    10px 17px;
 
-  border-radius:999px;
+    /* ==========================================
+       OPENING
+    ========================================== */
 
-  text-decoration:none;
+    .opening {
 
-  color:#fff;
+      position: relative;
 
-  font-size:13px;
+      z-index: 2;
 
-  font-weight:600;
+      text-align: center;
+    }
 
-  border:
-    1px solid
-    rgba(255,255,255,.22);
 
-  background:
-    rgba(255,255,255,.09);
+    .small-text {
 
-  backdrop-filter:
-    blur(12px);
+      font-family:
+        Arial,
+        sans-serif;
 
-  transition:
-    transform .2s ease,
-    background .2s ease;
+      font-size: 13px;
 
-}
+      letter-spacing: 1.5px;
 
+      opacity: .72;
 
-.create-nav:hover{
+      margin-bottom: 18px;
+    }
 
-  transform:
-    translateY(-2px);
 
-  background:
-    rgba(255,255,255,.16);
+    .heart-button {
 
-}
+      width: 86px;
+      height: 86px;
 
+      display: flex;
 
-/* ==========================================
-   CONTAINER
-========================================== */
+      align-items: center;
+      justify-content: center;
 
-.container{
+      margin:
+        0 auto
+        22px;
 
-  position:relative;
+      padding: 0;
 
-  z-index:2;
+      border-radius: 50%;
 
-  width:
-    min(
-      1100px,
-      calc(100% - 32px)
-    );
+      border:
+        1px solid
+        rgba(255,255,255,.35);
 
-  margin:
-    0 auto;
+      background:
+        rgba(255,255,255,.12);
 
-}
+      color: #fff;
 
+      font-size: 38px;
 
-/* ==========================================
-   HERO
-========================================== */
+      cursor: pointer;
 
-.hero{
+      box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.25);
 
-  min-height:
-    calc(100vh - 76px);
+      animation:
+        pulse 2s ease-in-out infinite;
 
-  display:grid;
+      transition:
+        transform .25s ease;
+    }
 
-  grid-template-columns:
-    1.08fr
-    .92fr;
 
-  align-items:center;
+    .heart-button:hover {
 
-  gap:60px;
+      transform:
+        scale(1.08);
+    }
 
-  padding:
-    40px 0
-    80px;
 
-}
+    @keyframes pulse {
 
+      0%,100% {
+        transform: scale(1);
+      }
 
-.hero-content{
+      50% {
+        transform: scale(1.07);
+      }
+    }
 
-  animation:
-    heroIn .85s ease-out;
 
-}
+    /* ==========================================
+       INVITATION
+    ========================================== */
 
+    .invitation {
 
-.eyebrow{
+      display: none;
 
-  display:inline-flex;
+      position: relative;
 
-  align-items:center;
+      z-index: 2;
 
-  gap:8px;
+      animation:
+        reveal .8s ease;
+    }
 
-  padding:
-    8px 13px;
 
-  border:
-    1px solid
-    rgba(255,255,255,.16);
+    .invitation.show {
 
-  border-radius:999px;
+      display: block;
+    }
 
-  background:
-    rgba(255,255,255,.07);
 
-  font-size:10px;
+    @keyframes reveal {
 
-  letter-spacing:2px;
+      from {
 
-  text-transform:uppercase;
+        opacity: 0;
 
-  color:
-    rgba(255,255,255,.75);
+        transform:
+          translateY(18px);
+      }
 
-}
+      to {
 
+        opacity: 1;
 
-.hero h1{
+        transform:
+          translateY(0);
+      }
+    }
 
-  margin:
-    22px 0
-    18px;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+    /* ==========================================
+       RECIPIENT
+    ========================================== */
 
-  font-weight:normal;
+    .recipient {
 
-  font-size:
-    clamp(
-      52px,
-      8vw,
-      88px
-    );
+      margin: 0;
 
-  line-height:.94;
+      font-weight: normal;
 
-  letter-spacing:-4px;
+      font-size:
+        clamp(
+          42px,
+          12vw,
+          72px
+        );
 
-}
+      line-height: .95;
 
+      letter-spacing: -1px;
 
-.hero h1 span{
+      text-shadow:
+        0 8px 30px
+        rgba(0,0,0,.25);
+    }
 
-  display:block;
 
-  background:
-    linear-gradient(
-      90deg,
-      #fff,
-      #ffc0d1
-    );
+    .occasion {
 
-  -webkit-background-clip:text;
+      margin-top: 15px;
 
-  background-clip:text;
+      font-family:
+        Arial,
+        sans-serif;
 
-  color:transparent;
+      font-size: 11px;
 
-}
+      letter-spacing: 3px;
 
+      text-transform: uppercase;
 
-.hero p{
+      opacity: .65;
+    }
 
-  max-width:570px;
 
-  margin:0;
+    /* ==========================================
+       DIVIDER
+    ========================================== */
 
-  font-size:18px;
+    .divider {
 
-  line-height:1.7;
+      width: 75px;
 
-  color:
-    rgba(255,255,255,.68);
+      height: 1px;
 
-}
+      margin:
+        28px auto;
 
+      background:
+        rgba(255,255,255,.45);
+    }
 
-.hero-actions{
 
-  display:flex;
+    /* ==========================================
+       MESSAGE
+    ========================================== */
 
-  gap:12px;
+    .message {
 
-  margin-top:32px;
+      max-width: 470px;
 
-  flex-wrap:wrap;
+      margin:
+        0 auto
+        24px;
 
-}
+      font-size:
+        clamp(
+          21px,
+          5vw,
+          28px
+        );
 
+      line-height: 1.45;
+    }
 
-.primary{
 
-  display:inline-flex;
+    .message::before {
 
-  align-items:center;
+      content: "“";
 
-  justify-content:center;
+      opacity: .45;
+    }
 
-  min-height:50px;
 
-  padding:
-    14px 22px;
+    .message::after {
 
-  border-radius:999px;
+      content: "”";
 
-  text-decoration:none;
+      opacity: .45;
+    }
 
-  color:#74153f;
 
-  background:#fff;
+    /* ==========================================
+       FROM
+    ========================================== */
 
-  font-weight:700;
+    .from {
 
-  font-size:14px;
+      font-family:
+        Arial,
+        sans-serif;
 
-  box-shadow:
-    0 14px 35px
-    rgba(0,0,0,.22);
+      font-size: 14px;
 
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease;
+      opacity: .72;
 
-}
+      margin-bottom: 32px;
+    }
 
 
-.primary:hover{
+    /* ==========================================
+       QUESTION
+    ========================================== */
 
-  transform:
-    translateY(-3px);
+    .question {
 
-  box-shadow:
-    0 18px 40px
-    rgba(0,0,0,.28);
+      font-size: 20px;
 
-}
+      margin-bottom: 18px;
+    }
 
 
-.secondary{
+    /* ==========================================
+       BUTTONS
+    ========================================== */
 
-  display:inline-flex;
+    .buttons {
 
-  align-items:center;
+      display: flex;
 
-  justify-content:center;
+      gap: 12px;
 
-  min-height:50px;
+      justify-content: center;
 
-  padding:
-    14px 22px;
+      align-items: center;
+    }
 
-  border-radius:999px;
 
-  text-decoration:none;
+    button {
 
-  color:#fff;
+      border: 0;
 
-  background:
-    rgba(255,255,255,.07);
+      font-family:
+        Arial,
+        sans-serif;
 
-  border:
-    1px solid
-    rgba(255,255,255,.18);
+      font-weight: 600;
 
-  font-weight:600;
+      font-size: 15px;
 
-  font-size:14px;
+      cursor: pointer;
 
-  transition:
-    background .2s ease;
+      border-radius: 999px;
 
-}
+      padding:
+        14px 23px;
 
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+    }
 
-.secondary:hover{
 
-  background:
-    rgba(255,255,255,.13);
+    button:hover {
 
-}
+      transform:
+        translateY(-2px);
+    }
 
 
-/* ==========================================
-   HERO PREVIEW
-========================================== */
+    button:active {
 
-.preview-wrap{
+      transform:
+        scale(.97);
+    }
 
-  display:flex;
 
-  justify-content:center;
+    .yes {
 
-  animation:
-    previewIn 1s ease-out .1s both;
+      color: #74153f;
 
-}
+      background: #fff;
 
+      box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.2);
+    }
 
-.preview{
 
-  position:relative;
+    .maybe {
 
-  width:
-    min(
-      360px,
-      100%
-    );
+      color: #fff;
 
-  min-height:475px;
+      background:
+        rgba(255,255,255,.10);
 
-  padding:
-    35px 28px;
+      border:
+        1px solid
+        rgba(255,255,255,.25);
+    }
 
-  display:flex;
 
-  flex-direction:column;
+    /* ==========================================
+       DATE PAGE
+    ========================================== */
 
-  align-items:center;
+    .date-page {
 
-  justify-content:center;
+      display: none;
 
-  text-align:center;
+      position: relative;
 
-  border-radius:34px;
+      z-index: 2;
 
-  border:
-    1px solid
-    rgba(255,255,255,.22);
+      text-align: center;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.17),
-      rgba(255,255,255,.055)
-    );
+      animation:
+        reveal .6s ease;
+    }
 
-  backdrop-filter:
-    blur(22px);
 
-  box-shadow:
-    0 35px 90px
-    rgba(0,0,0,.38);
+    .date-page.show {
 
-  transform:
-    rotate(2deg);
+      display: block;
+    }
 
-  transition:
-    transform .35s ease;
 
-}
+    .date-page-heart {
 
+      font-size: 55px;
 
-.preview::before{
+      margin-bottom: 15px;
 
-  content:"";
+      animation:
+        pulse 2s ease-in-out infinite;
+    }
 
-  position:absolute;
 
-  inset:12px;
+    .date-page-title {
 
-  border-radius:26px;
+      margin: 0 0 12px;
 
-  border:
-    1px solid
-    rgba(255,255,255,.07);
+      font-size:
+        clamp(
+          32px,
+          9vw,
+          48px
+        );
 
-  pointer-events:none;
+      font-weight: normal;
+    }
 
-}
 
+    .date-page-text {
 
-.preview:hover{
+      max-width: 400px;
 
-  transform:
-    rotate(0deg)
-    translateY(-6px);
+      margin:
+        0 auto
+        25px;
 
-}
+      font-family:
+        Arial,
+        sans-serif;
 
+      font-size: 15px;
 
-.preview-label{
+      line-height: 1.7;
 
-  font-size:10px;
+      opacity: .75;
+    }
 
-  letter-spacing:3px;
 
-  text-transform:uppercase;
+    .choose-date-button {
 
-  opacity:.52;
+      color: #74153f;
 
-}
+      background: #fff;
 
+      box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.2);
 
-.preview-heart{
+      padding:
+        15px 28px;
+    }
 
-  margin:
-    24px 0;
 
-  font-size:70px;
+    .back-button {
 
-  animation:
-    heartbeat 2.2s ease-in-out infinite;
+      display: block;
 
-}
+      margin:
+        18px auto
+        0;
 
+      color: rgba(255,255,255,.7);
 
-@keyframes heartbeat{
+      background:
+        transparent;
 
-  0%,
-  100%{
+      border:
+        1px solid
+        rgba(255,255,255,.2);
 
-    transform:scale(1);
+      font-size: 13px;
+    }
 
-  }
 
-  50%{
+    /* ==========================================
+       CALENDAR MODAL
+    ========================================== */
 
-    transform:scale(1.08);
+    .calendar-modal {
 
-  }
+      position: fixed;
 
-}
+      inset: 0;
 
+      z-index: 100;
 
-.preview h2{
+      display: none;
 
-  margin:0;
+      align-items: center;
+      justify-content: center;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      padding:
+        20px
+        max(20px, env(safe-area-inset-right))
+        20px
+        max(20px, env(safe-area-inset-left));
 
-  font-weight:normal;
+      background:
+        rgba(15,3,15,.72);
 
-  font-size:40px;
+      backdrop-filter:
+        blur(12px);
 
-}
+      -webkit-backdrop-filter:
+        blur(12px);
+    }
 
 
-.preview-line{
+    .calendar-modal.show {
 
-  width:55px;
+      display: flex;
 
-  height:1px;
+      animation:
+        modalFade .25s ease;
+    }
 
-  margin:20px 0;
 
-  background:
-    rgba(255,255,255,.4);
+    @keyframes modalFade {
 
-}
+      from {
+        opacity: 0;
+      }
 
+      to {
+        opacity: 1;
+      }
+    }
 
-.preview-message{
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+    .calendar-modal-content {
 
-  font-size:20px;
+      width:
+        min(
+          390px,
+          100%
+        );
 
-  line-height:1.5;
+      max-height:
+        calc(100dvh - 40px);
 
-  opacity:.82;
+      overflow-y: auto;
 
-}
+      padding:
+        24px 20px
+        22px;
 
+      text-align: center;
 
-.preview-from{
+      border:
+        1px solid
+        rgba(255,255,255,.25);
 
-  margin-top:24px;
+      border-radius: 26px;
 
-  font-size:12px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(115,35,82,.96),
+          rgba(45,9,38,.98)
+        );
 
-  opacity:.5;
+      box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.5);
 
-}
+      animation:
+        modalIn .3s ease;
+    }
 
 
-@keyframes heroIn{
+    @keyframes modalIn {
 
-  from{
+      from {
 
-    opacity:0;
+        opacity: 0;
 
-    transform:
-      translateY(25px);
+        transform:
+          translateY(15px)
+          scale(.96);
+      }
 
-  }
+      to {
 
-  to{
+        opacity: 1;
 
-    opacity:1;
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
 
-    transform:
-      translateY(0);
 
-  }
+    .calendar-modal-title {
 
-}
+      margin: 0 0 6px;
 
+      font-size: 25px;
 
-@keyframes previewIn{
+      font-weight: normal;
+    }
 
-  from{
 
-    opacity:0;
+    .calendar-modal-subtitle {
 
-    transform:
-      rotate(7deg)
-      translateY(30px);
+      margin:
+        0
+        0
+        20px;
 
-  }
+      font-family:
+        Arial,
+        sans-serif;
 
-  to{
+      font-size: 12px;
 
-    opacity:1;
+      opacity: .65;
+    }
 
-    transform:
-      rotate(2deg)
-      translateY(0);
 
-  }
+    /* ==========================================
+       CALENDAR
+    ========================================== */
 
-}
+    .calendar {
 
+      width: 100%;
 
-/* ==========================================
-   SECTION
-========================================== */
+      margin: 0 auto;
 
-.section{
+      padding: 16px;
 
-  padding:
-    100px 0;
+      border-radius: 20px;
 
-}
+      background:
+        rgba(255,255,255,.09);
 
+      border:
+        1px solid
+        rgba(255,255,255,.18);
 
-.section-header{
+      box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.18);
+    }
 
-  max-width:650px;
 
-  margin-bottom:45px;
+    .calendar-header {
 
-}
+      display: flex;
 
+      align-items: center;
 
-.section-label{
+      justify-content: space-between;
 
-  font-size:10px;
+      gap: 10px;
 
-  letter-spacing:3px;
+      margin-bottom: 16px;
+    }
 
-  text-transform:uppercase;
 
-  color:
-    rgba(255,255,255,.5);
+    .calendar-month {
 
-}
+      flex: 1;
 
+      font-family:
+        Arial,
+        sans-serif;
 
-.section h2{
+      font-size: 16px;
 
-  margin:
-    12px 0;
+      font-weight: 600;
+    }
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
 
-  font-size:
-    clamp(
-      38px,
-      6vw,
-      58px
-    );
+    .calendar-nav {
 
-  font-weight:normal;
+      width: 38px;
+      height: 38px;
 
-  letter-spacing:-2px;
+      padding: 0;
 
-}
+      display: flex;
 
+      align-items: center;
+      justify-content: center;
 
-.section-header p{
+      border-radius: 50%;
 
-  margin:0;
+      color: #fff;
 
-  color:
-    rgba(255,255,255,.62);
+      background:
+        rgba(255,255,255,.12);
 
-  line-height:1.7;
+      border:
+        1px solid
+        rgba(255,255,255,.18);
 
-}
+      font-size: 18px;
+    }
 
 
-/* ==========================================
-   HOW IT WORKS
-========================================== */
+    .calendar-nav:hover {
 
-.steps{
+      background:
+        rgba(255,255,255,.20);
+    }
 
-  display:grid;
 
-  grid-template-columns:
-    repeat(3,1fr);
+    .calendar-nav:disabled {
 
-  gap:16px;
+      opacity: .3;
 
-}
+      cursor: not-allowed;
 
+      transform: none;
+    }
 
-.step{
 
-  padding:30px;
+    .calendar-weekdays {
 
-  min-height:225px;
+      display: grid;
 
-  border:
-    1px solid
-    rgba(255,255,255,.13);
+      grid-template-columns:
+        repeat(7, 1fr);
 
-  border-radius:25px;
+      gap: 4px;
 
-  background:
-    rgba(255,255,255,.055);
+      margin-bottom: 6px;
+    }
 
-  backdrop-filter:
-    blur(14px);
 
-  transition:
-    transform .25s ease,
-    background .25s ease;
+    .calendar-weekday {
 
-}
+      font-family:
+        Arial,
+        sans-serif;
 
+      font-size: 10px;
 
-.step:hover{
+      font-weight: 600;
 
-  transform:
-    translateY(-5px);
+      opacity: .55;
 
-  background:
-    rgba(255,255,255,.08);
+      padding: 5px 0;
 
-}
+      text-align: center;
+    }
 
 
-.step-number{
+    .calendar-days {
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      display: grid;
 
-  font-size:18px;
+      grid-template-columns:
+        repeat(7, 1fr);
 
-  opacity:.42;
+      gap: 5px;
+    }
 
-}
 
+    .calendar-day {
 
-.step-icon{
+      width: 100%;
 
-  margin:
-    25px 0 15px;
+      aspect-ratio: 1 / 1;
 
-  font-size:27px;
+      padding: 0;
 
-}
+      border-radius: 50%;
 
+      display: flex;
 
-.step h3{
+      align-items: center;
+      justify-content: center;
 
-  margin:
-    0 0 10px;
+      font-family:
+        Arial,
+        sans-serif;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      font-size: 13px;
 
-  font-size:24px;
+      font-weight: 500;
 
-  font-weight:normal;
+      color: #fff;
 
-}
+      background:
+        transparent;
 
+      border:
+        1px solid transparent;
 
-.step p{
+      cursor: pointer;
 
-  margin:0;
+      transition:
+        background .18s ease,
+        transform .18s ease,
+        opacity .18s ease;
+    }
 
-  color:
-    rgba(255,255,255,.56);
 
-  line-height:1.6;
+    .calendar-day:hover {
 
-  font-size:14px;
+      background:
+        rgba(255,255,255,.16);
 
-}
+      transform:
+        scale(1.05);
+    }
 
 
-/* ==========================================
-   EXPERIENCE
-========================================== */
+    .calendar-day.empty {
 
-.experience{
+      pointer-events: none;
 
-  display:grid;
+      cursor: default;
 
-  grid-template-columns:
-    .9fr
-    1.1fr;
+      background: transparent;
+    }
 
-  gap:60px;
 
-  align-items:center;
+    /* ==========================================
+       PAST DATE
+    ========================================== */
 
-}
+    .calendar-day.past {
 
+      color:
+        rgba(255,255,255,.22);
 
-.experience-copy p{
+      background:
+        rgba(0,0,0,.08);
 
-  color:
-    rgba(255,255,255,.64);
+      cursor:
+        not-allowed;
 
-  line-height:1.8;
+      pointer-events:
+        none;
 
-  font-size:16px;
+      text-decoration:
+        line-through;
 
-}
+      opacity:
+        .42;
+    }
 
 
-.feature-list{
+    /* ==========================================
+       TODAY
+    ========================================== */
 
-  display:grid;
+    .calendar-day.today {
 
-  gap:13px;
+      border:
+        1px solid
+        rgba(255,255,255,.65);
 
-  margin-top:25px;
+      font-weight:
+        700;
+    }
 
-}
 
+    /* ==========================================
+       SELECTED DATE
+    ========================================== */
 
-.feature{
+    .calendar-day.selected {
 
-  display:flex;
+      color:
+        #74153f;
 
-  align-items:center;
+      background:
+        #fff;
 
-  gap:12px;
+      font-weight:
+        700;
 
-  font-size:14px;
+      box-shadow:
+        0 6px 18px
+        rgba(0,0,0,.20);
+    }
 
-  color:
-    rgba(255,255,255,.78);
 
-}
+    .calendar-day.selected:hover {
 
+      background:
+        #fff;
 
-.feature-dot{
+      transform:
+        scale(1.05);
+    }
 
-  flex:0 0 auto;
 
-  width:9px;
-  height:9px;
+    /* ==========================================
+       SELECTED DATE DISPLAY
+    ========================================== */
 
-  border-radius:50%;
+    .selected-date-display {
 
-  background:
-    rgba(255,190,210,.8);
+      min-height:
+        24px;
 
-  box-shadow:
-    0 0 14px
-    rgba(255,150,180,.7);
+      margin-top:
+        15px;
 
-}
+      font-family:
+        Arial,
+        sans-serif;
 
+      font-size:
+        13px;
 
-/* ==========================================
-   MOMENT STORIES
-========================================== */
+      opacity:
+        .78;
+    }
 
-.stories{
 
-  display:grid;
+    /* ==========================================
+       CALENDAR ACTIONS
+    ========================================== */
 
-  grid-template-columns:
-    repeat(3,1fr);
+    .calendar-actions {
 
-  gap:16px;
+      display:
+        flex;
 
-}
+      justify-content:
+        center;
 
+      gap:
+        10px;
 
-.story{
+      margin-top:
+        16px;
+    }
 
-  min-height:245px;
 
-  padding:28px;
+    .confirm {
 
-  border-radius:25px;
+      color:
+        #fff;
 
-  border:
-    1px solid
-    rgba(255,255,255,.13);
+      background:
+        #941f5a;
 
-  background:
-    rgba(255,255,255,.055);
+      box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.25);
+    }
 
-  backdrop-filter:
-    blur(14px);
 
-  display:flex;
+    .confirm:disabled {
 
-  flex-direction:column;
+      opacity:
+        .55;
 
-  justify-content:space-between;
+      cursor:
+        not-allowed;
 
-  transition:
-    transform .25s ease;
+      transform:
+        none;
+    }
 
-}
 
+    .close-calendar {
 
-.story:hover{
+      color:
+        rgba(255,255,255,.75);
 
-  transform:
-    translateY(-5px);
+      background:
+        rgba(255,255,255,.08);
 
-}
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+    }
 
 
-.story-icon{
+    /* ==========================================
+       STATUS
+    ========================================== */
 
-  font-size:27px;
+    .status {
 
-}
+      margin-top:
+        25px;
 
+      font-family:
+        Arial,
+        sans-serif;
 
-.story-text{
+      font-size:
+        15px;
 
-  margin:
-    22px 0;
+      line-height:
+        1.7;
+    }
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
 
-  font-size:19px;
+    .success-heart {
 
-  line-height:1.55;
+      display:
+        block;
 
-  color:
-    rgba(255,255,255,.9);
+      font-size:
+        55px;
 
-}
+      margin-bottom:
+        10px;
 
+      animation:
+        successPop .6s ease;
+    }
 
-.story-label{
 
-  font-size:11px;
+    @keyframes successPop {
 
-  color:
-    rgba(255,255,255,.45);
+      0% {
 
-  letter-spacing:.5px;
+        transform:
+          scale(.3);
 
-}
+        opacity:
+          0;
+      }
 
+      70% {
 
-/* ==========================================
-   FINAL CTA
-========================================== */
+        transform:
+          scale(1.15);
+      }
 
-.cta{
+      100% {
 
-  margin:
-    50px 0
-    90px;
+        transform:
+          scale(1);
 
-  padding:
-    65px 30px;
+        opacity:
+          1;
+      }
+    }
 
-  text-align:center;
 
-  border-radius:32px;
+    /* ==========================================
+       FOOTER
+    ========================================== */
 
-  border:
-    1px solid
-    rgba(255,255,255,.18);
+    .footer {
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.13),
-      rgba(255,255,255,.055)
-    );
+      margin-top:
+        28px;
 
-  backdrop-filter:
-    blur(18px);
+      font-family:
+        Arial,
+        sans-serif;
 
-}
+      font-size:
+        10px;
 
+      letter-spacing:
+        3px;
 
-.cta-heart{
+      opacity:
+        .38;
+    }
 
-  font-size:38px;
 
-  animation:
-    heartbeat 2.2s ease-in-out infinite;
+    /* ==========================================
+       ERROR
+    ========================================== */
 
-}
+    .error {
 
+      font-family:
+        Arial,
+        sans-serif;
 
-.cta h2{
+      font-size:
+        15px;
 
-  margin:
-    16px 0 12px;
+      padding:
+        25px;
+    }
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
 
-  font-size:
-    clamp(
-      38px,
-      6vw,
-      58px
-    );
+    /* ==========================================
+       MOBILE
+    ========================================== */
 
-  font-weight:normal;
+    @media (max-width: 600px) {
 
-}
+      .page {
 
+        min-height:
+          100vh;
 
-.cta p{
+        min-height:
+          100svh;
 
-  margin:
-    0 auto
-    25px;
+        min-height:
+          100dvh;
 
-  max-width:500px;
+        padding:
+          16px
+          max(16px, env(safe-area-inset-right))
+          16px
+          max(16px, env(safe-area-inset-left));
+      }
 
-  color:
-    rgba(255,255,255,.64);
 
-  line-height:1.7;
+      .wrapper {
 
-}
+        width:
+          100%;
 
+        max-width:
+          560px;
 
-/* ==========================================
-   LOGIN COMING SOON MODAL
-========================================== */
+        margin:
+          auto
+          0;
+      }
 
-.modal-backdrop{
 
-  position:fixed;
+      .brand {
 
-  inset:0;
+        margin-bottom:
+          14px;
+      }
 
-  z-index:100;
 
-  display:none;
+      .card {
 
-  align-items:center;
+        width:
+          100%;
 
-  justify-content:center;
+        padding:
+          32px 19px
+          28px;
 
-  padding:20px;
+        border-radius:
+          27px;
+      }
 
-  background:
-    rgba(10,3,12,.68);
 
-  backdrop-filter:
-    blur(10px);
+      .buttons {
 
-}
+        flex-direction:
+          column;
 
+        width:
+          100%;
+      }
 
-.modal-backdrop.show{
 
-  display:flex;
+      .buttons button {
 
-}
+        width:
+          100%;
+      }
 
 
-.login-modal{
+      .recipient {
 
-  width:
-    min(
-      390px,
-      100%
-    );
+        font-size:
+          clamp(
+            42px,
+            15vw,
+            64px
+          );
+      }
 
-  padding:
-    34px 28px;
 
-  text-align:center;
+      .message {
 
-  border:
-    1px solid
-    rgba(255,255,255,.2);
+        font-size:
+          clamp(
+            20px,
+            6vw,
+            26px
+          );
+      }
 
-  border-radius:28px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(90,18,60,.95),
-      rgba(35,8,31,.96)
-    );
+      .date-page-title {
 
-  box-shadow:
-    0 30px 80px
-    rgba(0,0,0,.45);
+        font-size:
+          clamp(
+            32px,
+            10vw,
+            44px
+          );
+      }
 
-  animation:
-    modalIn .25s ease-out;
 
-}
+      .calendar-modal {
 
+        align-items:
+          center;
 
-.login-modal-heart{
+        padding:
+          14px;
+      }
 
-  font-size:42px;
 
-}
+      .calendar-modal-content {
 
+        padding:
+          20px 14px
+          18px;
 
-.login-modal h3{
+        border-radius:
+          22px;
+      }
 
-  margin:
-    15px 0 10px;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      .calendar {
 
-  font-size:30px;
+        padding:
+          12px;
+      }
 
-  font-weight:normal;
 
-}
+      .calendar-days {
 
+        gap:
+          3px;
+      }
 
-.login-modal p{
 
-  margin:
-    0 0 22px;
+      .calendar-day {
 
-  color:
-    rgba(255,255,255,.65);
+        font-size:
+          12px;
+      }
 
-  line-height:1.6;
 
-  font-size:14px;
+      .calendar-nav {
 
-}
+        width:
+          36px;
 
+        height:
+          36px;
+      }
 
-.close-modal{
 
-  border:0;
+      .calendar-actions {
 
-  border-radius:999px;
+        flex-direction:
+          column;
+      }
 
-  padding:
-    12px 22px;
 
-  cursor:pointer;
+      .calendar-actions button {
 
-  font-weight:700;
+        width:
+          100%;
+      }
 
-  color:#74153f;
+    }
 
-  background:#fff;
 
-}
+    /* ==========================================
+       VERY SMALL PHONES
+    ========================================== */
 
+    @media (max-width: 380px) {
 
-@keyframes modalIn{
+      .page {
 
-  from{
+        padding:
+          12px;
+      }
 
-    opacity:0;
 
-    transform:
-      translateY(12px)
-      scale(.97);
+      .card {
 
-  }
+        padding:
+          28px 16px
+          24px;
+      }
 
-  to{
 
-    opacity:1;
+      .heart-button {
 
-    transform:
-      translateY(0)
-      scale(1);
+        width:
+          78px;
 
-  }
+        height:
+          78px;
 
-}
+        font-size:
+          34px;
+      }
 
 
-/* ==========================================
-   FOOTER
-========================================== */
+      .question {
 
-footer{
+        font-size:
+          18px;
+      }
 
-  position:relative;
 
-  z-index:2;
+      .calendar {
 
-  width:
-    min(
-      1100px,
-      calc(100% - 32px)
-    );
+        padding:
+          10px;
+      }
 
-  margin:
-    0 auto;
 
-  padding:
-    0 0 35px;
+      .calendar-day {
 
-  display:flex;
+        font-size:
+          11px;
+      }
 
-  justify-content:space-between;
 
-  gap:20px;
+      .calendar-days {
 
-  color:
-    rgba(255,255,255,.38);
+        gap:
+          2px;
+      }
 
-  font-size:11px;
+    }
 
-}
 
+    /* ==========================================
+       LANDSCAPE MOBILE
+    ========================================== */
 
-footer span:first-child{
+    @media (
+      max-height: 600px
+    ) and (
+      orientation: landscape
+    ) {
 
-  letter-spacing:2px;
+      .page {
 
-}
+        align-items:
+          flex-start;
 
+        padding-top:
+          20px;
 
-/* ==========================================
-   MOBILE
-========================================== */
+        padding-bottom:
+          20px;
+      }
 
-@media(max-width:800px){
 
-  .nav{
+      .wrapper {
 
-    padding-top:16px;
+        margin:
+          0
+          auto;
+      }
 
-  }
+    }
 
-
-  .hero{
-
-    grid-template-columns:1fr;
-
-    min-height:auto;
-
-    padding-top:35px;
-
-    gap:50px;
-
-  }
-
-
-  .hero-content{
-
-    text-align:center;
-
-  }
-
-
-  .hero p{
-
-    margin:auto;
-
-  }
-
-
-  .hero-actions{
-
-    justify-content:center;
-
-  }
-
-
-  .preview{
-
-    min-height:420px;
-
-  }
-
-
-  .steps{
-
-    grid-template-columns:1fr;
-
-  }
-
-
-  .experience{
-
-    grid-template-columns:1fr;
-
-    gap:35px;
-
-  }
-
-
-  .stories{
-
-    grid-template-columns:1fr;
-
-  }
-
-}
-
-
-@media(max-width:500px){
-
-  .nav,
-  .container,
-  footer{
-
-    width:
-      calc(100% - 28px);
-
-  }
-
-
-  .logo{
-
-    font-size:23px;
-
-  }
-
-
-  .logo-heart{
-
-    font-size:18px;
-
-  }
-
-
-  .nav-actions{
-
-    gap:3px;
-
-  }
-
-
-  .login-button{
-
-    padding:
-      9px 7px;
-
-    font-size:12px;
-
-  }
-
-
-  .create-nav{
-
-    padding:
-      9px 12px;
-
-    font-size:12px;
-
-  }
-
-
-  .hero{
-
-    padding-bottom:55px;
-
-  }
-
-
-  .hero h1{
-
-    font-size:
-      clamp(
-        50px,
-        15vw,
-        68px
-      );
-
-    letter-spacing:-3px;
-
-  }
-
-
-  .hero p{
-
-    font-size:16px;
-
-  }
-
-
-  .hero-actions{
-
-    flex-direction:column;
-
-    width:100%;
-
-  }
-
-
-  .primary,
-  .secondary{
-
-    width:100%;
-
-  }
-
-
-  .preview{
-
-    min-height:405px;
-
-  }
-
-
-  .section{
-
-    padding:
-      75px 0;
-
-  }
-
-
-  .section h2{
-
-    letter-spacing:-1.5px;
-
-  }
-
-
-  .step{
-
-    min-height:auto;
-
-    padding:25px;
-
-  }
-
-
-  .story{
-
-    min-height:215px;
-
-  }
-
-
-  .cta{
-
-    padding:
-      50px 22px;
-
-    margin-bottom:65px;
-
-  }
-
-
-  footer{
-
-    flex-direction:column;
-
-    text-align:center;
-
-    align-items:center;
-
-  }
-
-}
-
-</style>
+  </style>
 
 </head>
 
@@ -1778,828 +1766,1561 @@ footer span:first-child{
 <body>
 
 
-<!-- ==========================================
-     AMBIENT EFFECTS
-========================================== -->
+  <!-- ==========================================
+       BACKGROUND
+  ========================================== -->
 
-<div class="glow one"></div>
+  <div class="glow one"></div>
 
-<div class="glow two"></div>
+  <div class="glow two"></div>
 
 
-<div class="hearts">
-
-  <span class="heart">❤️</span>
-
-  <span class="heart">💗</span>
-
-  <span class="heart">💕</span>
-
-  <span class="heart">❤️</span>
-
-  <span class="heart">💗</span>
-
-</div>
-
-
-<!-- ==========================================
-     NAVIGATION
-========================================== -->
-
-<nav class="nav">
-
-  <div class="logo">
-
-    Moment
-    <span class="logo-heart">❤️</span>
-
-  </div>
-
-
-  <div class="nav-actions">
-
-
-    <button
-      type="button"
-      class="login-button"
-      id="loginButton"
-    >
-      Login
-    </button>
-
-
-    <a
-      href="/create"
-      class="create-nav"
-    >
-      Create an Invite ❤️
-    </a>
-
-
-  </div>
-
-</nav>
-
-
-<main>
-
-
-<!-- ==========================================
-     HERO
-========================================== -->
-
-<section class="hero container">
-
-
-  <div class="hero-content">
-
-
-    <div class="eyebrow">
-
-      Made for meaningful moments ❤️
-
-    </div>
-
-
-    <h1>
-
-      Make it
-
-      <span>a moment.</span>
-
-    </h1>
-
-
-    <p>
-
-      Create a beautiful little invitation,
-      send it to someone special,
-      and turn an ordinary question
-      into something they'll remember.
-
-    </p>
-
-
-    <div class="hero-actions">
-
-
-      <a
-        href="/create"
-        class="primary"
-      >
-        Create an Invite ❤️
-      </a>
-
-
-      <a
-        href="#how"
-        class="secondary"
-      >
-        See how it works
-      </a>
-
-
-    </div>
-
-
-  </div>
-
-
-  <!-- ========================================
-       HERO PREVIEW
-  ========================================= -->
-
-  <div class="preview-wrap">
-
-    <div class="preview">
-
-
-      <div class="preview-label">
-
-        A little invitation
-
-      </div>
-
-
-      <div class="preview-heart">
-
-        ❤️
-
-      </div>
-
-
-      <h2>
-
-        Someone special
-
-      </h2>
-
-
-      <div class="preview-line"></div>
-
-
-      <div class="preview-message">
-
-        When do I get to
-        steal you for a date?
-
-      </div>
-
-
-      <div class="preview-from">
-
-        From someone special ❤️
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-
-</section>
-
-
-<!-- ==========================================
-     HOW IT WORKS
-========================================== -->
-
-<section
-  id="how"
-  class="section container"
->
-
-
-  <div class="section-header">
-
-
-    <div class="section-label">
-
-      Simple by design
-
-    </div>
-
-
-    <h2>
-
-      Three little steps.
-
-    </h2>
-
-
-    <p>
-
-      No complicated setup.
-      Just create something personal,
-      share it, and wait for the answer.
-
-    </p>
-
-
-  </div>
-
-
-  <div class="steps">
-
-
-    <article class="step">
-
-
-      <div class="step-number">
-
-        01
-
-      </div>
-
-
-      <div class="step-icon">
-
-        ✍️
-
-      </div>
-
-
-      <h3>
-
-        Create
-
-      </h3>
-
-
-      <p>
-
-        Add their name,
-        your message,
-        and the occasion.
-
-      </p>
-
-
-    </article>
-
-
-    <article class="step">
-
-
-      <div class="step-number">
-
-        02
-
-      </div>
-
-
-      <div class="step-icon">
-
-        💌
-
-      </div>
-
-
-      <h3>
-
-        Share
-
-      </h3>
-
-
-      <p>
-
-        Moment creates a
-        unique invitation link
-        you can send anywhere.
-
-      </p>
-
-
-    </article>
-
-
-    <article class="step">
-
-
-      <div class="step-number">
-
-        03
-
-      </div>
-
-
-      <div class="step-icon">
-
-        🥰
-
-      </div>
-
-
-      <h3>
-
-        Make the moment
-
-      </h3>
-
-
-      <p>
-
-        They open the invitation,
-        respond, and choose a date
-        if they're in.
-
-      </p>
-
-
-    </article>
-
-
-  </div>
-
-
-</section>
-
-
-<!-- ==========================================
-     EXPERIENCE
-========================================== -->
-
-<section class="section container">
-
-
-  <div class="experience">
-
-
-    <div class="experience-copy">
-
-
-      <div class="section-label">
-
-        More than a link
-
-      </div>
-
-
-      <h2>
-
-        A little experience.
-
-      </h2>
-
-
-      <p>
-
-        Moment turns a simple
-        "Want to go on a date?"
-        into something that feels
-        personal from the first tap.
-
-      </p>
-
-
-      <div class="feature-list">
-
-
-        <div class="feature">
-
-          <span class="feature-dot"></span>
-
-          Personalized invitations
-
-        </div>
-
-
-        <div class="feature">
-
-          <span class="feature-dot"></span>
-
-          Unique shareable links
-
-        </div>
-
-
-        <div class="feature">
-
-          <span class="feature-dot"></span>
-
-          Beautiful mobile experience
-
-        </div>
-
-
-        <div class="feature">
-
-          <span class="feature-dot"></span>
-
-          Date confirmation
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
-
-    <div class="preview-wrap">
-
-
-      <div class="preview">
-
-
-        <div class="preview-label">
-
-          Your moment
-
-        </div>
-
-
-        <div class="preview-heart">
-
-          💗
-
-        </div>
-
-
-        <h2>
-
-          It's a date!
-
-        </h2>
-
-
-        <div class="preview-line"></div>
-
-
-        <div class="preview-message">
-
-          Friday, 14 August 2026
-
-        </div>
-
-
-        <div class="preview-from">
-
-          See you then. 🥰
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
-
-  </div>
-
-
-</section>
-
-
-<!-- ==========================================
-     MOMENT STORIES
-========================================== -->
-
-<section class="section container">
-
-
-  <div class="section-header">
-
-
-    <div class="section-label">
-
-      The feeling we're creating
-
-    </div>
-
-
-    <h2>
-
-      Made for moments.
-
-    </h2>
-
-
-    <p>
-
-      A little inspiration for the kind
-      of memories Moment is made for.
-
-    </p>
-
-
-  </div>
-
-
-  <div class="stories">
-
-
-    <article class="story">
-
-
-      <div class="story-icon">
-
-        ❤️
-
-      </div>
-
-
-      <div class="story-text">
-
-        "Sometimes asking the question
-        is the hardest part."
-
-      </div>
-
-
-      <div class="story-label">
-
-        FOR THE FIRST DATE
-
-      </div>
-
-
-    </article>
-
-
-    <article class="story">
-
-
-      <div class="story-icon">
-
-        💕 
-
-      </div>
-
-
-      <div class="story-text">
-
-        "Turn an ordinary plan
-        into something worth remembering."
-
-      </div>
-
-
-      <div class="story-label">
-
-        FOR SOMEONE SPECIAL
-
-      </div>
-
-
-    </article>
-
-
-    <article class="story">
-
-
-      <div class="story-icon">
-
-        🥰
-
-      </div>
-
-
-      <div class="story-text">
-
-        "Because a yes deserves
-        a little celebration."
-
-      </div>
-
-
-      <div class="story-label">
-
-        FOR THE MOMENT AFTER
-
-      </div>
-
-
-    </article>
-
-
-  </div>
-
-
-</section>
-
-
-<!-- ==========================================
-     FINAL CTA
-========================================== -->
-
-<section class="container">
-
-
-  <div class="cta">
-
-
-    <div class="cta-heart">
-
-      ❤️
-
-    </div>
-
-
-    <h2>
-
-      Ready to make a moment?
-
-    </h2>
-
-
-    <p>
-
-      Sometimes the simplest question
-      deserves a beautiful answer.
-
-    </p>
-
-
-    <a
-      href="/create"
-      class="primary"
-    >
-
-      Create an Invite ❤️
-
-    </a>
-
-
-  </div>
-
-
-</section>
-
-
-</main>
-
-
-<!-- ==========================================
-     FOOTER
-========================================== -->
-
-<footer>
-
-
-  <span>
-
-    MOMENT ❤️
-
-  </span>
-
-
-  <span>
-
-    Made for the moments that matter.
-
-  </span>
-
-
-</footer>
-
-
-<!-- ==========================================
-     LOGIN COMING SOON
-========================================== -->
-
-<div
-  class="modal-backdrop"
-  id="loginModal"
->
-
+  <!-- ==========================================
+       FLOATING HEARTS
+  ========================================== -->
 
   <div
-    class="login-modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="loginTitle"
+    class="hearts"
+    aria-hidden="true"
   >
 
+    <span class="heart">❤️</span>
 
-    <div class="login-modal-heart">
+    <span class="heart">💗</span>
 
-      ❤️
+    <span class="heart">💕</span>
 
-    </div>
+    <span class="heart">❤️</span>
 
-
-    <h3 id="loginTitle">
-
-      Login is coming soon.
-
-    </h3>
-
-
-    <p>
-
-      We're working on a way for you
-      to keep track of all the moments
-      you've created.
-
-    </p>
-
-
-    <button
-      type="button"
-      class="close-modal"
-      id="closeLogin"
-    >
-
-      Got it ❤️
-
-    </button>
-
+    <span class="heart">💗</span>
 
   </div>
 
 
-</div>
+  <!-- ==========================================
+       PAGE
+  ========================================== -->
+
+  <div class="page">
+
+    <div class="wrapper">
 
 
-<script>
-
-/* ==========================================
-   LOGIN MODAL
-========================================== */
-
-const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
-
-const loginModal =
-  document.getElementById(
-    "loginModal"
-  );
-
-const closeLogin =
-  document.getElementById(
-    "closeLogin"
-  );
+      <div class="brand">
+        Moment
+      </div>
 
 
-loginButton.addEventListener(
-  "click",
-  () => {
-
-    loginModal.classList.add(
-      "show"
-    );
-
-  }
-);
+      <main class="card">
 
 
-closeLogin.addEventListener(
-  "click",
-  () => {
+        <!-- ==================================
+             OPENING
+        =================================== -->
 
-    loginModal.classList.remove(
-      "show"
-    );
+        <section
+          id="opening"
+          class="opening"
+        >
 
-  }
-);
+          <div class="small-text">
+            A little moment for you
+          </div>
 
 
-loginModal.addEventListener(
-  "click",
-  (event) => {
+          <button
+            id="openButton"
+            class="heart-button"
+            type="button"
+            aria-label="Open invitation"
+          >
+            ❤️
+          </button>
 
-    if(
-      event.target ===
-      loginModal
-    ){
 
-      loginModal.classList.remove(
-        "show"
+          <div class="small-text">
+            Tap to open
+          </div>
+
+        </section>
+
+
+        <!-- ==================================
+             INVITATION PAGE
+        =================================== -->
+
+        <section
+          id="invitation"
+          class="invitation"
+        >
+
+          <div
+            id="occasion"
+            class="occasion"
+          >
+            A little invitation
+          </div>
+
+
+          <div class="divider"></div>
+
+
+          <h1
+            id="recipientName"
+            class="recipient"
+          >
+            You
+          </h1>
+
+
+          <div class="divider"></div>
+
+
+          <p
+            id="message"
+            class="message"
+          >
+            I have something important
+            to ask you.
+          </p>
+
+
+          <div
+            id="from"
+            class="from"
+          >
+            From someone special ❤️
+          </div>
+
+
+          <div
+            id="question"
+            class="question"
+          >
+            When do I get to steal you
+            for a date?
+          </div>
+
+
+          <div
+            id="buttons"
+            class="buttons"
+          >
+
+            <button
+              id="yesButton"
+              class="yes"
+              type="button"
+            >
+              Yes, it's a date ❤️
+            </button>
+
+
+            <button
+              id="maybeButton"
+              class="maybe"
+              type="button"
+            >
+              Maybe later
+            </button>
+
+          </div>
+
+
+          <!-- =================================
+               STATUS
+          ================================== -->
+
+          <div
+            id="status"
+            class="status"
+            aria-live="polite"
+          ></div>
+
+
+          <div class="footer">
+            MADE WITH MOMENT ❤️
+          </div>
+
+        </section>
+
+
+        <!-- ==================================
+             DATE SELECTION PAGE
+        =================================== -->
+
+        <section
+          id="datePage"
+          class="date-page"
+        >
+
+          <div class="date-page-heart">
+            ❤️
+          </div>
+
+
+          <h2 class="date-page-title">
+            Pick our date
+          </h2>
+
+
+          <p class="date-page-text">
+            You said yes. 🥰
+            <br>
+            Now choose a day that works for us.
+          </p>
+
+
+          <button
+            id="chooseDateButton"
+            class="choose-date-button"
+            type="button"
+          >
+            Choose a date ❤️
+          </button>
+
+
+          <button
+            id="backToInvitationButton"
+            class="back-button"
+            type="button"
+          >
+            ← Back
+          </button>
+
+
+          <div
+            id="datePageStatus"
+            class="status"
+            aria-live="polite"
+          ></div>
+
+
+          <div class="footer">
+            MADE WITH MOMENT ❤️
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       CALENDAR POPUP
+  ========================================== -->
+
+  <div
+    id="calendarModal"
+    class="calendar-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="calendar-modal-content"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="calendarTitle"
+    >
+
+      <h2
+        id="calendarTitle"
+        class="calendar-modal-title"
+      >
+        Choose our date ❤️
+      </h2>
+
+
+      <p class="calendar-modal-subtitle">
+        Today and future dates are available.
+      </p>
+
+
+      <div
+        id="calendar"
+        class="calendar"
+      >
+
+        <div class="calendar-header">
+
+          <button
+            id="previousMonth"
+            class="calendar-nav"
+            type="button"
+            aria-label="Previous month"
+          >
+            ‹
+          </button>
+
+
+          <div
+            id="calendarMonth"
+            class="calendar-month"
+          >
+          </div>
+
+
+          <button
+            id="nextMonth"
+            class="calendar-nav"
+            type="button"
+            aria-label="Next month"
+          >
+            ›
+          </button>
+
+        </div>
+
+
+        <div class="calendar-weekdays">
+
+          <div class="calendar-weekday">
+            Sun
+          </div>
+
+          <div class="calendar-weekday">
+            Mon
+          </div>
+
+          <div class="calendar-weekday">
+            Tue
+          </div>
+
+          <div class="calendar-weekday">
+            Wed
+          </div>
+
+          <div class="calendar-weekday">
+            Thu
+          </div>
+
+          <div class="calendar-weekday">
+            Fri
+          </div>
+
+          <div class="calendar-weekday">
+            Sat
+          </div>
+
+        </div>
+
+
+        <div
+          id="calendarDays"
+          class="calendar-days"
+        ></div>
+
+
+        <div
+          id="selectedDateDisplay"
+          class="selected-date-display"
+        ></div>
+
+      </div>
+
+
+      <input
+        id="dateInput"
+        type="hidden"
+      >
+
+
+      <div class="calendar-actions">
+
+        <button
+          id="closeCalendarButton"
+          class="close-calendar"
+          type="button"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          id="confirmButton"
+          class="confirm"
+          type="button"
+          disabled
+        >
+          Confirm date ❤️
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+
+    /* ==========================================
+       INVITATION CODE
+    ========================================== */
+
+    const parts =
+      window.location.pathname
+        .split("/")
+        .filter(Boolean);
+
+
+    const invitationCode =
+      parts[0] === "i"
+        ? parts[1]
+        : null;
+
+
+    /* ==========================================
+       ELEMENTS
+    ========================================== */
+
+    const opening =
+      document.getElementById(
+        "opening"
+      );
+
+
+    const openButton =
+      document.getElementById(
+        "openButton"
+      );
+
+
+    const invitation =
+      document.getElementById(
+        "invitation"
+      );
+
+
+    const recipientName =
+      document.getElementById(
+        "recipientName"
+      );
+
+
+    const occasion =
+      document.getElementById(
+        "occasion"
+      );
+
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+
+    const from =
+      document.getElementById(
+        "from"
+      );
+
+
+    const yesButton =
+      document.getElementById(
+        "yesButton"
+      );
+
+
+    const maybeButton =
+      document.getElementById(
+        "maybeButton"
+      );
+
+
+    const buttons =
+      document.getElementById(
+        "buttons"
+      );
+
+
+    const status =
+      document.getElementById(
+        "status"
+      );
+
+
+    const datePage =
+      document.getElementById(
+        "datePage"
+      );
+
+
+    const chooseDateButton =
+      document.getElementById(
+        "chooseDateButton"
+      );
+
+
+    const backToInvitationButton =
+      document.getElementById(
+        "backToInvitationButton"
+      );
+
+
+    const datePageStatus =
+      document.getElementById(
+        "datePageStatus"
+      );
+
+
+    /* ==========================================
+       CALENDAR ELEMENTS
+    ========================================== */
+
+    const calendarModal =
+      document.getElementById(
+        "calendarModal"
+      );
+
+
+    const calendarMonth =
+      document.getElementById(
+        "calendarMonth"
+      );
+
+
+    const calendarDays =
+      document.getElementById(
+        "calendarDays"
+      );
+
+
+    const previousMonth =
+      document.getElementById(
+        "previousMonth"
+      );
+
+
+    const nextMonth =
+      document.getElementById(
+        "nextMonth"
+      );
+
+
+    const selectedDateDisplay =
+      document.getElementById(
+        "selectedDateDisplay"
+      );
+
+
+    const dateInput =
+      document.getElementById(
+        "dateInput"
+      );
+
+
+    const confirmButton =
+      document.getElementById(
+        "confirmButton"
+      );
+
+
+    const closeCalendarButton =
+      document.getElementById(
+        "closeCalendarButton"
+      );
+
+
+    /* ==========================================
+       LOCAL DATE HELPERS
+    ========================================== */
+
+    function getToday() {
+
+      const now =
+        new Date();
+
+
+      return new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
       );
 
     }
 
-  }
-);
+
+    const today =
+      getToday();
 
 
-document.addEventListener(
-  "keydown",
-  (event) => {
+    /* ==========================================
+       CALENDAR STATE
+    ========================================== */
 
-    if(
-      event.key === "Escape"
-    ){
+    let calendarMonthDate =
+      new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+      );
 
-      loginModal.classList.remove(
-        "show"
+
+    let selectedDate =
+      null;
+
+
+    /* ==========================================
+       DATE FORMAT
+    ========================================== */
+
+    function formatDateValue(
+      date
+    ) {
+
+      const year =
+        date.getFullYear();
+
+
+      const month =
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0");
+
+
+      const day =
+        String(
+          date.getDate()
+        ).padStart(2, "0");
+
+
+      return `${year}-${month}-${day}`;
+
+    }
+
+
+    /* ==========================================
+       SAME DATE CHECK
+    ========================================== */
+
+    function isSameDate(
+      first,
+      second
+    ) {
+
+      return (
+        first.getFullYear() ===
+          second.getFullYear()
+        &&
+        first.getMonth() ===
+          second.getMonth()
+        &&
+        first.getDate() ===
+          second.getDate()
       );
 
     }
 
-  }
-);
 
-</script>
+    /* ==========================================
+       OPEN CALENDAR
+    ========================================== */
 
+    function openCalendar() {
+
+      calendarModal.classList.add(
+        "show"
+      );
+
+
+      calendarModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      renderCalendar();
+
+    }
+
+
+    /* ==========================================
+       CLOSE CALENDAR
+    ========================================== */
+
+    function closeCalendar() {
+
+      calendarModal.classList.remove(
+        "show"
+      );
+
+
+      calendarModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+    }
+
+
+    /* ==========================================
+       RENDER CALENDAR
+    ========================================== */
+
+    function renderCalendar() {
+
+      const year =
+        calendarMonthDate.getFullYear();
+
+
+      const month =
+        calendarMonthDate.getMonth();
+
+
+      const firstDay =
+        new Date(
+          year,
+          month,
+          1
+        ).getDay();
+
+
+      const daysInMonth =
+        new Date(
+          year,
+          month + 1,
+          0
+        ).getDate();
+
+
+      const monthName =
+        calendarMonthDate.toLocaleDateString(
+          "en-IN",
+          {
+            month:
+              "long",
+
+            year:
+              "numeric"
+          }
+        );
+
+
+      calendarMonth.textContent =
+        monthName;
+
+
+      calendarDays.innerHTML =
+        "";
+
+
+      /* ======================================
+         PREVIOUS MONTH
+      ====================================== */
+
+      const currentMonthStart =
+        new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          1
+        );
+
+
+      previousMonth.disabled =
+        calendarMonthDate <=
+        currentMonthStart;
+
+
+      /* ======================================
+         EMPTY CELLS
+      ====================================== */
+
+      for (
+        let i = 0;
+        i < firstDay;
+        i++
+      ) {
+
+        const empty =
+          document.createElement(
+            "div"
+          );
+
+
+        empty.className =
+          "calendar-day empty";
+
+
+        calendarDays.appendChild(
+          empty
+        );
+
+      }
+
+
+      /* ======================================
+         DAYS
+      ====================================== */
+
+      for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+      ) {
+
+        const date =
+          new Date(
+            year,
+            month,
+            day
+          );
+
+
+        const button =
+          document.createElement(
+            "button"
+          );
+
+
+        button.type =
+          "button";
+
+
+        button.className =
+          "calendar-day";
+
+
+        button.textContent =
+          day;
+
+
+        /* ==================================
+           PAST DATE
+        ================================== */
+
+        if (
+          date <
+          today
+        ) {
+
+          button.classList.add(
+            "past"
+          );
+
+
+          button.disabled =
+            true;
+
+        }
+
+
+        /* ==================================
+           TODAY
+        ================================== */
+
+        if (
+          isSameDate(
+            date,
+            today
+          )
+        ) {
+
+          button.classList.add(
+            "today"
+          );
+
+        }
+
+
+        /* ==================================
+           SELECTED DATE
+        ================================== */
+
+        if (
+          selectedDate &&
+          isSameDate(
+            date,
+            selectedDate
+          )
+        ) {
+
+          button.classList.add(
+            "selected"
+          );
+
+        }
+
+
+        /* ==================================
+           TODAY / FUTURE CLICK
+        ================================== */
+
+        if (
+          date >=
+          today
+        ) {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              selectDate(
+                date
+              );
+
+            }
+          );
+
+        }
+
+
+        calendarDays.appendChild(
+          button
+        );
+
+      }
+
+    }
+
+
+    /* ==========================================
+       SELECT DATE
+    ========================================== */
+
+    function selectDate(
+      date
+    ) {
+
+      if (
+        date <
+        today
+      ) {
+
+        return;
+
+      }
+
+
+      selectedDate =
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate()
+        );
+
+
+      dateInput.value =
+        formatDateValue(
+          selectedDate
+        );
+
+
+      const formatted =
+        selectedDate.toLocaleDateString(
+          "en-IN",
+          {
+            weekday:
+              "long",
+
+            year:
+              "numeric",
+
+            month:
+              "long",
+
+            day:
+              "numeric"
+          }
+        );
+
+
+      selectedDateDisplay.innerHTML =
+        `Selected: <strong>${formatted}</strong> ❤️`;
+
+
+      confirmButton.disabled =
+        false;
+
+
+      renderCalendar();
+
+    }
+
+
+    /* ==========================================
+       NEXT MONTH
+    ========================================== */
+
+    nextMonth.addEventListener(
+      "click",
+      () => {
+
+        calendarMonthDate =
+          new Date(
+            calendarMonthDate.getFullYear(),
+            calendarMonthDate.getMonth() + 1,
+            1
+          );
+
+
+        renderCalendar();
+
+      }
+    );
+
+
+    /* ==========================================
+       PREVIOUS MONTH
+    ========================================== */
+
+    previousMonth.addEventListener(
+      "click",
+      () => {
+
+        const minimumMonth =
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1
+          );
+
+
+        if (
+          calendarMonthDate <=
+          minimumMonth
+        ) {
+
+          return;
+
+        }
+
+
+        calendarMonthDate =
+          new Date(
+            calendarMonthDate.getFullYear(),
+            calendarMonthDate.getMonth() - 1,
+            1
+          );
+
+
+        renderCalendar();
+
+      }
+    );
+
+
+    /* ==========================================
+       OPEN INVITATION
+    ========================================== */
+
+    openButton.addEventListener(
+      "click",
+      () => {
+
+        opening.style.display =
+          "none";
+
+
+        invitation.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+
+    /* ==========================================
+       LOAD INVITATION
+    ========================================== */
+
+    async function loadInvitation() {
+
+      if (
+        !invitationCode
+      ) {
+
+        opening.innerHTML = `
+          <div class="error">
+            This invitation link is invalid. ❤️
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            `/api/invitations/${encodeURIComponent(
+              invitationCode
+            )}`
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Invitation not found."
+          );
+
+        }
+
+
+        recipientName.textContent =
+          data.recipient_name;
+
+
+        if (
+          data.occasion
+        ) {
+
+          occasion.textContent =
+            data.occasion;
+
+        }
+
+
+        if (
+          data.message
+        ) {
+
+          message.textContent =
+            data.message;
+
+        }
+
+
+        if (
+          data.creator_name
+        ) {
+
+          from.textContent =
+            `From ${data.creator_name} ❤️`;
+
+        }
+
+
+        document.title =
+          `${data.recipient_name} ❤️ | Moment`;
+
+      }
+
+
+      catch (
+        error
+      ) {
+
+        console.error(
+          "Invitation loading error:",
+          error
+        );
+
+
+        opening.innerHTML = `
+          <div class="error">
+            ${
+              error.message ||
+              "Could not load invitation."
+            }
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /* ==========================================
+       YES BUTTON
+       GO TO DATE PAGE
+    ========================================== */
+
+    yesButton.addEventListener(
+      "click",
+      () => {
+
+        invitation.classList.remove(
+          "show"
+        );
+
+
+        datePage.classList.add(
+          "show"
+        );
+
+
+        datePageStatus.innerHTML =
+          "";
+
+      }
+    );
+
+
+    /* ==========================================
+       MAYBE BUTTON
+    ========================================== */
+
+    maybeButton.addEventListener(
+      "click",
+      () => {
+
+        buttons.style.display =
+          "none";
+
+
+        status.innerHTML = `
+          <span class="success-heart">
+            💌
+          </span>
+
+          <strong>
+            I'll take that as a maybe. 😌❤️
+          </strong>
+
+          <br>
+
+          I'll be waiting.
+        `;
+
+      }
+    );
+
+
+    /* ==========================================
+       CHOOSE DATE BUTTON
+       OPENS POPUP CALENDAR
+    ========================================== */
+
+    chooseDateButton.addEventListener(
+      "click",
+      () => {
+
+        openCalendar();
+
+      }
+    );
+
+
+    /* ==========================================
+       BACK TO INVITATION
+    ========================================== */
+
+    backToInvitationButton.addEventListener(
+      "click",
+      () => {
+
+        datePage.classList.remove(
+          "show"
+        );
+
+
+        invitation.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+
+    /* ==========================================
+       CLOSE CALENDAR
+    ========================================== */
+
+    closeCalendarButton.addEventListener(
+      "click",
+      () => {
+
+        closeCalendar();
+
+      }
+    );
+
+
+    /* ==========================================
+       CLOSE CALENDAR
+       CLICK OUTSIDE
+    ========================================== */
+
+    calendarModal.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target ===
+          calendarModal
+        ) {
+
+          closeCalendar();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       ESCAPE KEY
+    ========================================== */
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
+          closeCalendar();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       CONFIRM DATE
+    ========================================== */
+
+    confirmButton.addEventListener(
+      "click",
+      async () => {
+
+        const selectedDateValue =
+          dateInput.value;
+
+
+        /* ======================================
+           NO DATE
+        ====================================== */
+
+        if (
+          !selectedDateValue
+        ) {
+
+          return;
+
+        }
+
+
+        /* ======================================
+           SAFETY VALIDATION
+        ====================================== */
+
+        const chosenDate =
+          new Date(
+            selectedDateValue +
+            "T00:00:00"
+          );
+
+
+        const todayValue =
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+          );
+
+
+        if (
+          chosenDate <
+          todayValue
+        ) {
+
+          selectedDate =
+            null;
+
+
+          dateInput.value =
+            "";
+
+
+          selectedDateDisplay.textContent =
+            "";
+
+
+          confirmButton.disabled =
+            true;
+
+
+          renderCalendar();
+
+
+          return;
+
+        }
+
+
+        /* ======================================
+           DISABLE WHILE SAVING
+        ====================================== */
+
+        confirmButton.disabled =
+          true;
+
+
+        confirmButton.textContent =
+          "Saving...";
+
+
+        try {
+
+          const response =
+            await fetch(
+              "/api/response",
+              {
+
+                method:
+                  "POST",
+
+                headers:
+                  {
+                    "Content-Type":
+                      "application/json"
+                  },
+
+                body:
+                  JSON.stringify(
+                    {
+                      answer:
+                        "yes",
+
+                      date:
+                        selectedDateValue,
+
+                      invitationCode
+                    }
+                  )
+
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (
+            !response.ok
+          ) {
+
+            throw new Error(
+              data.error ||
+              "Could not save response."
+            );
+
+          }
+
+
+          /* ==================================
+             CLOSE CALENDAR
+          ================================== */
+
+          closeCalendar();
+
+
+          /* ==================================
+             HIDE DATE PAGE
+          ================================== */
+
+          datePageStatus.innerHTML =
+            "";
+
+
+          const displayDate =
+            chosenDate.toLocaleDateString(
+              "en-IN",
+              {
+
+                weekday:
+                  "long",
+
+                year:
+                  "numeric",
+
+                month:
+                  "long",
+
+                day:
+                  "numeric"
+
+              }
+            );
+
+
+          datePageStatus.innerHTML = `
+            <span class="success-heart">
+              ❤️
+            </span>
+
+            <strong>
+              It's a date!
+            </strong>
+
+            <br>
+
+            ${displayDate}
+
+            <br><br>
+
+            <span style="opacity:.7;">
+              See you then. 🥰
+            </span>
+          `;
+
+
+          chooseDateButton.style.display =
+            "none";
+
+
+          backToInvitationButton.style.display =
+            "none";
+
+        }
+
+
+        catch (
+          error
+        ) {
+
+          console.error(
+            "Response error:",
+            error
+          );
+
+
+          datePageStatus.textContent =
+            error.message ||
+            "Something went wrong.";
+
+
+          confirmButton.disabled =
+            false;
+
+
+          confirmButton.textContent =
+            "Confirm date ❤️";
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       INITIAL LOAD
+    ========================================== */
+
+    loadInvitation();
+
+
+  </script>
 
 </body>
 
