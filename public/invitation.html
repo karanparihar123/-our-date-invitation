@@ -12,11 +12,13 @@
 
   <title>Moment ❤️</title>
 
+
   <style>
 
     * {
       box-sizing: border-box;
     }
+
 
     html,
     body {
@@ -26,13 +28,14 @@
       min-height: 100%;
     }
 
-    body {
 
+    body {
       min-height: 100vh;
       min-height: 100svh;
       min-height: 100dvh;
 
       overflow-x: hidden;
+      overflow-y: auto;
 
       font-family:
         Georgia,
@@ -64,9 +67,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        PAGE
-    ========================= */
+    ========================================== */
 
     .page {
 
@@ -88,12 +91,14 @@
         max(20px, env(safe-area-inset-left));
 
       position: relative;
+
+      z-index: 1;
     }
 
 
-    /* =========================
+    /* ==========================================
        GLOW
-    ========================= */
+    ========================================== */
 
     .glow {
 
@@ -109,6 +114,8 @@
       opacity: .22;
 
       pointer-events: none;
+
+      z-index: 0;
 
       animation:
         glowMove 8s ease-in-out infinite alternate;
@@ -151,18 +158,15 @@
     }
 
 
-    /* =========================
-       HEARTS
-    ========================= */
+    /* ==========================================
+       FLOATING HEARTS
+    ========================================== */
 
     .hearts {
 
       position: fixed;
 
       inset: 0;
-
-      width: 100%;
-      height: 100%;
 
       overflow: hidden;
 
@@ -186,40 +190,59 @@
 
 
     .heart:nth-child(1) {
+
       left: 8%;
+
       font-size: 18px;
+
       animation-duration: 10s;
     }
 
 
     .heart:nth-child(2) {
+
       left: 23%;
+
       font-size: 13px;
+
       animation-duration: 13s;
+
       animation-delay: 3s;
     }
 
 
     .heart:nth-child(3) {
+
       left: 48%;
+
       font-size: 20px;
+
       animation-duration: 11s;
+
       animation-delay: 1s;
     }
 
 
     .heart:nth-child(4) {
+
       left: 72%;
+
       font-size: 15px;
+
       animation-duration: 14s;
+
       animation-delay: 4s;
     }
 
 
     .heart:nth-child(5) {
+
       left: 91%;
+
       font-size: 19px;
+
       animation-duration: 12s;
+
       animation-delay: 2s;
     }
 
@@ -227,9 +250,11 @@
     @keyframes rise {
 
       0% {
+
         transform:
           translateY(0)
           rotate(0deg);
+
         opacity: 0;
       }
 
@@ -242,17 +267,19 @@
       }
 
       100% {
+
         transform:
           translateY(-115vh)
           rotate(35deg);
+
         opacity: 0;
       }
     }
 
 
-    /* =========================
+    /* ==========================================
        WRAPPER
-    ========================= */
+    ========================================== */
 
     .wrapper {
 
@@ -266,9 +293,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        BRAND
-    ========================= */
+    ========================================== */
 
     .brand {
 
@@ -290,9 +317,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        CARD
-    ========================= */
+    ========================================== */
 
     .card {
 
@@ -377,51 +404,197 @@
     }
 
 
-    /* =========================
+    /* ==========================================
+       OPENING SCREEN
+    ========================================== */
+
+    .opening {
+
+      position: relative;
+
+      z-index: 2;
+
+      display: block;
+
+      text-align: center;
+
+      animation:
+        openingIn .9s ease-out;
+    }
+
+
+    @keyframes openingIn {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(15px);
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
+    }
+
+
+    .opening.hidden {
+
+      animation:
+        openingOut .45s ease forwards;
+    }
+
+
+    @keyframes openingOut {
+
+      to {
+
+        opacity: 0;
+
+        transform:
+          scale(.94)
+          translateY(-12px);
+
+        pointer-events: none;
+      }
+    }
+
+
+    .small-text {
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 13px;
+
+      letter-spacing: 1.5px;
+
+      opacity: .72;
+
+      margin-bottom: 18px;
+    }
+
+
+    /* ==========================================
+       HEART OPEN BUTTON
+    ========================================== */
+
+    .heart-button {
+
+      width: 86px;
+      height: 86px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      margin:
+        0 auto
+        22px;
+
+      padding: 0;
+
+      border-radius: 50%;
+
+      border:
+        1px solid
+        rgba(255,255,255,.35);
+
+      background:
+        rgba(255,255,255,.12);
+
+      color: #fff;
+
+      font-size: 38px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.25);
+
+      animation:
+        pulse 2s ease-in-out infinite;
+
+      transition:
+        transform .25s ease;
+    }
+
+
+    .heart-button:hover {
+
+      transform:
+        scale(1.08);
+    }
+
+
+    @keyframes pulse {
+
+      0%,100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.07);
+      }
+    }
+
+
+    /* ==========================================
        INVITATION
-    ========================= */
+    ========================================== */
 
     .invitation {
+
+      display: none;
 
       position: relative;
 
       z-index: 2;
 
       text-align: center;
+
+      animation:
+        reveal .8s ease;
     }
 
 
-    .occasion {
+    .invitation.show {
 
-      margin: 0;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 11px;
-
-      letter-spacing: 3px;
-
-      text-transform: uppercase;
-
-      opacity: .65;
+      display: block;
     }
 
 
-    .divider {
+    @keyframes reveal {
 
-      width: 75px;
+      from {
 
-      height: 1px;
+        opacity: 0;
 
-      margin:
-        28px auto;
+        transform:
+          translateY(18px);
+      }
 
-      background:
-        rgba(255,255,255,.45);
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
     }
 
+
+    /* ==========================================
+       RECIPIENT
+    ========================================== */
 
     .recipient {
 
@@ -446,6 +619,46 @@
     }
 
 
+    .occasion {
+
+      margin-top: 15px;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      opacity: .65;
+    }
+
+
+    /* ==========================================
+       DIVIDER
+    ========================================== */
+
+    .divider {
+
+      width: 75px;
+
+      height: 1px;
+
+      margin:
+        28px auto;
+
+      background:
+        rgba(255,255,255,.45);
+    }
+
+
+    /* ==========================================
+       MESSAGE
+    ========================================== */
+
     .message {
 
       max-width: 470px;
@@ -466,16 +679,24 @@
 
 
     .message::before {
+
       content: "“";
+
       opacity: .45;
     }
 
 
     .message::after {
+
       content: "”";
+
       opacity: .45;
     }
 
+
+    /* ==========================================
+       FROM
+    ========================================== */
 
     .from {
 
@@ -491,6 +712,10 @@
     }
 
 
+    /* ==========================================
+       QUESTION
+    ========================================== */
+
     .question {
 
       font-size: 20px;
@@ -499,9 +724,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        BUTTONS
-    ========================= */
+    ========================================== */
 
     .buttons {
 
@@ -580,9 +805,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        STATUS
-    ========================= */
+    ========================================== */
 
     .status {
 
@@ -614,24 +839,32 @@
     @keyframes successPop {
 
       0% {
-        transform: scale(.3);
+
+        transform:
+          scale(.3);
+
         opacity: 0;
       }
 
       70% {
-        transform: scale(1.15);
+
+        transform:
+          scale(1.15);
       }
 
       100% {
-        transform: scale(1);
+
+        transform:
+          scale(1);
+
         opacity: 1;
       }
     }
 
 
-    /* =========================
+    /* ==========================================
        FOOTER
-    ========================= */
+    ========================================== */
 
     .footer {
 
@@ -649,6 +882,10 @@
     }
 
 
+    /* ==========================================
+       ERROR
+    ========================================== */
+
     .error {
 
       font-family:
@@ -661,19 +898,39 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        MOBILE
-    ========================= */
+    ========================================== */
 
     @media (max-width: 600px) {
 
       .page {
+
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
 
         padding:
           16px
           max(16px, env(safe-area-inset-right))
           16px
           max(16px, env(safe-area-inset-left));
+      }
+
+
+      .wrapper {
+
+        width: 100%;
+
+        max-width: 560px;
+
+        margin: auto;
+      }
+
+
+      .brand {
+
+        margin-bottom: 14px;
       }
 
 
@@ -721,12 +978,18 @@
             26px
           );
       }
+
     }
 
+
+    /* ==========================================
+       VERY SMALL PHONES
+    ========================================== */
 
     @media (max-width: 380px) {
 
       .page {
+
         padding: 12px;
       }
 
@@ -739,9 +1002,41 @@
       }
 
 
+      .heart-button {
+
+        width: 78px;
+        height: 78px;
+
+        font-size: 34px;
+      }
+
+
       .question {
+
         font-size: 18px;
       }
+
+    }
+
+
+    /* ==========================================
+       LANDSCAPE MOBILE
+    ========================================== */
+
+    @media (
+      max-height: 600px
+    ) and (
+      orientation: landscape
+    ) {
+
+      .page {
+
+        align-items: flex-start;
+
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
     }
 
   </style>
@@ -751,9 +1046,19 @@
 
 <body>
 
+
+  <!-- ========================================
+       BACKGROUND
+  ========================================= -->
+
   <div class="glow one"></div>
+
   <div class="glow two"></div>
 
+
+  <!-- ========================================
+       FLOATING HEARTS
+  ========================================= -->
 
   <div
     class="hearts"
@@ -761,35 +1066,91 @@
   >
 
     <span class="heart">❤️</span>
+
     <span class="heart">💗</span>
+
     <span class="heart">💕</span>
+
     <span class="heart">❤️</span>
+
     <span class="heart">💗</span>
 
   </div>
 
 
+  <!-- ========================================
+       PAGE
+  ========================================= -->
+
   <div class="page">
 
     <div class="wrapper">
 
+
       <div class="brand">
+
         Moment
+
       </div>
 
 
       <main class="card">
+
+
+        <!-- ==================================
+             TAP TO OPEN SCREEN
+        ================================== -->
+
+        <section
+          id="opening"
+          class="opening"
+        >
+
+          <div class="small-text">
+
+            A little moment for you
+
+          </div>
+
+
+          <button
+            id="openButton"
+            class="heart-button"
+            type="button"
+            aria-label="Open invitation"
+          >
+
+            ❤️
+
+          </button>
+
+
+          <div class="small-text">
+
+            Tap to open
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================
+             INVITATION SCREEN
+        ================================== -->
 
         <section
           id="invitation"
           class="invitation"
         >
 
+
           <div
             id="occasion"
             class="occasion"
           >
+
             A little invitation
+
           </div>
 
 
@@ -800,7 +1161,9 @@
             id="recipientName"
             class="recipient"
           >
+
             You
+
           </h1>
 
 
@@ -811,8 +1174,10 @@
             id="message"
             class="message"
           >
+
             I have something important
             to ask you.
+
           </p>
 
 
@@ -820,7 +1185,9 @@
             id="from"
             class="from"
           >
+
             From someone special ❤️
+
           </div>
 
 
@@ -828,8 +1195,10 @@
             id="question"
             class="question"
           >
+
             When do I get to steal you
             for a date?
+
           </div>
 
 
@@ -843,7 +1212,9 @@
               class="yes"
               type="button"
             >
+
               Yes, it's a date ❤️
+
             </button>
 
 
@@ -852,7 +1223,9 @@
               class="maybe"
               type="button"
             >
+
               Maybe later
+
             </button>
 
           </div>
@@ -866,8 +1239,11 @@
 
 
           <div class="footer">
+
             MADE WITH MOMENT ❤️
+
           </div>
+
 
         </section>
 
@@ -880,39 +1256,81 @@
 
   <script>
 
+
     /* ========================================
        GET INVITATION CODE
     ======================================== */
 
-    const parts =
-      window.location.pathname
-        .split("/")
-        .filter(Boolean);
+    function getInvitationCode() {
+
+      const parts =
+        window.location.pathname
+          .split("/")
+          .filter(Boolean);
 
 
-    let invitationCode = null;
+      /*
+        Normal invitation URL:
+
+        /i/ABC123
+      */
+
+      if (
+        parts[0] === "i" &&
+        parts[1]
+      ) {
+
+        return decodeURIComponent(
+          parts[1]
+        );
+
+      }
 
 
-    if (
-      parts.length >= 2 &&
-      parts[0].toLowerCase() === "i"
-    ) {
+      /*
+        Also support:
 
-      invitationCode =
-        decodeURIComponent(parts[1]);
+        /invitation.html?code=ABC123
+      */
+
+      const queryCode =
+        new URLSearchParams(
+          window.location.search
+        ).get("code");
+
+
+      return queryCode
+        ? queryCode.trim()
+        : null;
 
     }
 
 
-    console.log(
-      "Invitation code:",
-      invitationCode
-    );
+    const invitationCode =
+      getInvitationCode();
 
 
     /* ========================================
        ELEMENTS
     ======================================== */
+
+    const opening =
+      document.getElementById(
+        "opening"
+      );
+
+
+    const openButton =
+      document.getElementById(
+        "openButton"
+      );
+
+
+    const invitation =
+      document.getElementById(
+        "invitation"
+      );
+
 
     const recipientName =
       document.getElementById(
@@ -963,26 +1381,71 @@
 
 
     /* ========================================
+       OPEN INVITATION
+    ======================================== */
+
+    openButton.addEventListener(
+      "click",
+      () => {
+
+        /*
+          Start the closing animation
+          for the opening screen.
+        */
+
+        opening.classList.add(
+          "hidden"
+        );
+
+
+        /*
+          Wait for animation to finish,
+          then remove opening screen
+          and reveal invitation.
+        */
+
+        setTimeout(
+          () => {
+
+            opening.style.display =
+              "none";
+
+
+            invitation.classList.add(
+              "show"
+            );
+
+          },
+          420
+        );
+
+      }
+    );
+
+
+    /* ========================================
        LOAD INVITATION
     ======================================== */
 
     async function loadInvitation() {
 
-      if (!invitationCode) {
 
-        document.getElementById(
-          "invitation"
-        ).innerHTML = `
+      /*
+        No invitation code
+      */
 
+      if (
+        !invitationCode
+      ) {
+
+        opening.innerHTML = `
           <div class="error">
-
             This invitation link is invalid. ❤️
-
           </div>
-
         `;
 
         return;
+
       }
 
 
@@ -1000,7 +1463,9 @@
           await response.json();
 
 
-        if (!response.ok) {
+        if (
+          !response.ok
+        ) {
 
           throw new Error(
             data.error ||
@@ -1010,15 +1475,22 @@
         }
 
 
-        if (data.recipient_name) {
+        /*
+          Recipient
+        */
 
-          recipientName.textContent =
-            data.recipient_name;
+        recipientName.textContent =
+          data.recipient_name ||
+          "You";
 
-        }
 
+        /*
+          Occasion
+        */
 
-        if (data.occasion) {
+        if (
+          data.occasion
+        ) {
 
           occasion.textContent =
             data.occasion;
@@ -1026,7 +1498,13 @@
         }
 
 
-        if (data.message) {
+        /*
+          Message
+        */
+
+        if (
+          data.message
+        ) {
 
           message.textContent =
             data.message;
@@ -1034,7 +1512,13 @@
         }
 
 
-        if (data.creator_name) {
+        /*
+          Creator
+        */
+
+        if (
+          data.creator_name
+        ) {
 
           from.textContent =
             `From ${data.creator_name} ❤️`;
@@ -1042,13 +1526,19 @@
         }
 
 
+        /*
+          Browser title
+        */
+
         document.title =
           `${data.recipient_name || "You"} ❤️ | Moment`;
 
       }
 
 
-      catch (error) {
+      catch (
+        error
+      ) {
 
         console.error(
           "Invitation loading error:",
@@ -1056,19 +1546,13 @@
         );
 
 
-        document.getElementById(
-          "invitation"
-        ).innerHTML = `
-
+        opening.innerHTML = `
           <div class="error">
-
             ${
               error.message ||
               "Could not load invitation."
             }
-
           </div>
-
         `;
 
       }
@@ -1078,17 +1562,27 @@
 
     /* ========================================
        YES BUTTON
-       NOW OPENS A SEPARATE PAGE
     ======================================== */
 
     yesButton.addEventListener(
       "click",
       () => {
 
-        if (!invitationCode) {
+        /*
+          IMPORTANT:
+
+          The calendar is NOT here.
+
+          Clicking YES takes the user
+          to the separate date-selection page.
+        */
+
+        if (
+          !invitationCode
+        ) {
 
           status.textContent =
-            "Invalid invitation link. ❤️";
+            "This invitation link is invalid. ❤️";
 
           return;
 
@@ -1117,7 +1611,6 @@
 
 
         status.innerHTML = `
-
           <span class="success-heart">
             💌
           </span>
@@ -1129,7 +1622,6 @@
           <br>
 
           I'll be waiting.
-
         `;
 
       }
@@ -1141,6 +1633,7 @@
     ======================================== */
 
     loadInvitation();
+
 
   </script>
 
