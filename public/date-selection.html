@@ -1,0 +1,1711 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <title>Pick Our Date ❤️</title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html,
+    body {
+
+      margin: 0;
+      padding: 0;
+
+      width: 100%;
+      min-height: 100%;
+    }
+
+
+    body {
+
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
+
+      overflow-x: hidden;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color: #fff;
+
+      background:
+        radial-gradient(
+          circle at 20% 15%,
+          rgba(255,255,255,.18),
+          transparent 25%
+        ),
+
+        radial-gradient(
+          circle at 85% 85%,
+          rgba(255,120,160,.25),
+          transparent 30%
+        ),
+
+        linear-gradient(
+          145deg,
+          #160817 0%,
+          #3b0c2f 42%,
+          #761842 72%,
+          #d65c7d 100%
+        );
+    }
+
+
+    /* =========================
+       PAGE
+    ========================= */
+
+    .page {
+
+      width: 100%;
+
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        20px;
+
+      position: relative;
+    }
+
+
+    /* =========================
+       GLOW
+    ========================= */
+
+    .glow {
+
+      position: fixed;
+
+      width: 320px;
+      height: 320px;
+
+      border-radius: 50%;
+
+      filter: blur(90px);
+
+      opacity: .22;
+
+      pointer-events: none;
+
+      animation:
+        glowMove 8s ease-in-out infinite alternate;
+    }
+
+
+    .glow.one {
+
+      background: #ff7fa5;
+
+      top: -120px;
+      left: -100px;
+    }
+
+
+    .glow.two {
+
+      background: #ffb6cf;
+
+      right: -120px;
+      bottom: -130px;
+
+      animation-delay: 2s;
+    }
+
+
+    @keyframes glowMove {
+
+      from {
+        transform:
+          translate(0,0)
+          scale(1);
+      }
+
+      to {
+        transform:
+          translate(35px,-25px)
+          scale(1.15);
+      }
+    }
+
+
+    /* =========================
+       HEARTS
+    ========================= */
+
+    .hearts {
+
+      position: fixed;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 1;
+    }
+
+
+    .heart {
+
+      position: absolute;
+
+      bottom: -50px;
+
+      opacity: 0;
+
+      animation:
+        rise linear infinite;
+    }
+
+
+    .heart:nth-child(1) {
+
+      left: 8%;
+
+      font-size: 18px;
+
+      animation-duration: 10s;
+    }
+
+
+    .heart:nth-child(2) {
+
+      left: 23%;
+
+      font-size: 13px;
+
+      animation-duration: 13s;
+
+      animation-delay: 3s;
+    }
+
+
+    .heart:nth-child(3) {
+
+      left: 48%;
+
+      font-size: 20px;
+
+      animation-duration: 11s;
+
+      animation-delay: 1s;
+    }
+
+
+    .heart:nth-child(4) {
+
+      left: 72%;
+
+      font-size: 15px;
+
+      animation-duration: 14s;
+
+      animation-delay: 4s;
+    }
+
+
+    .heart:nth-child(5) {
+
+      left: 91%;
+
+      font-size: 19px;
+
+      animation-duration: 12s;
+
+      animation-delay: 2s;
+    }
+
+
+    @keyframes rise {
+
+      0% {
+
+        transform:
+          translateY(0)
+          rotate(0deg);
+
+        opacity: 0;
+      }
+
+      15% {
+        opacity: .45;
+      }
+
+      85% {
+        opacity: .25;
+      }
+
+      100% {
+
+        transform:
+          translateY(-115vh)
+          rotate(35deg);
+
+        opacity: 0;
+      }
+    }
+
+
+    /* =========================
+       WRAPPER
+    ========================= */
+
+    .wrapper {
+
+      width: min(560px, 100%);
+
+      position: relative;
+
+      z-index: 3;
+
+      margin: auto;
+    }
+
+
+    .brand {
+
+      text-align: center;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 5px;
+
+      text-transform: uppercase;
+
+      opacity: .65;
+
+      margin-bottom: 20px;
+    }
+
+
+    /* =========================
+       CARD
+    ========================= */
+
+    .card {
+
+      position: relative;
+
+      width: 100%;
+
+      padding:
+        34px 24px;
+
+      text-align: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.22);
+
+      border-radius: 32px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.16),
+          rgba(255,255,255,.07)
+        );
+
+      backdrop-filter:
+        blur(22px);
+
+      -webkit-backdrop-filter:
+        blur(22px);
+
+      box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.38);
+    }
+
+
+    .title {
+
+      font-size:
+        clamp(
+          32px,
+          8vw,
+          48px
+        );
+
+      font-weight: normal;
+
+      margin:
+        0 0 10px;
+    }
+
+
+    .subtitle {
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 14px;
+
+      opacity: .72;
+
+      margin-bottom: 26px;
+    }
+
+
+    /* =========================
+       CALENDAR
+    ========================= */
+
+    .calendar {
+
+      width: min(340px, 100%);
+
+      margin: 0 auto;
+
+      padding: 18px;
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,.10);
+
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+
+      box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.18);
+    }
+
+
+    .calendar-header {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-bottom: 16px;
+    }
+
+
+    .calendar-month {
+
+      flex: 1;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 16px;
+
+      font-weight: 600;
+    }
+
+
+    .calendar-nav {
+
+      width: 38px;
+      height: 38px;
+
+      padding: 0;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.12);
+
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+
+      font-size: 18px;
+    }
+
+
+    .calendar-nav:hover {
+
+      background:
+        rgba(255,255,255,.20);
+    }
+
+
+    .calendar-nav:disabled {
+
+      opacity: .3;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+
+    .calendar-weekdays {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(7, 1fr);
+
+      gap: 4px;
+
+      margin-bottom: 6px;
+    }
+
+
+    .calendar-weekday {
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 10px;
+
+      font-weight: 600;
+
+      opacity: .55;
+
+      padding: 5px 0;
+
+      text-align: center;
+    }
+
+
+    .calendar-days {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(7, 1fr);
+
+      gap: 5px;
+    }
+
+
+    .calendar-day {
+
+      width: 100%;
+
+      aspect-ratio: 1 / 1;
+
+      padding: 0;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 13px;
+
+      font-weight: 500;
+
+      color: #fff;
+
+      background:
+        transparent;
+
+      border:
+        1px solid transparent;
+
+      cursor: pointer;
+
+      transition:
+        background .18s ease,
+        transform .18s ease;
+    }
+
+
+    .calendar-day:hover {
+
+      background:
+        rgba(255,255,255,.16);
+
+      transform:
+        scale(1.05);
+    }
+
+
+    .calendar-day.empty {
+
+      pointer-events: none;
+
+      background: transparent;
+    }
+
+
+    .calendar-day.past {
+
+      color:
+        rgba(255,255,255,.25);
+
+      background:
+        rgba(0,0,0,.08);
+
+      cursor:
+        not-allowed;
+
+      pointer-events:
+        none;
+
+      text-decoration:
+        line-through;
+
+      opacity:
+        .45;
+    }
+
+
+    .calendar-day.today {
+
+      border:
+        1px solid
+        rgba(255,255,255,.65);
+
+      font-weight: 700;
+    }
+
+
+    .calendar-day.selected {
+
+      color: #74153f;
+
+      background: #fff;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 6px 18px
+        rgba(0,0,0,.20);
+    }
+
+
+    .selected-date-display {
+
+      min-height: 24px;
+
+      margin-top: 15px;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 13px;
+
+      opacity: .78;
+    }
+
+
+    /* =========================
+       CONFIRM
+    ========================= */
+
+    .confirm {
+
+      margin-top: 20px;
+
+      color: #fff;
+
+      background: #941f5a;
+
+      box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.25);
+    }
+
+
+    .confirm:disabled {
+
+      opacity: .6;
+
+      cursor: not-allowed;
+    }
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    .status {
+
+      margin-top: 25px;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+
+    .success-heart {
+
+      display: block;
+
+      font-size: 55px;
+
+      margin-bottom: 10px;
+
+      animation:
+        successPop .6s ease;
+    }
+
+
+    @keyframes successPop {
+
+      0% {
+
+        transform:
+          scale(.3);
+
+        opacity: 0;
+      }
+
+      70% {
+
+        transform:
+          scale(1.15);
+      }
+
+      100% {
+
+        transform:
+          scale(1);
+
+        opacity: 1;
+      }
+    }
+
+
+    .back {
+
+      display: inline-block;
+
+      margin-top: 20px;
+
+      color: #fff;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 13px;
+
+      opacity: .65;
+
+      text-decoration: none;
+    }
+
+
+    .back:hover {
+
+      opacity: 1;
+    }
+
+
+    .error {
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 15px;
+
+      padding: 25px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      .page {
+        padding: 16px;
+      }
+
+
+      .card {
+
+        padding:
+          30px 16px;
+
+        border-radius:
+          27px;
+      }
+
+
+      .calendar {
+
+        padding:
+          14px;
+
+        border-radius:
+          18px;
+      }
+
+
+      .calendar-day {
+
+        font-size:
+          12px;
+      }
+
+
+      .calendar-nav {
+
+        width:
+          36px;
+
+        height:
+          36px;
+      }
+    }
+
+
+    @media (max-width: 380px) {
+
+      .page {
+        padding: 12px;
+      }
+
+
+      .calendar {
+
+        padding:
+          11px;
+      }
+
+
+      .calendar-days {
+        gap: 3px;
+      }
+
+
+      .calendar-day {
+        font-size: 11px;
+      }
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+
+  <div
+    class="hearts"
+    aria-hidden="true"
+  >
+
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+    <span class="heart">💕</span>
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+
+  </div>
+
+
+  <div class="page">
+
+    <div class="wrapper">
+
+      <div class="brand">
+        Moment
+      </div>
+
+
+      <main class="card">
+
+        <h1 class="title">
+          Pick our date ❤️
+        </h1>
+
+
+        <div class="subtitle">
+          Choose a day that works for us.
+        </div>
+
+
+        <div
+          id="calendar"
+          class="calendar"
+        >
+
+          <div class="calendar-header">
+
+            <button
+              id="previousMonth"
+              class="calendar-nav"
+              type="button"
+              aria-label="Previous month"
+            >
+              ‹
+            </button>
+
+
+            <div
+              id="calendarMonth"
+              class="calendar-month"
+            ></div>
+
+
+            <button
+              id="nextMonth"
+              class="calendar-nav"
+              type="button"
+              aria-label="Next month"
+            >
+              ›
+            </button>
+
+          </div>
+
+
+          <div class="calendar-weekdays">
+
+            <div class="calendar-weekday">
+              Sun
+            </div>
+
+            <div class="calendar-weekday">
+              Mon
+            </div>
+
+            <div class="calendar-weekday">
+              Tue
+            </div>
+
+            <div class="calendar-weekday">
+              Wed
+            </div>
+
+            <div class="calendar-weekday">
+              Thu
+            </div>
+
+            <div class="calendar-weekday">
+              Fri
+            </div>
+
+            <div class="calendar-weekday">
+              Sat
+            </div>
+
+          </div>
+
+
+          <div
+            id="calendarDays"
+            class="calendar-days"
+          ></div>
+
+
+          <div
+            id="selectedDateDisplay"
+            class="selected-date-display"
+          ></div>
+
+        </div>
+
+
+        <input
+          id="dateInput"
+          type="hidden"
+        >
+
+
+        <button
+          id="confirmButton"
+          class="confirm"
+          type="button"
+          disabled
+        >
+          Confirm date ❤️
+        </button>
+
+
+        <div
+          id="status"
+          class="status"
+          aria-live="polite"
+        ></div>
+
+
+        <a
+          href="javascript:history.back()"
+          class="back"
+        >
+          ← Back to invitation
+        </a>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* ========================================
+       GET INVITATION CODE FROM URL
+       
+       Example:
+       /date-selection.html?code=4zx...
+    ======================================== */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const invitationCode =
+      params.get("code");
+
+
+    console.log(
+      "Date page invitation code:",
+      invitationCode
+    );
+
+
+    /* ========================================
+       ELEMENTS
+    ======================================== */
+
+    const calendarMonth =
+      document.getElementById(
+        "calendarMonth"
+      );
+
+
+    const calendarDays =
+      document.getElementById(
+        "calendarDays"
+      );
+
+
+    const previousMonth =
+      document.getElementById(
+        "previousMonth"
+      );
+
+
+    const nextMonth =
+      document.getElementById(
+        "nextMonth"
+      );
+
+
+    const selectedDateDisplay =
+      document.getElementById(
+        "selectedDateDisplay"
+      );
+
+
+    const dateInput =
+      document.getElementById(
+        "dateInput"
+      );
+
+
+    const confirmButton =
+      document.getElementById(
+        "confirmButton"
+      );
+
+
+    const status =
+      document.getElementById(
+        "status"
+      );
+
+
+    /* ========================================
+       TODAY
+    ======================================== */
+
+    function getToday() {
+
+      const now =
+        new Date();
+
+
+      return new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+      );
+
+    }
+
+
+    const today =
+      getToday();
+
+
+    /* ========================================
+       CALENDAR STATE
+    ======================================== */
+
+    let calendarMonthDate =
+      new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+      );
+
+
+    let selectedDate =
+      null;
+
+
+    /* ========================================
+       DATE FORMAT
+    ======================================== */
+
+    function formatDateValue(
+      date
+    ) {
+
+      const year =
+        date.getFullYear();
+
+
+      const month =
+        String(
+          date.getMonth() + 1
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      const day =
+        String(
+          date.getDate()
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      return `${year}-${month}-${day}`;
+
+    }
+
+
+    /* ========================================
+       SAME DATE
+    ======================================== */
+
+    function isSameDate(
+      first,
+      second
+    ) {
+
+      return (
+
+        first.getFullYear() ===
+          second.getFullYear()
+
+        &&
+
+        first.getMonth() ===
+          second.getMonth()
+
+        &&
+
+        first.getDate() ===
+          second.getDate()
+
+      );
+
+    }
+
+
+    /* ========================================
+       RENDER CALENDAR
+    ======================================== */
+
+    function renderCalendar() {
+
+      const year =
+        calendarMonthDate.getFullYear();
+
+
+      const month =
+        calendarMonthDate.getMonth();
+
+
+      const firstDay =
+        new Date(
+          year,
+          month,
+          1
+        ).getDay();
+
+
+      const daysInMonth =
+        new Date(
+          year,
+          month + 1,
+          0
+        ).getDate();
+
+
+      calendarMonth.textContent =
+        calendarMonthDate.toLocaleDateString(
+          "en-IN",
+          {
+            month: "long",
+            year: "numeric"
+          }
+        );
+
+
+      calendarDays.innerHTML =
+        "";
+
+
+      /* =========================
+         PREVIOUS MONTH
+      ========================= */
+
+      const currentMonthStart =
+        new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          1
+        );
+
+
+      previousMonth.disabled =
+        calendarMonthDate <=
+        currentMonthStart;
+
+
+      /* =========================
+         EMPTY CELLS
+      ========================= */
+
+      for (
+        let i = 0;
+        i < firstDay;
+        i++
+      ) {
+
+        const empty =
+          document.createElement(
+            "div"
+          );
+
+
+        empty.className =
+          "calendar-day empty";
+
+
+        calendarDays.appendChild(
+          empty
+        );
+
+      }
+
+
+      /* =========================
+         DAYS
+      ========================= */
+
+      for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+      ) {
+
+        const date =
+          new Date(
+            year,
+            month,
+            day
+          );
+
+
+        const button =
+          document.createElement(
+            "button"
+          );
+
+
+        button.type =
+          "button";
+
+
+        button.className =
+          "calendar-day";
+
+
+        button.textContent =
+          day;
+
+
+        /* PAST */
+
+        if (
+          date <
+          today
+        ) {
+
+          button.classList.add(
+            "past"
+          );
+
+          button.disabled =
+            true;
+
+        }
+
+
+        /* TODAY */
+
+        if (
+          isSameDate(
+            date,
+            today
+          )
+        ) {
+
+          button.classList.add(
+            "today"
+          );
+
+        }
+
+
+        /* SELECTED */
+
+        if (
+          selectedDate &&
+          isSameDate(
+            date,
+            selectedDate
+          )
+        ) {
+
+          button.classList.add(
+            "selected"
+          );
+
+        }
+
+
+        /* FUTURE / TODAY */
+
+        if (
+          date >=
+          today
+        ) {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              selectDate(
+                date
+              );
+
+            }
+          );
+
+        }
+
+
+        calendarDays.appendChild(
+          button
+        );
+
+      }
+
+    }
+
+
+    /* ========================================
+       SELECT DATE
+    ======================================== */
+
+    function selectDate(
+      date
+    ) {
+
+      if (
+        date <
+        today
+      ) {
+
+        return;
+
+      }
+
+
+      selectedDate =
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate()
+        );
+
+
+      const value =
+        formatDateValue(
+          selectedDate
+        );
+
+
+      dateInput.value =
+        value;
+
+
+      const formatted =
+        selectedDate.toLocaleDateString(
+          "en-IN",
+          {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          }
+        );
+
+
+      selectedDateDisplay.innerHTML =
+        `Selected: <strong>${formatted}</strong> ❤️`;
+
+
+      confirmButton.disabled =
+        false;
+
+
+      renderCalendar();
+
+    }
+
+
+    /* ========================================
+       NEXT MONTH
+    ======================================== */
+
+    nextMonth.addEventListener(
+      "click",
+      () => {
+
+        calendarMonthDate =
+          new Date(
+            calendarMonthDate.getFullYear(),
+            calendarMonthDate.getMonth() + 1,
+            1
+          );
+
+
+        renderCalendar();
+
+      }
+    );
+
+
+    /* ========================================
+       PREVIOUS MONTH
+    ======================================== */
+
+    previousMonth.addEventListener(
+      "click",
+      () => {
+
+        const minimumMonth =
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1
+          );
+
+
+        if (
+          calendarMonthDate <=
+          minimumMonth
+        ) {
+
+          return;
+
+        }
+
+
+        calendarMonthDate =
+          new Date(
+            calendarMonthDate.getFullYear(),
+            calendarMonthDate.getMonth() - 1,
+            1
+          );
+
+
+        renderCalendar();
+
+      }
+    );
+
+
+    /* ========================================
+       CONFIRM DATE
+    ======================================== */
+
+    confirmButton.addEventListener(
+      "click",
+      async () => {
+
+        const selectedDateValue =
+          dateInput.value;
+
+
+        if (
+          !selectedDateValue
+        ) {
+
+          status.textContent =
+            "Please choose a date ❤️";
+
+          return;
+
+        }
+
+
+        if (!invitationCode) {
+
+          status.textContent =
+            "Invalid invitation link. ❤️";
+
+          return;
+
+        }
+
+
+        const chosenDate =
+          new Date(
+            selectedDateValue +
+            "T00:00:00"
+          );
+
+
+        const todayValue =
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+          );
+
+
+        if (
+          chosenDate <
+          todayValue
+        ) {
+
+          status.textContent =
+            "Please choose today or a future date ❤️";
+
+          return;
+
+        }
+
+
+        confirmButton.disabled =
+          true;
+
+
+        confirmButton.textContent =
+          "Saving...";
+
+
+        try {
+
+          const response =
+            await fetch(
+              "/api/response",
+              {
+
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                  JSON.stringify({
+
+                    answer: "yes",
+
+                    date:
+                      selectedDateValue,
+
+                    invitationCode:
+                      invitationCode
+
+                  })
+
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.error ||
+              "Could not save response."
+            );
+
+          }
+
+
+          const displayDate =
+            chosenDate.toLocaleDateString(
+              "en-IN",
+              {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+              }
+            );
+
+
+          document.querySelector(
+            ".calendar"
+          ).style.display =
+            "none";
+
+
+          confirmButton.style.display =
+            "none";
+
+
+          document.querySelector(
+            ".subtitle"
+          ).style.display =
+            "none";
+
+
+          status.innerHTML = `
+
+            <span class="success-heart">
+              ❤️
+            </span>
+
+            <strong>
+              It's a date!
+            </strong>
+
+            <br><br>
+
+            ${displayDate}
+
+            <br><br>
+
+            <span style="opacity:.7;">
+              See you then. 🥰
+            </span>
+
+          `;
+
+        }
+
+
+        catch (error) {
+
+          console.error(
+            "Response error:",
+            error
+          );
+
+
+          status.textContent =
+            error.message ||
+            "Something went wrong.";
+
+
+          confirmButton.disabled =
+            false;
+
+
+          confirmButton.textContent =
+            "Confirm date ❤️";
+
+        }
+
+      }
+    );
+
+
+    /* ========================================
+       INITIAL LOAD
+    ======================================== */
+
+    renderCalendar();
+
+  </script>
+
+</body>
+
+</html>
