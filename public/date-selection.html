@@ -22,10 +22,8 @@
 
     html,
     body {
-
       margin: 0;
       padding: 0;
-
       width: 100%;
       min-height: 100%;
     }
@@ -38,6 +36,7 @@
       min-height: 100dvh;
 
       overflow-x: hidden;
+      overflow-y: auto;
 
       font-family:
         Georgia,
@@ -69,13 +68,11 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        PAGE
-    ========================= */
+    ========================================== */
 
     .page {
-
-      width: 100%;
 
       min-height: 100vh;
       min-height: 100svh;
@@ -83,19 +80,21 @@
 
       display: flex;
 
-      align-items: center;
       justify-content: center;
+      align-items: center;
 
       padding:
-        20px;
+        28px 20px;
 
       position: relative;
+
+      z-index: 1;
     }
 
 
-    /* =========================
+    /* ==========================================
        GLOW
-    ========================= */
+    ========================================== */
 
     .glow {
 
@@ -111,6 +110,8 @@
       opacity: .22;
 
       pointer-events: none;
+
+      z-index: 0;
 
       animation:
         glowMove 8s ease-in-out infinite alternate;
@@ -140,12 +141,14 @@
     @keyframes glowMove {
 
       from {
+
         transform:
           translate(0,0)
           scale(1);
       }
 
       to {
+
         transform:
           translate(35px,-25px)
           scale(1.15);
@@ -153,9 +156,9 @@
     }
 
 
-    /* =========================
-       HEARTS
-    ========================= */
+    /* ==========================================
+       FLOATING HEARTS
+    ========================================== */
 
     .hearts {
 
@@ -272,13 +275,14 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        WRAPPER
-    ========================= */
+    ========================================== */
 
     .wrapper {
 
-      width: min(560px, 100%);
+      width:
+        min(620px, 100%);
 
       position: relative;
 
@@ -287,6 +291,10 @@
       margin: auto;
     }
 
+
+    /* ==========================================
+       BRAND
+    ========================================== */
 
     .brand {
 
@@ -308,18 +316,19 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        CARD
-    ========================= */
+    ========================================== */
 
     .card {
 
-      position: relative;
-
       width: 100%;
 
+      position: relative;
+
       padding:
-        34px 24px;
+        40px 28px
+        34px;
 
       text-align: center;
 
@@ -345,26 +354,116 @@
       box-shadow:
         0 30px 90px
         rgba(0,0,0,.38);
+
+      overflow: hidden;
+
+      animation:
+        cardIn .7s ease-out;
     }
 
 
+    .card::before {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(255,255,255,.14),
+          transparent 40%
+        );
+
+      pointer-events: none;
+    }
+
+
+    @keyframes cardIn {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(25px)
+          scale(.97);
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
+
+
+    .content {
+
+      position: relative;
+
+      z-index: 2;
+    }
+
+
+    /* ==========================================
+       TITLE
+    ========================================== */
+
     .title {
+
+      margin: 0;
 
       font-size:
         clamp(
-          32px,
+          42px,
           8vw,
-          48px
+          62px
         );
 
       font-weight: normal;
 
-      margin:
-        0 0 10px;
+      line-height: 1;
     }
 
 
+    .title-heart {
+
+      display: inline-block;
+
+      font-size: .72em;
+
+      animation:
+        pulse 2s ease-in-out infinite;
+    }
+
+
+    @keyframes pulse {
+
+      0%,100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+    }
+
+
+    /* ==========================================
+       SUBTITLE
+    ========================================== */
+
     .subtitle {
+
+      margin:
+        15px 0
+        30px;
 
       font-family:
         Arial,
@@ -373,24 +472,24 @@
       font-size: 14px;
 
       opacity: .72;
-
-      margin-bottom: 26px;
     }
 
 
-    /* =========================
+    /* ==========================================
        CALENDAR
-    ========================= */
+    ========================================== */
 
     .calendar {
 
-      width: min(340px, 100%);
+      width:
+        min(390px, 100%);
 
-      margin: 0 auto;
+      margin:
+        0 auto;
 
-      padding: 18px;
+      padding: 20px;
 
-      border-radius: 20px;
+      border-radius: 22px;
 
       background:
         rgba(255,255,255,.10);
@@ -413,9 +512,9 @@
 
       justify-content: space-between;
 
-      gap: 10px;
+      gap: 12px;
 
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
 
@@ -427,16 +526,16 @@
         Arial,
         sans-serif;
 
-      font-size: 16px;
+      font-size: 17px;
 
-      font-weight: 600;
+      font-weight: 700;
     }
 
 
     .calendar-nav {
 
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
 
       padding: 0;
 
@@ -456,7 +555,7 @@
         1px solid
         rgba(255,255,255,.18);
 
-      font-size: 18px;
+      font-size: 21px;
     }
 
 
@@ -469,7 +568,7 @@
 
     .calendar-nav:disabled {
 
-      opacity: .3;
+      opacity: .25;
 
       cursor: not-allowed;
 
@@ -477,20 +576,33 @@
     }
 
 
-    .calendar-weekdays {
+    /* ==========================================
+       WEEKDAYS / DAYS
+    ========================================== */
+
+    .calendar-weekdays,
+    .calendar-days {
 
       display: grid;
 
       grid-template-columns:
         repeat(7, 1fr);
+    }
 
-      gap: 4px;
 
-      margin-bottom: 6px;
+    .calendar-weekdays {
+
+      gap: 5px;
+
+      margin-bottom: 7px;
     }
 
 
     .calendar-weekday {
+
+      padding: 5px 0;
+
+      text-align: center;
 
       font-family:
         Arial,
@@ -498,22 +610,13 @@
 
       font-size: 10px;
 
-      font-weight: 600;
+      font-weight: 700;
 
-      opacity: .55;
-
-      padding: 5px 0;
-
-      text-align: center;
+      opacity: .58;
     }
 
 
     .calendar-days {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(7, 1fr);
 
       gap: 5px;
     }
@@ -548,13 +651,15 @@
         transparent;
 
       border:
-        1px solid transparent;
+        1px solid
+        transparent;
 
       cursor: pointer;
 
       transition:
         background .18s ease,
-        transform .18s ease;
+        transform .18s ease,
+        opacity .18s ease;
     }
 
 
@@ -568,13 +673,17 @@
     }
 
 
+    /* Empty cells */
+
     .calendar-day.empty {
 
       pointer-events: none;
 
-      background: transparent;
+      cursor: default;
     }
 
+
+    /* Past dates */
 
     .calendar-day.past {
 
@@ -593,10 +702,11 @@
       text-decoration:
         line-through;
 
-      opacity:
-        .45;
+      opacity: .45;
     }
 
+
+    /* Today */
 
     .calendar-day.today {
 
@@ -607,6 +717,8 @@
       font-weight: 700;
     }
 
+
+    /* Selected date */
 
     .calendar-day.selected {
 
@@ -622,11 +734,24 @@
     }
 
 
+    .calendar-day.selected:hover {
+
+      background: #fff;
+
+      transform:
+        scale(1.05);
+    }
+
+
+    /* ==========================================
+       SELECTED DATE TEXT
+    ========================================== */
+
     .selected-date-display {
 
       min-height: 24px;
 
-      margin-top: 15px;
+      margin-top: 17px;
 
       font-family:
         Arial,
@@ -634,17 +759,19 @@
 
       font-size: 13px;
 
-      opacity: .78;
+      line-height: 1.5;
+
+      opacity: .82;
     }
 
 
-    /* =========================
-       CONFIRM
-    ========================= */
+    /* ==========================================
+       CONFIRM BUTTON
+    ========================================== */
 
     .confirm {
 
-      margin-top: 20px;
+      margin-top: 18px;
 
       color: #fff;
 
@@ -660,17 +787,51 @@
 
       opacity: .6;
 
-      cursor: not-allowed;
+      cursor:
+        not-allowed;
     }
 
 
-    /* =========================
+    /* ==========================================
+       BACK LINK
+    ========================================== */
+
+    .back-link {
+
+      display: inline-block;
+
+      margin-top: 28px;
+
+      color: #fff;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 13px;
+
+      text-decoration: none;
+
+      opacity: .72;
+    }
+
+
+    .back-link:hover {
+
+      opacity: 1;
+
+      text-decoration:
+        underline;
+    }
+
+
+    /* ==========================================
        STATUS
-    ========================= */
+    ========================================== */
 
     .status {
 
-      margin-top: 25px;
+      margin-top: 22px;
 
       font-family:
         Arial,
@@ -721,31 +882,9 @@
     }
 
 
-    .back {
-
-      display: inline-block;
-
-      margin-top: 20px;
-
-      color: #fff;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 13px;
-
-      opacity: .65;
-
-      text-decoration: none;
-    }
-
-
-    .back:hover {
-
-      opacity: 1;
-    }
-
+    /* ==========================================
+       ERROR
+    ========================================== */
 
     .error {
 
@@ -759,77 +898,96 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        MOBILE
-    ========================= */
+    ========================================== */
 
     @media (max-width: 600px) {
 
       .page {
-        padding: 16px;
+
+        padding:
+          18px 14px;
+
+        align-items:
+          flex-start;
+      }
+
+
+      .wrapper {
+
+        margin-top: 8px;
+      }
+
+
+      .brand {
+
+        margin-bottom: 14px;
       }
 
 
       .card {
 
         padding:
-          30px 16px;
+          32px 16px
+          28px;
 
-        border-radius:
-          27px;
+        border-radius: 27px;
       }
 
 
       .calendar {
 
-        padding:
-          14px;
+        padding: 14px;
 
-        border-radius:
-          18px;
+        border-radius: 19px;
       }
 
 
       .calendar-day {
 
-        font-size:
-          12px;
+        font-size: 12px;
       }
 
 
       .calendar-nav {
 
-        width:
-          36px;
-
-        height:
-          36px;
+        width: 36px;
+        height: 36px;
       }
+
     }
 
+
+    /* ==========================================
+       VERY SMALL PHONES
+    ========================================== */
 
     @media (max-width: 380px) {
 
       .page {
+
         padding: 12px;
       }
 
 
       .calendar {
 
-        padding:
-          11px;
+        padding: 11px;
       }
 
 
       .calendar-days {
+
         gap: 3px;
       }
 
 
       .calendar-day {
+
         font-size: 11px;
       }
+
     }
 
   </style>
@@ -839,9 +997,19 @@
 
 <body>
 
+
+  <!-- ========================================
+       BACKGROUND
+  ========================================= -->
+
   <div class="glow one"></div>
+
   <div class="glow two"></div>
 
+
+  <!-- ========================================
+       FLOATING HEARTS
+  ========================================= -->
 
   <div
     class="hearts"
@@ -849,146 +1017,207 @@
   >
 
     <span class="heart">❤️</span>
+
     <span class="heart">💗</span>
+
     <span class="heart">💕</span>
+
     <span class="heart">❤️</span>
+
     <span class="heart">💗</span>
 
   </div>
 
 
+  <!-- ========================================
+       PAGE
+  ========================================= -->
+
   <div class="page">
 
     <div class="wrapper">
 
+
       <div class="brand">
+
         Moment
+
       </div>
 
 
       <main class="card">
 
-        <h1 class="title">
-          Pick our date ❤️
-        </h1>
+
+        <div class="content">
 
 
-        <div class="subtitle">
-          Choose a day that works for us.
-        </div>
+          <!-- ==================================
+               TITLE
+          ================================== -->
+
+          <h1 class="title">
+
+            Pick our date
+
+            <span class="title-heart">
+              ❤️
+            </span>
+
+          </h1>
 
 
-        <div
-          id="calendar"
-          class="calendar"
-        >
+          <p class="subtitle">
 
-          <div class="calendar-header">
+            Choose a day that works for us.
 
-            <button
-              id="previousMonth"
-              class="calendar-nav"
-              type="button"
-              aria-label="Previous month"
-            >
-              ‹
-            </button>
+          </p>
+
+
+          <!-- ==================================
+               CALENDAR
+          ================================== -->
+
+          <div
+            id="calendar"
+            class="calendar"
+          >
 
 
             <div
-              id="calendarMonth"
-              class="calendar-month"
+              class="calendar-header"
+            >
+
+
+              <button
+                id="previousMonth"
+                class="calendar-nav"
+                type="button"
+                aria-label="Previous month"
+              >
+
+                ‹
+
+              </button>
+
+
+              <div
+                id="calendarMonth"
+                class="calendar-month"
+              ></div>
+
+
+              <button
+                id="nextMonth"
+                class="calendar-nav"
+                type="button"
+                aria-label="Next month"
+              >
+
+                ›
+
+              </button>
+
+
+            </div>
+
+
+            <div
+              class="calendar-weekdays"
+            >
+
+              <div class="calendar-weekday">
+                Sun
+              </div>
+
+              <div class="calendar-weekday">
+                Mon
+              </div>
+
+              <div class="calendar-weekday">
+                Tue
+              </div>
+
+              <div class="calendar-weekday">
+                Wed
+              </div>
+
+              <div class="calendar-weekday">
+                Thu
+              </div>
+
+              <div class="calendar-weekday">
+                Fri
+              </div>
+
+              <div class="calendar-weekday">
+                Sat
+              </div>
+
+            </div>
+
+
+            <div
+              id="calendarDays"
+              class="calendar-days"
             ></div>
 
 
-            <button
-              id="nextMonth"
-              class="calendar-nav"
-              type="button"
-              aria-label="Next month"
+            <div
+              id="selectedDateDisplay"
+              class="selected-date-display"
             >
-              ›
-            </button>
+
+              Please choose a date ❤️
+
+            </div>
+
 
           </div>
 
 
-          <div class="calendar-weekdays">
+          <!-- ==================================
+               CONFIRM
+          ================================== -->
 
-            <div class="calendar-weekday">
-              Sun
-            </div>
+          <button
+            id="confirmButton"
+            class="confirm"
+            type="button"
+            disabled
+          >
 
-            <div class="calendar-weekday">
-              Mon
-            </div>
+            Confirm date ❤️
 
-            <div class="calendar-weekday">
-              Tue
-            </div>
+          </button>
 
-            <div class="calendar-weekday">
-              Wed
-            </div>
 
-            <div class="calendar-weekday">
-              Thu
-            </div>
-
-            <div class="calendar-weekday">
-              Fri
-            </div>
-
-            <div class="calendar-weekday">
-              Sat
-            </div>
-
-          </div>
-
+          <!-- ==================================
+               STATUS
+          ================================== -->
 
           <div
-            id="calendarDays"
-            class="calendar-days"
+            id="status"
+            class="status"
+            aria-live="polite"
           ></div>
 
 
-          <div
-            id="selectedDateDisplay"
-            class="selected-date-display"
-          ></div>
+          <!-- ==================================
+               BACK
+          ================================== -->
+
+          <a
+            id="backLink"
+            class="back-link"
+            href="#"
+          >
+
+            ← Back to invitation
+
+          </a>
+
 
         </div>
-
-
-        <input
-          id="dateInput"
-          type="hidden"
-        >
-
-
-        <button
-          id="confirmButton"
-          class="confirm"
-          type="button"
-          disabled
-        >
-          Confirm date ❤️
-        </button>
-
-
-        <div
-          id="status"
-          class="status"
-          aria-live="polite"
-        ></div>
-
-
-        <a
-          href="javascript:history.back()"
-          class="back"
-        >
-          ← Back to invitation
-        </a>
 
       </main>
 
@@ -999,27 +1228,32 @@
 
   <script>
 
+
     /* ========================================
-       GET INVITATION CODE FROM URL
-       
-       Example:
-       /date-selection.html?code=4zx...
+       GET INVITATION CODE
     ======================================== */
 
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
+    function getInvitationCode() {
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      const code =
+        params.get("code");
+
+
+      return code
+        ? code.trim()
+        : null;
+
+    }
 
 
     const invitationCode =
-      params.get("code");
-
-
-    console.log(
-      "Date page invitation code:",
-      invitationCode
-    );
+      getInvitationCode();
 
 
     /* ========================================
@@ -1056,12 +1290,6 @@
       );
 
 
-    const dateInput =
-      document.getElementById(
-        "dateInput"
-      );
-
-
     const confirmButton =
       document.getElementById(
         "confirmButton"
@@ -1071,6 +1299,12 @@
     const status =
       document.getElementById(
         "status"
+      );
+
+
+    const backLink =
+      document.getElementById(
+        "backLink"
       );
 
 
@@ -1109,6 +1343,13 @@
       );
 
 
+    /*
+      IMPORTANT:
+
+      NO DATE IS SELECTED
+      WHEN THE PAGE FIRST LOADS.
+    */
+
     let selectedDate =
       null;
 
@@ -1128,19 +1369,13 @@
       const month =
         String(
           date.getMonth() + 1
-        ).padStart(
-          2,
-          "0"
-        );
+        ).padStart(2, "0");
 
 
       const day =
         String(
           date.getDate()
-        ).padStart(
-          2,
-          "0"
-        );
+        ).padStart(2, "0");
 
 
       return `${year}-${month}-${day}`;
@@ -1183,6 +1418,7 @@
 
     function renderCalendar() {
 
+
       const year =
         calendarMonthDate.getFullYear();
 
@@ -1221,9 +1457,9 @@
         "";
 
 
-      /* =========================
+      /* --------------------------------------
          PREVIOUS MONTH
-      ========================= */
+      -------------------------------------- */
 
       const currentMonthStart =
         new Date(
@@ -1238,9 +1474,9 @@
         currentMonthStart;
 
 
-      /* =========================
+      /* --------------------------------------
          EMPTY CELLS
-      ========================= */
+      -------------------------------------- */
 
       for (
         let i = 0;
@@ -1265,15 +1501,16 @@
       }
 
 
-      /* =========================
+      /* --------------------------------------
          DAYS
-      ========================= */
+      -------------------------------------- */
 
       for (
         let day = 1;
         day <= daysInMonth;
         day++
       ) {
+
 
         const date =
           new Date(
@@ -1301,7 +1538,9 @@
           day;
 
 
-        /* PAST */
+        /* ------------------------------------
+           PAST DATE
+        ------------------------------------ */
 
         if (
           date <
@@ -1312,13 +1551,16 @@
             "past"
           );
 
+
           button.disabled =
             true;
 
         }
 
 
-        /* TODAY */
+        /* ------------------------------------
+           TODAY
+        ------------------------------------ */
 
         if (
           isSameDate(
@@ -1334,7 +1576,9 @@
         }
 
 
-        /* SELECTED */
+        /* ------------------------------------
+           SELECTED DATE
+        ------------------------------------ */
 
         if (
           selectedDate &&
@@ -1351,7 +1595,9 @@
         }
 
 
-        /* FUTURE / TODAY */
+        /* ------------------------------------
+           TODAY / FUTURE CLICK
+        ------------------------------------ */
 
         if (
           date >=
@@ -1389,6 +1635,7 @@
       date
     ) {
 
+
       if (
         date <
         today
@@ -1407,16 +1654,6 @@
         );
 
 
-      const value =
-        formatDateValue(
-          selectedDate
-        );
-
-
-      dateInput.value =
-        value;
-
-
       const formatted =
         selectedDate.toLocaleDateString(
           "en-IN",
@@ -1432,6 +1669,11 @@
       selectedDateDisplay.innerHTML =
         `Selected: <strong>${formatted}</strong> ❤️`;
 
+
+      /*
+        Enable confirmation
+        only after a real selection.
+      */
 
       confirmButton.disabled =
         false;
@@ -1505,6 +1747,41 @@
 
 
     /* ========================================
+       BACK TO INVITATION
+    ======================================== */
+
+    backLink.addEventListener(
+      "click",
+      (
+        event
+      ) => {
+
+        event.preventDefault();
+
+
+        if (
+          invitationCode
+        ) {
+
+          window.location.href =
+            `/i/${encodeURIComponent(
+              invitationCode
+            )}`;
+
+        }
+
+        else {
+
+          window.location.href =
+            "/";
+
+        }
+
+      }
+    );
+
+
+    /* ========================================
        CONFIRM DATE
     ======================================== */
 
@@ -1512,12 +1789,13 @@
       "click",
       async () => {
 
-        const selectedDateValue =
-          dateInput.value;
 
+        /* ------------------------------------
+           NO DATE
+        ------------------------------------ */
 
         if (
-          !selectedDateValue
+          !selectedDate
         ) {
 
           status.textContent =
@@ -1528,43 +1806,35 @@
         }
 
 
-        if (!invitationCode) {
-
-          status.textContent =
-            "Invalid invitation link. ❤️";
-
-          return;
-
-        }
-
-
-        const chosenDate =
-          new Date(
-            selectedDateValue +
-            "T00:00:00"
-          );
-
-
-        const todayValue =
-          new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate()
-          );
-
+        /* ------------------------------------
+           INVALID INVITATION
+        ------------------------------------ */
 
         if (
-          chosenDate <
-          todayValue
+          !invitationCode
         ) {
 
           status.textContent =
-            "Please choose today or a future date ❤️";
+            "This invitation link is invalid. ❤️";
 
           return;
 
         }
 
+
+        /* ------------------------------------
+           DATE VALUE
+        ------------------------------------ */
+
+        const selectedDateValue =
+          formatDateValue(
+            selectedDate
+          );
+
+
+        /* ------------------------------------
+           DISABLE BUTTON
+        ------------------------------------ */
 
         confirmButton.disabled =
           true;
@@ -1576,6 +1846,7 @@
 
         try {
 
+
           const response =
             await fetch(
               "/api/response",
@@ -1584,8 +1855,10 @@
                 method: "POST",
 
                 headers: {
+
                   "Content-Type":
                     "application/json"
+
                 },
 
                 body:
@@ -1596,8 +1869,7 @@
                     date:
                       selectedDateValue,
 
-                    invitationCode:
-                      invitationCode
+                    invitationCode
 
                   })
 
@@ -1609,7 +1881,9 @@
             await response.json();
 
 
-          if (!response.ok) {
+          if (
+            !response.ok
+          ) {
 
             throw new Error(
               data.error ||
@@ -1619,20 +1893,29 @@
           }
 
 
+          /* ----------------------------------
+             SUCCESS
+          ---------------------------------- */
+
           const displayDate =
-            chosenDate.toLocaleDateString(
+            selectedDate.toLocaleDateString(
               "en-IN",
               {
+
                 weekday: "long",
+
                 year: "numeric",
+
                 month: "long",
+
                 day: "numeric"
+
               }
             );
 
 
-          document.querySelector(
-            ".calendar"
+          document.getElementById(
+            "calendar"
           ).style.display =
             "none";
 
@@ -1641,14 +1924,11 @@
             "none";
 
 
-          document.querySelector(
-            ".subtitle"
-          ).style.display =
+          backLink.style.display =
             "none";
 
 
           status.innerHTML = `
-
             <span class="success-heart">
               ❤️
             </span>
@@ -1666,13 +1946,14 @@
             <span style="opacity:.7;">
               See you then. 🥰
             </span>
-
           `;
 
         }
 
 
-        catch (error) {
+        catch (
+          error
+        ) {
 
           console.error(
             "Response error:",
@@ -1703,6 +1984,7 @@
     ======================================== */
 
     renderCalendar();
+
 
   </script>
 
