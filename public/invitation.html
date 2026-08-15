@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 
@@ -10,37 +11,27 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <title>Moment ❤️</title>
-
+  <title>Pick Our Date ❤️</title>
 
   <style>
 
-    /* ==========================================
-       RESET
-    ========================================== */
-
-    *,
-    *::before,
-    *::after {
+    * {
       box-sizing: border-box;
     }
-
 
     html {
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 100%;
+      min-height: 100%;
       background: #160817;
     }
-
 
     body {
       margin: 0;
       padding: 0;
-      width: 100%;
 
-      min-height: 100%;
+      width: 100%;
       min-height: 100vh;
       min-height: 100svh;
       min-height: 100dvh;
@@ -77,13 +68,7 @@
         );
     }
 
-
-    /* ==========================================
-       PAGE
-    ========================================== */
-
     .page {
-
       width: 100%;
 
       min-height: 100vh;
@@ -102,17 +87,10 @@
         max(20px, env(safe-area-inset-left));
 
       position: relative;
-
       z-index: 1;
     }
 
-
-    /* ==========================================
-       GLOW
-    ========================================== */
-
     .glow {
-
       position: fixed;
 
       width: 320px;
@@ -121,29 +99,23 @@
       border-radius: 50%;
 
       filter: blur(90px);
-
       opacity: .22;
 
       pointer-events: none;
-
       z-index: 0;
 
       animation:
         glowMove 8s ease-in-out infinite alternate;
     }
 
-
     .glow.one {
-
       background: #ff7fa5;
 
       top: -120px;
       left: -100px;
     }
 
-
     .glow.two {
-
       background: #ffb6cf;
 
       right: -120px;
@@ -152,31 +124,22 @@
       animation-delay: 2s;
     }
 
-
     @keyframes glowMove {
 
       from {
-
         transform:
           translate(0,0)
           scale(1);
       }
 
       to {
-
         transform:
           translate(35px,-25px)
           scale(1.15);
       }
     }
 
-
-    /* ==========================================
-       FLOATING HEARTS
-    ========================================== */
-
     .hearts {
-
       position: fixed;
 
       inset: 0;
@@ -185,15 +148,12 @@
       height: 100%;
 
       overflow: hidden;
-
       pointer-events: none;
 
       z-index: 1;
     }
 
-
     .heart {
-
       position: absolute;
 
       bottom: -50px;
@@ -204,69 +164,43 @@
         rise linear infinite;
     }
 
-
     .heart:nth-child(1) {
-
       left: 8%;
-
       font-size: 18px;
-
       animation-duration: 10s;
     }
 
-
     .heart:nth-child(2) {
-
       left: 23%;
-
       font-size: 13px;
-
       animation-duration: 13s;
-
       animation-delay: 3s;
     }
 
-
     .heart:nth-child(3) {
-
       left: 48%;
-
       font-size: 20px;
-
       animation-duration: 11s;
-
       animation-delay: 1s;
     }
 
-
     .heart:nth-child(4) {
-
       left: 72%;
-
       font-size: 15px;
-
       animation-duration: 14s;
-
       animation-delay: 4s;
     }
 
-
     .heart:nth-child(5) {
-
       left: 91%;
-
       font-size: 19px;
-
       animation-duration: 12s;
-
       animation-delay: 2s;
     }
-
 
     @keyframes rise {
 
       0% {
-
         transform:
           translateY(0)
           rotate(0deg);
@@ -275,17 +209,14 @@
       }
 
       15% {
-
         opacity: .45;
       }
 
       85% {
-
         opacity: .25;
       }
 
       100% {
-
         transform:
           translateY(-115vh)
           rotate(35deg);
@@ -294,13 +225,7 @@
       }
     }
 
-
-    /* ==========================================
-       WRAPPER
-    ========================================== */
-
     .wrapper {
-
       width: min(560px, 100%);
 
       position: relative;
@@ -310,13 +235,7 @@
       margin: auto;
     }
 
-
-    /* ==========================================
-       BRAND
-    ========================================== */
-
     .brand {
-
       text-align: center;
 
       font-family:
@@ -334,13 +253,7 @@
       margin-bottom: 20px;
     }
 
-
-    /* ==========================================
-       CARD
-    ========================================== */
-
     .card {
-
       position: relative;
 
       width: 100%;
@@ -380,9 +293,7 @@
         cardIn .9s ease-out;
     }
 
-
     .card::before {
-
       content: "";
 
       position: absolute;
@@ -399,11 +310,9 @@
       pointer-events: none;
     }
 
-
     @keyframes cardIn {
 
       from {
-
         opacity: 0;
 
         transform:
@@ -412,7 +321,6 @@
       }
 
       to {
-
         opacity: 1;
 
         transform:
@@ -421,22 +329,17 @@
       }
     }
 
-
-    /* ==========================================
-       OPENING
-    ========================================== */
-
-    .opening {
-
+    .content {
       position: relative;
-
       z-index: 2;
-
-      text-align: center;
     }
 
+    .back {
+      display: inline-block;
 
-    .small-text {
+      margin-bottom: 20px;
+
+      color: rgba(255,255,255,.7);
 
       font-family:
         Arial,
@@ -444,228 +347,35 @@
 
       font-size: 13px;
 
-      letter-spacing: 1.5px;
-
-      opacity: .72;
-
-      margin-bottom: 18px;
-    }
-
-
-    .heart-button {
-
-      width: 86px;
-      height: 86px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      margin:
-        0 auto
-        22px;
-
-      padding: 0;
-
-      border-radius: 50%;
-
-      border:
-        1px solid
-        rgba(255,255,255,.35);
-
-      background:
-        rgba(255,255,255,.12);
-
-      color: #fff;
-
-      font-size: 38px;
+      text-decoration: none;
 
       cursor: pointer;
-
-      box-shadow:
-        0 12px 35px
-        rgba(0,0,0,.25);
-
-      animation:
-        pulse 2s ease-in-out infinite;
-
-      transition:
-        transform .25s ease;
     }
 
-
-    .heart-button:hover {
-
-      transform:
-        scale(1.08);
+    .back:hover {
+      color: #fff;
     }
 
-
-    @keyframes pulse {
-
-      0%,100% {
-
-        transform: scale(1);
-      }
-
-      50% {
-
-        transform: scale(1.07);
-      }
-    }
-
-
-    /* ==========================================
-       INVITATION
-    ========================================== */
-
-    .invitation {
-
-      display: none;
-
-      position: relative;
-
-      z-index: 2;
-
-      animation:
-        reveal .8s ease;
-    }
-
-
-    .invitation.show {
-
-      display: block;
-    }
-
-
-    @keyframes reveal {
-
-      from {
-
-        opacity: 0;
-
-        transform:
-          translateY(18px);
-      }
-
-      to {
-
-        opacity: 1;
-
-        transform:
-          translateY(0);
-      }
-    }
-
-
-    /* ==========================================
-       RECIPIENT
-    ========================================== */
-
-    .recipient {
-
+    .title {
       margin: 0;
+
+      font-size:
+        clamp(
+          34px,
+          10vw,
+          52px
+        );
 
       font-weight: normal;
 
-      font-size:
-        clamp(
-          42px,
-          12vw,
-          72px
-        );
-
-      line-height: .95;
-
-      letter-spacing: -1px;
-
-      text-shadow:
-        0 8px 30px
-        rgba(0,0,0,.25);
+      line-height: 1;
     }
 
-
-    .occasion {
-
-      margin-top: 15px;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 11px;
-
-      letter-spacing: 3px;
-
-      text-transform: uppercase;
-
-      opacity: .65;
-    }
-
-
-    /* ==========================================
-       DIVIDER
-    ========================================== */
-
-    .divider {
-
-      width: 75px;
-
-      height: 1px;
-
+    .subtitle {
       margin:
-        28px auto;
-
-      background:
-        rgba(255,255,255,.45);
-    }
-
-
-    /* ==========================================
-       MESSAGE
-    ========================================== */
-
-    .message {
-
-      max-width: 470px;
-
-      margin:
-        0 auto
-        24px;
-
-      font-size:
-        clamp(
-          21px,
-          5vw,
-          28px
-        );
-
-      line-height: 1.45;
-    }
-
-
-    .message::before {
-
-      content: "“";
-
-      opacity: .45;
-    }
-
-
-    .message::after {
-
-      content: "”";
-
-      opacity: .45;
-    }
-
-
-    /* ==========================================
-       FROM
-    ========================================== */
-
-    .from {
+        14px
+        auto
+        25px;
 
       font-family:
         Arial,
@@ -673,134 +383,25 @@
 
       font-size: 14px;
 
+      line-height: 1.6;
+
       opacity: .72;
-
-      margin-bottom: 32px;
     }
 
+    .divider {
+      width: 75px;
 
-    /* ==========================================
-       QUESTION
-    ========================================== */
+      height: 1px;
 
-    .question {
-
-      font-size: 20px;
-
-      margin-bottom: 18px;
-    }
-
-
-    /* ==========================================
-       BUTTONS
-    ========================================== */
-
-    .buttons {
-
-      display: flex;
-
-      gap: 12px;
-
-      justify-content: center;
-
-      align-items: center;
-    }
-
-
-    button {
-
-      border: 0;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-weight: 600;
-
-      font-size: 15px;
-
-      cursor: pointer;
-
-      border-radius: 999px;
-
-      padding:
-        14px 23px;
-
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
-    }
-
-
-    button:hover {
-
-      transform:
-        translateY(-2px);
-    }
-
-
-    button:active {
-
-      transform:
-        scale(.97);
-    }
-
-
-    .yes {
-
-      color: #74153f;
-
-      background: #fff;
-
-      box-shadow:
-        0 12px 30px
-        rgba(0,0,0,.2);
-    }
-
-
-    .maybe {
-
-      color: #fff;
+      margin:
+        25px
+        auto;
 
       background:
-        rgba(255,255,255,.10);
-
-      border:
-        1px solid
-        rgba(255,255,255,.25);
+        rgba(255,255,255,.45);
     }
-
-
-    /* ==========================================
-       DATE SECTION
-    ========================================== */
-
-    .date-section {
-
-      display: none;
-
-      margin-top: 28px;
-
-      animation:
-        reveal .5s ease;
-    }
-
-
-    .date-title {
-
-      font-size: 18px;
-
-      margin-bottom: 16px;
-    }
-
-
-    /* ==========================================
-       CUSTOM CALENDAR
-    ========================================== */
 
     .calendar {
-
       width: min(340px, 100%);
 
       margin: 0 auto;
@@ -821,9 +422,7 @@
         rgba(0,0,0,.18);
     }
 
-
     .calendar-header {
-
       display: flex;
 
       align-items: center;
@@ -835,9 +434,7 @@
       margin-bottom: 16px;
     }
 
-
     .calendar-month {
-
       flex: 1;
 
       font-family:
@@ -849,9 +446,7 @@
       font-weight: 600;
     }
 
-
     .calendar-nav {
-
       width: 38px;
       height: 38px;
 
@@ -874,28 +469,22 @@
         rgba(255,255,255,.18);
 
       font-size: 18px;
+
+      cursor: pointer;
     }
 
-
     .calendar-nav:hover {
-
       background:
         rgba(255,255,255,.20);
     }
 
-
     .calendar-nav:disabled {
-
       opacity: .3;
-
       cursor: not-allowed;
-
       transform: none;
     }
 
-
     .calendar-weekdays {
-
       display: grid;
 
       grid-template-columns:
@@ -906,9 +495,7 @@
       margin-bottom: 6px;
     }
 
-
     .calendar-weekday {
-
       font-family:
         Arial,
         sans-serif;
@@ -924,9 +511,7 @@
       text-align: center;
     }
 
-
     .calendar-days {
-
       display: grid;
 
       grid-template-columns:
@@ -935,9 +520,7 @@
       gap: 5px;
     }
 
-
     .calendar-day {
-
       width: 100%;
 
       aspect-ratio: 1 / 1;
@@ -961,10 +544,11 @@
 
       color: #fff;
 
-      background:
-        transparent;
+      background: transparent;
 
-      border: 1px solid transparent;
+      border:
+        1px solid
+        transparent;
 
       cursor: pointer;
 
@@ -974,9 +558,7 @@
         opacity .18s ease;
     }
 
-
     .calendar-day:hover {
-
       background:
         rgba(255,255,255,.16);
 
@@ -984,28 +566,15 @@
         scale(1.05);
     }
 
-
-    /* Empty cells */
-
     .calendar-day.empty {
-
       pointer-events: none;
-
       cursor: default;
-
       background: transparent;
-
     }
 
-
-    /* ==========================================
-       PAST DATE
-       THESE ARE COMPLETELY DISABLED
-    ========================================== */
-
     .calendar-day.past {
-
-      color: rgba(255,255,255,.25);
+      color:
+        rgba(255,255,255,.25);
 
       background:
         rgba(0,0,0,.08);
@@ -1019,13 +588,7 @@
       opacity: .45;
     }
 
-
-    /* ==========================================
-       TODAY
-    ========================================== */
-
     .calendar-day.today {
-
       border:
         1px solid
         rgba(255,255,255,.65);
@@ -1033,13 +596,7 @@
       font-weight: 700;
     }
 
-
-    /* ==========================================
-       SELECTED DATE
-    ========================================== */
-
     .calendar-day.selected {
-
       color: #74153f;
 
       background: #fff;
@@ -1051,22 +608,14 @@
         rgba(0,0,0,.20);
     }
 
-
     .calendar-day.selected:hover {
-
       background: #fff;
 
       transform:
         scale(1.05);
     }
 
-
-    /* ==========================================
-       SELECTED DATE DISPLAY
-    ========================================== */
-
     .selected-date-display {
-
       min-height: 24px;
 
       margin-top: 15px;
@@ -1080,14 +629,8 @@
       opacity: .78;
     }
 
-
-    /* ==========================================
-       CONFIRM
-    ========================================== */
-
     .confirm {
-
-      margin-top: 14px;
+      margin-top: 20px;
 
       color: #fff;
 
@@ -1098,21 +641,12 @@
         rgba(0,0,0,.25);
     }
 
-
     .confirm:disabled {
-
       opacity: .6;
-
       cursor: not-allowed;
     }
 
-
-    /* ==========================================
-       STATUS
-    ========================================== */
-
     .status {
-
       margin-top: 25px;
 
       font-family:
@@ -1124,9 +658,7 @@
       line-height: 1.7;
     }
 
-
     .success-heart {
-
       display: block;
 
       font-size: 55px;
@@ -1137,39 +669,34 @@
         successPop .6s ease;
     }
 
-
     @keyframes successPop {
 
       0% {
-
-        transform:
-          scale(.3);
-
+        transform: scale(.3);
         opacity: 0;
       }
 
       70% {
-
-        transform:
-          scale(1.15);
+        transform: scale(1.15);
       }
 
       100% {
-
-        transform:
-          scale(1);
-
+        transform: scale(1);
         opacity: 1;
       }
     }
 
+    .error {
+      font-family:
+        Arial,
+        sans-serif;
 
-    /* ==========================================
-       FOOTER
-    ========================================== */
+      font-size: 15px;
+
+      padding: 25px;
+    }
 
     .footer {
-
       margin-top: 28px;
 
       font-family:
@@ -1183,31 +710,9 @@
       opacity: .38;
     }
 
-
-    /* ==========================================
-       ERROR
-    ========================================== */
-
-    .error {
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 15px;
-
-      padding: 25px;
-    }
-
-
-    /* ==========================================
-       MOBILE
-    ========================================== */
-
     @media (max-width: 600px) {
 
       .page {
-
         min-height: 100vh;
         min-height: 100svh;
         min-height: 100dvh;
@@ -1219,9 +724,7 @@
           max(16px, env(safe-area-inset-left));
       }
 
-
       .wrapper {
-
         width: 100%;
 
         max-width: 560px;
@@ -1231,15 +734,11 @@
           0;
       }
 
-
       .brand {
-
         margin-bottom: 14px;
       }
 
-
       .card {
-
         width: 100%;
 
         padding:
@@ -1249,143 +748,47 @@
         border-radius: 27px;
       }
 
-
-      .buttons {
-
-        flex-direction: column;
-
-        width: 100%;
-      }
-
-
-      .buttons button {
-
-        width: 100%;
-      }
-
-
-      .recipient {
-
-        font-size:
-          clamp(
-            42px,
-            15vw,
-            64px
-          );
-      }
-
-
-      .message {
-
-        font-size:
-          clamp(
-            20px,
-            6vw,
-            26px
-          );
-      }
-
-
       .calendar {
-
         padding: 14px;
-
         border-radius: 18px;
       }
 
-
       .calendar-day {
-
         font-size: 12px;
       }
 
-
       .calendar-nav {
-
         width: 36px;
         height: 36px;
       }
+
+      .confirm {
+        width: 100%;
+      }
     }
-
-
-    /* ==========================================
-       VERY SMALL PHONES
-    ========================================== */
 
     @media (max-width: 380px) {
 
       .page {
-
         padding: 12px;
       }
 
-
       .card {
-
         padding:
           28px 16px
           24px;
       }
 
-
-      .heart-button {
-
-        width: 78px;
-        height: 78px;
-
-        font-size: 34px;
-      }
-
-
-      .question {
-
-        font-size: 18px;
-      }
-
-
       .calendar {
-
         padding: 11px;
       }
 
-
       .calendar-days {
-
         gap: 3px;
       }
 
-
       .calendar-day {
-
         font-size: 11px;
-      }
-    }
-
-
-    /* ==========================================
-       LANDSCAPE MOBILE
-    ========================================== */
-
-    @media (
-      max-height: 600px
-    ) and (
-      orientation: landscape
-    ) {
-
-      .page {
-
-        align-items: flex-start;
-
-        padding-top: 20px;
-        padding-bottom: 20px;
-      }
-
-
-      .wrapper {
-
-        margin:
-          0
-          auto;
       }
     }
 
@@ -1393,22 +796,10 @@
 
 </head>
 
-
 <body>
 
-
-  <!-- ========================================
-       BACKGROUND
-  ========================================= -->
-
   <div class="glow one"></div>
-
   <div class="glow two"></div>
-
-
-  <!-- ========================================
-       FLOATING HEARTS
-  ========================================= -->
 
   <div
     class="hearts"
@@ -1416,309 +807,128 @@
   >
 
     <span class="heart">❤️</span>
-
     <span class="heart">💗</span>
-
     <span class="heart">💕</span>
-
     <span class="heart">❤️</span>
-
     <span class="heart">💗</span>
 
   </div>
-
-
-  <!-- ========================================
-       PAGE
-  ========================================= -->
 
   <div class="page">
 
     <div class="wrapper">
 
-
       <div class="brand">
-
         Moment
-
       </div>
-
 
       <main class="card">
 
+        <div class="content">
 
-        <!-- ==================================
-             OPENING
-        =================================== -->
-
-        <section
-          id="opening"
-          class="opening"
-        >
-
-          <div class="small-text">
-
-            A little moment for you
-
-          </div>
-
-
-          <button
-            id="openButton"
-            class="heart-button"
-            type="button"
-            aria-label="Open invitation"
+          <a
+            id="backButton"
+            class="back"
+            href="#"
           >
+            ← Back to invitation
+          </a>
 
-            ❤️
-
-          </button>
-
-
-          <div class="small-text">
-
-            Tap to open
-
-          </div>
-
-        </section>
-
-
-        <!-- ==================================
-             INVITATION
-        =================================== -->
-
-        <section
-          id="invitation"
-          class="invitation"
-        >
-
-
-          <div
-            id="occasion"
-            class="occasion"
-          >
-
-            A little invitation
-
-          </div>
-
-
-          <div class="divider"></div>
-
-
-          <h1
-            id="recipientName"
-            class="recipient"
-          >
-
-            You
-
+          <h1 class="title">
+            Pick our date ❤️
           </h1>
 
+          <p class="subtitle">
+            Choose a day that feels perfect for us.
+          </p>
 
           <div class="divider"></div>
 
+          <div class="calendar">
 
-          <p
-            id="message"
-            class="message"
-          >
+            <div class="calendar-header">
 
-            I have something important
-            to ask you.
+              <button
+                id="previousMonth"
+                class="calendar-nav"
+                type="button"
+                aria-label="Previous month"
+              >
+                ‹
+              </button>
 
-          </p>
+              <div
+                id="calendarMonth"
+                class="calendar-month"
+              ></div>
 
-
-          <div
-            id="from"
-            class="from"
-          >
-
-            From someone special ❤️
-
-          </div>
-
-
-          <div
-            id="question"
-            class="question"
-          >
-
-            When do I get to steal you
-            for a date?
-
-          </div>
-
-
-          <div
-            id="buttons"
-            class="buttons"
-          >
-
-            <button
-              id="yesButton"
-              class="yes"
-              type="button"
-            >
-
-              Yes, it's a date ❤️
-
-            </button>
-
-
-            <button
-              id="maybeButton"
-              class="maybe"
-              type="button"
-            >
-
-              Maybe later
-
-            </button>
-
-          </div>
-
-
-          <!-- =================================
-               DATE SECTION
-          ================================== -->
-
-          <section
-            id="dateSection"
-            class="date-section"
-          >
-
-
-            <div class="date-title">
-
-              Pick our date ❤️
+              <button
+                id="nextMonth"
+                class="calendar-nav"
+                type="button"
+                aria-label="Next month"
+              >
+                ›
+              </button>
 
             </div>
 
+            <div class="calendar-weekdays">
 
-            <!-- CUSTOM CALENDAR -->
+              <div class="calendar-weekday">
+                Sun
+              </div>
+
+              <div class="calendar-weekday">
+                Mon
+              </div>
+
+              <div class="calendar-weekday">
+                Tue
+              </div>
+
+              <div class="calendar-weekday">
+                Wed
+              </div>
+
+              <div class="calendar-weekday">
+                Thu
+              </div>
+
+              <div class="calendar-weekday">
+                Fri
+              </div>
+
+              <div class="calendar-weekday">
+                Sat
+              </div>
+
+            </div>
 
             <div
-              id="calendar"
-              class="calendar"
-            >
+              id="calendarDays"
+              class="calendar-days"
+            ></div>
 
+            <div
+              id="selectedDateDisplay"
+              class="selected-date-display"
+            ></div>
 
-              <div class="calendar-header">
+          </div>
 
+          <input
+            id="dateInput"
+            type="hidden"
+          >
 
-                <button
-                  id="previousMonth"
-                  class="calendar-nav"
-                  type="button"
-                  aria-label="Previous month"
-                >
-
-                  ‹
-
-                </button>
-
-
-                <div
-                  id="calendarMonth"
-                  class="calendar-month"
-                >
-
-                </div>
-
-
-                <button
-                  id="nextMonth"
-                  class="calendar-nav"
-                  type="button"
-                  aria-label="Next month"
-                >
-
-                  ›
-
-                </button>
-
-
-              </div>
-
-
-              <div
-                class="calendar-weekdays"
-              >
-
-                <div class="calendar-weekday">
-                  Sun
-                </div>
-
-                <div class="calendar-weekday">
-                  Mon
-                </div>
-
-                <div class="calendar-weekday">
-                  Tue
-                </div>
-
-                <div class="calendar-weekday">
-                  Wed
-                </div>
-
-                <div class="calendar-weekday">
-                  Thu
-                </div>
-
-                <div class="calendar-weekday">
-                  Fri
-                </div>
-
-                <div class="calendar-weekday">
-                  Sat
-                </div>
-
-              </div>
-
-
-              <div
-                id="calendarDays"
-                class="calendar-days"
-              ></div>
-
-
-              <div
-                id="selectedDateDisplay"
-                class="selected-date-display"
-              ></div>
-
-
-            </div>
-
-
-            <!-- Hidden value used by JavaScript/backend -->
-
-            <input
-              id="dateInput"
-              type="hidden"
-            >
-
-
-            <button
-              id="confirmButton"
-              class="confirm"
-              type="button"
-            >
-
-              Confirm date ❤️
-
-            </button>
-
-
-          </section>
-
-
-          <!-- =================================
-               STATUS
-          ================================== -->
+          <button
+            id="confirmButton"
+            class="confirm"
+            type="button"
+          >
+            Confirm date ❤️
+          </button>
 
           <div
             id="status"
@@ -1726,15 +936,11 @@
             aria-live="polite"
           ></div>
 
-
           <div class="footer">
-
             MADE WITH MOMENT ❤️
-
           </div>
 
-
-        </section>
+        </div>
 
       </main>
 
@@ -1742,116 +948,25 @@
 
   </div>
 
-
   <script>
 
-
     /* ========================================
-       INVITATION CODE
+       GET INVITATION CODE FROM URL
+       Example:
+       /date-selection.html?code=abc123
     ======================================== */
 
-    const parts =
-      window.location.pathname
-        .split("/")
-        .filter(Boolean);
-
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
 
     const invitationCode =
-      parts[0] === "i"
-        ? parts[1]
-        : null;
+      params.get("code");
 
 
     /* ========================================
        ELEMENTS
-    ======================================== */
-
-    const opening =
-      document.getElementById(
-        "opening"
-      );
-
-
-    const openButton =
-      document.getElementById(
-        "openButton"
-      );
-
-
-    const invitation =
-      document.getElementById(
-        "invitation"
-      );
-
-
-    const recipientName =
-      document.getElementById(
-        "recipientName"
-      );
-
-
-    const occasion =
-      document.getElementById(
-        "occasion"
-      );
-
-
-    const message =
-      document.getElementById(
-        "message"
-      );
-
-
-    const from =
-      document.getElementById(
-        "from"
-      );
-
-
-    const yesButton =
-      document.getElementById(
-        "yesButton"
-      );
-
-
-    const maybeButton =
-      document.getElementById(
-        "maybeButton"
-      );
-
-
-    const buttons =
-      document.getElementById(
-        "buttons"
-      );
-
-
-    const dateSection =
-      document.getElementById(
-        "dateSection"
-      );
-
-
-    const dateInput =
-      document.getElementById(
-        "dateInput"
-      );
-
-
-    const confirmButton =
-      document.getElementById(
-        "confirmButton"
-      );
-
-
-    const status =
-      document.getElementById(
-        "status"
-      );
-
-
-    /* ========================================
-       CALENDAR ELEMENTS
     ======================================== */
 
     const calendarMonth =
@@ -1859,29 +974,76 @@
         "calendarMonth"
       );
 
-
     const calendarDays =
       document.getElementById(
         "calendarDays"
       );
-
 
     const previousMonth =
       document.getElementById(
         "previousMonth"
       );
 
-
     const nextMonth =
       document.getElementById(
         "nextMonth"
       );
 
-
     const selectedDateDisplay =
       document.getElementById(
         "selectedDateDisplay"
       );
+
+    const dateInput =
+      document.getElementById(
+        "dateInput"
+      );
+
+    const confirmButton =
+      document.getElementById(
+        "confirmButton"
+      );
+
+    const status =
+      document.getElementById(
+        "status"
+      );
+
+    const backButton =
+      document.getElementById(
+        "backButton"
+      );
+
+
+    /* ========================================
+       VALIDATE INVITATION CODE
+    ======================================== */
+
+    if (!invitationCode) {
+
+      document.querySelector(
+        ".content"
+      ).innerHTML = `
+        <div class="error">
+          This invitation link is invalid. ❤️
+        </div>
+      `;
+
+      throw new Error(
+        "Invitation code missing."
+      );
+
+    }
+
+
+    /* ========================================
+       BACK BUTTON
+    ======================================== */
+
+    backButton.href =
+      `/i/${encodeURIComponent(
+        invitationCode
+      )}`;
 
 
     /* ========================================
@@ -1892,7 +1054,6 @@
 
       const now =
         new Date();
-
 
       return new Date(
         now.getFullYear(),
@@ -1918,13 +1079,12 @@
         1
       );
 
-
     let selectedDate =
       null;
 
 
     /* ========================================
-       DATE FORMAT
+       FORMAT DATE
     ======================================== */
 
     function formatDateValue(
@@ -1934,18 +1094,15 @@
       const year =
         date.getFullYear();
 
-
       const month =
         String(
           date.getMonth() + 1
         ).padStart(2, "0");
 
-
       const day =
         String(
           date.getDate()
         ).padStart(2, "0");
-
 
       return `${year}-${month}-${day}`;
 
@@ -1981,14 +1138,11 @@
 
     function renderCalendar() {
 
-
       const year =
         calendarMonthDate.getFullYear();
 
-
       const month =
         calendarMonthDate.getMonth();
-
 
       const firstDay =
         new Date(
@@ -1997,14 +1151,12 @@
           1
         ).getDay();
 
-
       const daysInMonth =
         new Date(
           year,
           month + 1,
           0
         ).getDate();
-
 
       const monthName =
         calendarMonthDate.toLocaleDateString(
@@ -2015,18 +1167,13 @@
           }
         );
 
-
       calendarMonth.textContent =
         monthName;
-
 
       calendarDays.innerHTML =
         "";
 
-
-      /* --------------------------------------
-         PREVIOUS MONTH BUTTON
-      -------------------------------------- */
+      /* Previous month disabled */
 
       const currentMonthStart =
         new Date(
@@ -2035,15 +1182,12 @@
           1
         );
 
-
       previousMonth.disabled =
         calendarMonthDate <=
         currentMonthStart;
 
 
-      /* --------------------------------------
-         EMPTY CELLS
-      -------------------------------------- */
+      /* Empty cells */
 
       for (
         let i = 0;
@@ -2056,10 +1200,8 @@
             "div"
           );
 
-
         empty.className =
           "calendar-day empty";
-
 
         calendarDays.appendChild(
           empty
@@ -2068,16 +1210,13 @@
       }
 
 
-      /* --------------------------------------
-         DAYS
-      -------------------------------------- */
+      /* Days */
 
       for (
         let day = 1;
         day <= daysInMonth;
         day++
       ) {
-
 
         const date =
           new Date(
@@ -2086,28 +1225,22 @@
             day
           );
 
-
         const button =
           document.createElement(
             "button"
           );
 
-
         button.type =
           "button";
 
-
         button.className =
           "calendar-day";
-
 
         button.textContent =
           day;
 
 
-        /* ------------------------------------
-           PAST DATE
-        ------------------------------------ */
+        /* Past date */
 
         if (
           date <
@@ -2118,16 +1251,13 @@
             "past"
           );
 
-
           button.disabled =
             true;
 
         }
 
 
-        /* ------------------------------------
-           TODAY
-        ------------------------------------ */
+        /* Today */
 
         if (
           isSameDate(
@@ -2143,9 +1273,7 @@
         }
 
 
-        /* ------------------------------------
-           SELECTED DATE
-        ------------------------------------ */
+        /* Selected */
 
         if (
           selectedDate &&
@@ -2162,9 +1290,7 @@
         }
 
 
-        /* ------------------------------------
-           FUTURE / TODAY CLICK
-        ------------------------------------ */
+        /* Future / today */
 
         if (
           date >=
@@ -2184,7 +1310,6 @@
 
         }
 
-
         calendarDays.appendChild(
           button
         );
@@ -2202,11 +1327,6 @@
       date
     ) {
 
-
-      /* --------------------------------------
-         SAFETY CHECK
-      -------------------------------------- */
-
       if (
         date <
         today
@@ -2216,7 +1336,6 @@
 
       }
 
-
       selectedDate =
         new Date(
           date.getFullYear(),
@@ -2224,12 +1343,10 @@
           date.getDate()
         );
 
-
       dateInput.value =
         formatDateValue(
           selectedDate
         );
-
 
       const formatted =
         selectedDate.toLocaleDateString(
@@ -2242,10 +1359,11 @@
           }
         );
 
-
       selectedDateDisplay.innerHTML =
         `Selected: <strong>${formatted}</strong> ❤️`;
 
+      status.textContent =
+        "";
 
       renderCalendar();
 
@@ -2266,7 +1384,6 @@
             calendarMonthDate.getMonth() + 1,
             1
           );
-
 
         renderCalendar();
 
@@ -2289,7 +1406,6 @@
             1
           );
 
-
         if (
           calendarMonthDate <=
           minimumMonth
@@ -2299,7 +1415,6 @@
 
         }
 
-
         calendarMonthDate =
           new Date(
             calendarMonthDate.getFullYear(),
@@ -2307,180 +1422,7 @@
             1
           );
 
-
         renderCalendar();
-
-      }
-    );
-
-
-    /* ========================================
-       OPEN INVITATION
-    ======================================== */
-
-    openButton.addEventListener(
-      "click",
-      () => {
-
-        opening.style.display =
-          "none";
-
-
-        invitation.classList.add(
-          "show"
-        );
-
-      }
-    );
-
-
-    /* ========================================
-       LOAD INVITATION
-    ======================================== */
-
-    async function loadInvitation() {
-
-
-      if (!invitationCode) {
-
-        opening.innerHTML = `
-          <div class="error">
-            This invitation link is invalid. ❤️
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      try {
-
-        const response =
-          await fetch(
-            `/api/invitations/${encodeURIComponent(
-              invitationCode
-            )}`
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Invitation not found."
-          );
-
-        }
-
-
-        recipientName.textContent =
-          data.recipient_name;
-
-
-        if (data.occasion) {
-
-          occasion.textContent =
-            data.occasion;
-
-        }
-
-
-        if (data.message) {
-
-          message.textContent =
-            data.message;
-
-        }
-
-
-        if (data.creator_name) {
-
-          from.textContent =
-            `From ${data.creator_name} ❤️`;
-
-        }
-
-
-        document.title =
-          `${data.recipient_name} ❤️ | Moment`;
-
-      }
-
-
-      catch (error) {
-
-        console.error(
-          "Invitation loading error:",
-          error
-        );
-
-
-        opening.innerHTML = `
-          <div class="error">
-            ${
-              error.message ||
-              "Could not load invitation."
-            }
-          </div>
-        `;
-
-      }
-
-    }
-
-
-    /* ========================================
-       YES BUTTON
-    ======================================== */
-
-    yesButton.addEventListener(
-      "click",
-      () => {
-
-        buttons.style.display =
-          "none";
-
-
-        dateSection.style.display =
-          "block";
-
-
-        renderCalendar();
-
-      }
-    );
-
-
-    /* ========================================
-       MAYBE BUTTON
-    ======================================== */
-
-    maybeButton.addEventListener(
-      "click",
-      () => {
-
-        buttons.style.display =
-          "none";
-
-
-        status.innerHTML = `
-          <span class="success-heart">
-            💌
-          </span>
-
-          <strong>
-            I'll take that as a maybe. 😌❤️
-          </strong>
-
-          <br>
-
-          I'll be waiting.
-        `;
 
       }
     );
@@ -2494,14 +1436,11 @@
       "click",
       async () => {
 
-
         const selectedDateValue =
           dateInput.value;
 
 
-        /* ------------------------------------
-           NO DATE
-        ------------------------------------ */
+        /* No date */
 
         if (
           !selectedDateValue
@@ -2515,9 +1454,7 @@
         }
 
 
-        /* ------------------------------------
-           EXTRA SAFETY VALIDATION
-        ------------------------------------ */
+        /* Safety validation */
 
         const chosenDate =
           new Date(
@@ -2525,14 +1462,12 @@
             "T00:00:00"
           );
 
-
         const todayValue =
           new Date(
             today.getFullYear(),
             today.getMonth(),
             today.getDate()
           );
-
 
         if (
           chosenDate <
@@ -2542,41 +1477,32 @@
           status.textContent =
             "Please choose today or a future date ❤️";
 
-
           selectedDate =
             null;
-
 
           dateInput.value =
             "";
 
-
           selectedDateDisplay.textContent =
             "";
 
-
           renderCalendar();
-
 
           return;
 
         }
 
 
-        /* ------------------------------------
-           DISABLE BUTTON
-        ------------------------------------ */
+        /* Disable button */
 
         confirmButton.disabled =
           true;
-
 
         confirmButton.textContent =
           "Saving...";
 
 
         try {
-
 
           const response =
             await fetch(
@@ -2586,10 +1512,8 @@
                 method: "POST",
 
                 headers: {
-
                   "Content-Type":
                     "application/json"
-
                 },
 
                 body:
@@ -2607,10 +1531,8 @@
               }
             );
 
-
           const data =
             await response.json();
-
 
           if (!response.ok) {
 
@@ -2622,26 +1544,26 @@
           }
 
 
-          dateSection.style.display =
-            "none";
-
+          /* Success */
 
           const displayDate =
             chosenDate.toLocaleDateString(
               "en-IN",
               {
-
                 weekday: "long",
-
                 year: "numeric",
-
                 month: "long",
-
                 day: "numeric"
-
               }
             );
 
+          document.querySelector(
+            ".calendar"
+          ).style.display =
+            "none";
+
+          confirmButton.style.display =
+            "none";
 
           status.innerHTML = `
             <span class="success-heart">
@@ -2665,7 +1587,6 @@
 
         }
 
-
         catch (error) {
 
           console.error(
@@ -2673,15 +1594,12 @@
             error
           );
 
-
           status.textContent =
             error.message ||
             "Something went wrong.";
 
-
           confirmButton.disabled =
             false;
-
 
           confirmButton.textContent =
             "Confirm date ❤️";
@@ -2698,11 +1616,9 @@
 
     renderCalendar();
 
-    loadInvitation();
-
-
   </script>
 
 </body>
 
 </html>
+```
