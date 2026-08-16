@@ -1,1776 +1,1331 @@
+```html
 <!doctype html>
 <html lang="en">
 
 <head>
 
-<meta charset="utf-8">
+  <meta charset="utf-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
-<title>Moment ❤️ — Make it a moment</title>
+  <title>Moment ❤️ — Make it a moment</title>
 
-<style>
+  <style>
 
-/* ==========================================
-   RESET
-========================================== */
+    /* ==========================================
+       RESET
+    ========================================== */
 
-*{
-  box-sizing:border-box;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-html{
-  scroll-behavior:smooth;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-body{
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
 
-  margin:0;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-  min-height:100vh;
+      color: #fff;
 
-  overflow-x:hidden;
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(255,255,255,.12),
+          transparent 25%
+        ),
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+        radial-gradient(
+          circle at 90% 75%,
+          rgba(255,105,150,.18),
+          transparent 30%
+        ),
 
-  color:#fff;
+        linear-gradient(
+          145deg,
+          #160817 0%,
+          #3b0c2f 42%,
+          #761842 72%,
+          #d65c7d 100%
+        );
+    }
 
-  background:
-    radial-gradient(
-      circle at 15% 10%,
-      rgba(255,255,255,.12),
-      transparent 25%
-    ),
 
-    radial-gradient(
-      circle at 90% 75%,
-      rgba(255,105,150,.18),
-      transparent 30%
-    ),
+    /* ==========================================
+       AMBIENT GLOW
+    ========================================== */
 
-    linear-gradient(
-      145deg,
-      #160817 0%,
-      #3b0c2f 42%,
-      #761842 72%,
-      #d65c7d 100%
-    );
+    .glow {
+      position: fixed;
 
-}
+      width: 360px;
+      height: 360px;
 
+      border-radius: 50%;
 
-/* ==========================================
-   AMBIENT GLOW
-========================================== */
+      filter: blur(100px);
 
-.glow{
+      opacity: .18;
 
-  position:fixed;
+      pointer-events: none;
 
-  width:360px;
-  height:360px;
+      z-index: 0;
 
-  border-radius:50%;
+      animation:
+        glowMove 9s ease-in-out infinite alternate;
+    }
 
-  filter:blur(100px);
+    .glow.one {
+      background: #ff719b;
 
-  opacity:.18;
+      top: -160px;
+      left: -120px;
+    }
 
-  pointer-events:none;
+    .glow.two {
+      background: #ffb3ca;
 
-  z-index:0;
+      right: -150px;
+      bottom: -150px;
 
-  animation:
-    glowMove 9s ease-in-out infinite alternate;
+      animation-delay: 3s;
+    }
 
-}
+    @keyframes glowMove {
 
-.glow.one{
+      from {
+        transform:
+          translate(0,0)
+          scale(1);
+      }
+
+      to {
+        transform:
+          translate(35px,-20px)
+          scale(1.15);
+      }
+    }
 
-  background:#ff719b;
 
-  top:-160px;
-  left:-120px;
+    /* ==========================================
+       FLOATING HEARTS
+    ========================================== */
+
+    .hearts {
+      position: fixed;
 
-}
+      inset: 0;
 
-.glow.two{
+      overflow: hidden;
 
-  background:#ffb3ca;
+      pointer-events: none;
 
-  right:-150px;
-  bottom:-150px;
+      z-index: 0;
+    }
 
-  animation-delay:3s;
+    .heart {
+      position: absolute;
 
-}
+      bottom: -50px;
 
+      opacity: 0;
 
-@keyframes glowMove{
+      animation:
+        floatUp linear infinite;
+    }
 
-  from{
+    .heart:nth-child(1) {
+      left: 7%;
+      font-size: 18px;
+      animation-duration: 11s;
+    }
 
-    transform:
-      translate(0,0)
-      scale(1);
+    .heart:nth-child(2) {
+      left: 25%;
+      font-size: 14px;
+      animation-duration: 14s;
+      animation-delay: 2s;
+    }
 
-  }
+    .heart:nth-child(3) {
+      left: 50%;
+      font-size: 22px;
+      animation-duration: 10s;
+      animation-delay: 4s;
+    }
 
-  to{
+    .heart:nth-child(4) {
+      left: 74%;
+      font-size: 16px;
+      animation-duration: 13s;
+      animation-delay: 1s;
+    }
 
-    transform:
-      translate(35px,-20px)
-      scale(1.15);
+    .heart:nth-child(5) {
+      left: 91%;
+      font-size: 20px;
+      animation-duration: 12s;
+      animation-delay: 5s;
+    }
 
-  }
+    @keyframes floatUp {
 
-}
+      0% {
+        transform:
+          translateY(0)
+          rotate(0deg);
 
+        opacity: 0;
+      }
 
-/* ==========================================
-   FLOATING HEARTS
-========================================== */
+      15% {
+        opacity: .38;
+      }
 
-.hearts{
+      80% {
+        opacity: .2;
+      }
 
-  position:fixed;
+      100% {
+        transform:
+          translateY(-115vh)
+          rotate(35deg);
 
-  inset:0;
+        opacity: 0;
+      }
+    }
 
-  overflow:hidden;
 
-  pointer-events:none;
+    /* ==========================================
+       NAVIGATION
+    ========================================== */
 
-  z-index:0;
+    .nav {
+      position: relative;
 
-}
+      z-index: 10;
 
-.heart{
+      width:
+        min(
+          1100px,
+          calc(100% - 32px)
+        );
 
-  position:absolute;
+      margin:
+        0 auto;
 
-  bottom:-50px;
+      padding:
+        20px 0;
 
-  opacity:0;
+      display: flex;
 
-  animation:
-    floatUp linear infinite;
+      align-items: center;
 
-}
+      justify-content: space-between;
+    }
 
-.heart:nth-child(1){
+    .logo {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  left:7%;
+      font-size: 26px;
 
-  font-size:18px;
+      letter-spacing: -.6px;
+    }
 
-  animation-duration:11s;
+    .logo-heart {
+      font-size: 20px;
+    }
 
-}
+    .nav-actions {
+      display: flex;
 
-.heart:nth-child(2){
+      align-items: center;
 
-  left:25%;
+      gap: 10px;
+    }
 
-  font-size:14px;
 
-  animation-duration:14s;
+    /* LOGIN */
 
-  animation-delay:2s;
+    .login-button {
+      display: inline-flex;
 
-}
+      align-items: center;
+      justify-content: center;
 
-.heart:nth-child(3){
+      padding:
+        10px 12px;
 
-  left:50%;
+      border: 0;
 
-  font-size:22px;
+      background: transparent;
 
-  animation-duration:10s;
+      color:
+        rgba(255,255,255,.78);
 
-  animation-delay:4s;
+      font-size: 13px;
 
-}
+      text-decoration: none;
 
-.heart:nth-child(4){
+      cursor: pointer;
 
-  left:74%;
+      transition:
+        color .2s ease,
+        transform .2s ease;
+    }
 
-  font-size:16px;
+    .login-button:hover {
+      color: #fff;
 
-  animation-duration:13s;
+      transform:
+        translateY(-1px);
+    }
 
-  animation-delay:1s;
 
-}
+    /* CREATE */
 
-.heart:nth-child(5){
+    .create-nav {
+      display: inline-flex;
 
-  left:91%;
+      align-items: center;
 
-  font-size:20px;
+      justify-content: center;
 
-  animation-duration:12s;
+      padding:
+        10px 17px;
 
-  animation-delay:5s;
+      border-radius: 999px;
 
-}
+      text-decoration: none;
 
+      color: #fff;
 
-@keyframes floatUp{
+      font-size: 13px;
 
-  0%{
+      font-weight: 600;
 
-    transform:
-      translateY(0)
-      rotate(0deg);
+      border:
+        1px solid
+        rgba(255,255,255,.22);
 
-    opacity:0;
+      background:
+        rgba(255,255,255,.09);
 
-  }
+      backdrop-filter:
+        blur(12px);
 
-  15%{
+      transition:
+        transform .2s ease,
+        background .2s ease;
+    }
 
-    opacity:.38;
+    .create-nav:hover {
+      transform:
+        translateY(-2px);
 
-  }
+      background:
+        rgba(255,255,255,.16);
+    }
 
-  80%{
 
-    opacity:.2;
+    /* ==========================================
+       CONTAINER
+    ========================================== */
 
-  }
+    .container {
+      position: relative;
 
-  100%{
+      z-index: 2;
 
-    transform:
-      translateY(-115vh)
-      rotate(35deg);
+      width:
+        min(
+          1100px,
+          calc(100% - 32px)
+        );
 
-    opacity:0;
+      margin:
+        0 auto;
+    }
 
-  }
 
-}
+    /* ==========================================
+       HERO
+    ========================================== */
 
+    .hero {
+      min-height:
+        calc(100vh - 76px);
 
-/* ==========================================
-   NAVIGATION
-========================================== */
+      display: grid;
 
-.nav{
+      grid-template-columns:
+        1.08fr
+        .92fr;
 
-  position:relative;
+      align-items: center;
 
-  z-index:10;
+      gap: 60px;
 
-  width:
-    min(
-      1100px,
-      calc(100% - 32px)
-    );
+      padding:
+        40px 0
+        80px;
+    }
 
-  margin:
-    0 auto;
+    .hero-content {
+      animation:
+        heroIn .85s ease-out;
+    }
 
-  padding:
-    20px 0;
+    .eyebrow {
+      display: inline-flex;
 
-  display:flex;
+      align-items: center;
 
-  align-items:center;
+      gap: 8px;
 
-  justify-content:space-between;
+      padding:
+        8px 13px;
 
-}
+      border:
+        1px solid
+        rgba(255,255,255,.16);
 
+      border-radius: 999px;
 
-.logo{
+      background:
+        rgba(255,255,255,.07);
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      font-size: 10px;
 
-  font-size:26px;
+      letter-spacing: 2px;
 
-  letter-spacing:-.6px;
+      text-transform: uppercase;
 
-}
+      color:
+        rgba(255,255,255,.75);
+    }
 
+    .hero h1 {
+      margin:
+        22px 0
+        18px;
 
-.logo-heart{
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  font-size:20px;
+      font-weight: normal;
 
-}
+      font-size:
+        clamp(
+          52px,
+          8vw,
+          88px
+        );
 
+      line-height: .94;
 
-.nav-actions{
+      letter-spacing: -4px;
+    }
 
-  display:flex;
+    .hero h1 span {
+      display: block;
 
-  align-items:center;
+      background:
+        linear-gradient(
+          90deg,
+          #fff,
+          #ffc0d1
+        );
 
-  gap:10px;
+      -webkit-background-clip: text;
+      background-clip: text;
 
-}
+      color: transparent;
+    }
 
+    .hero p {
+      max-width: 570px;
 
-.login-button{
+      margin: 0;
 
-  border:0;
+      font-size: 18px;
 
-  background:transparent;
+      line-height: 1.7;
 
-  color:
-    rgba(255,255,255,.75);
+      color:
+        rgba(255,255,255,.68);
+    }
 
-  font-size:13px;
+    .hero-actions {
+      display: flex;
 
-  padding:
-    10px 12px;
+      gap: 12px;
 
-  cursor:pointer;
+      margin-top: 32px;
 
-  transition:
-    color .2s ease;
+      flex-wrap: wrap;
+    }
 
-}
 
+    /* ==========================================
+       PRIMARY BUTTON
+    ========================================== */
 
-.login-button:hover{
+    .primary {
+      display: inline-flex;
 
-  color:#fff;
+      align-items: center;
+      justify-content: center;
 
-}
+      min-height: 50px;
 
+      padding:
+        14px 22px;
 
-.create-nav{
+      border-radius: 999px;
 
-  display:inline-flex;
+      text-decoration: none;
 
-  align-items:center;
+      color: #74153f;
 
-  justify-content:center;
+      background: #fff;
 
-  padding:
-    10px 17px;
+      font-weight: 700;
 
-  border-radius:999px;
+      font-size: 14px;
 
-  text-decoration:none;
+      box-shadow:
+        0 14px 35px
+        rgba(0,0,0,.22);
 
-  color:#fff;
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+    }
 
-  font-size:13px;
+    .primary:hover {
+      transform:
+        translateY(-3px);
 
-  font-weight:600;
+      box-shadow:
+        0 18px 40px
+        rgba(0,0,0,.28);
+    }
 
-  border:
-    1px solid
-    rgba(255,255,255,.22);
 
-  background:
-    rgba(255,255,255,.09);
+    /* ==========================================
+       SECONDARY BUTTON
+    ========================================== */
 
-  backdrop-filter:
-    blur(12px);
+    .secondary {
+      display: inline-flex;
 
-  transition:
-    transform .2s ease,
-    background .2s ease;
+      align-items: center;
+      justify-content: center;
 
-}
+      min-height: 50px;
 
+      padding:
+        14px 22px;
 
-.create-nav:hover{
+      border-radius: 999px;
 
-  transform:
-    translateY(-2px);
+      text-decoration: none;
 
-  background:
-    rgba(255,255,255,.16);
+      color: #fff;
 
-}
+      background:
+        rgba(255,255,255,.07);
 
+      border:
+        1px solid
+        rgba(255,255,255,.18);
 
-/* ==========================================
-   CONTAINER
-========================================== */
+      font-weight: 600;
 
-.container{
+      font-size: 14px;
 
-  position:relative;
+      transition:
+        background .2s ease;
+    }
 
-  z-index:2;
+    .secondary:hover {
+      background:
+        rgba(255,255,255,.13);
+    }
 
-  width:
-    min(
-      1100px,
-      calc(100% - 32px)
-    );
 
-  margin:
-    0 auto;
+    /* ==========================================
+       HERO PREVIEW
+    ========================================== */
 
-}
+    .preview-wrap {
+      display: flex;
 
+      justify-content: center;
 
-/* ==========================================
-   HERO
-========================================== */
+      animation:
+        previewIn 1s ease-out .1s both;
+    }
 
-.hero{
+    .preview {
+      position: relative;
 
-  min-height:
-    calc(100vh - 76px);
+      width:
+        min(
+          360px,
+          100%
+        );
 
-  display:grid;
+      min-height: 475px;
 
-  grid-template-columns:
-    1.08fr
-    .92fr;
+      padding:
+        35px 28px;
 
-  align-items:center;
+      display: flex;
 
-  gap:60px;
+      flex-direction: column;
 
-  padding:
-    40px 0
-    80px;
+      align-items: center;
 
-}
+      justify-content: center;
 
+      text-align: center;
 
-.hero-content{
+      border-radius: 34px;
 
-  animation:
-    heroIn .85s ease-out;
+      border:
+        1px solid
+        rgba(255,255,255,.22);
 
-}
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.17),
+          rgba(255,255,255,.055)
+        );
 
+      backdrop-filter:
+        blur(22px);
 
-.eyebrow{
+      box-shadow:
+        0 35px 90px
+        rgba(0,0,0,.38);
 
-  display:inline-flex;
+      transform:
+        rotate(2deg);
 
-  align-items:center;
+      transition:
+        transform .35s ease;
+    }
 
-  gap:8px;
+    .preview::before {
+      content: "";
 
-  padding:
-    8px 13px;
+      position: absolute;
 
-  border:
-    1px solid
-    rgba(255,255,255,.16);
+      inset: 12px;
 
-  border-radius:999px;
+      border-radius: 26px;
 
-  background:
-    rgba(255,255,255,.07);
+      border:
+        1px solid
+        rgba(255,255,255,.07);
 
-  font-size:10px;
+      pointer-events: none;
+    }
 
-  letter-spacing:2px;
+    .preview:hover {
+      transform:
+        rotate(0deg)
+        translateY(-6px);
+    }
 
-  text-transform:uppercase;
+    .preview-label {
+      font-size: 10px;
 
-  color:
-    rgba(255,255,255,.75);
+      letter-spacing: 3px;
 
-}
+      text-transform: uppercase;
 
+      opacity: .52;
+    }
 
-.hero h1{
+    .preview-heart {
+      margin:
+        24px 0;
 
-  margin:
-    22px 0
-    18px;
+      font-size: 70px;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      animation:
+        heartbeat 2.2s ease-in-out infinite;
+    }
 
-  font-weight:normal;
+    @keyframes heartbeat {
 
-  font-size:
-    clamp(
-      52px,
-      8vw,
-      88px
-    );
+      0%,
+      100% {
+        transform:
+          scale(1);
+      }
 
-  line-height:.94;
+      50% {
+        transform:
+          scale(1.08);
+      }
+    }
 
-  letter-spacing:-4px;
+    .preview h2 {
+      margin: 0;
 
-}
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
+      font-weight: normal;
 
-.hero h1 span{
+      font-size: 40px;
+    }
 
-  display:block;
+    .preview-line {
+      width: 55px;
 
-  background:
-    linear-gradient(
-      90deg,
-      #fff,
-      #ffc0d1
-    );
+      height: 1px;
 
-  -webkit-background-clip:text;
+      margin:
+        20px 0;
 
-  background-clip:text;
+      background:
+        rgba(255,255,255,.4);
+    }
 
-  color:transparent;
+    .preview-message {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-}
+      font-size: 20px;
 
+      line-height: 1.5;
 
-.hero p{
+      opacity: .82;
+    }
 
-  max-width:570px;
+    .preview-from {
+      margin-top: 24px;
 
-  margin:0;
+      font-size: 12px;
 
-  font-size:18px;
+      opacity: .5;
+    }
 
-  line-height:1.7;
 
-  color:
-    rgba(255,255,255,.68);
+    @keyframes heroIn {
 
-}
+      from {
+        opacity: 0;
 
+        transform:
+          translateY(25px);
+      }
 
-.hero-actions{
+      to {
+        opacity: 1;
 
-  display:flex;
+        transform:
+          translateY(0);
+      }
+    }
 
-  gap:12px;
 
-  margin-top:32px;
+    @keyframes previewIn {
 
-  flex-wrap:wrap;
+      from {
+        opacity: 0;
 
-}
+        transform:
+          rotate(7deg)
+          translateY(30px);
+      }
 
+      to {
+        opacity: 1;
 
-.primary{
+        transform:
+          rotate(2deg)
+          translateY(0);
+      }
+    }
 
-  display:inline-flex;
 
-  align-items:center;
+    /* ==========================================
+       SECTIONS
+    ========================================== */
 
-  justify-content:center;
+    .section {
+      padding:
+        100px 0;
+    }
 
-  min-height:50px;
+    .section-header {
+      max-width: 650px;
 
-  padding:
-    14px 22px;
+      margin-bottom: 45px;
+    }
 
-  border-radius:999px;
+    .section-label {
+      font-size: 10px;
 
-  text-decoration:none;
+      letter-spacing: 3px;
 
-  color:#74153f;
+      text-transform: uppercase;
 
-  background:#fff;
+      color:
+        rgba(255,255,255,.5);
+    }
 
-  font-weight:700;
+    .section h2 {
+      margin:
+        12px 0;
 
-  font-size:14px;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  box-shadow:
-    0 14px 35px
-    rgba(0,0,0,.22);
+      font-size:
+        clamp(
+          38px,
+          6vw,
+          58px
+        );
 
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease;
+      font-weight: normal;
 
-}
+      letter-spacing: -2px;
+    }
 
+    .section-header p {
+      margin: 0;
 
-.primary:hover{
+      color:
+        rgba(255,255,255,.62);
 
-  transform:
-    translateY(-3px);
+      line-height: 1.7;
+    }
 
-  box-shadow:
-    0 18px 40px
-    rgba(0,0,0,.28);
 
-}
+    /* ==========================================
+       HOW IT WORKS
+    ========================================== */
 
+    .steps {
+      display: grid;
 
-.secondary{
+      grid-template-columns:
+        repeat(3,1fr);
 
-  display:inline-flex;
+      gap: 16px;
+    }
 
-  align-items:center;
+    .step {
+      padding: 30px;
 
-  justify-content:center;
+      min-height: 225px;
 
-  min-height:50px;
+      border:
+        1px solid
+        rgba(255,255,255,.13);
 
-  padding:
-    14px 22px;
+      border-radius: 25px;
 
-  border-radius:999px;
+      background:
+        rgba(255,255,255,.055);
 
-  text-decoration:none;
+      backdrop-filter:
+        blur(14px);
 
-  color:#fff;
+      transition:
+        transform .25s ease,
+        background .25s ease;
+    }
 
-  background:
-    rgba(255,255,255,.07);
+    .step:hover {
+      transform:
+        translateY(-5px);
 
-  border:
-    1px solid
-    rgba(255,255,255,.18);
+      background:
+        rgba(255,255,255,.08);
+    }
 
-  font-weight:600;
+    .step-number {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  font-size:14px;
+      font-size: 18px;
 
-  transition:
-    background .2s ease;
+      opacity: .42;
+    }
 
-}
+    .step-icon {
+      margin:
+        25px 0 15px;
 
+      font-size: 27px;
+    }
 
-.secondary:hover{
+    .step h3 {
+      margin:
+        0 0 10px;
 
-  background:
-    rgba(255,255,255,.13);
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-}
+      font-size: 24px;
 
+      font-weight: normal;
+    }
 
-/* ==========================================
-   HERO PREVIEW
-========================================== */
+    .step p {
+      margin: 0;
 
-.preview-wrap{
+      color:
+        rgba(255,255,255,.56);
 
-  display:flex;
+      line-height: 1.6;
 
-  justify-content:center;
+      font-size: 14px;
+    }
 
-  animation:
-    previewIn 1s ease-out .1s both;
 
-}
+    /* ==========================================
+       EXPERIENCE
+    ========================================== */
 
+    .experience {
+      display: grid;
 
-.preview{
+      grid-template-columns:
+        .9fr
+        1.1fr;
 
-  position:relative;
+      gap: 60px;
 
-  width:
-    min(
-      360px,
-      100%
-    );
+      align-items: center;
+    }
 
-  min-height:475px;
+    .experience-copy p {
+      color:
+        rgba(255,255,255,.64);
 
-  padding:
-    35px 28px;
+      line-height: 1.8;
 
-  display:flex;
+      font-size: 16px;
+    }
 
-  flex-direction:column;
+    .feature-list {
+      display: grid;
 
-  align-items:center;
+      gap: 13px;
 
-  justify-content:center;
+      margin-top: 25px;
+    }
 
-  text-align:center;
+    .feature {
+      display: flex;
 
-  border-radius:34px;
+      align-items: center;
 
-  border:
-    1px solid
-    rgba(255,255,255,.22);
+      gap: 12px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.17),
-      rgba(255,255,255,.055)
-    );
+      font-size: 14px;
 
-  backdrop-filter:
-    blur(22px);
+      color:
+        rgba(255,255,255,.78);
+    }
 
-  box-shadow:
-    0 35px 90px
-    rgba(0,0,0,.38);
+    .feature-dot {
+      flex:
+        0 0 auto;
 
-  transform:
-    rotate(2deg);
+      width: 9px;
+      height: 9px;
 
-  transition:
-    transform .35s ease;
+      border-radius: 50%;
 
-}
+      background:
+        rgba(255,190,210,.8);
 
+      box-shadow:
+        0 0 14px
+        rgba(255,150,180,.7);
+    }
 
-.preview::before{
 
-  content:"";
+    /* ==========================================
+       MOMENT STORIES
+    ========================================== */
 
-  position:absolute;
+    .stories {
+      display: grid;
 
-  inset:12px;
+      grid-template-columns:
+        repeat(3,1fr);
 
-  border-radius:26px;
+      gap: 16px;
+    }
 
-  border:
-    1px solid
-    rgba(255,255,255,.07);
+    .story {
+      min-height: 245px;
 
-  pointer-events:none;
+      padding: 28px;
 
-}
+      border-radius: 25px;
 
+      border:
+        1px solid
+        rgba(255,255,255,.13);
 
-.preview:hover{
+      background:
+        rgba(255,255,255,.055);
 
-  transform:
-    rotate(0deg)
-    translateY(-6px);
+      backdrop-filter:
+        blur(14px);
 
-}
+      display: flex;
 
+      flex-direction: column;
 
-.preview-label{
+      justify-content: space-between;
 
-  font-size:10px;
+      transition:
+        transform .25s ease;
+    }
 
-  letter-spacing:3px;
+    .story:hover {
+      transform:
+        translateY(-5px);
+    }
 
-  text-transform:uppercase;
+    .story-icon {
+      font-size: 27px;
+    }
 
-  opacity:.52;
+    .story-text {
+      margin:
+        22px 0;
 
-}
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
+      font-size: 19px;
 
-.preview-heart{
+      line-height: 1.55;
 
-  margin:
-    24px 0;
+      color:
+        rgba(255,255,255,.9);
+    }
 
-  font-size:70px;
+    .story-label {
+      font-size: 11px;
 
-  animation:
-    heartbeat 2.2s ease-in-out infinite;
+      color:
+        rgba(255,255,255,.45);
 
-}
+      letter-spacing: .5px;
+    }
 
 
-@keyframes heartbeat{
+    /* ==========================================
+       FINAL CTA
+    ========================================== */
 
-  0%,
-  100%{
+    .cta {
+      margin:
+        50px 0
+        90px;
 
-    transform:scale(1);
+      padding:
+        65px 30px;
 
-  }
+      text-align: center;
 
-  50%{
+      border-radius: 32px;
 
-    transform:scale(1.08);
+      border:
+        1px solid
+        rgba(255,255,255,.18);
 
-  }
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.13),
+          rgba(255,255,255,.055)
+        );
 
-}
+      backdrop-filter:
+        blur(18px);
+    }
 
+    .cta-heart {
+      font-size: 38px;
 
-.preview h2{
+      animation:
+        heartbeat 2.2s ease-in-out infinite;
+    }
 
-  margin:0;
+    .cta h2 {
+      margin:
+        16px 0 12px;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  font-weight:normal;
+      font-size:
+        clamp(
+          38px,
+          6vw,
+          58px
+        );
 
-  font-size:40px;
+      font-weight: normal;
+    }
 
-}
+    .cta p {
+      margin:
+        0 auto
+        25px;
 
+      max-width: 500px;
 
-.preview-line{
+      color:
+        rgba(255,255,255,.64);
 
-  width:55px;
+      line-height: 1.7;
+    }
 
-  height:1px;
 
-  margin:20px 0;
+    /* ==========================================
+       FOOTER
+    ========================================== */
 
-  background:
-    rgba(255,255,255,.4);
+    footer {
+      position: relative;
 
-}
+      z-index: 2;
 
+      width:
+        min(
+          1100px,
+          calc(100% - 32px)
+        );
 
-.preview-message{
+      margin:
+        0 auto;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      padding:
+        0 0 35px;
 
-  font-size:20px;
+      display: flex;
 
-  line-height:1.5;
+      justify-content: space-between;
 
-  opacity:.82;
+      gap: 20px;
 
-}
+      color:
+        rgba(255,255,255,.38);
 
+      font-size: 11px;
+    }
 
-.preview-from{
+    footer span:first-child {
+      letter-spacing: 2px;
+    }
 
-  margin-top:24px;
 
-  font-size:12px;
+    /* ==========================================
+       MOBILE
+    ========================================== */
 
-  opacity:.5;
+    @media (max-width: 800px) {
 
-}
+      .nav {
+        padding-top: 16px;
+      }
 
+      .hero {
+        grid-template-columns: 1fr;
 
-@keyframes heroIn{
+        min-height: auto;
 
-  from{
+        padding-top: 35px;
 
-    opacity:0;
+        gap: 50px;
+      }
 
-    transform:
-      translateY(25px);
+      .hero-content {
+        text-align: center;
+      }
 
-  }
+      .hero p {
+        margin: auto;
+      }
 
-  to{
+      .hero-actions {
+        justify-content: center;
+      }
 
-    opacity:1;
+      .preview {
+        min-height: 420px;
+      }
 
-    transform:
-      translateY(0);
+      .steps {
+        grid-template-columns: 1fr;
+      }
 
-  }
+      .experience {
+        grid-template-columns: 1fr;
 
-}
+        gap: 35px;
+      }
 
+      .stories {
+        grid-template-columns: 1fr;
+      }
+    }
 
-@keyframes previewIn{
 
-  from{
+    @media (max-width: 500px) {
 
-    opacity:0;
+      .nav,
+      .container,
+      footer {
+        width:
+          calc(100% - 28px);
+      }
 
-    transform:
-      rotate(7deg)
-      translateY(30px);
+      .logo {
+        font-size: 23px;
+      }
 
-  }
+      .logo-heart {
+        font-size: 18px;
+      }
 
-  to{
+      .nav-actions {
+        gap: 3px;
+      }
 
-    opacity:1;
+      .login-button {
+        padding:
+          9px 7px;
 
-    transform:
-      rotate(2deg)
-      translateY(0);
+        font-size: 12px;
+      }
 
-  }
+      .create-nav {
+        padding:
+          9px 12px;
 
-}
+        font-size: 12px;
+      }
 
+      .hero {
+        padding-bottom: 55px;
+      }
 
-/* ==========================================
-   SECTION
-========================================== */
+      .hero h1 {
+        font-size:
+          clamp(
+            50px,
+            15vw,
+            68px
+          );
 
-.section{
+        letter-spacing: -3px;
+      }
 
-  padding:
-    100px 0;
+      .hero p {
+        font-size: 16px;
+      }
 
-}
+      .hero-actions {
+        flex-direction: column;
 
+        width: 100%;
+      }
 
-.section-header{
+      .primary,
+      .secondary {
+        width: 100%;
+      }
 
-  max-width:650px;
+      .preview {
+        min-height: 405px;
+      }
 
-  margin-bottom:45px;
+      .section {
+        padding:
+          75px 0;
+      }
 
-}
+      .section h2 {
+        letter-spacing: -1.5px;
+      }
 
+      .step {
+        min-height: auto;
 
-.section-label{
+        padding: 25px;
+      }
 
-  font-size:10px;
+      .story {
+        min-height: 215px;
+      }
 
-  letter-spacing:3px;
+      .cta {
+        padding:
+          50px 22px;
 
-  text-transform:uppercase;
+        margin-bottom: 65px;
+      }
 
-  color:
-    rgba(255,255,255,.5);
+      footer {
+        flex-direction: column;
 
-}
+        text-align: center;
 
+        align-items: center;
+      }
+    }
 
-.section h2{
-
-  margin:
-    12px 0;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    clamp(
-      38px,
-      6vw,
-      58px
-    );
-
-  font-weight:normal;
-
-  letter-spacing:-2px;
-
-}
-
-
-.section-header p{
-
-  margin:0;
-
-  color:
-    rgba(255,255,255,.62);
-
-  line-height:1.7;
-
-}
-
-
-/* ==========================================
-   HOW IT WORKS
-========================================== */
-
-.steps{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:16px;
-
-}
-
-
-.step{
-
-  padding:30px;
-
-  min-height:225px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.13);
-
-  border-radius:25px;
-
-  background:
-    rgba(255,255,255,.055);
-
-  backdrop-filter:
-    blur(14px);
-
-  transition:
-    transform .25s ease,
-    background .25s ease;
-
-}
-
-
-.step:hover{
-
-  transform:
-    translateY(-5px);
-
-  background:
-    rgba(255,255,255,.08);
-
-}
-
-
-.step-number{
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:18px;
-
-  opacity:.42;
-
-}
-
-
-.step-icon{
-
-  margin:
-    25px 0 15px;
-
-  font-size:27px;
-
-}
-
-
-.step h3{
-
-  margin:
-    0 0 10px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:24px;
-
-  font-weight:normal;
-
-}
-
-
-.step p{
-
-  margin:0;
-
-  color:
-    rgba(255,255,255,.56);
-
-  line-height:1.6;
-
-  font-size:14px;
-
-}
-
-
-/* ==========================================
-   EXPERIENCE
-========================================== */
-
-.experience{
-
-  display:grid;
-
-  grid-template-columns:
-    .9fr
-    1.1fr;
-
-  gap:60px;
-
-  align-items:center;
-
-}
-
-
-.experience-copy p{
-
-  color:
-    rgba(255,255,255,.64);
-
-  line-height:1.8;
-
-  font-size:16px;
-
-}
-
-
-.feature-list{
-
-  display:grid;
-
-  gap:13px;
-
-  margin-top:25px;
-
-}
-
-
-.feature{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-  font-size:14px;
-
-  color:
-    rgba(255,255,255,.78);
-
-}
-
-
-.feature-dot{
-
-  flex:0 0 auto;
-
-  width:9px;
-  height:9px;
-
-  border-radius:50%;
-
-  background:
-    rgba(255,190,210,.8);
-
-  box-shadow:
-    0 0 14px
-    rgba(255,150,180,.7);
-
-}
-
-
-/* ==========================================
-   MOMENT STORIES
-========================================== */
-
-.stories{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:16px;
-
-}
-
-
-.story{
-
-  min-height:245px;
-
-  padding:28px;
-
-  border-radius:25px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.13);
-
-  background:
-    rgba(255,255,255,.055);
-
-  backdrop-filter:
-    blur(14px);
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:space-between;
-
-  transition:
-    transform .25s ease;
-
-}
-
-
-.story:hover{
-
-  transform:
-    translateY(-5px);
-
-}
-
-
-.story-icon{
-
-  font-size:27px;
-
-}
-
-
-.story-text{
-
-  margin:
-    22px 0;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:19px;
-
-  line-height:1.55;
-
-  color:
-    rgba(255,255,255,.9);
-
-}
-
-
-.story-label{
-
-  font-size:11px;
-
-  color:
-    rgba(255,255,255,.45);
-
-  letter-spacing:.5px;
-
-}
-
-
-/* ==========================================
-   FINAL CTA
-========================================== */
-
-.cta{
-
-  margin:
-    50px 0
-    90px;
-
-  padding:
-    65px 30px;
-
-  text-align:center;
-
-  border-radius:32px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.18);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.13),
-      rgba(255,255,255,.055)
-    );
-
-  backdrop-filter:
-    blur(18px);
-
-}
-
-
-.cta-heart{
-
-  font-size:38px;
-
-  animation:
-    heartbeat 2.2s ease-in-out infinite;
-
-}
-
-
-.cta h2{
-
-  margin:
-    16px 0 12px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    clamp(
-      38px,
-      6vw,
-      58px
-    );
-
-  font-weight:normal;
-
-}
-
-
-.cta p{
-
-  margin:
-    0 auto
-    25px;
-
-  max-width:500px;
-
-  color:
-    rgba(255,255,255,.64);
-
-  line-height:1.7;
-
-}
-
-
-/* ==========================================
-   LOGIN COMING SOON MODAL
-========================================== */
-
-.modal-backdrop{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:100;
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:20px;
-
-  background:
-    rgba(10,3,12,.68);
-
-  backdrop-filter:
-    blur(10px);
-
-}
-
-
-.modal-backdrop.show{
-
-  display:flex;
-
-}
-
-
-.login-modal{
-
-  width:
-    min(
-      390px,
-      100%
-    );
-
-  padding:
-    34px 28px;
-
-  text-align:center;
-
-  border:
-    1px solid
-    rgba(255,255,255,.2);
-
-  border-radius:28px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(90,18,60,.95),
-      rgba(35,8,31,.96)
-    );
-
-  box-shadow:
-    0 30px 80px
-    rgba(0,0,0,.45);
-
-  animation:
-    modalIn .25s ease-out;
-
-}
-
-
-.login-modal-heart{
-
-  font-size:42px;
-
-}
-
-
-.login-modal h3{
-
-  margin:
-    15px 0 10px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:30px;
-
-  font-weight:normal;
-
-}
-
-
-.login-modal p{
-
-  margin:
-    0 0 22px;
-
-  color:
-    rgba(255,255,255,.65);
-
-  line-height:1.6;
-
-  font-size:14px;
-
-}
-
-
-.close-modal{
-
-  border:0;
-
-  border-radius:999px;
-
-  padding:
-    12px 22px;
-
-  cursor:pointer;
-
-  font-weight:700;
-
-  color:#74153f;
-
-  background:#fff;
-
-}
-
-
-@keyframes modalIn{
-
-  from{
-
-    opacity:0;
-
-    transform:
-      translateY(12px)
-      scale(.97);
-
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:
-      translateY(0)
-      scale(1);
-
-  }
-
-}
-
-
-/* ==========================================
-   FOOTER
-========================================== */
-
-footer{
-
-  position:relative;
-
-  z-index:2;
-
-  width:
-    min(
-      1100px,
-      calc(100% - 32px)
-    );
-
-  margin:
-    0 auto;
-
-  padding:
-    0 0 35px;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  gap:20px;
-
-  color:
-    rgba(255,255,255,.38);
-
-  font-size:11px;
-
-}
-
-
-footer span:first-child{
-
-  letter-spacing:2px;
-
-}
-
-
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media(max-width:800px){
-
-  .nav{
-
-    padding-top:16px;
-
-  }
-
-
-  .hero{
-
-    grid-template-columns:1fr;
-
-    min-height:auto;
-
-    padding-top:35px;
-
-    gap:50px;
-
-  }
-
-
-  .hero-content{
-
-    text-align:center;
-
-  }
-
-
-  .hero p{
-
-    margin:auto;
-
-  }
-
-
-  .hero-actions{
-
-    justify-content:center;
-
-  }
-
-
-  .preview{
-
-    min-height:420px;
-
-  }
-
-
-  .steps{
-
-    grid-template-columns:1fr;
-
-  }
-
-
-  .experience{
-
-    grid-template-columns:1fr;
-
-    gap:35px;
-
-  }
-
-
-  .stories{
-
-    grid-template-columns:1fr;
-
-  }
-
-}
-
-
-@media(max-width:500px){
-
-  .nav,
-  .container,
-  footer{
-
-    width:
-      calc(100% - 28px);
-
-  }
-
-
-  .logo{
-
-    font-size:23px;
-
-  }
-
-
-  .logo-heart{
-
-    font-size:18px;
-
-  }
-
-
-  .nav-actions{
-
-    gap:3px;
-
-  }
-
-
-  .login-button{
-
-    padding:
-      9px 7px;
-
-    font-size:12px;
-
-  }
-
-
-  .create-nav{
-
-    padding:
-      9px 12px;
-
-    font-size:12px;
-
-  }
-
-
-  .hero{
-
-    padding-bottom:55px;
-
-  }
-
-
-  .hero h1{
-
-    font-size:
-      clamp(
-        50px,
-        15vw,
-        68px
-      );
-
-    letter-spacing:-3px;
-
-  }
-
-
-  .hero p{
-
-    font-size:16px;
-
-  }
-
-
-  .hero-actions{
-
-    flex-direction:column;
-
-    width:100%;
-
-  }
-
-
-  .primary,
-  .secondary{
-
-    width:100%;
-
-  }
-
-
-  .preview{
-
-    min-height:405px;
-
-  }
-
-
-  .section{
-
-    padding:
-      75px 0;
-
-  }
-
-
-  .section h2{
-
-    letter-spacing:-1.5px;
-
-  }
-
-
-  .step{
-
-    min-height:auto;
-
-    padding:25px;
-
-  }
-
-
-  .story{
-
-    min-height:215px;
-
-  }
-
-
-  .cta{
-
-    padding:
-      50px 22px;
-
-    margin-bottom:65px;
-
-  }
-
-
-  footer{
-
-    flex-direction:column;
-
-    text-align:center;
-
-    align-items:center;
-
-  }
-
-}
-
-</style>
+  </style>
 
 </head>
 
@@ -1778,417 +1333,137 @@ footer span:first-child{
 <body>
 
 
-<!-- ==========================================
-     AMBIENT EFFECTS
-========================================== -->
+  <!-- ==========================================
+       AMBIENT EFFECTS
+  ========================================== -->
 
-<div class="glow one"></div>
+  <div class="glow one"></div>
 
-<div class="glow two"></div>
-
-
-<div class="hearts">
-
-  <span class="heart">❤️</span>
-
-  <span class="heart">💗</span>
-
-  <span class="heart">💕</span>
-
-  <span class="heart">❤️</span>
-
-  <span class="heart">💗</span>
-
-</div>
+  <div class="glow two"></div>
 
 
-<!-- ==========================================
-     NAVIGATION
-========================================== -->
+  <!-- ==========================================
+       FLOATING HEARTS
+  ========================================== -->
 
-<nav class="nav">
+  <div
+    class="hearts"
+    aria-hidden="true"
+  >
 
-  <div class="logo">
+    <span class="heart">❤️</span>
 
-    Moment
-    <span class="logo-heart">❤️</span>
+    <span class="heart">💗</span>
+
+    <span class="heart">💕</span>
+
+    <span class="heart">❤️</span>
+
+    <span class="heart">💗</span>
 
   </div>
 
 
-  <div class="nav-actions">
+  <!-- ==========================================
+       NAVIGATION
+  ========================================== -->
 
+  <nav class="nav">
 
-    <button
-      type="button"
-      class="login-button"
-      id="loginButton"
-    >
-      Login
-    </button>
+    <div class="logo">
 
+      Moment
 
-    <a
-      href="/create"
-      class="create-nav"
-    >
-      Create an Invite ❤️
-    </a>
-
-
-  </div>
-
-</nav>
-
-
-<main>
-
-
-<!-- ==========================================
-     HERO
-========================================== -->
-
-<section class="hero container">
-
-
-  <div class="hero-content">
-
-
-    <div class="eyebrow">
-
-      Made for meaningful moments ❤️
+      <span class="logo-heart">
+        ❤️
+      </span>
 
     </div>
 
 
-    <h1>
+    <div class="nav-actions">
 
-      Make it
+      <!-- LOGIN NOW USES SEPARATE PAGE -->
 
-      <span>a moment.</span>
-
-    </h1>
-
-
-    <p>
-
-      Create a beautiful little invitation,
-      send it to someone special,
-      and turn an ordinary question
-      into something they'll remember.
-
-    </p>
+      <a
+        href="/login"
+        class="login-button"
+      >
+        Login
+      </a>
 
 
-    <div class="hero-actions">
-
+      <!-- CREATE DOES NOT FORCE LOGIN HERE -->
 
       <a
         href="/create"
-        class="primary"
+        class="create-nav"
       >
         Create an Invite ❤️
       </a>
 
-
-      <a
-        href="#how"
-        class="secondary"
-      >
-        See how it works
-      </a>
-
-
     </div>
 
+  </nav>
 
-  </div>
 
+  <main>
 
-  <!-- ========================================
-       HERO PREVIEW
-  ========================================= -->
 
-  <div class="preview-wrap">
+    <!-- ==========================================
+         HERO
+    ========================================== -->
 
-    <div class="preview">
+    <section class="hero container">
 
 
-      <div class="preview-label">
+      <div class="hero-content">
 
-        A little invitation
 
-      </div>
-
-
-      <div class="preview-heart">
-
-        ❤️
-
-      </div>
-
-
-      <h2>
-
-        Someone special
-
-      </h2>
-
-
-      <div class="preview-line"></div>
-
-
-      <div class="preview-message">
-
-        When do I get to
-        steal you for a date?
-
-      </div>
-
-
-      <div class="preview-from">
-
-        From someone special ❤️
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-
-</section>
-
-
-<!-- ==========================================
-     HOW IT WORKS
-========================================== -->
-
-<section
-  id="how"
-  class="section container"
->
-
-
-  <div class="section-header">
-
-
-    <div class="section-label">
-
-      Simple by design
-
-    </div>
-
-
-    <h2>
-
-      Three little steps.
-
-    </h2>
-
-
-    <p>
-
-      No complicated setup.
-      Just create something personal,
-      share it, and wait for the answer.
-
-    </p>
-
-
-  </div>
-
-
-  <div class="steps">
-
-
-    <article class="step">
-
-
-      <div class="step-number">
-
-        01
-
-      </div>
-
-
-      <div class="step-icon">
-
-        ✍️
-
-      </div>
-
-
-      <h3>
-
-        Create
-
-      </h3>
-
-
-      <p>
-
-        Add their name,
-        your message,
-        and the occasion.
-
-      </p>
-
-
-    </article>
-
-
-    <article class="step">
-
-
-      <div class="step-number">
-
-        02
-
-      </div>
-
-
-      <div class="step-icon">
-
-        💌
-
-      </div>
-
-
-      <h3>
-
-        Share
-
-      </h3>
-
-
-      <p>
-
-        Moment creates a
-        unique invitation link
-        you can send anywhere.
-
-      </p>
-
-
-    </article>
-
-
-    <article class="step">
-
-
-      <div class="step-number">
-
-        03
-
-      </div>
-
-
-      <div class="step-icon">
-
-        🥰
-
-      </div>
-
-
-      <h3>
-
-        Make the moment
-
-      </h3>
-
-
-      <p>
-
-        They open the invitation,
-        respond, and choose a date
-        if they're in.
-
-      </p>
-
-
-    </article>
-
-
-  </div>
-
-
-</section>
-
-
-<!-- ==========================================
-     EXPERIENCE
-========================================== -->
-
-<section class="section container">
-
-
-  <div class="experience">
-
-
-    <div class="experience-copy">
-
-
-      <div class="section-label">
-
-        More than a link
-
-      </div>
-
-
-      <h2>
-
-        A little experience.
-
-      </h2>
-
-
-      <p>
-
-        Moment turns a simple
-        "Want to go on a date?"
-        into something that feels
-        personal from the first tap.
-
-      </p>
-
-
-      <div class="feature-list">
-
-
-        <div class="feature">
-
-          <span class="feature-dot"></span>
-
-          Personalized invitations
-
+        <div class="eyebrow">
+          Made for meaningful moments ❤️
         </div>
 
 
-        <div class="feature">
+        <h1>
 
-          <span class="feature-dot"></span>
+          Make it
 
-          Unique shareable links
+          <span>
+            a moment.
+          </span>
 
-        </div>
-
-
-        <div class="feature">
-
-          <span class="feature-dot"></span>
-
-          Beautiful mobile experience
-
-        </div>
+        </h1>
 
 
-        <div class="feature">
+        <p>
 
-          <span class="feature-dot"></span>
+          Create a beautiful little invitation,
+          send it to someone special,
+          and turn an ordinary question
+          into something they'll remember.
 
-          Date confirmation
+        </p>
+
+
+        <div class="hero-actions">
+
+
+          <a
+            href="/create"
+            class="primary"
+          >
+            Create an Invite ❤️
+          </a>
+
+
+          <a
+            href="#how"
+            class="secondary"
+          >
+            See how it works
+          </a>
+
 
         </div>
 
@@ -2196,49 +1471,302 @@ footer span:first-child{
       </div>
 
 
-    </div>
+      <!-- ========================================
+           HERO PREVIEW
+      ========================================= -->
+
+      <div class="preview-wrap">
+
+        <div class="preview">
 
 
-    <div class="preview-wrap">
+          <div class="preview-label">
+            A little invitation
+          </div>
 
 
-      <div class="preview">
+          <div class="preview-heart">
+            ❤️
+          </div>
 
 
-        <div class="preview-label">
+          <h2>
+            Someone special
+          </h2>
 
-          Your moment
+
+          <div class="preview-line"></div>
+
+
+          <div class="preview-message">
+
+            When do I get to
+            steal you for a date?
+
+          </div>
+
+
+          <div class="preview-from">
+            From someone special ❤️
+          </div>
+
 
         </div>
 
+      </div>
 
-        <div class="preview-heart">
 
-          💗
+    </section>
 
+
+    <!-- ==========================================
+         HOW IT WORKS
+    ========================================== -->
+
+    <section
+      id="how"
+      class="section container"
+    >
+
+
+      <div class="section-header">
+
+
+        <div class="section-label">
+          Simple by design
         </div>
 
 
         <h2>
-
-          It's a date!
-
+          Three little steps.
         </h2>
 
 
-        <div class="preview-line"></div>
+        <p>
+
+          No complicated setup.
+          Just create something personal,
+          share it, and wait for the answer.
+
+        </p>
 
 
-        <div class="preview-message">
+      </div>
 
-          Friday, 14 August 2026
+
+      <div class="steps">
+
+
+        <article class="step">
+
+
+          <div class="step-number">
+            01
+          </div>
+
+
+          <div class="step-icon">
+            ✍️
+          </div>
+
+
+          <h3>
+            Create
+          </h3>
+
+
+          <p>
+
+            Add their name,
+            your message,
+            and the occasion.
+
+          </p>
+
+
+        </article>
+
+
+        <article class="step">
+
+
+          <div class="step-number">
+            02
+          </div>
+
+
+          <div class="step-icon">
+            💌
+          </div>
+
+
+          <h3>
+            Share
+          </h3>
+
+
+          <p>
+
+            Moment creates a
+            unique invitation link
+            you can send anywhere.
+
+          </p>
+
+
+        </article>
+
+
+        <article class="step">
+
+
+          <div class="step-number">
+            03
+          </div>
+
+
+          <div class="step-icon">
+            🥰
+          </div>
+
+
+          <h3>
+            Make the moment
+          </h3>
+
+
+          <p>
+
+            They open the invitation,
+            respond, and choose a date
+            if they're in.
+
+          </p>
+
+
+        </article>
+
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ==========================================
+         EXPERIENCE
+    ========================================== -->
+
+    <section class="section container">
+
+
+      <div class="experience">
+
+
+        <div class="experience-copy">
+
+
+          <div class="section-label">
+            More than a link
+          </div>
+
+
+          <h2>
+            A little experience.
+          </h2>
+
+
+          <p>
+
+            Moment turns a simple
+            "Want to go on a date?"
+            into something that feels
+            personal from the first tap.
+
+          </p>
+
+
+          <div class="feature-list">
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Personalized invitations
+
+            </div>
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Unique shareable links
+
+            </div>
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Beautiful mobile experience
+
+            </div>
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Date confirmation
+
+            </div>
+
+
+          </div>
+
 
         </div>
 
 
-        <div class="preview-from">
+        <div class="preview-wrap">
 
-          See you then. 🥰
+
+          <div class="preview">
+
+
+            <div class="preview-label">
+              Your moment
+            </div>
+
+
+            <div class="preview-heart">
+              💗
+            </div>
+
+
+            <h2>
+              It's a date!
+            </h2>
+
+
+            <div class="preview-line"></div>
+
+
+            <div class="preview-message">
+              Friday, 14 August 2026
+            </div>
+
+
+            <div class="preview-from">
+              See you then. 🥰
+            </div>
+
+
+          </div>
+
 
         </div>
 
@@ -2246,361 +1774,187 @@ footer span:first-child{
       </div>
 
 
-    </div>
+    </section>
 
 
-  </div>
+    <!-- ==========================================
+         MOMENT STORIES
+    ========================================== -->
+
+    <section class="section container">
 
 
-</section>
+      <div class="section-header">
 
 
-<!-- ==========================================
-     MOMENT STORIES
-========================================== -->
-
-<section class="section container">
+        <div class="section-label">
+          The feeling we're creating
+        </div>
 
 
-  <div class="section-header">
+        <h2>
+          Made for moments.
+        </h2>
 
 
-    <div class="section-label">
+        <p>
 
-      The feeling we're creating
+          A little inspiration for the kind
+          of memories Moment is made for.
 
-    </div>
+        </p>
 
-
-    <h2>
-
-      Made for moments.
-
-    </h2>
-
-
-    <p>
-
-      A little inspiration for the kind
-      of memories Moment is made for.
-
-    </p>
-
-
-  </div>
-
-
-  <div class="stories">
-
-
-    <article class="story">
-
-
-      <div class="story-icon">
-
-        ❤️
 
       </div>
 
 
-      <div class="story-text">
+      <div class="stories">
 
-        "Sometimes asking the question
-        is the hardest part."
+
+        <article class="story">
+
+
+          <div class="story-icon">
+            ❤️
+          </div>
+
+
+          <div class="story-text">
+
+            "Sometimes asking the question
+            is the hardest part."
+
+          </div>
+
+
+          <div class="story-label">
+            FOR THE FIRST DATE
+          </div>
+
+
+        </article>
+
+
+        <article class="story">
+
+
+          <div class="story-icon">
+            💕
+          </div>
+
+
+          <div class="story-text">
+
+            "Turn an ordinary plan
+            into something worth remembering."
+
+          </div>
+
+
+          <div class="story-label">
+            FOR SOMEONE SPECIAL
+          </div>
+
+
+        </article>
+
+
+        <article class="story">
+
+
+          <div class="story-icon">
+            🥰
+          </div>
+
+
+          <div class="story-text">
+
+            "Because a yes deserves
+            a little celebration."
+
+          </div>
+
+
+          <div class="story-label">
+            FOR THE MOMENT AFTER
+          </div>
+
+
+        </article>
+
 
       </div>
 
 
-      <div class="story-label">
+    </section>
 
-        FOR THE FIRST DATE
+
+    <!-- ==========================================
+         FINAL CTA
+    ========================================== -->
+
+    <section class="container">
+
+
+      <div class="cta">
+
+
+        <div class="cta-heart">
+          ❤️
+        </div>
+
+
+        <h2>
+          Ready to make a moment?
+        </h2>
+
+
+        <p>
+
+          Sometimes the simplest question
+          deserves a beautiful answer.
+
+        </p>
+
+
+        <a
+          href="/create"
+          class="primary"
+        >
+          Create an Invite ❤️
+        </a>
+
 
       </div>
 
 
-    </article>
+    </section>
 
 
-    <article class="story">
+  </main>
 
 
-      <div class="story-icon">
+  <!-- ==========================================
+       FOOTER
+  ========================================== -->
 
-        💕 
+  <footer>
 
-      </div>
 
+    <span>
+      MOMENT ❤️
+    </span>
 
-      <div class="story-text">
 
-        "Turn an ordinary plan
-        into something worth remembering."
+    <span>
+      Made for the moments that matter.
+    </span>
 
-      </div>
 
-
-      <div class="story-label">
-
-        FOR SOMEONE SPECIAL
-
-      </div>
-
-
-    </article>
-
-
-    <article class="story">
-
-
-      <div class="story-icon">
-
-        🥰
-
-      </div>
-
-
-      <div class="story-text">
-
-        "Because a yes deserves
-        a little celebration."
-
-      </div>
-
-
-      <div class="story-label">
-
-        FOR THE MOMENT AFTER
-
-      </div>
-
-
-    </article>
-
-
-  </div>
-
-
-</section>
-
-
-<!-- ==========================================
-     FINAL CTA
-========================================== -->
-
-<section class="container">
-
-
-  <div class="cta">
-
-
-    <div class="cta-heart">
-
-      ❤️
-
-    </div>
-
-
-    <h2>
-
-      Ready to make a moment?
-
-    </h2>
-
-
-    <p>
-
-      Sometimes the simplest question
-      deserves a beautiful answer.
-
-    </p>
-
-
-    <a
-      href="/create"
-      class="primary"
-    >
-
-      Create an Invite ❤️
-
-    </a>
-
-
-  </div>
-
-
-</section>
-
-
-</main>
-
-
-<!-- ==========================================
-     FOOTER
-========================================== -->
-
-<footer>
-
-
-  <span>
-
-    MOMENT ❤️
-
-  </span>
-
-
-  <span>
-
-    Made for the moments that matter.
-
-  </span>
-
-
-</footer>
-
-
-<!-- ==========================================
-     LOGIN COMING SOON
-========================================== -->
-
-<div
-  class="modal-backdrop"
-  id="loginModal"
->
-
-
-  <div
-    class="login-modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="loginTitle"
-  >
-
-
-    <div class="login-modal-heart">
-
-      ❤️
-
-    </div>
-
-
-    <h3 id="loginTitle">
-
-      Login is coming soon.
-
-    </h3>
-
-
-    <p>
-
-      We're working on a way for you
-      to keep track of all the moments
-      you've created.
-
-    </p>
-
-
-    <button
-      type="button"
-      class="close-modal"
-      id="closeLogin"
-    >
-
-      Got it ❤️
-
-    </button>
-
-
-  </div>
-
-
-</div>
-
-
-<script>
-
-/* ==========================================
-   LOGIN MODAL
-========================================== */
-
-const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
-
-const loginModal =
-  document.getElementById(
-    "loginModal"
-  );
-
-const closeLogin =
-  document.getElementById(
-    "closeLogin"
-  );
-
-
-loginButton.addEventListener(
-  "click",
-  () => {
-
-    loginModal.classList.add(
-      "show"
-    );
-
-  }
-);
-
-
-closeLogin.addEventListener(
-  "click",
-  () => {
-
-    loginModal.classList.remove(
-      "show"
-    );
-
-  }
-);
-
-
-loginModal.addEventListener(
-  "click",
-  (event) => {
-
-    if(
-      event.target ===
-      loginModal
-    ){
-
-      loginModal.classList.remove(
-        "show"
-      );
-
-    }
-
-  }
-);
-
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if(
-      event.key === "Escape"
-    ){
-
-      loginModal.classList.remove(
-        "show"
-      );
-
-    }
-
-  }
-);
-
-</script>
+  </footer>
 
 
 </body>
 
 </html>
+```
