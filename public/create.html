@@ -15,27 +15,18 @@
 
   <style>
 
-    /* ==========================================
-       RESET
-    ========================================== */
-
     * {
       box-sizing: border-box;
     }
-
 
     html {
       scroll-behavior: smooth;
     }
 
-
     body {
       margin: 0;
-
       min-height: 100vh;
-
       padding: 24px;
-
       overflow-x: hidden;
 
       font-family:
@@ -73,58 +64,41 @@
     ========================================== */
 
     .glow {
-
       position: fixed;
-
       width: 320px;
       height: 320px;
-
       border-radius: 50%;
-
       filter: blur(95px);
-
       opacity: .2;
-
       pointer-events: none;
-
       z-index: 0;
 
       animation:
         glowMove 9s ease-in-out infinite alternate;
     }
 
-
     .glow.one {
-
       background: #ff719b;
-
       top: -130px;
       left: -120px;
     }
 
-
     .glow.two {
-
       background: #ffb8cf;
-
       right: -150px;
       bottom: -150px;
-
       animation-delay: 3s;
     }
-
 
     @keyframes glowMove {
 
       from {
-
         transform:
           translate(0,0)
           scale(1);
       }
 
       to {
-
         transform:
           translate(35px,-20px)
           scale(1.12);
@@ -137,94 +111,59 @@
     ========================================== */
 
     .hearts {
-
       position: fixed;
-
       inset: 0;
-
       overflow: hidden;
-
       pointer-events: none;
-
       z-index: 0;
     }
 
-
     .heart {
-
       position: absolute;
-
       bottom: -40px;
-
       opacity: 0;
 
       animation:
         floatUp linear infinite;
     }
 
-
     .heart:nth-child(1) {
-
       left: 7%;
-
       font-size: 18px;
-
       animation-duration: 11s;
     }
 
-
     .heart:nth-child(2) {
-
       left: 27%;
-
       font-size: 14px;
-
       animation-duration: 13s;
-
       animation-delay: 2s;
     }
 
-
     .heart:nth-child(3) {
-
       left: 50%;
-
       font-size: 21px;
-
       animation-duration: 10s;
-
       animation-delay: 4s;
     }
 
-
     .heart:nth-child(4) {
-
       left: 73%;
-
       font-size: 16px;
-
       animation-duration: 12s;
-
       animation-delay: 1s;
     }
 
-
     .heart:nth-child(5) {
-
       left: 91%;
-
       font-size: 20px;
-
       animation-duration: 14s;
-
       animation-delay: 5s;
     }
-
 
     @keyframes floatUp {
 
       0% {
-
         transform:
           translateY(0)
           rotate(0deg);
@@ -232,21 +171,15 @@
         opacity: 0;
       }
 
-
       15% {
-
         opacity: .38;
       }
 
-
       80% {
-
         opacity: .18;
       }
 
-
       100% {
-
         transform:
           translateY(-115vh)
           rotate(35deg);
@@ -261,9 +194,7 @@
     ========================================== */
 
     .page {
-
       position: relative;
-
       z-index: 2;
 
       width:
@@ -282,19 +213,13 @@
     ========================================== */
 
     .topbar {
-
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
-
       margin-bottom: 28px;
     }
 
-
     .logo {
-
       font-family:
         Georgia,
         "Times New Roman",
@@ -303,23 +228,18 @@
       font-size: 24px;
     }
 
-
     .back {
-
       color:
         rgba(255,255,255,.68);
 
       text-decoration: none;
-
       font-size: 13px;
 
       transition:
         color .2s ease;
     }
 
-
     .back:hover {
-
       color: #fff;
     }
 
@@ -329,7 +249,6 @@
     ========================================== */
 
     .layout {
-
       display: grid;
 
       grid-template-columns:
@@ -337,7 +256,6 @@
         1.18fr;
 
       gap: 24px;
-
       align-items: stretch;
     }
 
@@ -347,16 +265,13 @@
     ========================================== */
 
     .intro {
-
       min-height: 650px;
 
       padding:
         42px 34px;
 
       display: flex;
-
       flex-direction: column;
-
       justify-content: center;
 
       border-radius: 32px;
@@ -380,14 +295,11 @@
         rgba(0,0,0,.25);
     }
 
-
     .intro-heart {
-
       width: 72px;
       height: 72px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -408,40 +320,30 @@
         heartbeat 2.3s ease-in-out infinite;
     }
 
-
     @keyframes heartbeat {
 
       0%,
       100% {
-
         transform:
           scale(1);
       }
 
-
       50% {
-
         transform:
           scale(1.08);
       }
     }
 
-
     .intro-label {
-
       font-size: 10px;
-
       letter-spacing: 3px;
-
       text-transform: uppercase;
 
       color:
         rgba(255,255,255,.5);
     }
 
-
     .intro h1 {
-
       margin:
         13px 0
         18px;
@@ -459,40 +361,28 @@
         );
 
       font-weight: normal;
-
       line-height: .98;
-
       letter-spacing: -2.5px;
     }
 
-
     .intro h1 span {
-
       display: block;
-
       color: #ffc0d2;
     }
 
-
     .intro p {
-
       margin: 0;
-
       max-width: 400px;
 
       color:
         rgba(255,255,255,.62);
 
       font-size: 15px;
-
       line-height: 1.75;
     }
 
-
     .tiny-note {
-
       margin-top: 30px;
-
       padding-top: 22px;
 
       border-top:
@@ -503,7 +393,6 @@
         rgba(255,255,255,.42);
 
       font-size: 12px;
-
       line-height: 1.6;
     }
 
@@ -513,7 +402,6 @@
     ========================================== */
 
     .form-card {
-
       padding: 34px;
 
       border-radius: 32px;
@@ -536,20 +424,16 @@
         formIn .7s ease-out;
     }
 
-
     @keyframes formIn {
 
       from {
-
         opacity: 0;
 
         transform:
           translateY(20px);
       }
 
-
       to {
-
         opacity: 1;
 
         transform:
@@ -558,14 +442,15 @@
     }
 
 
-    .form-header {
+    /* ==========================================
+       FORM HEADER
+    ========================================== */
 
+    .form-header {
       margin-bottom: 28px;
     }
 
-
     .form-header h2 {
-
       margin:
         0 0 8px;
 
@@ -575,20 +460,16 @@
         serif;
 
       font-size: 30px;
-
       font-weight: normal;
     }
 
-
     .form-header p {
-
       margin: 0;
 
       color:
         rgba(255,255,255,.52);
 
       font-size: 13px;
-
       line-height: 1.6;
     }
 
@@ -598,32 +479,22 @@
     ========================================== */
 
     .login-gate {
-
       min-height: 580px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       text-align: center;
-
-      padding:
-        20px;
+      padding: 20px;
     }
 
-
     .login-gate-inner {
-
       width: 100%;
-
       max-width: 390px;
     }
 
-
     .login-gate-heart {
-
       width: 86px;
       height: 86px;
 
@@ -631,7 +502,6 @@
         0 auto 24px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -650,24 +520,18 @@
         heartbeat 2.2s ease-in-out infinite;
     }
 
-
     .login-gate-label {
-
       margin-bottom: 10px;
 
       font-size: 10px;
-
       letter-spacing: 3px;
-
       text-transform: uppercase;
 
       color:
         rgba(255,255,255,.48);
     }
 
-
     .login-gate h2 {
-
       margin:
         0 0 12px;
 
@@ -686,9 +550,7 @@
       font-weight: normal;
     }
 
-
     .login-gate p {
-
       margin:
         0 auto 28px;
 
@@ -698,29 +560,22 @@
         rgba(255,255,255,.62);
 
       font-size: 14px;
-
       line-height: 1.7;
     }
 
-
     .login-button-main {
-
       width: 100%;
-
       min-height: 52px;
 
       border: 0;
-
       border-radius: 999px;
 
       cursor: pointer;
 
       color: #74153f;
-
       background: #fff;
 
       font-size: 15px;
-
       font-weight: 700;
 
       box-shadow:
@@ -732,9 +587,7 @@
         box-shadow .2s ease;
     }
 
-
     .login-button-main:hover {
-
       transform:
         translateY(-3px);
 
@@ -743,9 +596,7 @@
         rgba(0,0,0,.3);
     }
 
-
     .register-link {
-
       display: inline-block;
 
       margin-top: 18px;
@@ -754,23 +605,16 @@
         rgba(255,255,255,.72);
 
       font-size: 13px;
-
       text-decoration: none;
     }
 
-
     .register-link:hover {
-
       color: #fff;
-
       text-decoration: underline;
     }
 
-
     .login-note {
-
       margin-top: 28px;
-
       padding-top: 20px;
 
       border-top:
@@ -781,7 +625,6 @@
         rgba(255,255,255,.4);
 
       font-size: 11px;
-
       line-height: 1.6;
     }
 
@@ -791,30 +634,23 @@
     ========================================== */
 
     .field {
-
       margin-bottom: 18px;
     }
 
-
     label {
-
       display: block;
-
       margin-bottom: 8px;
 
       color:
         rgba(255,255,255,.82);
 
       font-size: 13px;
-
       font-weight: 600;
     }
-
 
     input,
     textarea,
     select {
-
       width: 100%;
 
       border:
@@ -822,7 +658,6 @@
         rgba(255,255,255,.15);
 
       border-radius: 14px;
-
       outline: none;
 
       padding:
@@ -847,19 +682,15 @@
         transform .2s ease;
     }
 
-
     input::placeholder,
     textarea::placeholder {
-
       color:
         rgba(255,255,255,.34);
     }
 
-
     input:focus,
     textarea:focus,
     select:focus {
-
       border-color:
         rgba(255,180,205,.75);
 
@@ -874,27 +705,18 @@
         translateY(-1px);
     }
 
-
     textarea {
-
       min-height: 120px;
-
       resize: vertical;
-
       line-height: 1.5;
     }
 
-
     select {
-
       appearance: auto;
     }
 
-
     select option {
-
       color: #301020;
-
       background: #fff;
     }
 
@@ -904,25 +726,19 @@
     ========================================== */
 
     .create-button {
-
       width: 100%;
-
       min-height: 54px;
-
       margin-top: 7px;
 
       border: 0;
-
       border-radius: 999px;
 
       cursor: pointer;
 
       color: #74153f;
-
       background: #fff;
 
       font-size: 15px;
-
       font-weight: 700;
 
       box-shadow:
@@ -935,9 +751,7 @@
         opacity .2s ease;
     }
 
-
     .create-button:hover {
-
       transform:
         translateY(-3px);
 
@@ -946,19 +760,14 @@
         rgba(0,0,0,.3);
     }
 
-
     .create-button:active {
-
       transform:
         translateY(0)
         scale(.98);
     }
 
-
     .create-button:disabled {
-
       cursor: not-allowed;
-
       opacity: .6;
     }
 
@@ -968,11 +777,9 @@
     ========================================== */
 
     .error-message {
-
       display: none;
 
       margin-top: 15px;
-
       padding:
         12px 14px;
 
@@ -989,7 +796,6 @@
         #ffd5df;
 
       font-size: 13px;
-
       line-height: 1.5;
     }
 
@@ -999,7 +805,6 @@
     ========================================== */
 
     .success {
-
       display: none;
 
       text-align: center;
@@ -1011,11 +816,9 @@
         successIn .65s ease-out;
     }
 
-
     @keyframes successIn {
 
       from {
-
         opacity: 0;
 
         transform:
@@ -1023,9 +826,7 @@
           translateY(15px);
       }
 
-
       to {
-
         opacity: 1;
 
         transform:
@@ -1034,20 +835,15 @@
       }
     }
 
-
     .success-heart {
-
       font-size: 68px;
-
       margin-bottom: 18px;
 
       animation:
         heartbeat 2s ease-in-out infinite;
     }
 
-
     .success h2 {
-
       margin:
         0 0 10px;
 
@@ -1057,13 +853,10 @@
         serif;
 
       font-size: 38px;
-
       font-weight: normal;
     }
 
-
     .success p {
-
       margin:
         0 auto
         22px;
@@ -1076,21 +869,14 @@
       line-height: 1.6;
     }
 
-
     .share-box {
-
       display: flex;
-
       gap: 8px;
-
       margin-top: 20px;
     }
 
-
     .share-url {
-
       flex: 1;
-
       min-width: 0;
 
       padding: 13px;
@@ -1110,19 +896,14 @@
       font-size: 12px;
 
       overflow: hidden;
-
       text-overflow: ellipsis;
-
       white-space: nowrap;
     }
 
-
     .copy-button {
-
       flex: 0 0 auto;
 
       border: 0;
-
       border-radius: 12px;
 
       padding:
@@ -1131,31 +912,24 @@
       cursor: pointer;
 
       color: #74153f;
-
       background: #fff;
 
       font-weight: 700;
     }
 
-
     .open-button {
-
       display: inline-flex;
 
       align-items: center;
-
       justify-content: center;
 
       width: 100%;
-
       min-height: 50px;
-
       margin-top: 12px;
 
       border-radius: 999px;
 
       color: #fff;
-
       text-decoration: none;
 
       border:
@@ -1172,9 +946,7 @@
         transform .2s ease;
     }
 
-
     .open-button:hover {
-
       background:
         rgba(255,255,255,.14);
 
@@ -1190,125 +962,87 @@
     @media(max-width:850px) {
 
       body {
-
         padding: 16px;
       }
 
-
       .layout {
-
         grid-template-columns: 1fr;
       }
 
-
       .intro {
-
         min-height: auto;
-
         padding:
           34px 28px;
       }
 
-
       .form-card {
-
         padding:
           28px 22px;
       }
 
-
       .login-gate {
-
         min-height: 500px;
       }
-
     }
-
 
     @media(max-width:500px) {
 
       .topbar {
-
         margin-bottom: 18px;
       }
 
-
       .logo {
-
         font-size: 22px;
       }
 
-
       .back {
-
         font-size: 12px;
       }
 
-
       .intro {
-
         padding:
           30px 23px;
 
         border-radius: 26px;
       }
 
-
       .intro h1 {
-
         font-size: 46px;
       }
 
-
       .form-card {
-
         padding:
           25px 18px;
 
         border-radius: 26px;
       }
 
-
       .form-header h2 {
-
         font-size: 27px;
       }
 
-
       .login-gate {
-
         min-height: 470px;
-
-        padding:
-          10px;
+        padding: 10px;
       }
-
 
       .login-gate h2 {
-
         font-size: 32px;
       }
-
 
       input,
       textarea,
       select {
-
         font-size: 16px;
       }
 
-
       .share-box {
-
         flex-direction: column;
       }
 
-
       .copy-button {
-
         min-height: 45px;
       }
-
     }
 
   </style>
@@ -1331,13 +1065,9 @@
   <div class="hearts">
 
     <span class="heart">❤️</span>
-
     <span class="heart">💗</span>
-
     <span class="heart">💕</span>
-
     <span class="heart">❤️</span>
-
     <span class="heart">💗</span>
 
   </div>
@@ -1355,7 +1085,6 @@
       <div class="logo">
         Moment ❤️
       </div>
-
 
       <a
         href="/"
@@ -1384,11 +1113,9 @@
           ❤️
         </div>
 
-
         <div class="intro-label">
           Create something special
         </div>
-
 
         <h1>
 
@@ -1400,7 +1127,6 @@
 
         </h1>
 
-
         <p>
 
           A simple question can become
@@ -1410,7 +1136,6 @@
           moment unfold.
 
         </p>
-
 
         <div class="tiny-note">
 
@@ -1445,16 +1170,13 @@
               🔐
             </div>
 
-
             <div class="login-gate-label">
               One little step
             </div>
 
-
             <h2>
               Save your moment. ❤️
             </h2>
-
 
             <p>
 
@@ -1465,7 +1187,6 @@
 
             </p>
 
-
             <button
               type="button"
               id="goToLoginButton"
@@ -1474,7 +1195,6 @@
               Login to continue ❤️
             </button>
 
-
             <a
               href="/login"
               class="register-link"
@@ -1482,7 +1202,6 @@
               Don't have an account?
               Create one
             </a>
-
 
             <div class="login-note">
 
@@ -1513,7 +1232,6 @@
               Create your invitation
             </h2>
 
-
             <p>
               Tell us a little about
               the moment you're creating.
@@ -1530,7 +1248,6 @@
               <label for="creatorName">
                 Your Name
               </label>
-
 
               <input
                 id="creatorName"
@@ -1549,7 +1266,6 @@
                 Your Email
               </label>
 
-
               <input
                 id="creatorEmail"
                 name="creatorEmail"
@@ -1566,7 +1282,6 @@
               <label for="recipientName">
                 Their Name
               </label>
-
 
               <input
                 id="recipientName"
@@ -1585,7 +1300,6 @@
                 Occasion
               </label>
 
-
               <select
                 id="occasion"
                 name="occasion"
@@ -1596,26 +1310,21 @@
                   Choose an occasion
                 </option>
 
-
                 <option value="Date">
                   Date ❤️
                 </option>
-
 
                 <option value="Birthday">
                   Birthday 🎂
                 </option>
 
-
                 <option value="Anniversary">
                   Anniversary 💕
                 </option>
 
-
                 <option value="Just Because">
                   Just Because 🥰
                 </option>
-
 
                 <option value="Special Moment">
                   Special Moment ✨
@@ -1631,7 +1340,6 @@
               <label for="message">
                 Your Message
               </label>
-
 
               <textarea
                 id="message"
@@ -1675,11 +1383,9 @@
             💌
           </div>
 
-
           <h2>
             Your moment is ready.
           </h2>
-
 
           <p>
 
@@ -1689,14 +1395,12 @@
 
           </p>
 
-
           <div class="share-box">
 
             <div
               id="shareUrl"
               class="share-url"
             ></div>
-
 
             <button
               type="button"
@@ -1707,7 +1411,6 @@
             </button>
 
           </div>
-
 
           <a
             id="openButton"
@@ -1728,10 +1431,25 @@
 
   <script>
 
-
     /* ==========================================
-       LOGIN / AUTH HELPERS
-    ========================================== */
+       AUTHENTICATION
+       ==========================================
+
+       The old version only checked:
+
+       momentUser
+       loggedInUser
+       moment_user
+
+       Supabase Auth normally stores the actual
+       session in a localStorage key beginning
+       with:
+
+       sb-...-auth-token
+
+       This version checks BOTH systems.
+    */
+
 
     const LOGIN_KEYS = [
       "momentUser",
@@ -1740,7 +1458,11 @@
     ];
 
 
-    function getLoggedInUser() {
+    /* ==========================================
+       READ CUSTOM LOGIN
+    ========================================== */
+
+    function getCustomLoggedInUser() {
 
       for (
         const key of LOGIN_KEYS
@@ -1753,9 +1475,7 @@
 
 
           if (!raw) {
-
             continue;
-
           }
 
 
@@ -1768,7 +1488,13 @@
             typeof user === "object"
           ) {
 
-            return user;
+            return {
+              user: user,
+              accessToken:
+                user.access_token ||
+                user.accessToken ||
+                null
+            };
 
           }
 
@@ -1777,7 +1503,7 @@
         catch (error) {
 
           console.warn(
-            "Could not read login state:",
+            "Could not read custom login state:",
             error
           );
 
@@ -1791,14 +1517,255 @@
     }
 
 
+    /* ==========================================
+       READ SUPABASE SESSION
+    ========================================== */
+
+    function getSupabaseSession() {
+
+      try {
+
+        for (
+          let i = 0;
+          i < localStorage.length;
+          i++
+        ) {
+
+          const key =
+            localStorage.key(i);
+
+
+          if (
+            !key ||
+            !key.startsWith("sb-") ||
+            !key.endsWith("-auth-token")
+          ) {
+
+            continue;
+
+          }
+
+
+          const raw =
+            localStorage.getItem(key);
+
+
+          if (!raw) {
+            continue;
+          }
+
+
+          const parsed =
+            JSON.parse(raw);
+
+
+          /*
+           * Supabase normally stores:
+           *
+           * {
+           *   access_token: "...",
+           *   refresh_token: "...",
+           *   user: {...}
+           * }
+           */
+
+          if (
+            parsed &&
+            parsed.access_token &&
+            parsed.user
+          ) {
+
+            return {
+              user:
+                parsed.user,
+
+              accessToken:
+                parsed.access_token,
+
+              expiresAt:
+                parsed.expires_at || null
+            };
+
+          }
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.warn(
+          "Could not read Supabase session:",
+          error
+        );
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* ==========================================
+       GET CURRENT USER
+    ========================================== */
+
+    function getAuthSession() {
+
+      /*
+       * First check Supabase.
+       *
+       * This is important because Supabase
+       * is the real authentication source.
+       */
+
+      const supabaseSession =
+        getSupabaseSession();
+
+
+      if (
+        supabaseSession
+      ) {
+
+        return supabaseSession;
+
+      }
+
+
+      /*
+       * Fallback to the old custom login
+       * system for compatibility.
+       */
+
+      const customSession =
+        getCustomLoggedInUser();
+
+
+      if (
+        customSession
+      ) {
+
+        return customSession;
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* ==========================================
+       IS USER LOGGED IN?
+    ========================================== */
+
     function isLoggedIn() {
 
-      return Boolean(
-        getLoggedInUser()
+      const session =
+        getAuthSession();
+
+
+      if (
+        !session ||
+        !session.user
+      ) {
+
+        return false;
+
+      }
+
+
+      /*
+       * If Supabase provides an expiration
+       * timestamp, make sure the token hasn't
+       * expired.
+       */
+
+      if (
+        session.expiresAt
+      ) {
+
+        const now =
+          Math.floor(
+            Date.now() / 1000
+          );
+
+
+        if (
+          Number(session.expiresAt) <= now
+        ) {
+
+          console.warn(
+            "Supabase session appears to be expired."
+          );
+
+          return false;
+
+        }
+
+      }
+
+
+      return true;
+
+    }
+
+
+    /* ==========================================
+       GET USER DETAILS
+    ========================================== */
+
+    function getCurrentUser() {
+
+      const session =
+        getAuthSession();
+
+
+      if (
+        !session
+      ) {
+
+        return null;
+
+      }
+
+
+      return session.user || null;
+
+    }
+
+
+    /* ==========================================
+       GET ACCESS TOKEN
+    ========================================== */
+
+    function getAccessToken() {
+
+      const session =
+        getAuthSession();
+
+
+      if (
+        !session
+      ) {
+
+        return null;
+
+      }
+
+
+      return (
+        session.accessToken ||
+        null
       );
 
     }
 
+
+    /* ==========================================
+       LOGIN REDIRECT
+    ========================================== */
 
     function goToLogin() {
 
@@ -1895,10 +1862,12 @@
 
 
       const user =
-        getLoggedInUser();
+        getCurrentUser();
 
 
-      if (!user) {
+      if (
+        !user
+      ) {
 
         return;
 
@@ -1917,10 +1886,21 @@
         );
 
 
+      /*
+       * Supabase user metadata may contain
+       * name/full_name.
+       */
+
+      const metadata =
+        user.user_metadata || {};
+
+
       const userName =
         user.name ||
         user.fullName ||
         user.username ||
+        metadata.name ||
+        metadata.full_name ||
         "";
 
 
@@ -1960,15 +1940,42 @@
 
     function checkLogin() {
 
+      console.log(
+        "Checking authentication..."
+      );
+
+
+      const session =
+        getAuthSession();
+
+
+      console.log(
+        "Auth session found:",
+        Boolean(session)
+      );
+
+
       if (
-        isLoggedIn()
+        session &&
+        session.user
       ) {
+
+        console.log(
+          "User is logged in:",
+          session.user.email
+        );
+
 
         showCreateForm();
 
       }
 
       else {
+
+        console.log(
+          "No authenticated user found."
+        );
+
 
         loginGate.style.display =
           "flex";
@@ -2008,12 +2015,18 @@
 
 
         /*
-         * Double-check login before
-         * allowing invitation creation.
+         * Get the CURRENT auth session.
+         *
+         * Do not rely only on the UI state.
          */
 
+        const session =
+          getAuthSession();
+
+
         if (
-          !isLoggedIn()
+          !session ||
+          !session.user
         ) {
 
           goToLogin();
@@ -2071,6 +2084,36 @@
 
         try {
 
+          const accessToken =
+            getAccessToken();
+
+
+          /*
+           * Send the Supabase access token
+           * to the backend when available.
+           */
+
+          const headers = {
+
+            "Content-Type":
+              "application/json"
+
+          };
+
+
+          if (
+            accessToken
+          ) {
+
+            headers[
+              "Authorization"
+            ] =
+              "Bearer " +
+              accessToken;
+
+          }
+
+
           const response =
             await fetch(
               "/api/invitations",
@@ -2080,10 +2123,7 @@
                   "POST",
 
                 headers:
-                  {
-                    "Content-Type":
-                      "application/json"
-                  },
+                  headers,
 
                 body:
                   JSON.stringify(
@@ -2139,6 +2179,7 @@
         catch(error) {
 
           console.error(
+            "Invitation creation error:",
             error
           );
 
@@ -2200,7 +2241,6 @@
 
         }
 
-
         catch(error) {
 
           console.error(
@@ -2225,10 +2265,13 @@
     checkLogin();
 
 
+    /* ==========================================
+       AUTH STATE MONITORING
+    ========================================== */
+
     /*
-     * If login.html redirects back to /create
-     * after login, this also catches a newly
-     * created localStorage session.
+     * If another tab/window changes localStorage,
+     * re-check the login state.
      */
 
     window.addEventListener(
@@ -2240,6 +2283,43 @@
       }
     );
 
+
+    /*
+     * Some browsers restore the page from
+     * back/forward cache. Re-check authentication
+     * when that happens.
+     */
+
+    window.addEventListener(
+      "pageshow",
+      () => {
+
+        checkLogin();
+
+      }
+    );
+
+
+    /*
+     * Re-check when the mobile browser brings
+     * the page back into the foreground.
+     */
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if (
+          document.visibilityState ===
+          "visible"
+        ) {
+
+          checkLogin();
+
+        }
+
+      }
+    );
 
   </script>
 
