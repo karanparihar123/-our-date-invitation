@@ -794,10 +794,6 @@
 <body>
 
 
-  <!-- ==========================================
-       AMBIENT EFFECTS
-  ========================================== -->
-
   <div class="glow one"></div>
 
   <div class="glow two"></div>
@@ -816,10 +812,6 @@
 
   </div>
 
-
-  <!-- ==========================================
-       NAVIGATION
-  ========================================== -->
 
   <nav class="nav">
 
@@ -847,10 +839,6 @@
   </nav>
 
 
-  <!-- ==========================================
-       LOGIN PAGE
-  ========================================== -->
-
   <main class="page">
 
     <section class="card">
@@ -868,18 +856,12 @@
         </h1>
 
         <p id="pageSubtitle">
-
           Sign in to create and manage
           your moments.
-
         </p>
 
       </div>
 
-
-      <!-- ======================================
-           TABS
-      ====================================== -->
 
       <div class="tabs">
 
@@ -903,17 +885,11 @@
       </div>
 
 
-      <!-- ======================================
-           FORM
-      ====================================== -->
-
       <form
         id="authForm"
         novalidate
       >
 
-
-        <!-- NAME -->
 
         <div
           class="field"
@@ -936,8 +912,6 @@
         </div>
 
 
-        <!-- EMAIL -->
-
         <div class="field">
 
           <label for="email">
@@ -955,8 +929,6 @@
 
         </div>
 
-
-        <!-- PASSWORD -->
 
         <div class="field">
 
@@ -976,8 +948,6 @@
         </div>
 
 
-        <!-- SUBMIT -->
-
         <button
           type="submit"
           class="submit-button"
@@ -990,10 +960,6 @@
       </form>
 
 
-      <!-- ======================================
-           MESSAGE
-      ====================================== -->
-
       <div
         id="message"
         class="message"
@@ -1003,7 +969,9 @@
       <div class="small-text">
 
         Your account is securely managed by Supabase.
+
         <br>
+
         Your information is never displayed on invitations.
 
       </div>
@@ -1013,10 +981,6 @@
 
   </main>
 
-
-  <!-- ==========================================
-       SUPABASE
-  ========================================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1054,69 +1018,37 @@
     ========================================== */
 
     const loginTab =
-      document.getElementById(
-        "loginTab"
-      );
-
+      document.getElementById("loginTab");
 
     const signupTab =
-      document.getElementById(
-        "signupTab"
-      );
-
+      document.getElementById("signupTab");
 
     const nameField =
-      document.getElementById(
-        "nameField"
-      );
-
+      document.getElementById("nameField");
 
     const nameInput =
-      document.getElementById(
-        "name"
-      );
-
+      document.getElementById("name");
 
     const emailInput =
-      document.getElementById(
-        "email"
-      );
-
+      document.getElementById("email");
 
     const passwordInput =
-      document.getElementById(
-        "password"
-      );
-
+      document.getElementById("password");
 
     const authForm =
-      document.getElementById(
-        "authForm"
-      );
-
+      document.getElementById("authForm");
 
     const submitButton =
-      document.getElementById(
-        "submitButton"
-      );
-
+      document.getElementById("submitButton");
 
     const message =
-      document.getElementById(
-        "message"
-      );
-
+      document.getElementById("message");
 
     const pageTitle =
-      document.getElementById(
-        "pageTitle"
-      );
-
+      document.getElementById("pageTitle");
 
     const pageSubtitle =
-      document.getElementById(
-        "pageSubtitle"
-      );
+      document.getElementById("pageSubtitle");
 
 
     /* ==========================================
@@ -1126,48 +1058,31 @@
     let mode = "login";
 
 
-    function setMode(
-      newMode
-    ) {
+    function setMode(newMode) {
 
       mode = newMode;
-
 
       clearMessage();
 
 
-      if (
-        mode === "signup"
-      ) {
+      if (mode === "signup") {
 
-        loginTab.classList.remove(
-          "active"
-        );
+        loginTab.classList.remove("active");
 
-        signupTab.classList.add(
-          "active"
-        );
+        signupTab.classList.add("active");
 
+        nameField.style.display = "block";
 
-        nameField.style.display =
-          "block";
-
-
-        nameInput.required =
-          true;
-
+        nameInput.required = true;
 
         pageTitle.textContent =
           "Create your account.";
 
-
         pageSubtitle.textContent =
           "Make beautiful moments worth remembering.";
 
-
         submitButton.textContent =
           "Create account ❤️";
-
 
         passwordInput.autocomplete =
           "new-password";
@@ -1176,34 +1091,22 @@
 
       else {
 
-        signupTab.classList.remove(
-          "active"
-        );
+        signupTab.classList.remove("active");
 
-        loginTab.classList.add(
-          "active"
-        );
+        loginTab.classList.add("active");
 
+        nameField.style.display = "none";
 
-        nameField.style.display =
-          "none";
-
-
-        nameInput.required =
-          false;
-
+        nameInput.required = false;
 
         pageTitle.textContent =
           "Welcome back.";
 
-
         pageSubtitle.textContent =
           "Sign in to create and manage your moments.";
 
-
         submitButton.textContent =
           "Login ❤️";
-
 
         passwordInput.autocomplete =
           "current-password";
@@ -1215,25 +1118,13 @@
 
     loginTab.addEventListener(
       "click",
-      () => {
-
-        setMode(
-          "login"
-        );
-
-      }
+      () => setMode("login")
     );
 
 
     signupTab.addEventListener(
       "click",
-      () => {
-
-        setMode(
-          "signup"
-        );
-
-      }
+      () => setMode("signup")
     );
 
 
@@ -1241,28 +1132,236 @@
        MESSAGE HELPERS
     ========================================== */
 
-    function showMessage(
-      text,
-      type
-    ) {
+    function showMessage(text, type) {
 
-      message.textContent =
-        text;
+      message.textContent = text;
 
       message.className =
-        "message show " +
-        type;
+        "message show " + type;
 
     }
 
 
     function clearMessage() {
 
-      message.textContent =
-        "";
+      message.textContent = "";
 
-      message.className =
-        "message";
+      message.className = "message";
+
+    }
+
+
+    /* ==========================================
+       AUTH ERROR HANDLER
+    ========================================== */
+
+    function getAuthErrorMessage(error) {
+
+      if (!error) {
+
+        return "Something went wrong. Please try again.";
+
+      }
+
+
+      console.error(
+        "Supabase authentication error:",
+        error
+      );
+
+
+      const messageText =
+        String(
+          error.message ||
+          error.error_description ||
+          error.msg ||
+          ""
+        ).toLowerCase();
+
+
+      const errorCode =
+        String(
+          error.code ||
+          ""
+        ).toLowerCase();
+
+
+      const status =
+        Number(
+          error.status ||
+          0
+        );
+
+
+      /* ----------------------------------------
+         INVALID LOGIN
+      ---------------------------------------- */
+
+      if (
+        messageText.includes(
+          "invalid login credentials"
+        ) ||
+
+        messageText.includes(
+          "invalid credentials"
+        ) ||
+
+        messageText.includes(
+          "invalid login"
+        ) ||
+
+        errorCode.includes(
+          "invalid_credentials"
+        ) ||
+
+        errorCode.includes(
+          "invalid_login"
+        ) ||
+
+        status === 400
+      ) {
+
+        return "Incorrect email or password.";
+
+      }
+
+
+      /* ----------------------------------------
+         EMAIL NOT CONFIRMED
+      ---------------------------------------- */
+
+      if (
+        messageText.includes(
+          "email not confirmed"
+        ) ||
+
+        messageText.includes(
+          "email_not_confirmed"
+        ) ||
+
+        errorCode.includes(
+          "email_not_confirmed"
+        )
+      ) {
+
+        return "Please confirm your email before logging in.";
+
+      }
+
+
+      /* ----------------------------------------
+         USER ALREADY EXISTS
+      ---------------------------------------- */
+
+      if (
+        messageText.includes(
+          "user already registered"
+        ) ||
+
+        messageText.includes(
+          "user already exists"
+        ) ||
+
+        messageText.includes(
+          "already registered"
+        ) ||
+
+        errorCode.includes(
+          "user_already_exists"
+        )
+      ) {
+
+        return "An account with this email already exists. Please log in.";
+
+      }
+
+
+      /* ----------------------------------------
+         WEAK PASSWORD
+      ---------------------------------------- */
+
+      if (
+        messageText.includes(
+          "password should be at least"
+        ) ||
+
+        messageText.includes(
+          "password must be at least"
+        ) ||
+
+        messageText.includes(
+          "weak password"
+        )
+      ) {
+
+        return "Password must be at least 6 characters.";
+
+      }
+
+
+      /* ----------------------------------------
+         INVALID EMAIL
+      ---------------------------------------- */
+
+      if (
+        messageText.includes(
+          "invalid email"
+        )
+      ) {
+
+        return "Please enter a valid email address.";
+
+      }
+
+
+      /* ----------------------------------------
+         RATE LIMIT
+      ---------------------------------------- */
+
+      if (
+        status === 429 ||
+
+        messageText.includes(
+          "rate limit"
+        ) ||
+
+        messageText.includes(
+          "too many requests"
+        )
+      ) {
+
+        return "Too many login attempts. Please wait a moment and try again.";
+
+      }
+
+
+      /* ----------------------------------------
+         NETWORK
+      ---------------------------------------- */
+
+      if (
+        messageText.includes(
+          "failed to fetch"
+        ) ||
+
+        messageText.includes(
+          "network"
+        )
+      ) {
+
+        return "Unable to connect right now. Please check your internet connection and try again.";
+
+      }
+
+
+      /* ----------------------------------------
+         FALLBACK
+      ---------------------------------------- */
+
+      return (
+        error.message ||
+        "Something went wrong. Please try again."
+      );
 
     }
 
@@ -1273,19 +1372,15 @@
 
     authForm.addEventListener(
       "submit",
-      async (
-        event
-      ) => {
+      async (event) => {
 
         event.preventDefault();
-
 
         clearMessage();
 
 
         const email =
-          emailInput.value
-            .trim();
+          emailInput.value.trim();
 
 
         const password =
@@ -1293,8 +1388,7 @@
 
 
         const name =
-          nameInput.value
-            .trim();
+          nameInput.value.trim();
 
 
         /* --------------------------------------
@@ -1315,9 +1409,7 @@
         }
 
 
-        if (
-          !email.includes("@")
-        ) {
+        if (!email.includes("@")) {
 
           showMessage(
             "Please enter a valid email address.",
@@ -1331,9 +1423,7 @@
         }
 
 
-        if (
-          password.length < 6
-        ) {
+        if (password.length < 6) {
 
           showMessage(
             "Password must be at least 6 characters.",
@@ -1368,9 +1458,7 @@
            LOADING
         -------------------------------------- */
 
-        submitButton.disabled =
-          true;
-
+        submitButton.disabled = true;
 
         submitButton.textContent =
           mode === "login"
@@ -1385,46 +1473,46 @@
              LOGIN
           ==================================== */
 
-          if (
-            mode === "login"
-          ) {
+          if (mode === "login") {
 
             const {
               data,
               error
             } =
-              await supabaseClient
-                .auth
+              await supabaseClient.auth
                 .signInWithPassword({
 
-                  email,
+                  email: email,
 
-                  password
+                  password: password
 
                 });
 
 
             if (error) {
 
-              console.error(
-                "Login error:",
-                error
+              showMessage(
+                getAuthErrorMessage(error),
+                "error"
               );
 
-
-              throw error;
+              return;
 
             }
 
 
             if (
               !data ||
-              !data.session
+              !data.session ||
+              !data.user
             ) {
 
-              throw new Error(
-                "Login succeeded but no session was created."
+              showMessage(
+                "Login could not be completed. Please try again.",
+                "error"
               );
+
+              return;
 
             }
 
@@ -1459,51 +1547,45 @@
             data,
             error
           } =
-            await supabaseClient
-              .auth
-              .signUp({
+            await supabaseClient.auth.signUp({
 
-                email,
+              email: email,
 
-                password,
+              password: password,
 
-                options: {
+              options: {
 
-                  data: {
+                data: {
 
-                    name: name,
+                  name: name,
 
-                    full_name: name
-
-                  }
+                  full_name: name
 
                 }
 
-              });
+              }
+
+            });
 
 
           if (error) {
 
-            console.error(
-              "Signup error:",
-              error
+            showMessage(
+              getAuthErrorMessage(error),
+              "error"
             );
 
-
-            throw error;
+            return;
 
           }
 
 
           /*
-           * If email confirmation is enabled
-           * in Supabase, session will be null
-           * until the user confirms their email.
+           * Email confirmation enabled:
+           * session will be null.
            */
 
-          if (
-            data?.session
-          ) {
+          if (data?.session) {
 
             showMessage(
               "Account created successfully ❤️ Redirecting...",
@@ -1531,9 +1613,7 @@
             );
 
 
-            setMode(
-              "login"
-            );
+            setMode("login");
 
           }
 
@@ -1542,60 +1622,13 @@
         catch (error) {
 
           console.error(
-            "Authentication error:",
+            "Authentication exception:",
             error
           );
 
 
-          let errorMessage =
-            error?.message ||
-            "Something went wrong. Please try again.";
-
-
-          if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "invalid login credentials"
-              )
-          ) {
-
-            errorMessage =
-              "Incorrect email or password.";
-
-          }
-
-
-          if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "email not confirmed"
-              )
-          ) {
-
-            errorMessage =
-              "Please confirm your email before logging in.";
-
-          }
-
-
-          if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "user already registered"
-              )
-          ) {
-
-            errorMessage =
-              "An account with this email already exists. Please log in.";
-
-          }
-
-
           showMessage(
-            errorMessage,
+            getAuthErrorMessage(error),
             "error"
           );
 
@@ -1603,9 +1636,7 @@
 
         finally {
 
-          submitButton.disabled =
-            false;
-
+          submitButton.disabled = false;
 
           submitButton.textContent =
             mode === "login"
@@ -1630,9 +1661,7 @@
           data,
           error
         } =
-          await supabaseClient
-            .auth
-            .getSession();
+          await supabaseClient.auth.getSession();
 
 
         if (error) {
@@ -1647,14 +1676,7 @@
         }
 
 
-        if (
-          data?.session?.user
-        ) {
-
-          /*
-           * User is already logged in.
-           * Send them directly to create.
-           */
+        if (data?.session?.user) {
 
           window.location.href =
             "/create";
@@ -1679,44 +1701,28 @@
        AUTH STATE LISTENER
     ========================================== */
 
-    supabaseClient
-      .auth
-      .onAuthStateChange(
-        (
-          event,
-          session
-        ) => {
+    supabaseClient.auth.onAuthStateChange(
+      (event, session) => {
 
-          console.log(
-            "Supabase auth event:",
-            event
-          );
+        console.log(
+          "Supabase auth event:",
+          event
+        );
 
 
-          if (
-            event === "SIGNED_IN" &&
-            session?.user
-          ) {
+        if (
+          event === "SIGNED_IN" &&
+          session?.user &&
+          mode === "login"
+        ) {
 
-            /*
-             * Avoid immediately redirecting
-             * while the normal login handler
-             * is already handling it.
-             */
-
-            if (
-              mode === "login"
-            ) {
-
-              window.location.href =
-                "/create";
-
-            }
-
-          }
+          window.location.href =
+            "/create";
 
         }
-      );
+
+      }
+    );
 
 
     /* ==========================================
