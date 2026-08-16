@@ -1,59 +1,43 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1"
   >
-
   <meta
     name="description"
     content="Moment — Login or create your account."
   >
-
   <title>Login ❤️ — Moment</title>
-
-
   <style>
-
     * {
       box-sizing: border-box;
     }
-
     html,
     body {
       margin: 0;
       min-height: 100%;
     }
-
     body {
-
       min-height: 100vh;
-
       font-family:
         Arial,
         Helvetica,
         sans-serif;
-
       color: #fff;
-
       background:
         radial-gradient(
           circle at 15% 10%,
           rgba(255,255,255,.12),
           transparent 25%
         ),
-
         radial-gradient(
           circle at 90% 80%,
           rgba(255,105,150,.18),
           transparent 30%
         ),
-
         linear-gradient(
           145deg,
           #160817 0%,
@@ -61,810 +45,569 @@
           #761842 72%,
           #d65c7d 100%
         );
-
       overflow-x: hidden;
     }
-
-
     /* ==========================================
        AMBIENT GLOW
     ========================================== */
-
     .glow {
-
       position: fixed;
-
       width: 360px;
       height: 360px;
-
       border-radius: 50%;
-
       filter: blur(100px);
-
       opacity: .18;
-
       pointer-events: none;
-
       z-index: 0;
-
       animation:
         glowMove 9s ease-in-out infinite alternate;
     }
-
     .glow.one {
-
       background: #ff719b;
-
       top: -160px;
       left: -120px;
     }
-
     .glow.two {
-
       background: #ffb3ca;
-
       right: -150px;
       bottom: -150px;
-
       animation-delay: 3s;
     }
-
     @keyframes glowMove {
-
       from {
         transform:
           translate(0,0)
           scale(1);
       }
-
       to {
         transform:
           translate(35px,-20px)
           scale(1.15);
       }
-
     }
-
-
     /* ==========================================
        FLOATING HEARTS
     ========================================== */
-
     .hearts {
-
       position: fixed;
-
       inset: 0;
-
       overflow: hidden;
-
       pointer-events: none;
-
       z-index: 0;
     }
-
     .heart {
-
       position: absolute;
-
       bottom: -50px;
-
       opacity: 0;
-
       animation:
         floatUp linear infinite;
     }
-
     .heart:nth-child(1) {
-
       left: 7%;
-
       font-size: 18px;
-
       animation-duration: 11s;
     }
-
     .heart:nth-child(2) {
-
       left: 25%;
-
       font-size: 14px;
-
       animation-duration: 14s;
-
       animation-delay: 2s;
     }
-
     .heart:nth-child(3) {
-
       left: 50%;
-
       font-size: 22px;
-
       animation-duration: 10s;
-
       animation-delay: 4s;
     }
-
     .heart:nth-child(4) {
-
       left: 74%;
-
       font-size: 16px;
-
       animation-duration: 13s;
-
       animation-delay: 1s;
     }
-
     .heart:nth-child(5) {
-
       left: 91%;
-
       font-size: 20px;
-
       animation-duration: 12s;
-
       animation-delay: 5s;
     }
-
     @keyframes floatUp {
-
       0% {
-
         transform:
           translateY(0)
           rotate(0deg);
-
         opacity: 0;
       }
-
       15% {
         opacity: .38;
       }
-
       80% {
         opacity: .2;
       }
-
       100% {
-
         transform:
           translateY(-115vh)
           rotate(35deg);
-
         opacity: 0;
       }
-
     }
-
-
     /* ==========================================
        NAVIGATION
     ========================================== */
-
     .nav {
-
       position: relative;
-
       z-index: 10;
-
       width:
         min(
           1100px,
           calc(100% - 32px)
         );
-
       margin: 0 auto;
-
       padding: 20px 0;
-
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
     }
-
     .logo {
-
       color: #fff;
-
       text-decoration: none;
-
       font-family:
         Georgia,
         "Times New Roman",
         serif;
-
       font-size: 26px;
-
       letter-spacing: -.6px;
     }
-
     .logo-heart {
       font-size: 20px;
     }
-
     .back-link {
-
       color:
         rgba(255,255,255,.72);
-
       text-decoration: none;
-
       font-size: 13px;
-
       padding:
         9px 13px;
-
       border-radius: 999px;
-
       border:
         1px solid
         rgba(255,255,255,.15);
-
       background:
         rgba(255,255,255,.06);
-
       transition:
         background .2s ease,
         color .2s ease;
     }
-
     .back-link:hover {
-
       color: #fff;
-
       background:
         rgba(255,255,255,.12);
     }
-
-
     /* ==========================================
        PAGE
     ========================================== */
-
     .page {
-
       position: relative;
-
       z-index: 2;
-
       min-height:
         calc(100vh - 80px);
-
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
       padding:
         30px 16px 70px;
     }
-
-
     /* ==========================================
        CARD
     ========================================== */
-
     .card {
-
       width:
         min(
           430px,
           100%
         );
-
       padding:
         38px 34px;
-
       border-radius: 30px;
-
       border:
         1px solid
         rgba(255,255,255,.18);
-
       background:
         linear-gradient(
           145deg,
           rgba(255,255,255,.15),
           rgba(255,255,255,.055)
         );
-
       backdrop-filter:
         blur(22px);
-
       box-shadow:
         0 35px 90px
         rgba(0,0,0,.38);
-
       animation:
         cardIn .65s ease-out;
     }
-
     @keyframes cardIn {
-
       from {
-
         opacity: 0;
-
         transform:
           translateY(25px)
           scale(.98);
       }
-
       to {
-
         opacity: 1;
-
         transform:
           translateY(0)
           scale(1);
       }
-
     }
-
-
     /* ==========================================
        HEADER
     ========================================== */
-
     .heart-icon {
-
       width: 65px;
       height: 65px;
-
       margin: 0 auto 20px;
-
       display: flex;
-
       align-items: center;
       justify-content: center;
-
       border-radius: 50%;
-
       background:
         rgba(255,255,255,.1);
-
       border:
         1px solid
         rgba(255,255,255,.15);
-
       font-size: 31px;
-
       animation:
         heartbeat 2.2s ease-in-out infinite;
     }
-
     @keyframes heartbeat {
-
       0%,
       100% {
         transform: scale(1);
       }
-
       50% {
         transform: scale(1.08);
       }
-
     }
-
     .heading {
-
       text-align: center;
     }
-
     .heading h1 {
-
       margin:
         0 0 10px;
-
       font-family:
         Georgia,
         "Times New Roman",
         serif;
-
       font-size: 42px;
-
       font-weight: normal;
-
       letter-spacing: -1.8px;
     }
-
     .heading p {
-
       margin: 0;
-
       color:
         rgba(255,255,255,.62);
-
       font-size: 14px;
-
       line-height: 1.6;
     }
-
-
     /* ==========================================
        TABS
     ========================================== */
-
     .tabs {
-
       display: grid;
-
       grid-template-columns:
         1fr 1fr;
-
       gap: 5px;
-
       margin:
         30px 0 25px;
-
       padding: 5px;
-
       border-radius: 14px;
-
       background:
         rgba(0,0,0,.16);
     }
-
     .tab {
-
       border: 0;
-
       border-radius: 10px;
-
       padding: 11px;
-
       color:
         rgba(255,255,255,.55);
-
       background: transparent;
-
       cursor: pointer;
-
       font-size: 13px;
-
       font-weight: 600;
-
       transition:
         background .2s ease,
         color .2s ease;
     }
-
     .tab.active {
-
       color: #74153f;
-
       background: #fff;
     }
-
-
     /* ==========================================
        FORM
     ========================================== */
-
     .field {
-
       margin-bottom: 17px;
     }
-
     .field label {
-
       display: block;
-
       margin-bottom: 7px;
-
       font-size: 12px;
-
       color:
         rgba(255,255,255,.72);
     }
-
-    .field input {
-
+    /* Password wrapper */
+    .password-wrapper {
+      position: relative;
       width: 100%;
-
+    }
+    .field input {
+      width: 100%;
       height: 48px;
-
       padding:
         0 15px;
-
       border-radius: 13px;
-
       border:
         1px solid
         rgba(255,255,255,.14);
-
       outline: none;
-
       color: #fff;
-
       background:
         rgba(0,0,0,.16);
-
       font-size: 14px;
-
       transition:
         border .2s ease,
         background .2s ease,
         box-shadow .2s ease;
     }
-
+    /* Give password input room for eye button */
+    .password-wrapper input {
+      padding-right: 52px;
+    }
     .field input::placeholder {
-
       color:
         rgba(255,255,255,.3);
     }
-
     .field input:focus {
-
       border-color:
         rgba(255,190,210,.7);
-
       background:
         rgba(0,0,0,.22);
-
       box-shadow:
         0 0 0 3px
         rgba(255,150,180,.1);
     }
-
-
+    /* ==========================================
+       PASSWORD SHOW / HIDE BUTTON
+    ========================================== */
+    .password-toggle {
+      position: absolute;
+      top: 50%;
+      right: 7px;
+      transform:
+        translateY(-50%);
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 10px;
+      background:
+        rgba(255,255,255,.06);
+      color:
+        rgba(255,255,255,.7);
+      cursor: pointer;
+      font-size: 17px;
+      line-height: 1;
+      transition:
+        background .2s ease,
+        color .2s ease,
+        transform .15s ease;
+    }
+    .password-toggle:hover {
+      background:
+        rgba(255,255,255,.12);
+      color: #fff;
+    }
+    .password-toggle:active {
+      transform:
+        translateY(-50%)
+        scale(.94);
+    }
+    .password-toggle:focus-visible {
+      outline:
+        2px solid
+        rgba(255,190,210,.75);
+      outline-offset: 2px;
+    }
     /* ==========================================
        SUBMIT
     ========================================== */
-
     .submit-button {
-
       width: 100%;
-
       min-height: 50px;
-
       margin-top: 8px;
-
       border: 0;
-
       border-radius: 999px;
-
       background: #fff;
-
       color: #74153f;
-
       font-size: 14px;
-
       font-weight: 700;
-
       cursor: pointer;
-
       box-shadow:
         0 14px 35px
         rgba(0,0,0,.22);
-
       transition:
         transform .2s ease,
         box-shadow .2s ease,
         opacity .2s ease;
     }
-
     .submit-button:hover:not(:disabled) {
-
       transform:
         translateY(-2px);
-
       box-shadow:
         0 18px 40px
         rgba(0,0,0,.28);
     }
-
     .submit-button:disabled {
-
       cursor: not-allowed;
-
       opacity: .6;
     }
-
-
     /* ==========================================
        MESSAGE
     ========================================== */
-
     .message {
-
       display: none;
-
       margin-top: 16px;
-
       padding:
         12px 14px;
-
       border-radius: 12px;
-
       font-size: 13px;
-
       line-height: 1.5;
-
       text-align: center;
     }
-
     .message.show {
       display: block;
     }
-
     .message.error {
-
       color: #ffd5df;
-
       background:
         rgba(180,30,80,.18);
-
       border:
         1px solid
         rgba(255,130,165,.2);
     }
-
     .message.success {
-
       color: #e4ffe9;
-
       background:
         rgba(50,150,90,.16);
-
       border:
         1px solid
         rgba(130,255,170,.18);
     }
-
-
     /* ==========================================
        FOOTER TEXT
     ========================================== */
-
     .small-text {
-
       margin-top: 22px;
-
       text-align: center;
-
       color:
         rgba(255,255,255,.4);
-
       font-size: 11px;
-
       line-height: 1.6;
     }
-
-
     /* ==========================================
        MOBILE
     ========================================== */
-
     @media(max-width:500px) {
-
       .nav {
-
         width:
           calc(100% - 28px);
       }
-
       .logo {
         font-size: 23px;
       }
-
       .logo-heart {
         font-size: 18px;
       }
-
       .back-link {
-
         padding:
           8px 10px;
-
         font-size: 12px;
       }
-
       .page {
-
         padding:
           20px 14px 50px;
       }
-
       .card {
-
         padding:
           30px 22px;
-
         border-radius: 25px;
       }
-
       .heading h1 {
-
         font-size: 36px;
       }
-
     }
-
   </style>
-
 </head>
-
-
 <body>
-
-
+  <!-- ==========================================
+       AMBIENT EFFECTS
+  ========================================== -->
   <div class="glow one"></div>
-
   <div class="glow two"></div>
-
-
   <div
     class="hearts"
     aria-hidden="true"
   >
-
     <span class="heart">❤️</span>
     <span class="heart">💗</span>
     <span class="heart">💕</span>
     <span class="heart">❤️</span>
     <span class="heart">💗</span>
-
   </div>
-
-
+  <!-- ==========================================
+       NAVIGATION
+  ========================================== -->
   <nav class="nav">
-
     <a
       href="/"
       class="logo"
     >
-
       Moment
-
       <span class="logo-heart">
         ❤️
       </span>
-
     </a>
-
-
     <a
       href="/"
       class="back-link"
     >
       ← Back to Moment
     </a>
-
   </nav>
-
-
+  <!-- ==========================================
+       LOGIN PAGE
+  ========================================== -->
   <main class="page">
-
     <section class="card">
-
-
       <div class="heart-icon">
         ❤️
       </div>
-
-
       <div class="heading">
-
         <h1 id="pageTitle">
           Welcome back.
         </h1>
-
         <p id="pageSubtitle">
           Sign in to create and manage
           your moments.
         </p>
-
       </div>
-
-
+      <!-- ======================================
+           TABS
+      ====================================== -->
       <div class="tabs">
-
         <button
           type="button"
           class="tab active"
@@ -872,8 +615,6 @@
         >
           Login
         </button>
-
-
         <button
           type="button"
           class="tab"
@@ -881,26 +622,23 @@
         >
           Create account
         </button>
-
       </div>
-
-
+      <!-- ======================================
+           FORM
+      ====================================== -->
       <form
         id="authForm"
         novalidate
       >
-
-
+        <!-- NAME -->
         <div
           class="field"
           id="nameField"
           style="display:none;"
         >
-
           <label for="name">
             Your name
           </label>
-
           <input
             type="text"
             id="name"
@@ -908,16 +646,12 @@
             placeholder="e.g. Karan"
             autocomplete="name"
           >
-
         </div>
-
-
+        <!-- EMAIL -->
         <div class="field">
-
           <label for="email">
             Email address
           </label>
-
           <input
             type="email"
             id="email"
@@ -926,28 +660,33 @@
             autocomplete="email"
             required
           >
-
         </div>
-
-
+        <!-- PASSWORD -->
         <div class="field">
-
           <label for="password">
             Password
           </label>
-
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="At least 6 characters"
-            autocomplete="current-password"
-            required
-          >
-
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="At least 6 characters"
+              autocomplete="current-password"
+              required
+            >
+            <button
+              type="button"
+              class="password-toggle"
+              id="passwordToggle"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              👁️
+            </button>
+          </div>
         </div>
-
-
+        <!-- SUBMIT -->
         <button
           type="submit"
           class="submit-button"
@@ -955,50 +694,33 @@
         >
           Login ❤️
         </button>
-
-
       </form>
-
-
+      <!-- ======================================
+           MESSAGE
+      ====================================== -->
       <div
         id="message"
         class="message"
       ></div>
-
-
       <div class="small-text">
-
         Your account is securely managed by Supabase.
-
         <br>
-
         Your information is never displayed on invitations.
-
       </div>
-
-
     </section>
-
   </main>
-
-
+  <!-- ==========================================
+       SUPABASE
+  ========================================== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
   <script>
-
     /* ==========================================
        SUPABASE CONFIGURATION
     ========================================== */
-
     const SUPABASE_URL =
       "https://bvzyntkrmqwdszoduyjv.supabase.co";
-
-
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_A4gADA7QSShJeSFdbPcaOw_56Nh_XQW";
-
-
     const supabaseClient =
       window.supabase.createClient(
         SUPABASE_URL,
@@ -1011,728 +733,487 @@
           }
         }
       );
-
-
     /* ==========================================
        ELEMENTS
     ========================================== */
-
     const loginTab =
-      document.getElementById("loginTab");
-
+      document.getElementById(
+        "loginTab"
+      );
     const signupTab =
-      document.getElementById("signupTab");
-
+      document.getElementById(
+        "signupTab"
+      );
     const nameField =
-      document.getElementById("nameField");
-
+      document.getElementById(
+        "nameField"
+      );
     const nameInput =
-      document.getElementById("name");
-
+      document.getElementById(
+        "name"
+      );
     const emailInput =
-      document.getElementById("email");
-
+      document.getElementById(
+        "email"
+      );
     const passwordInput =
-      document.getElementById("password");
-
+      document.getElementById(
+        "password"
+      );
+    const passwordToggle =
+      document.getElementById(
+        "passwordToggle"
+      );
     const authForm =
-      document.getElementById("authForm");
-
+      document.getElementById(
+        "authForm"
+      );
     const submitButton =
-      document.getElementById("submitButton");
-
+      document.getElementById(
+        "submitButton"
+      );
     const message =
-      document.getElementById("message");
-
+      document.getElementById(
+        "message"
+      );
     const pageTitle =
-      document.getElementById("pageTitle");
-
+      document.getElementById(
+        "pageTitle"
+      );
     const pageSubtitle =
-      document.getElementById("pageSubtitle");
-
-
+      document.getElementById(
+        "pageSubtitle"
+      );
+    /* ==========================================
+       PASSWORD SHOW / HIDE
+    ========================================== */
+    passwordToggle.addEventListener(
+      "click",
+      () => {
+        const isPassword =
+          passwordInput.type ===
+          "password";
+        passwordInput.type =
+          isPassword
+            ? "text"
+            : "password";
+        passwordToggle.textContent =
+          isPassword
+            ? "🙈"
+            : "👁️";
+        passwordToggle.setAttribute(
+          "aria-label",
+          isPassword
+            ? "Hide password"
+            : "Show password"
+        );
+        passwordToggle.setAttribute(
+          "aria-pressed",
+          isPassword
+            ? "true"
+            : "false"
+        );
+      }
+    );
     /* ==========================================
        MODE
     ========================================== */
-
     let mode = "login";
-
-
-    function setMode(newMode) {
-
+    function setMode(
+      newMode
+    ) {
       mode = newMode;
-
       clearMessage();
-
-
-      if (mode === "signup") {
-
-        loginTab.classList.remove("active");
-
-        signupTab.classList.add("active");
-
-        nameField.style.display = "block";
-
-        nameInput.required = true;
-
+      /*
+       * Always hide the password
+       * when switching between tabs.
+       */
+      passwordInput.type =
+        "password";
+      passwordToggle.textContent =
+        "👁️";
+      passwordToggle.setAttribute(
+        "aria-label",
+        "Show password"
+      );
+      passwordToggle.setAttribute(
+        "aria-pressed",
+        "false"
+      );
+      if (
+        mode === "signup"
+      ) {
+        loginTab.classList.remove(
+          "active"
+        );
+        signupTab.classList.add(
+          "active"
+        );
+        nameField.style.display =
+          "block";
+        nameInput.required =
+          true;
         pageTitle.textContent =
           "Create your account.";
-
         pageSubtitle.textContent =
           "Make beautiful moments worth remembering.";
-
         submitButton.textContent =
           "Create account ❤️";
-
         passwordInput.autocomplete =
           "new-password";
-
       }
-
       else {
-
-        signupTab.classList.remove("active");
-
-        loginTab.classList.add("active");
-
-        nameField.style.display = "none";
-
-        nameInput.required = false;
-
+        signupTab.classList.remove(
+          "active"
+        );
+        loginTab.classList.add(
+          "active"
+        );
+        nameField.style.display =
+          "none";
+        nameInput.required =
+          false;
         pageTitle.textContent =
           "Welcome back.";
-
         pageSubtitle.textContent =
           "Sign in to create and manage your moments.";
-
         submitButton.textContent =
           "Login ❤️";
-
         passwordInput.autocomplete =
           "current-password";
-
       }
-
     }
-
-
     loginTab.addEventListener(
       "click",
-      () => setMode("login")
+      () => {
+        setMode(
+          "login"
+        );
+      }
     );
-
-
     signupTab.addEventListener(
       "click",
-      () => setMode("signup")
+      () => {
+        setMode(
+          "signup"
+        );
+      }
     );
-
-
     /* ==========================================
        MESSAGE HELPERS
     ========================================== */
-
-    function showMessage(text, type) {
-
-      message.textContent = text;
-
+    function showMessage(
+      text,
+      type
+    ) {
+      message.textContent =
+        text;
       message.className =
-        "message show " + type;
-
+        "message show " +
+        type;
     }
-
-
     function clearMessage() {
-
-      message.textContent = "";
-
-      message.className = "message";
-
+      message.textContent =
+        "";
+      message.className =
+        "message";
     }
-
-
-    /* ==========================================
-       AUTH ERROR HANDLER
-    ========================================== */
-
-    function getAuthErrorMessage(error) {
-
-      if (!error) {
-
-        return "Something went wrong. Please try again.";
-
-      }
-
-
-      console.error(
-        "Supabase authentication error:",
-        error
-      );
-
-
-      const messageText =
-        String(
-          error.message ||
-          error.error_description ||
-          error.msg ||
-          ""
-        ).toLowerCase();
-
-
-      const errorCode =
-        String(
-          error.code ||
-          ""
-        ).toLowerCase();
-
-
-      const status =
-        Number(
-          error.status ||
-          0
-        );
-
-
-      /* ----------------------------------------
-         INVALID LOGIN
-      ---------------------------------------- */
-
-      if (
-        messageText.includes(
-          "invalid login credentials"
-        ) ||
-
-        messageText.includes(
-          "invalid credentials"
-        ) ||
-
-        messageText.includes(
-          "invalid login"
-        ) ||
-
-        errorCode.includes(
-          "invalid_credentials"
-        ) ||
-
-        errorCode.includes(
-          "invalid_login"
-        ) ||
-
-        status === 400
-      ) {
-
-        return "Incorrect email or password.";
-
-      }
-
-
-      /* ----------------------------------------
-         EMAIL NOT CONFIRMED
-      ---------------------------------------- */
-
-      if (
-        messageText.includes(
-          "email not confirmed"
-        ) ||
-
-        messageText.includes(
-          "email_not_confirmed"
-        ) ||
-
-        errorCode.includes(
-          "email_not_confirmed"
-        )
-      ) {
-
-        return "Please confirm your email before logging in.";
-
-      }
-
-
-      /* ----------------------------------------
-         USER ALREADY EXISTS
-      ---------------------------------------- */
-
-      if (
-        messageText.includes(
-          "user already registered"
-        ) ||
-
-        messageText.includes(
-          "user already exists"
-        ) ||
-
-        messageText.includes(
-          "already registered"
-        ) ||
-
-        errorCode.includes(
-          "user_already_exists"
-        )
-      ) {
-
-        return "An account with this email already exists. Please log in.";
-
-      }
-
-
-      /* ----------------------------------------
-         WEAK PASSWORD
-      ---------------------------------------- */
-
-      if (
-        messageText.includes(
-          "password should be at least"
-        ) ||
-
-        messageText.includes(
-          "password must be at least"
-        ) ||
-
-        messageText.includes(
-          "weak password"
-        )
-      ) {
-
-        return "Password must be at least 6 characters.";
-
-      }
-
-
-      /* ----------------------------------------
-         INVALID EMAIL
-      ---------------------------------------- */
-
-      if (
-        messageText.includes(
-          "invalid email"
-        )
-      ) {
-
-        return "Please enter a valid email address.";
-
-      }
-
-
-      /* ----------------------------------------
-         RATE LIMIT
-      ---------------------------------------- */
-
-      if (
-        status === 429 ||
-
-        messageText.includes(
-          "rate limit"
-        ) ||
-
-        messageText.includes(
-          "too many requests"
-        )
-      ) {
-
-        return "Too many login attempts. Please wait a moment and try again.";
-
-      }
-
-
-      /* ----------------------------------------
-         NETWORK
-      ---------------------------------------- */
-
-      if (
-        messageText.includes(
-          "failed to fetch"
-        ) ||
-
-        messageText.includes(
-          "network"
-        )
-      ) {
-
-        return "Unable to connect right now. Please check your internet connection and try again.";
-
-      }
-
-
-      /* ----------------------------------------
-         FALLBACK
-      ---------------------------------------- */
-
-      return (
-        error.message ||
-        "Something went wrong. Please try again."
-      );
-
-    }
-
-
     /* ==========================================
        FORM SUBMIT
     ========================================== */
-
     authForm.addEventListener(
       "submit",
-      async (event) => {
-
+      async (
+        event
+      ) => {
         event.preventDefault();
-
         clearMessage();
-
-
         const email =
-          emailInput.value.trim();
-
-
+          emailInput.value
+            .trim();
         const password =
           passwordInput.value;
-
-
         const name =
-          nameInput.value.trim();
-
-
+          nameInput.value
+            .trim();
         /* --------------------------------------
            VALIDATION
         -------------------------------------- */
-
         if (!email) {
-
           showMessage(
             "Please enter your email address.",
             "error"
           );
-
           emailInput.focus();
-
           return;
-
         }
-
-
-        if (!email.includes("@")) {
-
+        if (
+          !email.includes("@")
+        ) {
           showMessage(
             "Please enter a valid email address.",
             "error"
           );
-
           emailInput.focus();
-
           return;
-
         }
-
-
-        if (password.length < 6) {
-
+        if (
+          password.length < 6
+        ) {
           showMessage(
             "Password must be at least 6 characters.",
             "error"
           );
-
           passwordInput.focus();
-
           return;
-
         }
-
-
         if (
           mode === "signup" &&
           name.length < 2
         ) {
-
           showMessage(
             "Please enter your name.",
             "error"
           );
-
           nameInput.focus();
-
           return;
-
         }
-
-
         /* --------------------------------------
            LOADING
         -------------------------------------- */
-
-        submitButton.disabled = true;
-
+        submitButton.disabled =
+          true;
         submitButton.textContent =
           mode === "login"
             ? "Logging in..."
             : "Creating account...";
-
-
         try {
-
-
           /* ====================================
              LOGIN
           ==================================== */
-
-          if (mode === "login") {
-
+          if (
+            mode === "login"
+          ) {
             const {
               data,
               error
             } =
-              await supabaseClient.auth
+              await supabaseClient
+                .auth
                 .signInWithPassword({
-
-                  email: email,
-
-                  password: password
-
+                  email,
+                  password
                 });
-
-
             if (error) {
-
-              showMessage(
-                getAuthErrorMessage(error),
-                "error"
+              console.error(
+                "Login error:",
+                error
               );
-
-              return;
-
+              throw error;
             }
-
-
             if (
               !data ||
-              !data.session ||
-              !data.user
+              !data.session
             ) {
-
-              showMessage(
-                "Login could not be completed. Please try again.",
-                "error"
+              throw new Error(
+                "Login succeeded but no session was created."
               );
-
-              return;
-
             }
-
-
             showMessage(
               "Login successful ❤️ Redirecting...",
               "success"
             );
-
-
             setTimeout(
               () => {
-
                 window.location.href =
                   "/create";
-
               },
               700
             );
-
-
             return;
-
           }
-
-
           /* ====================================
              SIGN UP
           ==================================== */
-
           const {
             data,
             error
           } =
-            await supabaseClient.auth.signUp({
-
-              email: email,
-
-              password: password,
-
-              options: {
-
-                data: {
-
-                  name: name,
-
-                  full_name: name
-
+            await supabaseClient
+              .auth
+              .signUp({
+                email,
+                password,
+                options: {
+                  data: {
+                    name: name,
+                    full_name: name
+                  }
                 }
-
-              }
-
-            });
-
-
+              });
           if (error) {
-
-            showMessage(
-              getAuthErrorMessage(error),
-              "error"
+            console.error(
+              "Signup error:",
+              error
             );
-
-            return;
-
+            throw error;
           }
-
-
           /*
-           * Email confirmation enabled:
-           * session will be null.
+           * If email confirmation is enabled
+           * in Supabase, session will be null
+           * until the user confirms their email.
            */
-
-          if (data?.session) {
-
+          if (
+            data?.session
+          ) {
             showMessage(
               "Account created successfully ❤️ Redirecting...",
               "success"
             );
-
-
             setTimeout(
               () => {
-
                 window.location.href =
                   "/create";
-
               },
               900
             );
-
           }
-
           else {
-
             showMessage(
               "Account created ❤️ Please check your email to confirm your account, then log in.",
               "success"
             );
-
-
-            setMode("login");
-
+            setMode(
+              "login"
+            );
           }
-
         }
-
         catch (error) {
-
           console.error(
-            "Authentication exception:",
+            "Authentication error:",
             error
           );
-
-
+          let errorMessage =
+            error?.message ||
+            "Something went wrong. Please try again.";
+          if (
+            errorMessage
+              .toLowerCase()
+              .includes(
+                "invalid login credentials"
+              )
+          ) {
+            errorMessage =
+              "Incorrect email or password.";
+          }
+          if (
+            errorMessage
+              .toLowerCase()
+              .includes(
+                "email not confirmed"
+              )
+          ) {
+            errorMessage =
+              "Please confirm your email before logging in.";
+          }
+          if (
+            errorMessage
+              .toLowerCase()
+              .includes(
+                "user already registered"
+              )
+          ) {
+            errorMessage =
+              "An account with this email already exists. Please log in.";
+          }
           showMessage(
-            getAuthErrorMessage(error),
+            errorMessage,
             "error"
           );
-
         }
-
         finally {
-
-          submitButton.disabled = false;
-
+          submitButton.disabled =
+            false;
           submitButton.textContent =
             mode === "login"
               ? "Login ❤️"
               : "Create account ❤️";
-
         }
-
       }
     );
-
-
     /* ==========================================
        CHECK EXISTING SESSION
     ========================================== */
-
     async function checkExistingSession() {
-
       try {
-
         const {
           data,
           error
         } =
-          await supabaseClient.auth.getSession();
-
-
+          await supabaseClient
+            .auth
+            .getSession();
         if (error) {
-
           console.error(
             "Session check failed:",
             error
           );
-
           return;
-
         }
-
-
-        if (data?.session?.user) {
-
+        if (
+          data?.session?.user
+        ) {
+          /*
+           * User is already logged in.
+           * Send them directly to create.
+           */
           window.location.href =
             "/create";
-
         }
-
       }
-
       catch (error) {
-
         console.error(
           "Could not check session:",
           error
         );
-
       }
-
     }
-
-
     /* ==========================================
        AUTH STATE LISTENER
     ========================================== */
-
-    supabaseClient.auth.onAuthStateChange(
-      (event, session) => {
-
-        console.log(
-          "Supabase auth event:",
-          event
-        );
-
-
-        if (
-          event === "SIGNED_IN" &&
-          session?.user &&
-          mode === "login"
-        ) {
-
-          window.location.href =
-            "/create";
-
+    supabaseClient
+      .auth
+      .onAuthStateChange(
+        (
+          event,
+          session
+        ) => {
+          console.log(
+            "Supabase auth event:",
+            event
+          );
+          if (
+            event === "SIGNED_IN" &&
+            session?.user
+          ) {
+            /*
+             * Avoid immediately redirecting
+             * while the normal login handler
+             * is already handling it.
+             */
+            if (
+              mode === "login"
+            ) {
+              window.location.href =
+                "/create";
+            }
+          }
         }
-
-      }
-    );
-
-
+      );
     /* ==========================================
        INITIALIZE
     ========================================== */
-
     checkExistingSession();
-
   </script>
-
 </body>
-
 </html>
