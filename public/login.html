@@ -1,0 +1,2030 @@
+```html
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Moment — Login to keep track of your moments."
+  >
+
+  <title>Login ❤️ | Moment</title>
+
+
+  <style>
+
+    /* ==========================================
+       RESET
+    ========================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+
+    body {
+
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
+
+      overflow-x: hidden;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color: #fff;
+
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(255,255,255,.16),
+          transparent 25%
+        ),
+
+        radial-gradient(
+          circle at 85% 85%,
+          rgba(255,120,160,.25),
+          transparent 30%
+        ),
+
+        linear-gradient(
+          145deg,
+          #160817 0%,
+          #3b0c2f 42%,
+          #761842 72%,
+          #d65c7d 100%
+        );
+    }
+
+
+    /* ==========================================
+       BACKGROUND GLOW
+    ========================================== */
+
+    .glow {
+
+      position: fixed;
+
+      width: 330px;
+      height: 330px;
+
+      border-radius: 50%;
+
+      filter: blur(90px);
+
+      opacity: .22;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      animation:
+        glowMove 8s ease-in-out infinite alternate;
+    }
+
+
+    .glow.one {
+
+      top: -120px;
+      left: -100px;
+
+      background: #ff7fa5;
+    }
+
+
+    .glow.two {
+
+      right: -120px;
+      bottom: -130px;
+
+      background: #ffb6cf;
+
+      animation-delay: 2s;
+    }
+
+
+    @keyframes glowMove {
+
+      from {
+        transform:
+          translate(0,0)
+          scale(1);
+      }
+
+      to {
+        transform:
+          translate(35px,-25px)
+          scale(1.15);
+      }
+
+    }
+
+
+    /* ==========================================
+       FLOATING HEARTS
+    ========================================== */
+
+    .hearts {
+
+      position: fixed;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 1;
+    }
+
+
+    .heart {
+
+      position: absolute;
+
+      bottom: -50px;
+
+      opacity: 0;
+
+      animation:
+        rise linear infinite;
+    }
+
+
+    .heart:nth-child(1) {
+
+      left: 8%;
+      font-size: 18px;
+      animation-duration: 10s;
+    }
+
+
+    .heart:nth-child(2) {
+
+      left: 23%;
+      font-size: 13px;
+      animation-duration: 13s;
+      animation-delay: 3s;
+    }
+
+
+    .heart:nth-child(3) {
+
+      left: 48%;
+      font-size: 20px;
+      animation-duration: 11s;
+      animation-delay: 1s;
+    }
+
+
+    .heart:nth-child(4) {
+
+      left: 72%;
+      font-size: 15px;
+      animation-duration: 14s;
+      animation-delay: 4s;
+    }
+
+
+    .heart:nth-child(5) {
+
+      left: 91%;
+      font-size: 19px;
+      animation-duration: 12s;
+      animation-delay: 2s;
+    }
+
+
+    @keyframes rise {
+
+      0% {
+
+        transform:
+          translateY(0)
+          rotate(0deg);
+
+        opacity: 0;
+      }
+
+      15% {
+        opacity: .45;
+      }
+
+      85% {
+        opacity: .25;
+      }
+
+      100% {
+
+        transform:
+          translateY(-115vh)
+          rotate(35deg);
+
+        opacity: 0;
+      }
+
+    }
+
+
+    /* ==========================================
+       PAGE
+    ========================================== */
+
+    .page {
+
+      position: relative;
+
+      z-index: 2;
+
+      width: 100%;
+
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        24px;
+    }
+
+
+    .wrapper {
+
+      width:
+        min(
+          440px,
+          100%
+        );
+    }
+
+
+    /* ==========================================
+       BRAND
+    ========================================== */
+
+    .brand {
+
+      text-align: center;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 5px;
+
+      text-transform: uppercase;
+
+      opacity: .65;
+
+      margin-bottom: 18px;
+    }
+
+
+    /* ==========================================
+       CARD
+    ========================================== */
+
+    .card {
+
+      position: relative;
+
+      padding:
+        38px 28px
+        32px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.22);
+
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.16),
+          rgba(255,255,255,.07)
+        );
+
+      backdrop-filter:
+        blur(22px);
+
+      -webkit-backdrop-filter:
+        blur(22px);
+
+      box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.38);
+
+      overflow: hidden;
+
+      animation:
+        cardIn .7s ease-out;
+    }
+
+
+    .card::before {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(255,255,255,.14),
+          transparent 40%
+        );
+
+      pointer-events: none;
+    }
+
+
+    @keyframes cardIn {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(25px)
+          scale(.97);
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+
+    /* ==========================================
+       HEART
+    ========================================== */
+
+    .login-heart {
+
+      position: relative;
+
+      z-index: 2;
+
+      width: 72px;
+      height: 72px;
+
+      margin:
+        0 auto
+        18px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.12);
+
+      border:
+        1px solid
+        rgba(255,255,255,.25);
+
+      font-size: 32px;
+
+      box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.25);
+
+      animation:
+        pulse 2s ease-in-out infinite;
+    }
+
+
+    @keyframes pulse {
+
+      0%,100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.06);
+      }
+
+    }
+
+
+    /* ==========================================
+       TITLE
+    ========================================== */
+
+    .title {
+
+      position: relative;
+
+      z-index: 2;
+
+      margin: 0;
+
+      text-align: center;
+
+      font-size:
+        clamp(
+          34px,
+          9vw,
+          46px
+        );
+
+      font-weight: normal;
+    }
+
+
+    .subtitle {
+
+      position: relative;
+
+      z-index: 2;
+
+      margin:
+        12px auto
+        28px;
+
+      max-width: 330px;
+
+      text-align: center;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 14px;
+
+      line-height: 1.65;
+
+      opacity: .7;
+    }
+
+
+    /* ==========================================
+       TABS
+    ========================================== */
+
+    .tabs {
+
+      position: relative;
+
+      z-index: 2;
+
+      display: flex;
+
+      gap: 8px;
+
+      padding: 5px;
+
+      margin-bottom: 24px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(0,0,0,.14);
+
+      border:
+        1px solid
+        rgba(255,255,255,.12);
+    }
+
+
+    .tab {
+
+      flex: 1;
+
+      border: 0;
+
+      padding:
+        11px 10px;
+
+      border-radius: 999px;
+
+      background: transparent;
+
+      color: rgba(255,255,255,.65);
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 13px;
+
+      cursor: pointer;
+
+      transition:
+        .2s ease;
+    }
+
+
+    .tab.active {
+
+      background: #fff;
+
+      color: #74153f;
+
+      box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.18);
+    }
+
+
+    /* ==========================================
+       FORM
+    ========================================== */
+
+    .form {
+
+      position: relative;
+
+      z-index: 2;
+    }
+
+
+    .field {
+
+      margin-bottom: 17px;
+    }
+
+
+    .field label {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 12px;
+
+      letter-spacing: .4px;
+
+      opacity: .7;
+    }
+
+
+    .field input {
+
+      width: 100%;
+
+      padding:
+        14px 15px;
+
+      border-radius: 13px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.20);
+
+      outline: none;
+
+      background:
+        rgba(255,255,255,.10);
+
+      color: #fff;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 14px;
+
+      transition:
+        border .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+
+    .field input::placeholder {
+
+      color:
+        rgba(255,255,255,.38);
+    }
+
+
+    .field input:focus {
+
+      border-color:
+        rgba(255,255,255,.55);
+
+      background:
+        rgba(255,255,255,.14);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(255,255,255,.06);
+    }
+
+
+    /* ==========================================
+       SUBMIT
+    ========================================== */
+
+    .submit-button {
+
+      width: 100%;
+
+      margin-top: 6px;
+
+      padding:
+        15px 20px;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      color: #74153f;
+
+      background: #fff;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.22);
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+    }
+
+
+    .submit-button:hover {
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 16px 35px
+        rgba(0,0,0,.28);
+    }
+
+
+    .submit-button:active {
+
+      transform:
+        scale(.98);
+    }
+
+
+    /* ==========================================
+       MESSAGE
+    ========================================== */
+
+    .message {
+
+      position: relative;
+
+      z-index: 2;
+
+      min-height: 22px;
+
+      margin:
+        15px 0 0;
+
+      text-align: center;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+
+    .message.error {
+
+      color:
+        #ffd0da;
+    }
+
+
+    .message.success {
+
+      color:
+        #eaffef;
+    }
+
+
+    /* ==========================================
+       FOOTER LINKS
+    ========================================== */
+
+    .bottom-text {
+
+      position: relative;
+
+      z-index: 2;
+
+      margin-top: 24px;
+
+      text-align: center;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 12px;
+
+      opacity: .58;
+    }
+
+
+    .back-link {
+
+      color: #fff;
+
+      text-decoration: none;
+
+      opacity: .8;
+    }
+
+
+    .back-link:hover {
+
+      opacity: 1;
+
+      text-decoration: underline;
+    }
+
+
+    /* ==========================================
+       LOGGED IN STATE
+    ========================================== */
+
+    .logged-in {
+
+      text-align: center;
+    }
+
+
+    .logged-in-icon {
+
+      font-size: 55px;
+
+      margin-bottom: 12px;
+    }
+
+
+    .logged-in h2 {
+
+      margin: 0 0 10px;
+
+      font-weight: normal;
+    }
+
+
+    .logged-in p {
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+      opacity: .72;
+
+      margin-bottom: 24px;
+    }
+
+
+    .continue-button {
+
+      display: block;
+
+      width: 100%;
+
+      padding:
+        14px;
+
+      border-radius: 999px;
+
+      border: 0;
+
+      color: #74153f;
+
+      background: #fff;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      margin-bottom: 10px;
+    }
+
+
+    .logout-button {
+
+      display: block;
+
+      width: 100%;
+
+      padding:
+        13px;
+
+      border-radius: 999px;
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.08);
+
+      border:
+        1px solid
+        rgba(255,255,255,.20);
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      cursor: pointer;
+    }
+
+
+    /* ==========================================
+       HIDDEN
+    ========================================== */
+
+    .hidden {
+
+      display: none !important;
+    }
+
+
+    /* ==========================================
+       MOBILE
+    ========================================== */
+
+    @media (max-width: 600px) {
+
+      .page {
+
+        padding: 16px;
+      }
+
+
+      .card {
+
+        padding:
+          32px 20px
+          28px;
+
+        border-radius: 26px;
+      }
+
+
+      .title {
+
+        font-size:
+          clamp(
+            32px,
+            10vw,
+            42px
+          );
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ==========================================
+       BACKGROUND
+  ========================================== -->
+
+  <div class="glow one"></div>
+
+  <div class="glow two"></div>
+
+
+  <!-- ==========================================
+       FLOATING HEARTS
+  ========================================== -->
+
+  <div
+    class="hearts"
+    aria-hidden="true"
+  >
+
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+    <span class="heart">💕</span>
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+
+  </div>
+
+
+  <!-- ==========================================
+       PAGE
+  ========================================== -->
+
+  <main class="page">
+
+    <div class="wrapper">
+
+
+      <div class="brand">
+        Moment
+      </div>
+
+
+      <section class="card">
+
+
+        <!-- ====================================
+             HEART
+        ===================================== -->
+
+        <div class="login-heart">
+          ❤️
+        </div>
+
+
+        <!-- ====================================
+             TITLE
+        ===================================== -->
+
+        <h1 class="title">
+          Welcome back
+        </h1>
+
+
+        <p class="subtitle">
+          Keep your special moments close
+          and never lose track of the ones
+          you've created. ❤️
+        </p>
+
+
+        <!-- ====================================
+             TABS
+        ===================================== -->
+
+        <div class="tabs">
+
+          <button
+            id="loginTab"
+            class="tab active"
+            type="button"
+          >
+            Login
+          </button>
+
+
+          <button
+            id="signupTab"
+            class="tab"
+            type="button"
+          >
+            Create account
+          </button>
+
+        </div>
+
+
+        <!-- ====================================
+             LOGIN FORM
+        ===================================== -->
+
+        <form
+          id="loginForm"
+          class="form"
+        >
+
+          <div class="field">
+
+            <label for="loginEmail">
+              Email
+            </label>
+
+            <input
+              id="loginEmail"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="loginPassword">
+              Password
+            </label>
+
+            <input
+              id="loginPassword"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
+
+          </div>
+
+
+          <button
+            class="submit-button"
+            type="submit"
+          >
+            Login ❤️
+          </button>
+
+
+          <div
+            id="loginMessage"
+            class="message"
+            aria-live="polite"
+          ></div>
+
+        </form>
+
+
+        <!-- ====================================
+             SIGNUP FORM
+        ===================================== -->
+
+        <form
+          id="signupForm"
+          class="form hidden"
+        >
+
+          <div class="field">
+
+            <label for="signupName">
+              Your name
+            </label>
+
+            <input
+              id="signupName"
+              type="text"
+              placeholder="What should we call you?"
+              autocomplete="name"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="signupEmail">
+              Email
+            </label>
+
+            <input
+              id="signupEmail"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="signupPassword">
+              Password
+            </label>
+
+            <input
+              id="signupPassword"
+              type="password"
+              placeholder="Create a password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="signupConfirmPassword">
+              Confirm password
+            </label>
+
+            <input
+              id="signupConfirmPassword"
+              type="password"
+              placeholder="Enter your password again"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            >
+
+          </div>
+
+
+          <button
+            class="submit-button"
+            type="submit"
+          >
+            Create my Moment account ❤️
+          </button>
+
+
+          <div
+            id="signupMessage"
+            class="message"
+            aria-live="polite"
+          ></div>
+
+        </form>
+
+
+        <!-- ====================================
+             LOGGED IN VIEW
+        ===================================== -->
+
+        <div
+          id="loggedInView"
+          class="logged-in hidden"
+        >
+
+          <div class="logged-in-icon">
+            💖
+          </div>
+
+
+          <h2>
+            You're already logged in
+          </h2>
+
+
+          <p id="loggedInText">
+            Welcome back to Moment.
+          </p>
+
+
+          <button
+            id="continueButton"
+            class="continue-button"
+            type="button"
+          >
+            Continue to Moment ❤️
+          </button>
+
+
+          <button
+            id="logoutButton"
+            class="logout-button"
+            type="button"
+          >
+            Log out
+          </button>
+
+        </div>
+
+
+      </section>
+
+
+      <!-- ====================================
+           BACK
+      ===================================== -->
+
+      <div class="bottom-text">
+
+        <a
+          href="/"
+          class="back-link"
+        >
+          ← Back to Moment
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    /* ==========================================
+       ELEMENTS
+    ========================================== */
+
+    const loginTab =
+      document.getElementById(
+        "loginTab"
+      );
+
+
+    const signupTab =
+      document.getElementById(
+        "signupTab"
+      );
+
+
+    const loginForm =
+      document.getElementById(
+        "loginForm"
+      );
+
+
+    const signupForm =
+      document.getElementById(
+        "signupForm"
+      );
+
+
+    const loggedInView =
+      document.getElementById(
+        "loggedInView"
+      );
+
+
+    const loginMessage =
+      document.getElementById(
+        "loginMessage"
+      );
+
+
+    const signupMessage =
+      document.getElementById(
+        "signupMessage"
+      );
+
+
+    const loggedInText =
+      document.getElementById(
+        "loggedInText"
+      );
+
+
+    const continueButton =
+      document.getElementById(
+        "continueButton"
+      );
+
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+
+    /* ==========================================
+       STORAGE KEYS
+    ========================================== */
+
+    const USER_KEY =
+      "moment_user";
+
+
+    const ACCOUNT_KEY =
+      "moment_account";
+
+
+    /* ==========================================
+       SWITCH TO LOGIN
+    ========================================== */
+
+    loginTab.addEventListener(
+      "click",
+      () => {
+
+        loginTab.classList.add(
+          "active"
+        );
+
+        signupTab.classList.remove(
+          "active"
+        );
+
+        loginForm.classList.remove(
+          "hidden"
+        );
+
+        signupForm.classList.add(
+          "hidden"
+        );
+
+        clearMessages();
+
+      }
+    );
+
+
+    /* ==========================================
+       SWITCH TO SIGNUP
+    ========================================== */
+
+    signupTab.addEventListener(
+      "click",
+      () => {
+
+        signupTab.classList.add(
+          "active"
+        );
+
+        loginTab.classList.remove(
+          "active"
+        );
+
+        signupForm.classList.remove(
+          "hidden"
+        );
+
+        loginForm.classList.add(
+          "hidden"
+        );
+
+        clearMessages();
+
+      }
+    );
+
+
+    /* ==========================================
+       CLEAR MESSAGES
+    ========================================== */
+
+    function clearMessages() {
+
+      loginMessage.textContent =
+        "";
+
+      signupMessage.textContent =
+        "";
+
+      loginMessage.className =
+        "message";
+
+      signupMessage.className =
+        "message";
+
+    }
+
+
+    /* ==========================================
+       SHOW MESSAGE
+    ========================================== */
+
+    function showMessage(
+      element,
+      message,
+      type
+    ) {
+
+      element.textContent =
+        message;
+
+      element.className =
+        `message ${type}`;
+
+    }
+
+
+    /* ==========================================
+       SAVE ACCOUNT
+    ========================================== */
+
+    function saveAccount(
+      name,
+      email,
+      password
+    ) {
+
+      const account = {
+
+        name:
+          name.trim(),
+
+        email:
+          email.trim().toLowerCase(),
+
+        password:
+          password
+
+      };
+
+
+      localStorage.setItem(
+        ACCOUNT_KEY,
+        JSON.stringify(account)
+      );
+
+
+      return account;
+
+    }
+
+
+    /* ==========================================
+       GET ACCOUNT
+    ========================================== */
+
+    function getAccount() {
+
+      try {
+
+        const stored =
+          localStorage.getItem(
+            ACCOUNT_KEY
+          );
+
+
+        if (!stored) {
+
+          return null;
+
+        }
+
+
+        return JSON.parse(
+          stored
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Could not read account:",
+          error
+        );
+
+        return null;
+
+      }
+
+    }
+
+
+    /* ==========================================
+       SET LOGGED IN USER
+    ========================================== */
+
+    function setLoggedInUser(
+      account
+    ) {
+
+      const user = {
+
+        name:
+          account.name,
+
+        email:
+          account.email,
+
+        loggedIn:
+          true
+
+      };
+
+
+      localStorage.setItem(
+        USER_KEY,
+        JSON.stringify(user)
+      );
+
+    }
+
+
+    /* ==========================================
+       GET LOGGED IN USER
+    ========================================== */
+
+    function getLoggedInUser() {
+
+      try {
+
+        const stored =
+          localStorage.getItem(
+            USER_KEY
+          );
+
+
+        if (!stored) {
+
+          return null;
+
+        }
+
+
+        return JSON.parse(
+          stored
+        );
+
+      }
+
+      catch (error) {
+
+        return null;
+
+      }
+
+    }
+
+
+    /* ==========================================
+       LOGIN
+    ========================================== */
+
+    loginForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById(
+              "loginEmail"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const password =
+          document
+            .getElementById(
+              "loginPassword"
+            )
+            .value;
+
+
+        const account =
+          getAccount();
+
+
+        /*
+         * No account yet.
+         */
+
+        if (!account) {
+
+          showMessage(
+            loginMessage,
+            "No account found. Create an account first. ❤️",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Check email.
+         */
+
+        if (
+          email !==
+          account.email
+        ) {
+
+          showMessage(
+            loginMessage,
+            "The email or password is incorrect.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Check password.
+         */
+
+        if (
+          password !==
+          account.password
+        ) {
+
+          showMessage(
+            loginMessage,
+            "The email or password is incorrect.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Login successful.
+         */
+
+        setLoggedInUser(
+          account
+        );
+
+
+        showMessage(
+          loginMessage,
+          "Login successful! ❤️",
+          "success"
+        );
+
+
+        setTimeout(
+          () => {
+
+            window.location.href =
+              "/";
+
+          },
+          500
+        );
+
+      }
+    );
+
+
+    /* ==========================================
+       CREATE ACCOUNT
+    ========================================== */
+
+    signupForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+
+        const name =
+          document
+            .getElementById(
+              "signupName"
+            )
+            .value
+            .trim();
+
+
+        const email =
+          document
+            .getElementById(
+              "signupEmail"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        const password =
+          document
+            .getElementById(
+              "signupPassword"
+            )
+            .value;
+
+
+        const confirmPassword =
+          document
+            .getElementById(
+              "signupConfirmPassword"
+            )
+            .value;
+
+
+        /*
+         * Validate name.
+         */
+
+        if (
+          name.length < 2
+        ) {
+
+          showMessage(
+            signupMessage,
+            "Please enter your name.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Validate email.
+         */
+
+        const emailPattern =
+          /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (
+          !emailPattern.test(
+            email
+          )
+        ) {
+
+          showMessage(
+            signupMessage,
+            "Please enter a valid email address.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Validate password.
+         */
+
+        if (
+          password.length < 6
+        ) {
+
+          showMessage(
+            signupMessage,
+            "Password must be at least 6 characters.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Confirm password.
+         */
+
+        if (
+          password !==
+          confirmPassword
+        ) {
+
+          showMessage(
+            signupMessage,
+            "Passwords do not match.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Check existing account.
+         */
+
+        const existingAccount =
+          getAccount();
+
+
+        if (
+          existingAccount &&
+          existingAccount.email ===
+            email
+        ) {
+
+          showMessage(
+            signupMessage,
+            "An account with this email already exists.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Save account.
+         */
+
+        const account =
+          saveAccount(
+            name,
+            email,
+            password
+          );
+
+
+        /*
+         * Automatically log in.
+         */
+
+        setLoggedInUser(
+          account
+        );
+
+
+        showMessage(
+          signupMessage,
+          "Account created! Welcome to Moment ❤️",
+          "success"
+        );
+
+
+        setTimeout(
+          () => {
+
+            window.location.href =
+              "/";
+
+          },
+          700
+        );
+
+      }
+    );
+
+
+    /* ==========================================
+       CONTINUE
+    ========================================== */
+
+    continueButton.addEventListener(
+      "click",
+      () => {
+
+        window.location.href =
+          "/";
+
+      }
+    );
+
+
+    /* ==========================================
+       LOGOUT
+    ========================================== */
+
+    logoutButton.addEventListener(
+      "click",
+      () => {
+
+        localStorage.removeItem(
+          USER_KEY
+        );
+
+
+        showLoggedOutState();
+
+      }
+    );
+
+
+    /* ==========================================
+       SHOW LOGGED OUT STATE
+    ========================================== */
+
+    function showLoggedOutState() {
+
+      loggedInView.classList.add(
+        "hidden"
+      );
+
+      loginForm.classList.remove(
+        "hidden"
+      );
+
+      signupForm.classList.add(
+        "hidden"
+      );
+
+      loginTab.classList.add(
+        "active"
+      );
+
+      signupTab.classList.remove(
+        "active"
+      );
+
+      clearMessages();
+
+    }
+
+
+    /* ==========================================
+       SHOW LOGGED IN STATE
+    ========================================== */
+
+    function showLoggedInState(
+      user
+    ) {
+
+      loginForm.classList.add(
+        "hidden"
+      );
+
+      signupForm.classList.add(
+        "hidden"
+      );
+
+      loginTab.classList.remove(
+        "active"
+      );
+
+      signupTab.classList.remove(
+        "active"
+      );
+
+      loggedInView.classList.remove(
+        "hidden"
+      );
+
+
+      loggedInText.textContent =
+        `Welcome back, ${user.name}. Your moments are waiting for you. ❤️`;
+
+    }
+
+
+    /* ==========================================
+       INITIAL CHECK
+    ========================================== */
+
+    const loggedInUser =
+      getLoggedInUser();
+
+
+    if (
+      loggedInUser &&
+      loggedInUser.loggedIn
+    ) {
+
+      showLoggedInState(
+        loggedInUser
+      );
+
+    }
+
+  </script>
+
+</body>
+
+</html>
+```
