@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 
@@ -12,10 +13,17 @@
 
   <meta
     name="description"
-    content="Moment — Login to keep track of your moments."
+    content="Moment — Create a beautiful invitation for someone special."
   >
 
-  <title>Login ❤️ | Moment</title>
+  <title>Moment ❤️ — Make it a moment</title>
+
+
+  <!-- ==========================================
+       SUPABASE
+  ========================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
   <style>
@@ -28,38 +36,32 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
-      min-height: 100svh;
-      min-height: 100dvh;
-
       overflow-x: hidden;
 
       font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+        Arial,
+        Helvetica,
+        sans-serif;
 
       color: #fff;
 
       background:
         radial-gradient(
-          circle at 15% 15%,
-          rgba(255,255,255,.16),
+          circle at 15% 10%,
+          rgba(255,255,255,.12),
           transparent 25%
         ),
 
         radial-gradient(
-          circle at 85% 85%,
-          rgba(255,120,160,.25),
+          circle at 90% 75%,
+          rgba(255,105,150,.18),
           transparent 30%
         ),
 
@@ -74,44 +76,47 @@
 
 
     /* ==========================================
-       BACKGROUND GLOW
+       AMBIENT GLOW
     ========================================== */
 
     .glow {
       position: fixed;
 
-      width: 330px;
-      height: 330px;
+      width: 360px;
+      height: 360px;
 
       border-radius: 50%;
 
-      filter: blur(90px);
+      filter: blur(100px);
 
-      opacity: .22;
+      opacity: .18;
 
       pointer-events: none;
 
       z-index: 0;
 
       animation:
-        glowMove 8s ease-in-out infinite alternate;
+        glowMove 9s ease-in-out infinite alternate;
     }
+
 
     .glow.one {
-      top: -120px;
-      left: -100px;
+      background: #ff719b;
 
-      background: #ff7fa5;
+      top: -160px;
+      left: -120px;
     }
+
 
     .glow.two {
-      right: -120px;
-      bottom: -130px;
+      background: #ffb3ca;
 
-      background: #ffb6cf;
+      right: -150px;
+      bottom: -150px;
 
-      animation-delay: 2s;
+      animation-delay: 3s;
     }
+
 
     @keyframes glowMove {
 
@@ -123,7 +128,7 @@
 
       to {
         transform:
-          translate(35px,-25px)
+          translate(35px,-20px)
           scale(1.15);
       }
 
@@ -143,8 +148,9 @@
 
       pointer-events: none;
 
-      z-index: 1;
+      z-index: 0;
     }
+
 
     .heart {
       position: absolute;
@@ -154,44 +160,50 @@
       opacity: 0;
 
       animation:
-        rise linear infinite;
+        floatUp linear infinite;
     }
+
 
     .heart:nth-child(1) {
-      left: 8%;
+      left: 7%;
       font-size: 18px;
-      animation-duration: 10s;
+      animation-duration: 11s;
     }
+
 
     .heart:nth-child(2) {
-      left: 23%;
-      font-size: 13px;
-      animation-duration: 13s;
-      animation-delay: 3s;
-    }
-
-    .heart:nth-child(3) {
-      left: 48%;
-      font-size: 20px;
-      animation-duration: 11s;
-      animation-delay: 1s;
-    }
-
-    .heart:nth-child(4) {
-      left: 72%;
-      font-size: 15px;
+      left: 25%;
+      font-size: 14px;
       animation-duration: 14s;
-      animation-delay: 4s;
-    }
-
-    .heart:nth-child(5) {
-      left: 91%;
-      font-size: 19px;
-      animation-duration: 12s;
       animation-delay: 2s;
     }
 
-    @keyframes rise {
+
+    .heart:nth-child(3) {
+      left: 50%;
+      font-size: 22px;
+      animation-duration: 10s;
+      animation-delay: 4s;
+    }
+
+
+    .heart:nth-child(4) {
+      left: 74%;
+      font-size: 16px;
+      animation-duration: 13s;
+      animation-delay: 1s;
+    }
+
+
+    .heart:nth-child(5) {
+      left: 91%;
+      font-size: 20px;
+      animation-duration: 12s;
+      animation-delay: 5s;
+    }
+
+
+    @keyframes floatUp {
 
       0% {
         transform:
@@ -202,11 +214,11 @@
       }
 
       15% {
-        opacity: .45;
+        opacity: .38;
       }
 
-      85% {
-        opacity: .25;
+      80% {
+        opacity: .2;
       }
 
       100% {
@@ -221,155 +233,216 @@
 
 
     /* ==========================================
-       PAGE
+       NAVIGATION
     ========================================== */
 
-    .page {
+    .nav {
       position: relative;
 
-      z-index: 2;
+      z-index: 20;
 
-      width: 100%;
+      width:
+        min(
+          1100px,
+          calc(100% - 32px)
+        );
 
-      min-height: 100vh;
-      min-height: 100svh;
-      min-height: 100dvh;
+      margin:
+        0 auto;
+
+      padding:
+        20px 0;
 
       display: flex;
 
       align-items: center;
+
+      justify-content: space-between;
+    }
+
+
+    .logo {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 26px;
+
+      letter-spacing: -.6px;
+    }
+
+
+    .logo-heart {
+      font-size: 20px;
+    }
+
+
+    .nav-actions {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+    }
+
+
+    /* ==========================================
+       LOGIN BUTTON
+    ========================================== */
+
+    .login-button {
+      display: inline-flex;
+
+      align-items: center;
       justify-content: center;
 
-      padding: 24px;
+      padding:
+        10px 12px;
+
+      border: 0;
+
+      background: transparent;
+
+      color:
+        rgba(255,255,255,.78);
+
+      font-size: 13px;
+
+      text-decoration: none;
+
+      cursor: pointer;
+
+      transition:
+        color .2s ease,
+        transform .2s ease;
     }
 
-    .wrapper {
-      width:
-        min(
-          440px,
-          100%
-        );
-    }
 
+    .login-button:hover {
+      color: #fff;
 
-    /* ==========================================
-       BRAND
-    ========================================== */
-
-    .brand {
-      text-align: center;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 11px;
-
-      letter-spacing: 5px;
-
-      text-transform: uppercase;
-
-      opacity: .65;
-
-      margin-bottom: 18px;
+      transform:
+        translateY(-1px);
     }
 
 
     /* ==========================================
-       CARD
+       CREATE NAV BUTTON
     ========================================== */
 
-    .card {
-      position: relative;
+    .create-nav {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
 
       padding:
-        38px 28px
-        32px;
+        10px 17px;
+
+      border-radius: 999px;
+
+      text-decoration: none;
+
+      color: #fff;
+
+      font-size: 13px;
+
+      font-weight: 600;
 
       border:
         1px solid
         rgba(255,255,255,.22);
 
-      border-radius: 30px;
-
       background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.16),
-          rgba(255,255,255,.07)
-        );
+        rgba(255,255,255,.09);
 
       backdrop-filter:
-        blur(22px);
+        blur(12px);
 
-      -webkit-backdrop-filter:
-        blur(22px);
-
-      box-shadow:
-        0 30px 90px
-        rgba(0,0,0,.38);
-
-      overflow: hidden;
-
-      animation:
-        cardIn .7s ease-out;
+      transition:
+        transform .2s ease,
+        background .2s ease;
     }
 
-    .card::before {
-      content: "";
 
-      position: absolute;
-
-      inset: 0;
+    .create-nav:hover {
+      transform:
+        translateY(-2px);
 
       background:
-        linear-gradient(
-          120deg,
-          rgba(255,255,255,.14),
-          transparent 40%
-        );
-
-      pointer-events: none;
-    }
-
-    @keyframes cardIn {
-
-      from {
-        opacity: 0;
-
-        transform:
-          translateY(25px)
-          scale(.97);
-      }
-
-      to {
-        opacity: 1;
-
-        transform:
-          translateY(0)
-          scale(1);
-      }
-
+        rgba(255,255,255,.16);
     }
 
 
     /* ==========================================
-       HEART
+       PROFILE MENU
     ========================================== */
 
-    .login-heart {
+    .profile-menu {
       position: relative;
+    }
 
-      z-index: 2;
 
-      width: 72px;
-      height: 72px;
+    .profile-button {
+      display: inline-flex;
 
-      margin:
-        0 auto
-        18px;
+      align-items: center;
 
-      display: flex;
+      justify-content: center;
+
+      gap: 8px;
+
+      min-height: 40px;
+
+      padding:
+        8px 14px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.22);
+
+      background:
+        rgba(255,255,255,.09);
+
+      color: #fff;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      backdrop-filter:
+        blur(12px);
+
+      transition:
+        background .2s ease,
+        transform .2s ease;
+    }
+
+
+    .profile-button:hover {
+      background:
+        rgba(255,255,255,.16);
+
+      transform:
+        translateY(-1px);
+    }
+
+
+    .profile-icon {
+      width: 27px;
+      height: 27px;
+
+      display: inline-flex;
 
       align-items: center;
       justify-content: center;
@@ -377,258 +450,392 @@
       border-radius: 50%;
 
       background:
-        rgba(255,255,255,.12);
-
-      border:
-        1px solid
-        rgba(255,255,255,.25);
-
-      font-size: 32px;
-
-      box-shadow:
-        0 12px 35px
-        rgba(0,0,0,.25);
-
-      animation:
-        pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.06);
-      }
-
-    }
-
-
-    /* ==========================================
-       TITLE
-    ========================================== */
-
-    .title {
-      position: relative;
-
-      z-index: 2;
-
-      margin: 0;
-
-      text-align: center;
-
-      font-size:
-        clamp(
-          34px,
-          9vw,
-          46px
-        );
-
-      font-weight: normal;
-    }
-
-    .subtitle {
-      position: relative;
-
-      z-index: 2;
-
-      margin:
-        12px auto
-        28px;
-
-      max-width: 330px;
-
-      text-align: center;
-
-      font-family:
-        Arial,
-        sans-serif;
+        rgba(255,255,255,.18);
 
       font-size: 14px;
+    }
 
-      line-height: 1.65;
 
-      opacity: .7;
+    .profile-arrow {
+      font-size: 10px;
+
+      opacity: .65;
+
+      transition:
+        transform .2s ease;
+    }
+
+
+    .profile-menu.open .profile-arrow {
+      transform:
+        rotate(180deg);
     }
 
 
     /* ==========================================
-       TABS
+       PROFILE DROPDOWN
     ========================================== */
 
-    .tabs {
-      position: relative;
+    .profile-dropdown {
+      position: absolute;
 
-      z-index: 2;
+      top: calc(100% + 10px);
 
-      display: flex;
+      right: 0;
 
-      gap: 8px;
+      width: 220px;
 
-      padding: 5px;
+      padding: 8px;
 
-      margin-bottom: 24px;
-
-      border-radius: 999px;
-
-      background:
-        rgba(0,0,0,.14);
+      border-radius: 18px;
 
       border:
         1px solid
-        rgba(255,255,255,.12);
+        rgba(255,255,255,.18);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(65,18,51,.96),
+          rgba(38,10,30,.96)
+        );
+
+      box-shadow:
+        0 20px 55px
+        rgba(0,0,0,.35);
+
+      backdrop-filter:
+        blur(22px);
+
+      -webkit-backdrop-filter:
+        blur(22px);
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transform:
+        translateY(-8px)
+        scale(.97);
+
+      transform-origin:
+        top right;
+
+      transition:
+        opacity .18s ease,
+        visibility .18s ease,
+        transform .18s ease;
     }
 
-    .tab {
-      flex: 1;
 
-      border: 0;
+    .profile-menu.open .profile-dropdown {
+      opacity: 1;
+
+      visibility: visible;
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+
+    .profile-header {
+      padding:
+        12px 12px
+        10px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.10);
+
+      margin-bottom: 5px;
+    }
+
+
+    .profile-name {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 17px;
+
+      margin-bottom: 3px;
+    }
+
+
+    .profile-email {
+      font-size: 11px;
+
+      color:
+        rgba(255,255,255,.48);
+
+      overflow:
+        hidden;
+
+      text-overflow:
+        ellipsis;
+
+      white-space:
+        nowrap;
+    }
+
+
+    .profile-link {
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      width: 100%;
 
       padding:
-        11px 10px;
+        11px 12px;
 
-      border-radius: 999px;
+      border-radius: 11px;
 
-      background: transparent;
+      color:
+        rgba(255,255,255,.82);
 
-      color: rgba(255,255,255,.65);
-
-      font-family:
-        Arial,
-        sans-serif;
+      text-decoration: none;
 
       font-size: 13px;
 
-      cursor: pointer;
-
-      transition:
-        .2s ease;
-    }
-
-    .tab.active {
-      background: #fff;
-
-      color: #74153f;
-
-      box-shadow:
-        0 6px 20px
-        rgba(0,0,0,.18);
-    }
-
-
-    /* ==========================================
-       FORM
-    ========================================== */
-
-    .form {
-      position: relative;
-
-      z-index: 2;
-    }
-
-    .field {
-      margin-bottom: 17px;
-    }
-
-    .field label {
-      display: block;
-
-      margin-bottom: 7px;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 12px;
-
-      letter-spacing: .4px;
-
-      opacity: .7;
-    }
-
-    .field input {
-      width: 100%;
-
-      padding:
-        14px 15px;
-
-      border-radius: 13px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.20);
-
-      outline: none;
-
       background:
-        rgba(255,255,255,.10);
-
-      color: #fff;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 14px;
-
-      transition:
-        border .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
-    }
-
-    .field input::placeholder {
-      color:
-        rgba(255,255,255,.38);
-    }
-
-    .field input:focus {
-      border-color:
-        rgba(255,255,255,.55);
-
-      background:
-        rgba(255,255,255,.14);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(255,255,255,.06);
-    }
-
-
-    /* ==========================================
-       SUBMIT
-    ========================================== */
-
-    .submit-button {
-      width: 100%;
-
-      margin-top: 6px;
-
-      padding:
-        15px 20px;
+        transparent;
 
       border: 0;
 
+      cursor: pointer;
+
+      text-align: left;
+
+      transition:
+        background .18s ease,
+        color .18s ease;
+    }
+
+
+    .profile-link:hover {
+      background:
+        rgba(255,255,255,.09);
+
+      color: #fff;
+    }
+
+
+    .profile-link-icon {
+      width: 22px;
+
+      text-align: center;
+
+      font-size: 15px;
+    }
+
+
+    .profile-divider {
+      height: 1px;
+
+      margin:
+        6px 4px;
+
+      background:
+        rgba(255,255,255,.10);
+    }
+
+
+    .logout-link {
+      color:
+        rgba(255,205,215,.82);
+    }
+
+
+    .logout-link:hover {
+      background:
+        rgba(255,100,130,.10);
+
+      color:
+        #ffd8e0;
+    }
+
+
+    /* ==========================================
+       CONTAINER
+    ========================================== */
+
+    .container {
+      position: relative;
+
+      z-index: 2;
+
+      width:
+        min(
+          1100px,
+          calc(100% - 32px)
+        );
+
+      margin:
+        0 auto;
+    }
+
+
+    /* ==========================================
+       HERO
+    ========================================== */
+
+    .hero {
+      min-height:
+        calc(100vh - 76px);
+
+      display: grid;
+
+      grid-template-columns:
+        1.08fr
+        .92fr;
+
+      align-items: center;
+
+      gap: 60px;
+
+      padding:
+        40px 0
+        80px;
+    }
+
+
+    .hero-content {
+      animation:
+        heroIn .85s ease-out;
+    }
+
+
+    .eyebrow {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      padding:
+        8px 13px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.16);
+
       border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.07);
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(255,255,255,.75);
+    }
+
+
+    .hero h1 {
+      margin:
+        22px 0
+        18px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-weight: normal;
+
+      font-size:
+        clamp(
+          52px,
+          8vw,
+          88px
+        );
+
+      line-height: .94;
+
+      letter-spacing: -4px;
+    }
+
+
+    .hero h1 span {
+      display: block;
+
+      background:
+        linear-gradient(
+          90deg,
+          #fff,
+          #ffc0d1
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+    }
+
+
+    .hero p {
+      max-width: 570px;
+
+      margin: 0;
+
+      font-size: 18px;
+
+      line-height: 1.7;
+
+      color:
+        rgba(255,255,255,.68);
+    }
+
+
+    .hero-actions {
+      display: flex;
+
+      gap: 12px;
+
+      margin-top: 32px;
+
+      flex-wrap: wrap;
+    }
+
+
+    /* ==========================================
+       PRIMARY BUTTON
+    ========================================== */
+
+    .primary {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      min-height: 50px;
+
+      padding:
+        14px 22px;
+
+      border-radius: 999px;
+
+      text-decoration: none;
 
       color: #74153f;
 
       background: #fff;
 
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 15px;
-
       font-weight: 700;
 
-      cursor: pointer;
+      font-size: 14px;
 
       box-shadow:
-        0 12px 30px
+        0 14px 35px
         rgba(0,0,0,.22);
 
       transition:
@@ -636,91 +843,691 @@
         box-shadow .2s ease;
     }
 
-    .submit-button:hover {
+
+    .primary:hover {
       transform:
-        translateY(-2px);
+        translateY(-3px);
 
       box-shadow:
-        0 16px 35px
+        0 18px 40px
         rgba(0,0,0,.28);
     }
 
-    .submit-button:active {
-      transform:
-        scale(.98);
-    }
-
 
     /* ==========================================
-       MESSAGE
+       SECONDARY BUTTON
     ========================================== */
 
-    .message {
-      position: relative;
+    .secondary {
+      display: inline-flex;
 
-      z-index: 2;
+      align-items: center;
+      justify-content: center;
 
-      min-height: 22px;
+      min-height: 50px;
 
-      margin:
-        15px 0 0;
+      padding:
+        14px 22px;
 
-      text-align: center;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 13px;
-
-      line-height: 1.5;
-    }
-
-    .message.error {
-      color:
-        #ffd0da;
-    }
-
-    .message.success {
-      color:
-        #eaffef;
-    }
-
-
-    /* ==========================================
-       FOOTER LINKS
-    ========================================== */
-
-    .bottom-text {
-      position: relative;
-
-      z-index: 2;
-
-      margin-top: 24px;
-
-      text-align: center;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 12px;
-
-      opacity: .58;
-    }
-
-    .back-link {
-      color: #fff;
+      border-radius: 999px;
 
       text-decoration: none;
 
-      opacity: .8;
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.07);
+
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+
+      font-weight: 600;
+
+      font-size: 14px;
+
+      transition:
+        background .2s ease;
     }
 
-    .back-link:hover {
-      opacity: 1;
 
-      text-decoration: underline;
+    .secondary:hover {
+      background:
+        rgba(255,255,255,.13);
+    }
+
+
+    /* ==========================================
+       HERO PREVIEW
+    ========================================== */
+
+    .preview-wrap {
+      display: flex;
+
+      justify-content: center;
+
+      animation:
+        previewIn 1s ease-out .1s both;
+    }
+
+
+    .preview {
+      position: relative;
+
+      width:
+        min(
+          360px,
+          100%
+        );
+
+      min-height: 475px;
+
+      padding:
+        35px 28px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      border-radius: 34px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.22);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.17),
+          rgba(255,255,255,.055)
+        );
+
+      backdrop-filter:
+        blur(22px);
+
+      box-shadow:
+        0 35px 90px
+        rgba(0,0,0,.38);
+
+      transform:
+        rotate(2deg);
+
+      transition:
+        transform .35s ease;
+    }
+
+
+    .preview::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 12px;
+
+      border-radius: 26px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.07);
+
+      pointer-events: none;
+    }
+
+
+    .preview:hover {
+      transform:
+        rotate(0deg)
+        translateY(-6px);
+    }
+
+
+    .preview-label {
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      opacity: .52;
+    }
+
+
+    .preview-heart {
+      margin:
+        24px 0;
+
+      font-size: 70px;
+
+      animation:
+        heartbeat 2.2s ease-in-out infinite;
+    }
+
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform:
+          scale(1);
+      }
+
+      50% {
+        transform:
+          scale(1.08);
+      }
+
+    }
+
+
+    .preview h2 {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-weight: normal;
+
+      font-size: 40px;
+    }
+
+
+    .preview-line {
+      width: 55px;
+
+      height: 1px;
+
+      margin:
+        20px 0;
+
+      background:
+        rgba(255,255,255,.4);
+    }
+
+
+    .preview-message {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 20px;
+
+      line-height: 1.5;
+
+      opacity: .82;
+    }
+
+
+    .preview-from {
+      margin-top: 24px;
+
+      font-size: 12px;
+
+      opacity: .5;
+    }
+
+
+    @keyframes heroIn {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
+
+    }
+
+
+    @keyframes previewIn {
+
+      from {
+        opacity: 0;
+
+        transform:
+          rotate(7deg)
+          translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          rotate(2deg)
+          translateY(0);
+      }
+
+    }
+
+
+    /* ==========================================
+       SECTIONS
+    ========================================== */
+
+    .section {
+      padding:
+        100px 0;
+    }
+
+
+    .section-header {
+      max-width: 650px;
+
+      margin-bottom: 45px;
+    }
+
+
+    .section-label {
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(255,255,255,.5);
+    }
+
+
+    .section h2 {
+      margin:
+        12px 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          38px,
+          6vw,
+          58px
+        );
+
+      font-weight: normal;
+
+      letter-spacing: -2px;
+    }
+
+
+    .section-header p {
+      margin: 0;
+
+      color:
+        rgba(255,255,255,.62);
+
+      line-height: 1.7;
+    }
+
+
+    /* ==========================================
+       HOW IT WORKS
+    ========================================== */
+
+    .steps {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap: 16px;
+    }
+
+
+    .step {
+      padding: 30px;
+
+      min-height: 225px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.13);
+
+      border-radius: 25px;
+
+      background:
+        rgba(255,255,255,.055);
+
+      backdrop-filter:
+        blur(14px);
+
+      transition:
+        transform .25s ease,
+        background .25s ease;
+    }
+
+
+    .step:hover {
+      transform:
+        translateY(-5px);
+
+      background:
+        rgba(255,255,255,.08);
+    }
+
+
+    .step-number {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 18px;
+
+      opacity: .42;
+    }
+
+
+    .step-icon {
+      margin:
+        25px 0 15px;
+
+      font-size: 27px;
+    }
+
+
+    .step h3 {
+      margin:
+        0 0 10px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 24px;
+
+      font-weight: normal;
+    }
+
+
+    .step p {
+      margin: 0;
+
+      color:
+        rgba(255,255,255,.56);
+
+      line-height: 1.6;
+
+      font-size: 14px;
+    }
+
+
+    /* ==========================================
+       EXPERIENCE
+    ========================================== */
+
+    .experience {
+      display: grid;
+
+      grid-template-columns:
+        .9fr
+        1.1fr;
+
+      gap: 60px;
+
+      align-items: center;
+    }
+
+
+    .experience-copy p {
+      color:
+        rgba(255,255,255,.64);
+
+      line-height: 1.8;
+
+      font-size: 16px;
+    }
+
+
+    .feature-list {
+      display: grid;
+
+      gap: 13px;
+
+      margin-top: 25px;
+    }
+
+
+    .feature {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      font-size: 14px;
+
+      color:
+        rgba(255,255,255,.78);
+    }
+
+
+    .feature-dot {
+      flex:
+        0 0 auto;
+
+      width: 9px;
+      height: 9px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,190,210,.8);
+
+      box-shadow:
+        0 0 14px
+        rgba(255,150,180,.7);
+    }
+
+
+    /* ==========================================
+       MOMENT STORIES
+    ========================================== */
+
+    .stories {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap: 16px;
+    }
+
+
+    .story {
+      min-height: 245px;
+
+      padding: 28px;
+
+      border-radius: 25px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.13);
+
+      background:
+        rgba(255,255,255,.055);
+
+      backdrop-filter:
+        blur(14px);
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: space-between;
+
+      transition:
+        transform .25s ease;
+    }
+
+
+    .story:hover {
+      transform:
+        translateY(-5px);
+    }
+
+
+    .story-icon {
+      font-size: 27px;
+    }
+
+
+    .story-text {
+      margin:
+        22px 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 19px;
+
+      line-height: 1.55;
+
+      color:
+        rgba(255,255,255,.9);
+    }
+
+
+    .story-label {
+      font-size: 11px;
+
+      color:
+        rgba(255,255,255,.45);
+
+      letter-spacing: .5px;
+    }
+
+
+    /* ==========================================
+       FINAL CTA
+    ========================================== */
+
+    .cta {
+      margin:
+        50px 0
+        90px;
+
+      padding:
+        65px 30px;
+
+      text-align: center;
+
+      border-radius: 32px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.13),
+          rgba(255,255,255,.055)
+        );
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+
+    .cta-heart {
+      font-size: 38px;
+
+      animation:
+        heartbeat 2.2s ease-in-out infinite;
+    }
+
+
+    .cta h2 {
+      margin:
+        16px 0 12px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          38px,
+          6vw,
+          58px
+        );
+
+      font-weight: normal;
+    }
+
+
+    .cta p {
+      margin:
+        0 auto
+        25px;
+
+      max-width: 500px;
+
+      color:
+        rgba(255,255,255,.64);
+
+      line-height: 1.7;
+    }
+
+
+    /* ==========================================
+       FOOTER
+    ========================================== */
+
+    footer {
+      position: relative;
+
+      z-index: 2;
+
+      width:
+        min(
+          1100px,
+          calc(100% - 32px)
+        );
+
+      margin:
+        0 auto;
+
+      padding:
+        0 0 35px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      color:
+        rgba(255,255,255,.38);
+
+      font-size: 11px;
+    }
+
+
+    footer span:first-child {
+      letter-spacing: 2px;
     }
 
 
@@ -737,27 +1544,201 @@
        MOBILE
     ========================================== */
 
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
 
-      .page {
-        padding: 16px;
+      .nav {
+        padding-top: 16px;
       }
 
-      .card {
+
+      .hero {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+
+        padding-top: 35px;
+
+        gap: 50px;
+      }
+
+
+      .hero-content {
+        text-align: center;
+      }
+
+
+      .hero p {
+        margin: auto;
+      }
+
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+
+      .preview {
+        min-height: 420px;
+      }
+
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+
+      .experience {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+      }
+
+
+      .stories {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 500px) {
+
+      .nav,
+      .container,
+      footer {
+        width:
+          calc(100% - 28px);
+      }
+
+
+      .logo {
+        font-size: 23px;
+      }
+
+
+      .logo-heart {
+        font-size: 18px;
+      }
+
+
+      .nav-actions {
+        gap: 3px;
+      }
+
+
+      .login-button {
         padding:
-          32px 20px
-          28px;
+          9px 7px;
 
-        border-radius: 26px;
+        font-size: 12px;
       }
 
-      .title {
+
+      .create-nav {
+        padding:
+          9px 12px;
+
+        font-size: 12px;
+      }
+
+
+      .profile-button {
+        padding:
+          7px 10px;
+
+        font-size: 12px;
+      }
+
+
+      .profile-dropdown {
+        right: -4px;
+
+        width: 205px;
+      }
+
+
+      .profile-name {
+        font-size: 16px;
+      }
+
+
+      .hero {
+        padding-bottom: 55px;
+      }
+
+
+      .hero h1 {
         font-size:
           clamp(
-            32px,
-            10vw,
-            42px
+            50px,
+            15vw,
+            68px
           );
+
+        letter-spacing: -3px;
+      }
+
+
+      .hero p {
+        font-size: 16px;
+      }
+
+
+      .hero-actions {
+        flex-direction: column;
+
+        width: 100%;
+      }
+
+
+      .primary,
+      .secondary {
+        width: 100%;
+      }
+
+
+      .preview {
+        min-height: 405px;
+      }
+
+
+      .section {
+        padding:
+          75px 0;
+      }
+
+
+      .section h2 {
+        letter-spacing: -1.5px;
+      }
+
+
+      .step {
+        min-height: auto;
+
+        padding: 25px;
+      }
+
+
+      .story {
+        min-height: 215px;
+      }
+
+
+      .cta {
+        padding:
+          50px 22px;
+
+        margin-bottom: 65px;
+      }
+
+
+      footer {
+        flex-direction: column;
+
+        text-align: center;
+
+        align-items: center;
       }
 
     }
@@ -771,7 +1752,7 @@
 
 
   <!-- ==========================================
-       BACKGROUND
+       AMBIENT EFFECTS
   ========================================== -->
 
   <div class="glow one"></div>
@@ -789,535 +1770,972 @@
   >
 
     <span class="heart">❤️</span>
+
     <span class="heart">💗</span>
+
     <span class="heart">💕</span>
+
     <span class="heart">❤️</span>
+
     <span class="heart">💗</span>
 
   </div>
 
 
   <!-- ==========================================
-       PAGE
+       NAVIGATION
   ========================================== -->
 
-  <main class="page">
+  <nav class="nav">
 
-    <div class="wrapper">
+    <div class="logo">
+
+      Moment
+
+      <span class="logo-heart">
+        ❤️
+      </span>
+
+    </div>
 
 
-      <div class="brand">
-        Moment
+    <!-- ========================================
+         LOGGED OUT NAV
+    ========================================= -->
+
+    <div
+      id="loggedOutNav"
+      class="nav-actions hidden"
+    >
+
+      <a
+        href="/login"
+        class="login-button"
+      >
+        Login
+      </a>
+
+
+      <a
+        href="/login"
+        class="create-nav"
+        data-create-invite
+      >
+        Create an Invite ❤️
+      </a>
+
+    </div>
+
+
+    <!-- ========================================
+         LOGGED IN NAV
+    ========================================= -->
+
+    <div
+      id="loggedInNav"
+      class="nav-actions hidden"
+    >
+
+      <div
+        id="profileMenu"
+        class="profile-menu"
+      >
+
+        <button
+          id="profileButton"
+          class="profile-button"
+          type="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+
+          <span
+            class="profile-icon"
+          >
+            👤
+          </span>
+
+
+          <span id="profileButtonName">
+            Profile
+          </span>
+
+
+          <span class="profile-arrow">
+            ▼
+          </span>
+
+        </button>
+
+
+        <!-- ==================================
+             PROFILE DROPDOWN
+        =================================== -->
+
+        <div
+          id="profileDropdown"
+          class="profile-dropdown"
+        >
+
+          <div class="profile-header">
+
+            <div
+              id="profileName"
+              class="profile-name"
+            >
+              Welcome back
+            </div>
+
+
+            <div
+              id="profileEmail"
+              class="profile-email"
+            >
+              user@example.com
+            </div>
+
+          </div>
+
+
+          <!-- MY MOMENTS -->
+
+          <a
+            href="/moments"
+            class="profile-link"
+          >
+
+            <span class="profile-link-icon">
+              💌
+            </span>
+
+            <span>
+              My Moments
+            </span>
+
+          </a>
+
+
+          <!-- EDIT PROFILE -->
+
+          <a
+            href="/profile"
+            class="profile-link"
+          >
+
+            <span class="profile-link-icon">
+              ✏️
+            </span>
+
+            <span>
+              Edit Profile
+            </span>
+
+          </a>
+
+
+          <div class="profile-divider"></div>
+
+
+          <!-- LOGOUT -->
+
+          <button
+            id="logoutButton"
+            class="profile-link logout-link"
+            type="button"
+          >
+
+            <span class="profile-link-icon">
+              ↪
+            </span>
+
+            <span>
+              Logout
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <main>
+
+
+    <!-- ==========================================
+         HERO
+    ========================================== -->
+
+    <section class="hero container">
+
+
+      <div class="hero-content">
+
+
+        <div class="eyebrow">
+          Made for meaningful moments ❤️
+        </div>
+
+
+        <h1>
+
+          Make it
+
+          <span>
+            a moment.
+          </span>
+
+        </h1>
+
+
+        <p>
+
+          Create a beautiful little invitation,
+          send it to someone special,
+          and turn an ordinary question
+          into something they'll remember.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+
+          <a
+            href="/login"
+            class="primary"
+            data-create-invite
+          >
+            Create an Invite ❤️
+          </a>
+
+
+          <a
+            href="#how"
+            class="secondary"
+          >
+            See how it works
+          </a>
+
+
+        </div>
+
+
       </div>
 
 
-      <section class="card">
+      <!-- ========================================
+           HERO PREVIEW
+      ========================================= -->
+
+      <div class="preview-wrap">
+
+        <div class="preview">
 
 
-        <!-- ====================================
-             HEART
-        ===================================== -->
+          <div class="preview-label">
+            A little invitation
+          </div>
 
-        <div class="login-heart">
+
+          <div class="preview-heart">
+            ❤️
+          </div>
+
+
+          <h2>
+            Someone special
+          </h2>
+
+
+          <div class="preview-line"></div>
+
+
+          <div class="preview-message">
+
+            When do I get to
+            steal you for a date?
+
+          </div>
+
+
+          <div class="preview-from">
+            From someone special ❤️
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ==========================================
+         HOW IT WORKS
+    ========================================== -->
+
+    <section
+      id="how"
+      class="section container"
+    >
+
+
+      <div class="section-header">
+
+
+        <div class="section-label">
+          Simple by design
+        </div>
+
+
+        <h2>
+          Three little steps.
+        </h2>
+
+
+        <p>
+
+          No complicated setup.
+          Just create something personal,
+          share it, and wait for the answer.
+
+        </p>
+
+
+      </div>
+
+
+      <div class="steps">
+
+
+        <article class="step">
+
+
+          <div class="step-number">
+            01
+          </div>
+
+
+          <div class="step-icon">
+            ✍️
+          </div>
+
+
+          <h3>
+            Create
+          </h3>
+
+
+          <p>
+
+            Add their name,
+            your message,
+            and the occasion.
+
+          </p>
+
+
+        </article>
+
+
+        <article class="step">
+
+
+          <div class="step-number">
+            02
+          </div>
+
+
+          <div class="step-icon">
+            💌
+          </div>
+
+
+          <h3>
+            Share
+          </h3>
+
+
+          <p>
+
+            Moment creates a
+            unique invitation link
+            you can send anywhere.
+
+          </p>
+
+
+        </article>
+
+
+        <article class="step">
+
+
+          <div class="step-number">
+            03
+          </div>
+
+
+          <div class="step-icon">
+            🥰
+          </div>
+
+
+          <h3>
+            Make the moment
+          </h3>
+
+
+          <p>
+
+            They open the invitation,
+            respond, and choose a date
+            if they're in.
+
+          </p>
+
+
+        </article>
+
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ==========================================
+         EXPERIENCE
+    ========================================== -->
+
+    <section class="section container">
+
+
+      <div class="experience">
+
+
+        <div class="experience-copy">
+
+
+          <div class="section-label">
+            More than a link
+          </div>
+
+
+          <h2>
+            A little experience.
+          </h2>
+
+
+          <p>
+
+            Moment turns a simple
+            "Want to go on a date?"
+            into something that feels
+            personal from the first tap.
+
+          </p>
+
+
+          <div class="feature-list">
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Personalized invitations
+
+            </div>
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Unique shareable links
+
+            </div>
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Beautiful mobile experience
+
+            </div>
+
+
+            <div class="feature">
+
+              <span class="feature-dot"></span>
+
+              Date confirmation
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+        <div class="preview-wrap">
+
+
+          <div class="preview">
+
+
+            <div class="preview-label">
+              Your moment
+            </div>
+
+
+            <div class="preview-heart">
+              💗
+            </div>
+
+
+            <h2>
+              It's a date!
+            </h2>
+
+
+            <div class="preview-line"></div>
+
+
+            <div class="preview-message">
+              Friday, 14 August 2026
+            </div>
+
+
+            <div class="preview-from">
+              See you then. 🥰
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ==========================================
+         MOMENT STORIES
+    ========================================== -->
+
+    <section class="section container">
+
+
+      <div class="section-header">
+
+
+        <div class="section-label">
+          The feeling we're creating
+        </div>
+
+
+        <h2>
+          Made for moments.
+        </h2>
+
+
+        <p>
+
+          A little inspiration for the kind
+          of memories Moment is made for.
+
+        </p>
+
+
+      </div>
+
+
+      <div class="stories">
+
+
+        <article class="story">
+
+
+          <div class="story-icon">
+            ❤️
+          </div>
+
+
+          <div class="story-text">
+
+            "Sometimes asking the question
+            is the hardest part."
+
+          </div>
+
+
+          <div class="story-label">
+            FOR THE FIRST DATE
+          </div>
+
+
+        </article>
+
+
+        <article class="story">
+
+
+          <div class="story-icon">
+            💕
+          </div>
+
+
+          <div class="story-text">
+
+            "Turn an ordinary plan
+            into something worth remembering."
+
+          </div>
+
+
+          <div class="story-label">
+            FOR SOMEONE SPECIAL
+          </div>
+
+
+        </article>
+
+
+        <article class="story">
+
+
+          <div class="story-icon">
+            🥰
+          </div>
+
+
+          <div class="story-text">
+
+            "Because a yes deserves
+            a little celebration."
+
+          </div>
+
+
+          <div class="story-label">
+            FOR THE MOMENT AFTER
+          </div>
+
+
+        </article>
+
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ==========================================
+         FINAL CTA
+    ========================================== -->
+
+    <section class="container">
+
+
+      <div class="cta">
+
+
+        <div class="cta-heart">
           ❤️
         </div>
 
 
-        <!-- ====================================
-             TITLE
-        ===================================== -->
-
-        <h1 class="title">
-          Welcome back
-        </h1>
+        <h2>
+          Ready to make a moment?
+        </h2>
 
 
-        <p class="subtitle">
-          Keep your special moments close
-          and never lose track of the ones
-          you've created. ❤️
+        <p>
+
+          Sometimes the simplest question
+          deserves a beautiful answer.
+
         </p>
 
 
-        <!-- ====================================
-             TABS
-        ===================================== -->
-
-        <div class="tabs">
-
-          <button
-            id="loginTab"
-            class="tab active"
-            type="button"
-          >
-            Login
-          </button>
-
-
-          <button
-            id="signupTab"
-            class="tab"
-            type="button"
-          >
-            Create account
-          </button>
-
-        </div>
-
-
-        <!-- ====================================
-             LOGIN FORM
-        ===================================== -->
-
-        <form
-          id="loginForm"
-          class="form"
-        >
-
-          <div class="field">
-
-            <label for="loginEmail">
-              Email
-            </label>
-
-            <input
-              id="loginEmail"
-              type="email"
-              placeholder="you@example.com"
-              autocomplete="email"
-              required
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="loginPassword">
-              Password
-            </label>
-
-            <input
-              id="loginPassword"
-              type="password"
-              placeholder="Enter your password"
-              autocomplete="current-password"
-              required
-            >
-
-          </div>
-
-
-          <button
-            class="submit-button"
-            type="submit"
-          >
-            Login ❤️
-          </button>
-
-
-          <div
-            id="loginMessage"
-            class="message"
-            aria-live="polite"
-          ></div>
-
-        </form>
-
-
-        <!-- ====================================
-             SIGNUP FORM
-        ===================================== -->
-
-        <form
-          id="signupForm"
-          class="form hidden"
-        >
-
-          <div class="field">
-
-            <label for="signupName">
-              Your name
-            </label>
-
-            <input
-              id="signupName"
-              type="text"
-              placeholder="What should we call you?"
-              autocomplete="name"
-              required
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="signupEmail">
-              Email
-            </label>
-
-            <input
-              id="signupEmail"
-              type="email"
-              placeholder="you@example.com"
-              autocomplete="email"
-              required
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="signupPassword">
-              Password
-            </label>
-
-            <input
-              id="signupPassword"
-              type="password"
-              placeholder="Create a password"
-              autocomplete="new-password"
-              minlength="6"
-              required
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label for="signupConfirmPassword">
-              Confirm password
-            </label>
-
-            <input
-              id="signupConfirmPassword"
-              type="password"
-              placeholder="Enter your password again"
-              autocomplete="new-password"
-              minlength="6"
-              required
-            >
-
-          </div>
-
-
-          <button
-            class="submit-button"
-            type="submit"
-          >
-            Create my Moment account ❤️
-          </button>
-
-
-          <div
-            id="signupMessage"
-            class="message"
-            aria-live="polite"
-          ></div>
-
-        </form>
-
-
-      </section>
-
-
-      <!-- ====================================
-           BACK
-      ===================================== -->
-
-      <div class="bottom-text">
-
         <a
-          href="/"
-          class="back-link"
+          href="/login"
+          class="primary"
+          data-create-invite
         >
-          ← Back to Moment
+          Create an Invite ❤️
         </a>
+
 
       </div>
 
 
-    </div>
+    </section>
+
 
   </main>
 
 
+  <!-- ==========================================
+       FOOTER
+  ========================================== -->
+
+  <footer>
+
+
+    <span>
+      MOMENT ❤️
+    </span>
+
+
+    <span>
+      Made for the moments that matter.
+    </span>
+
+
+  </footer>
+
+
+  <!-- ==========================================
+       SUPABASE AUTH LOGIC
+  ========================================== -->
+
   <script>
 
     /* ==========================================
-       STORAGE KEYS
+       SUPABASE CONFIGURATION
     ========================================== */
 
-    const USER_KEY =
-      "moment_user";
-
-    const ACCOUNT_KEY =
-      "moment_account";
+    const SUPABASE_URL =
+      "https://bvzyntkrmqwdszoduyjv.supabase.co";
 
 
-    /* ==========================================
-       GET LOGGED IN USER
-    ========================================== */
-
-    function getLoggedInUser() {
-
-      try {
-
-        const stored =
-          localStorage.getItem(
-            USER_KEY
-          );
-
-        if (!stored) {
-          return null;
-        }
-
-        const user =
-          JSON.parse(stored);
-
-        if (
-          user &&
-          user.loggedIn === true
-        ) {
-          return user;
-        }
-
-        return null;
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Could not read logged-in user:",
-          error
-        );
-
-        return null;
-
-      }
-
-    }
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_A4gADA7QSShJeSFdbPcaOw_56Nh_XQW";
 
 
-    /* ==========================================
-       IMPORTANT:
-       IF USER IS ALREADY LOGGED IN,
-       DO NOT SHOW LOGIN PAGE.
-    ========================================== */
+    const {
+      createClient
+    } = window.supabase;
 
-    const existingUser =
-      getLoggedInUser();
 
-    if (existingUser) {
-
-      window.location.replace("/");
-
-    }
+    const supabaseClient =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
 
 
     /* ==========================================
        ELEMENTS
     ========================================== */
 
-    const loginTab =
+    const loggedOutNav =
       document.getElementById(
-        "loginTab"
+        "loggedOutNav"
       );
 
-    const signupTab =
+
+    const loggedInNav =
       document.getElementById(
-        "signupTab"
+        "loggedInNav"
       );
 
-    const loginForm =
+
+    const profileMenu =
       document.getElementById(
-        "loginForm"
+        "profileMenu"
       );
 
-    const signupForm =
+
+    const profileButton =
       document.getElementById(
-        "signupForm"
+        "profileButton"
       );
 
-    const loginMessage =
+
+    const profileButtonName =
       document.getElementById(
-        "loginMessage"
+        "profileButtonName"
       );
 
-    const signupMessage =
+
+    const profileName =
       document.getElementById(
-        "signupMessage"
+        "profileName"
+      );
+
+
+    const profileEmail =
+      document.getElementById(
+        "profileEmail"
+      );
+
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+
+    const createInviteLinks =
+      document.querySelectorAll(
+        "[data-create-invite]"
       );
 
 
     /* ==========================================
-       SWITCH TO LOGIN
+       SHOW LOGGED OUT NAVIGATION
     ========================================== */
 
-    loginTab.addEventListener(
-      "click",
-      () => {
+    function showLoggedOutNavigation() {
 
-        loginTab.classList.add(
-          "active"
-        );
-
-        signupTab.classList.remove(
-          "active"
-        );
-
-        loginForm.classList.remove(
-          "hidden"
-        );
-
-        signupForm.classList.add(
-          "hidden"
-        );
-
-        clearMessages();
-
-      }
-    );
+      loggedOutNav.classList.remove(
+        "hidden"
+      );
 
 
-    /* ==========================================
-       SWITCH TO SIGNUP
-    ========================================== */
-
-    signupTab.addEventListener(
-      "click",
-      () => {
-
-        signupTab.classList.add(
-          "active"
-        );
-
-        loginTab.classList.remove(
-          "active"
-        );
-
-        signupForm.classList.remove(
-          "hidden"
-        );
-
-        loginForm.classList.add(
-          "hidden"
-        );
-
-        clearMessages();
-
-      }
-    );
+      loggedInNav.classList.add(
+        "hidden"
+      );
 
 
-    /* ==========================================
-       CLEAR MESSAGES
-    ========================================== */
-
-    function clearMessages() {
-
-      loginMessage.textContent =
-        "";
-
-      signupMessage.textContent =
-        "";
-
-      loginMessage.className =
-        "message";
-
-      signupMessage.className =
-        "message";
+      closeProfileMenu();
 
     }
 
 
     /* ==========================================
-       SHOW MESSAGE
+       SHOW LOGGED IN NAVIGATION
     ========================================== */
 
-    function showMessage(
-      element,
-      message,
-      type
+    function showLoggedInNavigation(
+      user
     ) {
 
-      element.textContent =
-        message;
-
-      element.className =
-        `message ${type}`;
-
-    }
-
-
-    /* ==========================================
-       SAVE ACCOUNT
-    ========================================== */
-
-    function saveAccount(
-      name,
-      email,
-      password
-    ) {
-
-      const account = {
-
-        name:
-          name.trim(),
-
-        email:
-          email.trim().toLowerCase(),
-
-        password:
-          password
-
-      };
-
-      localStorage.setItem(
-        ACCOUNT_KEY,
-        JSON.stringify(account)
+      loggedOutNav.classList.add(
+        "hidden"
       );
 
-      return account;
+
+      loggedInNav.classList.remove(
+        "hidden"
+      );
+
+
+      /*
+       * Supabase stores the signup name
+       * inside user_metadata.
+       */
+
+      const metadata =
+        user.user_metadata || {};
+
+
+      const name =
+        metadata.name ||
+        metadata.full_name ||
+        user.email?.split("@")[0] ||
+        "Profile";
+
+
+      const email =
+        user.email ||
+        "";
+
+
+      profileButtonName.textContent =
+        name;
+
+
+      profileName.textContent =
+        `Welcome, ${name}`;
+
+
+      profileEmail.textContent =
+        email;
 
     }
 
 
     /* ==========================================
-       GET ACCOUNT
+       UPDATE NAVIGATION FROM SUPABASE SESSION
     ========================================== */
 
-    function getAccount() {
+    async function updateNavigation() {
 
       try {
 
-        const stored =
-          localStorage.getItem(
-            ACCOUNT_KEY
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+          console.error(
+            "Supabase session error:",
+            error
           );
 
-        if (!stored) {
-          return null;
+
+          showLoggedOutNavigation();
+
+          return;
+
         }
 
-        return JSON.parse(
-          stored
-        );
+
+        const session =
+          data?.session;
+
+
+        if (
+          session &&
+          session.user
+        ) {
+
+          showLoggedInNavigation(
+            session.user
+          );
+
+        }
+
+        else {
+
+          showLoggedOutNavigation();
+
+        }
 
       }
 
       catch (error) {
 
         console.error(
-          "Could not read account:",
+          "Could not check Supabase session:",
           error
         );
 
-        return null;
+
+        showLoggedOutNavigation();
 
       }
 
@@ -1325,149 +2743,183 @@
 
 
     /* ==========================================
-       SET LOGGED IN USER
+       PROFILE MENU TOGGLE
     ========================================== */
 
-    function setLoggedInUser(
-      account
-    ) {
+    profileButton.addEventListener(
+      "click",
+      (event) => {
 
-      const user = {
+        event.stopPropagation();
 
-        name:
-          account.name,
 
-        email:
-          account.email,
+        const isOpen =
+          profileMenu.classList.contains(
+            "open"
+          );
 
-        loggedIn:
-          true
 
-      };
+        if (isOpen) {
 
-      localStorage.setItem(
-        USER_KEY,
-        JSON.stringify(user)
+          closeProfileMenu();
+
+        }
+
+        else {
+
+          openProfileMenu();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       OPEN PROFILE MENU
+    ========================================== */
+
+    function openProfileMenu() {
+
+      profileMenu.classList.add(
+        "open"
+      );
+
+
+      profileButton.setAttribute(
+        "aria-expanded",
+        "true"
       );
 
     }
 
 
     /* ==========================================
-       LOGIN
+       CLOSE PROFILE MENU
     ========================================== */
 
-    loginForm.addEventListener(
-      "submit",
+    function closeProfileMenu() {
+
+      profileMenu.classList.remove(
+        "open"
+      );
+
+
+      profileButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+    }
+
+
+    /* ==========================================
+       CLOSE PROFILE MENU OUTSIDE CLICK
+    ========================================== */
+
+    document.addEventListener(
+      "click",
       (event) => {
 
-        event.preventDefault();
-
-
-        const email =
-          document
-            .getElementById(
-              "loginEmail"
-            )
-            .value
-            .trim()
-            .toLowerCase();
-
-
-        const password =
-          document
-            .getElementById(
-              "loginPassword"
-            )
-            .value;
-
-
-        const account =
-          getAccount();
-
-
-        /* --------------------------------------
-           NO ACCOUNT
-        -------------------------------------- */
-
-        if (!account) {
-
-          showMessage(
-            loginMessage,
-            "No account found. Create an account first. ❤️",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        /* --------------------------------------
-           CHECK EMAIL
-        -------------------------------------- */
-
         if (
-          email !==
-          account.email
+          !profileMenu.contains(
+            event.target
+          )
         ) {
 
-          showMessage(
-            loginMessage,
-            "The email or password is incorrect.",
-            "error"
-          );
-
-          return;
+          closeProfileMenu();
 
         }
 
-
-        /* --------------------------------------
-           CHECK PASSWORD
-        -------------------------------------- */
-
-        if (
-          password !==
-          account.password
-        ) {
-
-          showMessage(
-            loginMessage,
-            "The email or password is incorrect.",
-            "error"
-          );
-
-          return;
-
-        }
+      }
+    );
 
 
-        /* --------------------------------------
-           LOGIN SUCCESS
-        -------------------------------------- */
+    /* ==========================================
+       PROTECTED CREATE INVITE FLOW
+    ========================================== */
 
-        setLoggedInUser(
-          account
-        );
+    createInviteLinks.forEach(
+      (link) => {
 
+        link.addEventListener(
+          "click",
+          async (event) => {
 
-        showMessage(
-          loginMessage,
-          "Login successful! ❤️",
-          "success"
-        );
+            event.preventDefault();
 
 
-        setTimeout(
-          () => {
+            try {
 
-            window.location.replace(
-              "/"
-            );
+              const {
+                data,
+                error
+              } =
+                await supabaseClient.auth.getSession();
 
-          },
-          500
+
+              if (error) {
+
+                console.error(
+                  "Could not verify login:",
+                  error
+                );
+
+
+                window.location.href =
+                  "/login";
+
+
+                return;
+
+              }
+
+
+              const session =
+                data?.session;
+
+
+              /* ==============================
+                 USER IS LOGGED IN
+              ============================== */
+
+              if (
+                session &&
+                session.user
+              ) {
+
+                window.location.href =
+                  "/create";
+
+
+                return;
+
+              }
+
+
+              /* ==============================
+                 USER IS NOT LOGGED IN
+              ============================== */
+
+              window.location.href =
+                "/login";
+
+            }
+
+            catch (error) {
+
+              console.error(
+                "Create invite auth check failed:",
+                error
+              );
+
+
+              window.location.href =
+                "/login";
+
+            }
+
+          }
         );
 
       }
@@ -1475,203 +2927,118 @@
 
 
     /* ==========================================
-       CREATE ACCOUNT
+       LOGOUT
     ========================================== */
 
-    signupForm.addEventListener(
-      "submit",
-      (event) => {
+    logoutButton.addEventListener(
+      "click",
+      async () => {
 
-        event.preventDefault();
+        try {
 
-
-        const name =
-          document
-            .getElementById(
-              "signupName"
-            )
-            .value
-            .trim();
+          logoutButton.disabled =
+            true;
 
 
-        const email =
-          document
-            .getElementById(
-              "signupEmail"
-            )
-            .value
-            .trim()
-            .toLowerCase();
+          const {
+            error
+          } =
+            await supabaseClient.auth.signOut();
 
 
-        const password =
-          document
-            .getElementById(
-              "signupPassword"
-            )
-            .value;
+          if (error) {
 
-
-        const confirmPassword =
-          document
-            .getElementById(
-              "signupConfirmPassword"
-            )
-            .value;
-
-
-        /* --------------------------------------
-           VALIDATE NAME
-        -------------------------------------- */
-
-        if (
-          name.length < 2
-        ) {
-
-          showMessage(
-            signupMessage,
-            "Please enter your name.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        /* --------------------------------------
-           VALIDATE EMAIL
-        -------------------------------------- */
-
-        const emailPattern =
-          /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-        if (
-          !emailPattern.test(
-            email
-          )
-        ) {
-
-          showMessage(
-            signupMessage,
-            "Please enter a valid email address.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        /* --------------------------------------
-           VALIDATE PASSWORD
-        -------------------------------------- */
-
-        if (
-          password.length < 6
-        ) {
-
-          showMessage(
-            signupMessage,
-            "Password must be at least 6 characters.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        /* --------------------------------------
-           CONFIRM PASSWORD
-        -------------------------------------- */
-
-        if (
-          password !==
-          confirmPassword
-        ) {
-
-          showMessage(
-            signupMessage,
-            "Passwords do not match.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        /* --------------------------------------
-           CHECK EXISTING ACCOUNT
-        -------------------------------------- */
-
-        const existingAccount =
-          getAccount();
-
-
-        if (
-          existingAccount &&
-          existingAccount.email ===
-            email
-        ) {
-
-          showMessage(
-            signupMessage,
-            "An account with this email already exists.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        /* --------------------------------------
-           SAVE ACCOUNT
-        -------------------------------------- */
-
-        const account =
-          saveAccount(
-            name,
-            email,
-            password
-          );
-
-
-        /* --------------------------------------
-           AUTOMATIC LOGIN
-        -------------------------------------- */
-
-        setLoggedInUser(
-          account
-        );
-
-
-        showMessage(
-          signupMessage,
-          "Account created! Welcome to Moment ❤️",
-          "success"
-        );
-
-
-        setTimeout(
-          () => {
-
-            window.location.replace(
-              "/"
+            console.error(
+              "Logout failed:",
+              error
             );
 
-          },
-          700
-        );
+
+            logoutButton.disabled =
+              false;
+
+
+            return;
+
+          }
+
+
+          closeProfileMenu();
+
+
+          /*
+           * Supabase's auth state listener
+           * will update the navigation.
+           */
+
+          updateNavigation();
+
+        }
+
+        catch (error) {
+
+          console.error(
+            "Unexpected logout error:",
+            error
+          );
+
+
+          logoutButton.disabled =
+            false;
+
+        }
 
       }
     );
 
+
+    /* ==========================================
+       SUPABASE AUTH STATE LISTENER
+    ========================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+      (
+        event,
+        session
+      ) => {
+
+        console.log(
+          "Supabase auth event:",
+          event
+        );
+
+
+        if (
+          session &&
+          session.user
+        ) {
+
+          showLoggedInNavigation(
+            session.user
+          );
+
+        }
+
+        else {
+
+          showLoggedOutNavigation();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       INITIALIZE
+    ========================================== */
+
+    updateNavigation();
+
   </script>
+
 
 </body>
 
 </html>
+```
