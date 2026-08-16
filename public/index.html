@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 
@@ -8,11 +9,6 @@
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1"
-  >
-
-  <meta
-    name="description"
-    content="Moment — Make a beautiful moment for someone special."
   >
 
   <title>Moment ❤️ — Make it a moment</title>
@@ -28,18 +24,13 @@
       box-sizing: border-box;
     }
 
-
     html {
       scroll-behavior: smooth;
     }
 
-
     body {
-
       margin: 0;
-
       min-height: 100vh;
-
       overflow-x: hidden;
 
       font-family:
@@ -50,7 +41,6 @@
       color: #fff;
 
       background:
-
         radial-gradient(
           circle at 15% 10%,
           rgba(255,255,255,.12),
@@ -78,7 +68,6 @@
     ========================================== */
 
     .glow {
-
       position: fixed;
 
       width: 360px;
@@ -100,7 +89,6 @@
 
 
     .glow.one {
-
       background: #ff719b;
 
       top: -160px;
@@ -109,7 +97,6 @@
 
 
     .glow.two {
-
       background: #ffb3ca;
 
       right: -150px;
@@ -122,14 +109,12 @@
     @keyframes glowMove {
 
       from {
-
         transform:
           translate(0,0)
           scale(1);
       }
 
       to {
-
         transform:
           translate(35px,-20px)
           scale(1.15);
@@ -143,7 +128,6 @@
     ========================================== */
 
     .hearts {
-
       position: fixed;
 
       inset: 0;
@@ -157,7 +141,6 @@
 
 
     .heart {
-
       position: absolute;
 
       bottom: -50px;
@@ -170,59 +153,40 @@
 
 
     .heart:nth-child(1) {
-
       left: 7%;
-
       font-size: 18px;
-
       animation-duration: 11s;
     }
 
 
     .heart:nth-child(2) {
-
       left: 25%;
-
       font-size: 14px;
-
       animation-duration: 14s;
-
       animation-delay: 2s;
     }
 
 
     .heart:nth-child(3) {
-
       left: 50%;
-
       font-size: 22px;
-
       animation-duration: 10s;
-
       animation-delay: 4s;
     }
 
 
     .heart:nth-child(4) {
-
       left: 74%;
-
       font-size: 16px;
-
       animation-duration: 13s;
-
       animation-delay: 1s;
     }
 
 
     .heart:nth-child(5) {
-
       left: 91%;
-
       font-size: 20px;
-
       animation-duration: 12s;
-
       animation-delay: 5s;
     }
 
@@ -230,7 +194,6 @@
     @keyframes floatUp {
 
       0% {
-
         transform:
           translateY(0)
           rotate(0deg);
@@ -238,21 +201,15 @@
         opacity: 0;
       }
 
-
       15% {
-
         opacity: .38;
       }
 
-
       80% {
-
         opacity: .2;
       }
 
-
       100% {
-
         transform:
           translateY(-115vh)
           rotate(35deg);
@@ -268,10 +225,9 @@
     ========================================== */
 
     .nav {
-
       position: relative;
 
-      z-index: 10;
+      z-index: 20;
 
       width:
         min(
@@ -294,7 +250,6 @@
 
 
     .logo {
-
       font-family:
         Georgia,
         "Times New Roman",
@@ -307,13 +262,11 @@
 
 
     .logo-heart {
-
       font-size: 20px;
     }
 
 
     .nav-actions {
-
       display: flex;
 
       align-items: center;
@@ -323,15 +276,13 @@
 
 
     /* ==========================================
-       LOGIN / USER BUTTON
+       LOGIN BUTTON
     ========================================== */
 
     .login-button {
-
       display: inline-flex;
 
       align-items: center;
-
       justify-content: center;
 
       padding:
@@ -357,7 +308,6 @@
 
 
     .login-button:hover {
-
       color: #fff;
 
       transform:
@@ -366,85 +316,13 @@
 
 
     /* ==========================================
-       LOGGED IN USER
-    ========================================== */
-
-    .user-name {
-
-      display: inline-flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding:
-        10px 12px;
-
-      color:
-        rgba(255,255,255,.85);
-
-      font-size: 13px;
-
-      white-space: nowrap;
-    }
-
-
-    .logout-button {
-
-      display: inline-flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding:
-        9px 13px;
-
-      border-radius: 999px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.16);
-
-      background:
-        rgba(255,255,255,.05);
-
-      color:
-        rgba(255,255,255,.68);
-
-      font-size: 12px;
-
-      cursor: pointer;
-
-      transition:
-        background .2s ease,
-        color .2s ease,
-        transform .2s ease;
-    }
-
-
-    .logout-button:hover {
-
-      background:
-        rgba(255,255,255,.12);
-
-      color: #fff;
-
-      transform:
-        translateY(-1px);
-    }
-
-
-    /* ==========================================
-       CREATE NAVIGATION
+       CREATE NAV BUTTON
     ========================================== */
 
     .create-nav {
-
       display: inline-flex;
 
       align-items: center;
-
       justify-content: center;
 
       padding:
@@ -477,7 +355,6 @@
 
 
     .create-nav:hover {
-
       transform:
         translateY(-2px);
 
@@ -487,11 +364,295 @@
 
 
     /* ==========================================
+       PROFILE MENU
+    ========================================== */
+
+    .profile-menu {
+      position: relative;
+    }
+
+
+    .profile-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      min-height: 40px;
+
+      padding:
+        8px 14px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.22);
+
+      background:
+        rgba(255,255,255,.09);
+
+      color: #fff;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      backdrop-filter:
+        blur(12px);
+
+      transition:
+        background .2s ease,
+        transform .2s ease;
+    }
+
+
+    .profile-button:hover {
+      background:
+        rgba(255,255,255,.16);
+
+      transform:
+        translateY(-1px);
+    }
+
+
+    .profile-icon {
+      width: 27px;
+      height: 27px;
+
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.18);
+
+      font-size: 14px;
+    }
+
+
+    .profile-arrow {
+      font-size: 10px;
+
+      opacity: .65;
+
+      transition:
+        transform .2s ease;
+    }
+
+
+    .profile-menu.open .profile-arrow {
+      transform:
+        rotate(180deg);
+    }
+
+
+    /* ==========================================
+       PROFILE DROPDOWN
+    ========================================== */
+
+    .profile-dropdown {
+      position: absolute;
+
+      top: calc(100% + 10px);
+
+      right: 0;
+
+      width: 220px;
+
+      padding: 8px;
+
+      border-radius: 18px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(65,18,51,.96),
+          rgba(38,10,30,.96)
+        );
+
+      box-shadow:
+        0 20px 55px
+        rgba(0,0,0,.35);
+
+      backdrop-filter:
+        blur(22px);
+
+      -webkit-backdrop-filter:
+        blur(22px);
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transform:
+        translateY(-8px)
+        scale(.97);
+
+      transform-origin:
+        top right;
+
+      transition:
+        opacity .18s ease,
+        visibility .18s ease,
+        transform .18s ease;
+    }
+
+
+    .profile-menu.open .profile-dropdown {
+      opacity: 1;
+
+      visibility: visible;
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+
+    .profile-header {
+      padding:
+        12px 12px
+        10px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.10);
+
+      margin-bottom: 5px;
+    }
+
+
+    .profile-name {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 17px;
+
+      margin-bottom: 3px;
+    }
+
+
+    .profile-email {
+      font-size: 11px;
+
+      color:
+        rgba(255,255,255,.48);
+
+      overflow:
+        hidden;
+
+      text-overflow:
+        ellipsis;
+
+      white-space:
+        nowrap;
+    }
+
+
+    .profile-link {
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      width: 100%;
+
+      padding:
+        11px 12px;
+
+      border-radius: 11px;
+
+      color:
+        rgba(255,255,255,.82);
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      background:
+        transparent;
+
+      border: 0;
+
+      cursor: pointer;
+
+      text-align: left;
+
+      transition:
+        background .18s ease,
+        color .18s ease;
+    }
+
+
+    .profile-link:hover {
+      background:
+        rgba(255,255,255,.09);
+
+      color: #fff;
+    }
+
+
+    .profile-link-icon {
+      width: 22px;
+
+      text-align: center;
+
+      font-size: 15px;
+    }
+
+
+    .profile-divider {
+      height: 1px;
+
+      margin:
+        6px 4px;
+
+      background:
+        rgba(255,255,255,.10);
+    }
+
+
+    .logout-link {
+      color:
+        rgba(255,205,215,.82);
+    }
+
+
+    .logout-link:hover {
+      background:
+        rgba(255,100,130,.10);
+
+      color:
+        #ffd8e0;
+    }
+
+
+    /* ==========================================
        CONTAINER
     ========================================== */
 
     .container {
-
       position: relative;
 
       z-index: 2;
@@ -512,7 +673,6 @@
     ========================================== */
 
     .hero {
-
       min-height:
         calc(100vh - 76px);
 
@@ -533,14 +693,12 @@
 
 
     .hero-content {
-
       animation:
         heroIn .85s ease-out;
     }
 
 
     .eyebrow {
-
       display: inline-flex;
 
       align-items: center;
@@ -571,7 +729,6 @@
 
 
     .hero h1 {
-
       margin:
         22px 0
         18px;
@@ -597,7 +754,6 @@
 
 
     .hero h1 span {
-
       display: block;
 
       background:
@@ -608,7 +764,6 @@
         );
 
       -webkit-background-clip: text;
-
       background-clip: text;
 
       color: transparent;
@@ -616,7 +771,6 @@
 
 
     .hero p {
-
       max-width: 570px;
 
       margin: 0;
@@ -631,7 +785,6 @@
 
 
     .hero-actions {
-
       display: flex;
 
       gap: 12px;
@@ -647,11 +800,9 @@
     ========================================== */
 
     .primary {
-
       display: inline-flex;
 
       align-items: center;
-
       justify-content: center;
 
       min-height: 50px;
@@ -682,7 +833,6 @@
 
 
     .primary:hover {
-
       transform:
         translateY(-3px);
 
@@ -697,11 +847,9 @@
     ========================================== */
 
     .secondary {
-
       display: inline-flex;
 
       align-items: center;
-
       justify-content: center;
 
       min-height: 50px;
@@ -732,7 +880,6 @@
 
 
     .secondary:hover {
-
       background:
         rgba(255,255,255,.13);
     }
@@ -743,7 +890,6 @@
     ========================================== */
 
     .preview-wrap {
-
       display: flex;
 
       justify-content: center;
@@ -754,7 +900,6 @@
 
 
     .preview {
-
       position: relative;
 
       width:
@@ -807,7 +952,6 @@
 
 
     .preview::before {
-
       content: "";
 
       position: absolute;
@@ -825,7 +969,6 @@
 
 
     .preview:hover {
-
       transform:
         rotate(0deg)
         translateY(-6px);
@@ -833,7 +976,6 @@
 
 
     .preview-label {
-
       font-size: 10px;
 
       letter-spacing: 3px;
@@ -845,7 +987,6 @@
 
 
     .preview-heart {
-
       margin:
         24px 0;
 
@@ -860,14 +1001,11 @@
 
       0%,
       100% {
-
         transform:
           scale(1);
       }
 
-
       50% {
-
         transform:
           scale(1.08);
       }
@@ -876,7 +1014,6 @@
 
 
     .preview h2 {
-
       margin: 0;
 
       font-family:
@@ -891,7 +1028,6 @@
 
 
     .preview-line {
-
       width: 55px;
 
       height: 1px;
@@ -905,7 +1041,6 @@
 
 
     .preview-message {
-
       font-family:
         Georgia,
         "Times New Roman",
@@ -920,7 +1055,6 @@
 
 
     .preview-from {
-
       margin-top: 24px;
 
       font-size: 12px;
@@ -932,16 +1066,13 @@
     @keyframes heroIn {
 
       from {
-
         opacity: 0;
 
         transform:
           translateY(25px);
       }
 
-
       to {
-
         opacity: 1;
 
         transform:
@@ -954,7 +1085,6 @@
     @keyframes previewIn {
 
       from {
-
         opacity: 0;
 
         transform:
@@ -962,9 +1092,7 @@
           translateY(30px);
       }
 
-
       to {
-
         opacity: 1;
 
         transform:
@@ -980,14 +1108,12 @@
     ========================================== */
 
     .section {
-
       padding:
         100px 0;
     }
 
 
     .section-header {
-
       max-width: 650px;
 
       margin-bottom: 45px;
@@ -995,7 +1121,6 @@
 
 
     .section-label {
-
       font-size: 10px;
 
       letter-spacing: 3px;
@@ -1008,7 +1133,6 @@
 
 
     .section h2 {
-
       margin:
         12px 0;
 
@@ -1031,7 +1155,6 @@
 
 
     .section-header p {
-
       margin: 0;
 
       color:
@@ -1046,7 +1169,6 @@
     ========================================== */
 
     .steps {
-
       display: grid;
 
       grid-template-columns:
@@ -1057,7 +1179,6 @@
 
 
     .step {
-
       padding: 30px;
 
       min-height: 225px;
@@ -1081,7 +1202,6 @@
 
 
     .step:hover {
-
       transform:
         translateY(-5px);
 
@@ -1091,7 +1211,6 @@
 
 
     .step-number {
-
       font-family:
         Georgia,
         "Times New Roman",
@@ -1104,7 +1223,6 @@
 
 
     .step-icon {
-
       margin:
         25px 0 15px;
 
@@ -1113,7 +1231,6 @@
 
 
     .step h3 {
-
       margin:
         0 0 10px;
 
@@ -1129,7 +1246,6 @@
 
 
     .step p {
-
       margin: 0;
 
       color:
@@ -1146,7 +1262,6 @@
     ========================================== */
 
     .experience {
-
       display: grid;
 
       grid-template-columns:
@@ -1160,7 +1275,6 @@
 
 
     .experience-copy p {
-
       color:
         rgba(255,255,255,.64);
 
@@ -1171,7 +1285,6 @@
 
 
     .feature-list {
-
       display: grid;
 
       gap: 13px;
@@ -1181,7 +1294,6 @@
 
 
     .feature {
-
       display: flex;
 
       align-items: center;
@@ -1196,12 +1308,10 @@
 
 
     .feature-dot {
-
       flex:
         0 0 auto;
 
       width: 9px;
-
       height: 9px;
 
       border-radius: 50%;
@@ -1220,7 +1330,6 @@
     ========================================== */
 
     .stories {
-
       display: grid;
 
       grid-template-columns:
@@ -1231,7 +1340,6 @@
 
 
     .story {
-
       min-height: 245px;
 
       padding: 28px;
@@ -1260,20 +1368,17 @@
 
 
     .story:hover {
-
       transform:
         translateY(-5px);
     }
 
 
     .story-icon {
-
       font-size: 27px;
     }
 
 
     .story-text {
-
       margin:
         22px 0;
 
@@ -1292,7 +1397,6 @@
 
 
     .story-label {
-
       font-size: 11px;
 
       color:
@@ -1307,7 +1411,6 @@
     ========================================== */
 
     .cta {
-
       margin:
         50px 0
         90px;
@@ -1336,7 +1439,6 @@
 
 
     .cta-heart {
-
       font-size: 38px;
 
       animation:
@@ -1345,7 +1447,6 @@
 
 
     .cta h2 {
-
       margin:
         16px 0 12px;
 
@@ -1366,7 +1467,6 @@
 
 
     .cta p {
-
       margin:
         0 auto
         25px;
@@ -1385,7 +1485,6 @@
     ========================================== */
 
     footer {
-
       position: relative;
 
       z-index: 2;
@@ -1416,8 +1515,16 @@
 
 
     footer span:first-child {
-
       letter-spacing: 2px;
+    }
+
+
+    /* ==========================================
+       HIDDEN
+    ========================================== */
+
+    .hidden {
+      display: none !important;
     }
 
 
@@ -1428,13 +1535,11 @@
     @media (max-width: 800px) {
 
       .nav {
-
         padding-top: 16px;
       }
 
 
       .hero {
-
         grid-template-columns: 1fr;
 
         min-height: auto;
@@ -1446,37 +1551,31 @@
 
 
       .hero-content {
-
         text-align: center;
       }
 
 
       .hero p {
-
         margin: auto;
       }
 
 
       .hero-actions {
-
         justify-content: center;
       }
 
 
       .preview {
-
         min-height: 420px;
       }
 
 
       .steps {
-
         grid-template-columns: 1fr;
       }
 
 
       .experience {
-
         grid-template-columns: 1fr;
 
         gap: 35px;
@@ -1484,7 +1583,6 @@
 
 
       .stories {
-
         grid-template-columns: 1fr;
       }
 
@@ -1496,32 +1594,27 @@
       .nav,
       .container,
       footer {
-
         width:
           calc(100% - 28px);
       }
 
 
       .logo {
-
         font-size: 23px;
       }
 
 
       .logo-heart {
-
         font-size: 18px;
       }
 
 
       .nav-actions {
-
         gap: 3px;
       }
 
 
       .login-button {
-
         padding:
           9px 7px;
 
@@ -1529,26 +1622,7 @@
       }
 
 
-      .user-name {
-
-        padding:
-          9px 6px;
-
-        font-size: 11px;
-      }
-
-
-      .logout-button {
-
-        padding:
-          8px 9px;
-
-        font-size: 11px;
-      }
-
-
       .create-nav {
-
         padding:
           9px 12px;
 
@@ -1556,14 +1630,32 @@
       }
 
 
-      .hero {
+      .profile-button {
+        padding:
+          7px 10px;
 
+        font-size: 12px;
+      }
+
+
+      .profile-dropdown {
+        right: -4px;
+
+        width: 205px;
+      }
+
+
+      .profile-name {
+        font-size: 16px;
+      }
+
+
+      .hero {
         padding-bottom: 55px;
       }
 
 
       .hero h1 {
-
         font-size:
           clamp(
             50px,
@@ -1576,13 +1668,11 @@
 
 
       .hero p {
-
         font-size: 16px;
       }
 
 
       .hero-actions {
-
         flex-direction: column;
 
         width: 100%;
@@ -1591,32 +1681,27 @@
 
       .primary,
       .secondary {
-
         width: 100%;
       }
 
 
       .preview {
-
         min-height: 405px;
       }
 
 
       .section {
-
         padding:
           75px 0;
       }
 
 
       .section h2 {
-
         letter-spacing: -1.5px;
       }
 
 
       .step {
-
         min-height: auto;
 
         padding: 25px;
@@ -1624,13 +1709,11 @@
 
 
       .story {
-
         min-height: 215px;
       }
 
 
       .cta {
-
         padding:
           50px 22px;
 
@@ -1639,7 +1722,6 @@
 
 
       footer {
-
         flex-direction: column;
 
         text-align: center;
@@ -1705,15 +1787,16 @@
     </div>
 
 
-    <div class="nav-actions">
+    <div
+      id="loggedOutNav"
+      class="nav-actions"
+    >
 
-
-      <!-- ======================================
-           LOGGED OUT LOGIN
-      ======================================= -->
+      <!-- ====================================
+           LOGGED OUT NAV
+      ==================================== -->
 
       <a
-        id="loginNav"
         href="/login"
         class="login-button"
       >
@@ -1721,39 +1804,141 @@
       </a>
 
 
-      <!-- ======================================
-           LOGGED IN USER
-      ======================================= -->
-
-      <span
-        id="userNameNav"
-        class="user-name"
-        style="display:none;"
-      ></span>
-
-
-      <button
-        id="logoutNav"
-        class="logout-button"
-        type="button"
-        style="display:none;"
-      >
-        Log out
-      </button>
-
-
-      <!-- ======================================
-           CREATE INVITE
-      ======================================= -->
-
       <a
-        id="createNav"
         href="/login"
         class="create-nav"
+        data-create-invite
       >
         Create an Invite ❤️
       </a>
 
+    </div>
+
+
+    <div
+      id="loggedInNav"
+      class="nav-actions hidden"
+    >
+
+      <!-- ====================================
+           LOGGED IN PROFILE MENU
+      ==================================== -->
+
+      <div
+        id="profileMenu"
+        class="profile-menu"
+      >
+
+        <button
+          id="profileButton"
+          class="profile-button"
+          type="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+
+          <span
+            id="profileIcon"
+            class="profile-icon"
+          >
+            👤
+          </span>
+
+          <span id="profileButtonName">
+            Profile
+          </span>
+
+          <span class="profile-arrow">
+            ▼
+          </span>
+
+        </button>
+
+
+        <div
+          id="profileDropdown"
+          class="profile-dropdown"
+        >
+
+          <div class="profile-header">
+
+            <div
+              id="profileName"
+              class="profile-name"
+            >
+              Welcome back
+            </div>
+
+            <div
+              id="profileEmail"
+              class="profile-email"
+            >
+              user@example.com
+            </div>
+
+          </div>
+
+
+          <!-- MY MOMENTS -->
+
+          <a
+            href="/moments"
+            class="profile-link"
+          >
+
+            <span class="profile-link-icon">
+              💌
+            </span>
+
+            <span>
+              My Moments
+            </span>
+
+          </a>
+
+
+          <!-- EDIT PROFILE -->
+
+          <a
+            href="/profile"
+            class="profile-link"
+          >
+
+            <span class="profile-link-icon">
+              ✏️
+            </span>
+
+            <span>
+              Edit Profile
+            </span>
+
+          </a>
+
+
+          <div class="profile-divider"></div>
+
+
+          <!-- LOGOUT -->
+
+          <button
+            id="logoutButton"
+            class="profile-link logout-link"
+            type="button"
+          >
+
+            <span class="profile-link-icon">
+              ↪
+            </span>
+
+            <span>
+              Logout
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -1774,9 +1959,7 @@
 
 
         <div class="eyebrow">
-
           Made for meaningful moments ❤️
-
         </div>
 
 
@@ -1804,17 +1987,10 @@
         <div class="hero-actions">
 
 
-          <!--
-            IMPORTANT:
-            This link is controlled by JavaScript.
-            Logged in  -> /create
-            Logged out -> /login
-          -->
-
           <a
-            id="heroCreateButton"
             href="/login"
             class="primary"
+            data-create-invite
           >
             Create an Invite ❤️
           </a>
@@ -1836,7 +2012,7 @@
 
       <!-- ========================================
            HERO PREVIEW
-      ========================================= -->
+      ======================================== -->
 
       <div class="preview-wrap">
 
@@ -1870,9 +2046,7 @@
 
 
           <div class="preview-from">
-
             From someone special ❤️
-
           </div>
 
 
@@ -1898,16 +2072,12 @@
 
 
         <div class="section-label">
-
           Simple by design
-
         </div>
 
 
         <h2>
-
           Three little steps.
-
         </h2>
 
 
@@ -2036,16 +2206,12 @@
 
 
           <div class="section-label">
-
             More than a link
-
           </div>
 
 
           <h2>
-
             A little experience.
-
           </h2>
 
 
@@ -2111,23 +2277,17 @@
 
 
             <div class="preview-label">
-
               Your moment
-
             </div>
 
 
             <div class="preview-heart">
-
               💗
-
             </div>
 
 
             <h2>
-
               It's a date!
-
             </h2>
 
 
@@ -2135,16 +2295,12 @@
 
 
             <div class="preview-message">
-
               Friday, 14 August 2026
-
             </div>
 
 
             <div class="preview-from">
-
               See you then. 🥰
-
             </div>
 
 
@@ -2171,16 +2327,12 @@
 
 
         <div class="section-label">
-
           The feeling we're creating
-
         </div>
 
 
         <h2>
-
           Made for moments.
-
         </h2>
 
 
@@ -2215,9 +2367,7 @@
 
 
           <div class="story-label">
-
             FOR THE FIRST DATE
-
           </div>
 
 
@@ -2241,9 +2391,7 @@
 
 
           <div class="story-label">
-
             FOR SOMEONE SPECIAL
-
           </div>
 
 
@@ -2267,9 +2415,7 @@
 
 
           <div class="story-label">
-
             FOR THE MOMENT AFTER
-
           </div>
 
 
@@ -2293,16 +2439,12 @@
 
 
         <div class="cta-heart">
-
           ❤️
-
         </div>
 
 
         <h2>
-
           Ready to make a moment?
-
         </h2>
 
 
@@ -2315,9 +2457,9 @@
 
 
         <a
-          id="finalCreateButton"
           href="/login"
           class="primary"
+          data-create-invite
         >
           Create an Invite ❤️
         </a>
@@ -2340,16 +2482,12 @@
 
 
     <span>
-
       MOMENT ❤️
-
     </span>
 
 
     <span>
-
       Made for the moments that matter.
-
     </span>
 
 
@@ -2357,7 +2495,7 @@
 
 
   <!-- ==========================================
-       LOGIN / AUTHENTICATION LOGIC
+       LOGIN / PROFILE LOGIC
   ========================================== -->
 
   <script>
@@ -2374,44 +2512,62 @@
        ELEMENTS
     ========================================== */
 
-    const loginNav =
+    const loggedOutNav =
       document.getElementById(
-        "loginNav"
+        "loggedOutNav"
       );
 
 
-    const userNameNav =
+    const loggedInNav =
       document.getElementById(
-        "userNameNav"
+        "loggedInNav"
       );
 
 
-    const logoutNav =
+    const profileMenu =
       document.getElementById(
-        "logoutNav"
+        "profileMenu"
       );
 
 
-    const createNav =
+    const profileButton =
       document.getElementById(
-        "createNav"
+        "profileButton"
       );
 
 
-    const heroCreateButton =
+    const profileButtonName =
       document.getElementById(
-        "heroCreateButton"
+        "profileButtonName"
       );
 
 
-    const finalCreateButton =
+    const profileName =
       document.getElementById(
-        "finalCreateButton"
+        "profileName"
+      );
+
+
+    const profileEmail =
+      document.getElementById(
+        "profileEmail"
+      );
+
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+
+    const createInviteLinks =
+      document.querySelectorAll(
+        "[data-create-invite]"
       );
 
 
     /* ==========================================
-       GET LOGGED-IN USER
+       GET LOGGED IN USER
     ========================================== */
 
     function getLoggedInUser() {
@@ -2439,7 +2595,7 @@
 
         if (
           !user ||
-          !user.loggedIn
+          user.loggedIn !== true
         ) {
 
           return null;
@@ -2454,7 +2610,7 @@
       catch (error) {
 
         console.error(
-          "Could not read login state:",
+          "Could not read logged-in user:",
           error
         );
 
@@ -2466,107 +2622,74 @@
 
 
     /* ==========================================
-       PROTECTED CREATE INVITE URL
+       CHECK LOGIN
     ========================================== */
 
-    function getCreateUrl() {
+    function isLoggedIn() {
 
-      const user =
-        getLoggedInUser();
-
-
-      if (
-        user &&
-        user.loggedIn
-      ) {
-
-        return "/create";
-
-      }
-
-
-      return "/login";
+      return Boolean(
+        getLoggedInUser()
+      );
 
     }
 
 
     /* ==========================================
-       UPDATE CREATE LINKS
-    ========================================== */
-
-    function updateCreateLinks() {
-
-      const createUrl =
-        getCreateUrl();
-
-
-      createNav.href =
-        createUrl;
-
-
-      heroCreateButton.href =
-        createUrl;
-
-
-      finalCreateButton.href =
-        createUrl;
-
-    }
-
-
-    /* ==========================================
-       SHOW LOGGED-OUT NAVIGATION
+       SHOW LOGGED OUT NAV
     ========================================== */
 
     function showLoggedOutNavigation() {
 
-      loginNav.style.display =
-        "inline-flex";
+      loggedOutNav.classList.remove(
+        "hidden"
+      );
 
+      loggedInNav.classList.add(
+        "hidden"
+      );
 
-      userNameNav.style.display =
-        "none";
-
-
-      logoutNav.style.display =
-        "none";
-
-
-      loginNav.textContent =
-        "Login";
+      closeProfileMenu();
 
     }
 
 
     /* ==========================================
-       SHOW LOGGED-IN NAVIGATION
+       SHOW LOGGED IN NAV
     ========================================== */
 
     function showLoggedInNavigation(
       user
     ) {
 
-      loginNav.style.display =
-        "none";
+      loggedOutNav.classList.add(
+        "hidden"
+      );
 
-
-      userNameNav.style.display =
-        "inline-flex";
-
-
-      logoutNav.style.display =
-        "inline-flex";
+      loggedInNav.classList.remove(
+        "hidden"
+      );
 
 
       const name =
-        user.name &&
-        user.name.trim()
-          ? user.name.trim()
-          : "there";
+        user.name ||
+        "Profile";
 
 
-      userNameNav.textContent =
-        `Welcome, ${name} ❤️`;
+      const email =
+        user.email ||
+        "";
+
+
+      profileButtonName.textContent =
+        name;
+
+
+      profileName.textContent =
+        `Welcome, ${name}`;
+
+
+      profileEmail.textContent =
+        email;
 
     }
 
@@ -2581,10 +2704,7 @@
         getLoggedInUser();
 
 
-      if (
-        user &&
-        user.loggedIn
-      ) {
+      if (user) {
 
         showLoggedInNavigation(
           user
@@ -2598,119 +2718,201 @@
 
       }
 
+    }
 
-      updateCreateLinks();
+
+    /* ==========================================
+       PROFILE MENU TOGGLE
+    ========================================== */
+
+    profileButton.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+
+        const isOpen =
+          profileMenu.classList.contains(
+            "open"
+          );
+
+
+        if (isOpen) {
+
+          closeProfileMenu();
+
+        }
+
+        else {
+
+          openProfileMenu();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       OPEN PROFILE MENU
+    ========================================== */
+
+    function openProfileMenu() {
+
+      profileMenu.classList.add(
+        "open"
+      );
+
+      profileButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
 
     }
+
+
+    /* ==========================================
+       CLOSE PROFILE MENU
+    ========================================== */
+
+    function closeProfileMenu() {
+
+      profileMenu.classList.remove(
+        "open"
+      );
+
+      profileButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+    }
+
+
+    /* ==========================================
+       CLOSE WHEN CLICKING OUTSIDE
+    ========================================== */
+
+    document.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          !profileMenu.contains(
+            event.target
+          )
+        ) {
+
+          closeProfileMenu();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       PROTECTED CREATE INVITE FLOW
+    ========================================== */
+
+    createInviteLinks.forEach(
+      (link) => {
+
+        link.addEventListener(
+          "click",
+          (event) => {
+
+            event.preventDefault();
+
+
+            if (isLoggedIn()) {
+
+              /*
+               * Logged-in users can
+               * directly create an invite.
+               */
+
+              window.location.href =
+                "/create";
+
+            }
+
+            else {
+
+              /*
+               * Logged-out users must
+               * login before creating.
+               */
+
+              window.location.href =
+                "/login";
+
+            }
+
+          }
+        );
+
+      }
+    );
 
 
     /* ==========================================
        LOGOUT
     ========================================== */
 
-    logoutNav.addEventListener(
+    logoutButton.addEventListener(
       "click",
       () => {
+
+        /*
+         * Remove only the login session.
+         *
+         * moment_account remains untouched,
+         * so the user's account is still there
+         * when they log in again.
+         */
 
         localStorage.removeItem(
           USER_KEY
         );
 
 
+        closeProfileMenu();
+
+
         updateNavigation();
 
-
-        /*
-         * After logout, send the user
-         * to the homepage in logged-out state.
-         */
-
-        window.location.href =
-          "/";
-
       }
     );
 
 
     /* ==========================================
-       EXTRA CREATE PROTECTION
-    ========================================== */
-
-    function protectCreateClick(
-      event
-    ) {
-
-      const user =
-        getLoggedInUser();
-
-
-      /*
-       * User is logged in.
-       * Allow /create.
-       */
-
-      if (
-        user &&
-        user.loggedIn
-      ) {
-
-        return;
-
-      }
-
-
-      /*
-       * User is NOT logged in.
-       * Prevent /create and send
-       * them to the login page.
-       */
-
-      event.preventDefault();
-
-
-      window.location.href =
-        "/login";
-
-    }
-
-
-    createNav.addEventListener(
-      "click",
-      protectCreateClick
-    );
-
-
-    heroCreateButton.addEventListener(
-      "click",
-      protectCreateClick
-    );
-
-
-    finalCreateButton.addEventListener(
-      "click",
-      protectCreateClick
-    );
-
-
-    /* ==========================================
-       INITIAL PAGE CHECK
-    ========================================== */
-
-    updateNavigation();
-
-
-    /* ==========================================
-       KEEP STATE IN SYNC
+       STORAGE EVENT
+       Handles login/logout from another tab.
     ========================================== */
 
     window.addEventListener(
       "storage",
-      () => {
+      (event) => {
 
-        updateNavigation();
+        if (
+          event.key === USER_KEY
+        ) {
+
+          updateNavigation();
+
+        }
 
       }
     );
+
+
+    /* ==========================================
+       INITIALIZE
+    ========================================== */
+
+    updateNavigation();
 
   </script>
 
@@ -2718,3 +2920,4 @@
 </body>
 
 </html>
+```
