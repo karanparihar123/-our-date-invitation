@@ -206,9 +206,9 @@ app.post(
         const existing =
           await pool.query(
             `
-            SELECT id
-            FROM invitations
-            WHERE invitation_code = $1
+              SELECT id
+              FROM invitations
+              WHERE invitation_code = $1
             `,
             [invitationCode]
           );
@@ -231,15 +231,15 @@ app.post(
 
       await pool.query(
         `
-        INSERT INTO invitations (
-          invitation_code,
-          creator_name,
-          creator_email,
-          recipient_name,
-          occasion,
-          message
-        )
-        VALUES ($1, $2, $3, $4, $5, $6)
+          INSERT INTO invitations (
+            invitation_code,
+            creator_name,
+            creator_email,
+            recipient_name,
+            occasion,
+            message
+          )
+          VALUES ($1, $2, $3, $4, $5, $6)
         `,
         [
           invitationCode,
@@ -313,15 +313,15 @@ app.get(
       const result =
         await pool.query(
           `
-          SELECT
-            invitation_code,
-            creator_name,
-            recipient_name,
-            occasion,
-            message,
-            created_at
-          FROM invitations
-          WHERE invitation_code = $1
+            SELECT
+              invitation_code,
+              creator_name,
+              recipient_name,
+              occasion,
+              message,
+              created_at
+            FROM invitations
+            WHERE invitation_code = $1
           `,
           [code]
         );
@@ -447,6 +447,7 @@ app.post(
             }
           );
 
+
         return formatter.format(
           new Date()
         );
@@ -476,12 +477,12 @@ app.post(
 
       await pool.query(
         `
-        INSERT INTO responses (
-          invitation_code,
-          answer,
-          selected_date
-        )
-        VALUES ($1, $2, $3)
+          INSERT INTO responses (
+            invitation_code,
+            answer,
+            selected_date
+          )
+          VALUES ($1, $2, $3)
         `,
         [
           invitationCode || null,
@@ -505,12 +506,12 @@ app.post(
         const invitationResult =
           await pool.query(
             `
-            SELECT
-              creator_email,
-              creator_name,
-              recipient_name
-            FROM invitations
-            WHERE invitation_code = $1
+              SELECT
+                creator_email,
+                creator_name,
+                recipient_name
+              FROM invitations
+              WHERE invitation_code = $1
             `,
             [invitationCode]
           );
@@ -741,13 +742,13 @@ app.get(
       const result =
         await pool.query(
           `
-          SELECT
-            invitation_code,
-            answer,
-            selected_date,
-            created_at
-          FROM responses
-          ORDER BY created_at DESC
+            SELECT
+              invitation_code,
+              answer,
+              selected_date,
+              created_at
+            FROM responses
+            ORDER BY created_at DESC
           `
         );
 
@@ -802,6 +803,11 @@ app.get(
    WEBSITE ROUTES
 ========================================== */
 
+
+/* ------------------------------------------
+   LANDING PAGE
+------------------------------------------ */
+
 app.get(
   "/",
   (req, res) => {
@@ -818,6 +824,50 @@ app.get(
 );
 
 
+/* ------------------------------------------
+   LOGIN PAGE
+------------------------------------------ */
+
+app.get(
+  "/login",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "login.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   REGISTER PAGE
+------------------------------------------ */
+
+app.get(
+  "/register",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "login.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   INVITATION PAGE
+------------------------------------------ */
+
 app.get(
   "/invitation",
   (req, res) => {
@@ -833,6 +883,10 @@ app.get(
   }
 );
 
+
+/* ------------------------------------------
+   CREATE PAGE
+------------------------------------------ */
 
 app.get(
   "/create",
@@ -868,6 +922,7 @@ initDb()
         );
 
       }
+
     );
 
   })
