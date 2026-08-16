@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en">
 
@@ -11,7 +10,13 @@
     content="width=device-width, initial-scale=1"
   >
 
+  <meta
+    name="description"
+    content="Moment — Make a beautiful moment for someone special."
+  >
+
   <title>Moment ❤️ — Make it a moment</title>
+
 
   <style>
 
@@ -23,13 +28,18 @@
       box-sizing: border-box;
     }
 
+
     html {
       scroll-behavior: smooth;
     }
 
+
     body {
+
       margin: 0;
+
       min-height: 100vh;
+
       overflow-x: hidden;
 
       font-family:
@@ -40,6 +50,7 @@
       color: #fff;
 
       background:
+
         radial-gradient(
           circle at 15% 10%,
           rgba(255,255,255,.12),
@@ -67,6 +78,7 @@
     ========================================== */
 
     .glow {
+
       position: fixed;
 
       width: 360px;
@@ -86,14 +98,18 @@
         glowMove 9s ease-in-out infinite alternate;
     }
 
+
     .glow.one {
+
       background: #ff719b;
 
       top: -160px;
       left: -120px;
     }
 
+
     .glow.two {
+
       background: #ffb3ca;
 
       right: -150px;
@@ -102,19 +118,23 @@
       animation-delay: 3s;
     }
 
+
     @keyframes glowMove {
 
       from {
+
         transform:
           translate(0,0)
           scale(1);
       }
 
       to {
+
         transform:
           translate(35px,-20px)
           scale(1.15);
       }
+
     }
 
 
@@ -123,6 +143,7 @@
     ========================================== */
 
     .hearts {
+
       position: fixed;
 
       inset: 0;
@@ -134,7 +155,9 @@
       z-index: 0;
     }
 
+
     .heart {
+
       position: absolute;
 
       bottom: -50px;
@@ -145,43 +168,69 @@
         floatUp linear infinite;
     }
 
+
     .heart:nth-child(1) {
+
       left: 7%;
+
       font-size: 18px;
+
       animation-duration: 11s;
     }
 
+
     .heart:nth-child(2) {
+
       left: 25%;
+
       font-size: 14px;
+
       animation-duration: 14s;
+
       animation-delay: 2s;
     }
 
+
     .heart:nth-child(3) {
+
       left: 50%;
+
       font-size: 22px;
+
       animation-duration: 10s;
+
       animation-delay: 4s;
     }
 
+
     .heart:nth-child(4) {
+
       left: 74%;
+
       font-size: 16px;
+
       animation-duration: 13s;
+
       animation-delay: 1s;
     }
 
+
     .heart:nth-child(5) {
+
       left: 91%;
+
       font-size: 20px;
+
       animation-duration: 12s;
+
       animation-delay: 5s;
     }
+
 
     @keyframes floatUp {
 
       0% {
+
         transform:
           translateY(0)
           rotate(0deg);
@@ -189,21 +238,28 @@
         opacity: 0;
       }
 
+
       15% {
+
         opacity: .38;
       }
 
+
       80% {
+
         opacity: .2;
       }
 
+
       100% {
+
         transform:
           translateY(-115vh)
           rotate(35deg);
 
         opacity: 0;
       }
+
     }
 
 
@@ -212,6 +268,7 @@
     ========================================== */
 
     .nav {
+
       position: relative;
 
       z-index: 10;
@@ -235,7 +292,9 @@
       justify-content: space-between;
     }
 
+
     .logo {
+
       font-family:
         Georgia,
         "Times New Roman",
@@ -246,11 +305,15 @@
       letter-spacing: -.6px;
     }
 
+
     .logo-heart {
+
       font-size: 20px;
     }
 
+
     .nav-actions {
+
       display: flex;
 
       align-items: center;
@@ -259,12 +322,16 @@
     }
 
 
-    /* LOGIN */
+    /* ==========================================
+       LOGIN / USER BUTTON
+    ========================================== */
 
     .login-button {
+
       display: inline-flex;
 
       align-items: center;
+
       justify-content: center;
 
       padding:
@@ -288,7 +355,9 @@
         transform .2s ease;
     }
 
+
     .login-button:hover {
+
       color: #fff;
 
       transform:
@@ -296,9 +365,82 @@
     }
 
 
-    /* CREATE */
+    /* ==========================================
+       LOGGED IN USER
+    ========================================== */
+
+    .user-name {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        10px 12px;
+
+      color:
+        rgba(255,255,255,.85);
+
+      font-size: 13px;
+
+      white-space: nowrap;
+    }
+
+
+    .logout-button {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        9px 13px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.16);
+
+      background:
+        rgba(255,255,255,.05);
+
+      color:
+        rgba(255,255,255,.68);
+
+      font-size: 12px;
+
+      cursor: pointer;
+
+      transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+    }
+
+
+    .logout-button:hover {
+
+      background:
+        rgba(255,255,255,.12);
+
+      color: #fff;
+
+      transform:
+        translateY(-1px);
+    }
+
+
+    /* ==========================================
+       CREATE NAVIGATION
+    ========================================== */
 
     .create-nav {
+
       display: inline-flex;
 
       align-items: center;
@@ -333,7 +475,9 @@
         background .2s ease;
     }
 
+
     .create-nav:hover {
+
       transform:
         translateY(-2px);
 
@@ -347,6 +491,7 @@
     ========================================== */
 
     .container {
+
       position: relative;
 
       z-index: 2;
@@ -367,6 +512,7 @@
     ========================================== */
 
     .hero {
+
       min-height:
         calc(100vh - 76px);
 
@@ -385,12 +531,16 @@
         80px;
     }
 
+
     .hero-content {
+
       animation:
         heroIn .85s ease-out;
     }
 
+
     .eyebrow {
+
       display: inline-flex;
 
       align-items: center;
@@ -419,7 +569,9 @@
         rgba(255,255,255,.75);
     }
 
+
     .hero h1 {
+
       margin:
         22px 0
         18px;
@@ -443,7 +595,9 @@
       letter-spacing: -4px;
     }
 
+
     .hero h1 span {
+
       display: block;
 
       background:
@@ -454,12 +608,15 @@
         );
 
       -webkit-background-clip: text;
+
       background-clip: text;
 
       color: transparent;
     }
 
+
     .hero p {
+
       max-width: 570px;
 
       margin: 0;
@@ -472,7 +629,9 @@
         rgba(255,255,255,.68);
     }
 
+
     .hero-actions {
+
       display: flex;
 
       gap: 12px;
@@ -488,9 +647,11 @@
     ========================================== */
 
     .primary {
+
       display: inline-flex;
 
       align-items: center;
+
       justify-content: center;
 
       min-height: 50px;
@@ -519,7 +680,9 @@
         box-shadow .2s ease;
     }
 
+
     .primary:hover {
+
       transform:
         translateY(-3px);
 
@@ -534,9 +697,11 @@
     ========================================== */
 
     .secondary {
+
       display: inline-flex;
 
       align-items: center;
+
       justify-content: center;
 
       min-height: 50px;
@@ -565,7 +730,9 @@
         background .2s ease;
     }
 
+
     .secondary:hover {
+
       background:
         rgba(255,255,255,.13);
     }
@@ -576,6 +743,7 @@
     ========================================== */
 
     .preview-wrap {
+
       display: flex;
 
       justify-content: center;
@@ -584,7 +752,9 @@
         previewIn 1s ease-out .1s both;
     }
 
+
     .preview {
+
       position: relative;
 
       width:
@@ -635,7 +805,9 @@
         transform .35s ease;
     }
 
+
     .preview::before {
+
       content: "";
 
       position: absolute;
@@ -651,13 +823,17 @@
       pointer-events: none;
     }
 
+
     .preview:hover {
+
       transform:
         rotate(0deg)
         translateY(-6px);
     }
 
+
     .preview-label {
+
       font-size: 10px;
 
       letter-spacing: 3px;
@@ -667,7 +843,9 @@
       opacity: .52;
     }
 
+
     .preview-heart {
+
       margin:
         24px 0;
 
@@ -677,21 +855,28 @@
         heartbeat 2.2s ease-in-out infinite;
     }
 
+
     @keyframes heartbeat {
 
       0%,
       100% {
+
         transform:
           scale(1);
       }
 
+
       50% {
+
         transform:
           scale(1.08);
       }
+
     }
 
+
     .preview h2 {
+
       margin: 0;
 
       font-family:
@@ -704,7 +889,9 @@
       font-size: 40px;
     }
 
+
     .preview-line {
+
       width: 55px;
 
       height: 1px;
@@ -716,7 +903,9 @@
         rgba(255,255,255,.4);
     }
 
+
     .preview-message {
+
       font-family:
         Georgia,
         "Times New Roman",
@@ -729,7 +918,9 @@
       opacity: .82;
     }
 
+
     .preview-from {
+
       margin-top: 24px;
 
       font-size: 12px;
@@ -741,24 +932,29 @@
     @keyframes heroIn {
 
       from {
+
         opacity: 0;
 
         transform:
           translateY(25px);
       }
 
+
       to {
+
         opacity: 1;
 
         transform:
           translateY(0);
       }
+
     }
 
 
     @keyframes previewIn {
 
       from {
+
         opacity: 0;
 
         transform:
@@ -766,13 +962,16 @@
           translateY(30px);
       }
 
+
       to {
+
         opacity: 1;
 
         transform:
           rotate(2deg)
           translateY(0);
       }
+
     }
 
 
@@ -781,17 +980,22 @@
     ========================================== */
 
     .section {
+
       padding:
         100px 0;
     }
 
+
     .section-header {
+
       max-width: 650px;
 
       margin-bottom: 45px;
     }
 
+
     .section-label {
+
       font-size: 10px;
 
       letter-spacing: 3px;
@@ -802,7 +1006,9 @@
         rgba(255,255,255,.5);
     }
 
+
     .section h2 {
+
       margin:
         12px 0;
 
@@ -823,7 +1029,9 @@
       letter-spacing: -2px;
     }
 
+
     .section-header p {
+
       margin: 0;
 
       color:
@@ -838,6 +1046,7 @@
     ========================================== */
 
     .steps {
+
       display: grid;
 
       grid-template-columns:
@@ -846,7 +1055,9 @@
       gap: 16px;
     }
 
+
     .step {
+
       padding: 30px;
 
       min-height: 225px;
@@ -868,7 +1079,9 @@
         background .25s ease;
     }
 
+
     .step:hover {
+
       transform:
         translateY(-5px);
 
@@ -876,7 +1089,9 @@
         rgba(255,255,255,.08);
     }
 
+
     .step-number {
+
       font-family:
         Georgia,
         "Times New Roman",
@@ -887,14 +1102,18 @@
       opacity: .42;
     }
 
+
     .step-icon {
+
       margin:
         25px 0 15px;
 
       font-size: 27px;
     }
 
+
     .step h3 {
+
       margin:
         0 0 10px;
 
@@ -908,7 +1127,9 @@
       font-weight: normal;
     }
 
+
     .step p {
+
       margin: 0;
 
       color:
@@ -925,6 +1146,7 @@
     ========================================== */
 
     .experience {
+
       display: grid;
 
       grid-template-columns:
@@ -936,7 +1158,9 @@
       align-items: center;
     }
 
+
     .experience-copy p {
+
       color:
         rgba(255,255,255,.64);
 
@@ -945,7 +1169,9 @@
       font-size: 16px;
     }
 
+
     .feature-list {
+
       display: grid;
 
       gap: 13px;
@@ -953,7 +1179,9 @@
       margin-top: 25px;
     }
 
+
     .feature {
+
       display: flex;
 
       align-items: center;
@@ -966,11 +1194,14 @@
         rgba(255,255,255,.78);
     }
 
+
     .feature-dot {
+
       flex:
         0 0 auto;
 
       width: 9px;
+
       height: 9px;
 
       border-radius: 50%;
@@ -989,6 +1220,7 @@
     ========================================== */
 
     .stories {
+
       display: grid;
 
       grid-template-columns:
@@ -997,7 +1229,9 @@
       gap: 16px;
     }
 
+
     .story {
+
       min-height: 245px;
 
       padding: 28px;
@@ -1024,16 +1258,22 @@
         transform .25s ease;
     }
 
+
     .story:hover {
+
       transform:
         translateY(-5px);
     }
 
+
     .story-icon {
+
       font-size: 27px;
     }
 
+
     .story-text {
+
       margin:
         22px 0;
 
@@ -1050,7 +1290,9 @@
         rgba(255,255,255,.9);
     }
 
+
     .story-label {
+
       font-size: 11px;
 
       color:
@@ -1065,6 +1307,7 @@
     ========================================== */
 
     .cta {
+
       margin:
         50px 0
         90px;
@@ -1091,14 +1334,18 @@
         blur(18px);
     }
 
+
     .cta-heart {
+
       font-size: 38px;
 
       animation:
         heartbeat 2.2s ease-in-out infinite;
     }
 
+
     .cta h2 {
+
       margin:
         16px 0 12px;
 
@@ -1117,7 +1364,9 @@
       font-weight: normal;
     }
 
+
     .cta p {
+
       margin:
         0 auto
         25px;
@@ -1136,6 +1385,7 @@
     ========================================== */
 
     footer {
+
       position: relative;
 
       z-index: 2;
@@ -1164,7 +1414,9 @@
       font-size: 11px;
     }
 
+
     footer span:first-child {
+
       letter-spacing: 2px;
     }
 
@@ -1176,10 +1428,13 @@
     @media (max-width: 800px) {
 
       .nav {
+
         padding-top: 16px;
       }
 
+
       .hero {
+
         grid-template-columns: 1fr;
 
         min-height: auto;
@@ -1189,35 +1444,50 @@
         gap: 50px;
       }
 
+
       .hero-content {
+
         text-align: center;
       }
 
+
       .hero p {
+
         margin: auto;
       }
 
+
       .hero-actions {
+
         justify-content: center;
       }
 
+
       .preview {
+
         min-height: 420px;
       }
 
+
       .steps {
+
         grid-template-columns: 1fr;
       }
 
+
       .experience {
+
         grid-template-columns: 1fr;
 
         gap: 35px;
       }
 
+
       .stories {
+
         grid-template-columns: 1fr;
       }
+
     }
 
 
@@ -1226,41 +1496,74 @@
       .nav,
       .container,
       footer {
+
         width:
           calc(100% - 28px);
       }
 
+
       .logo {
+
         font-size: 23px;
       }
 
+
       .logo-heart {
+
         font-size: 18px;
       }
 
+
       .nav-actions {
+
         gap: 3px;
       }
 
+
       .login-button {
+
         padding:
           9px 7px;
 
         font-size: 12px;
       }
 
+
+      .user-name {
+
+        padding:
+          9px 6px;
+
+        font-size: 11px;
+      }
+
+
+      .logout-button {
+
+        padding:
+          8px 9px;
+
+        font-size: 11px;
+      }
+
+
       .create-nav {
+
         padding:
           9px 12px;
 
         font-size: 12px;
       }
 
+
       .hero {
+
         padding-bottom: 55px;
       }
 
+
       .hero h1 {
+
         font-size:
           clamp(
             50px,
@@ -1271,58 +1574,79 @@
         letter-spacing: -3px;
       }
 
+
       .hero p {
+
         font-size: 16px;
       }
 
+
       .hero-actions {
+
         flex-direction: column;
 
         width: 100%;
       }
 
+
       .primary,
       .secondary {
+
         width: 100%;
       }
 
+
       .preview {
+
         min-height: 405px;
       }
 
+
       .section {
+
         padding:
           75px 0;
       }
 
+
       .section h2 {
+
         letter-spacing: -1.5px;
       }
 
+
       .step {
+
         min-height: auto;
 
         padding: 25px;
       }
 
+
       .story {
+
         min-height: 215px;
       }
 
+
       .cta {
+
         padding:
           50px 22px;
 
         margin-bottom: 65px;
       }
 
+
       footer {
+
         flex-direction: column;
 
         text-align: center;
 
         align-items: center;
       }
+
     }
 
   </style>
@@ -1383,9 +1707,13 @@
 
     <div class="nav-actions">
 
-      <!-- LOGIN NOW USES SEPARATE PAGE -->
+
+      <!-- ======================================
+           LOGGED OUT LOGIN
+      ======================================= -->
 
       <a
+        id="loginNav"
         href="/login"
         class="login-button"
       >
@@ -1393,14 +1721,39 @@
       </a>
 
 
-      <!-- CREATE DOES NOT FORCE LOGIN HERE -->
+      <!-- ======================================
+           LOGGED IN USER
+      ======================================= -->
+
+      <span
+        id="userNameNav"
+        class="user-name"
+        style="display:none;"
+      ></span>
+
+
+      <button
+        id="logoutNav"
+        class="logout-button"
+        type="button"
+        style="display:none;"
+      >
+        Log out
+      </button>
+
+
+      <!-- ======================================
+           CREATE INVITE
+      ======================================= -->
 
       <a
-        href="/create"
+        id="createNav"
+        href="/login"
         class="create-nav"
       >
         Create an Invite ❤️
       </a>
+
 
     </div>
 
@@ -1421,7 +1774,9 @@
 
 
         <div class="eyebrow">
+
           Made for meaningful moments ❤️
+
         </div>
 
 
@@ -1449,8 +1804,16 @@
         <div class="hero-actions">
 
 
+          <!--
+            IMPORTANT:
+            This link is controlled by JavaScript.
+            Logged in  -> /create
+            Logged out -> /login
+          -->
+
           <a
-            href="/create"
+            id="heroCreateButton"
+            href="/login"
             class="primary"
           >
             Create an Invite ❤️
@@ -1507,7 +1870,9 @@
 
 
           <div class="preview-from">
+
             From someone special ❤️
+
           </div>
 
 
@@ -1533,12 +1898,16 @@
 
 
         <div class="section-label">
+
           Simple by design
+
         </div>
 
 
         <h2>
+
           Three little steps.
+
         </h2>
 
 
@@ -1667,12 +2036,16 @@
 
 
           <div class="section-label">
+
             More than a link
+
           </div>
 
 
           <h2>
+
             A little experience.
+
           </h2>
 
 
@@ -1738,17 +2111,23 @@
 
 
             <div class="preview-label">
+
               Your moment
+
             </div>
 
 
             <div class="preview-heart">
+
               💗
+
             </div>
 
 
             <h2>
+
               It's a date!
+
             </h2>
 
 
@@ -1756,12 +2135,16 @@
 
 
             <div class="preview-message">
+
               Friday, 14 August 2026
+
             </div>
 
 
             <div class="preview-from">
+
               See you then. 🥰
+
             </div>
 
 
@@ -1788,12 +2171,16 @@
 
 
         <div class="section-label">
+
           The feeling we're creating
+
         </div>
 
 
         <h2>
+
           Made for moments.
+
         </h2>
 
 
@@ -1828,7 +2215,9 @@
 
 
           <div class="story-label">
+
             FOR THE FIRST DATE
+
           </div>
 
 
@@ -1852,7 +2241,9 @@
 
 
           <div class="story-label">
+
             FOR SOMEONE SPECIAL
+
           </div>
 
 
@@ -1876,7 +2267,9 @@
 
 
           <div class="story-label">
+
             FOR THE MOMENT AFTER
+
           </div>
 
 
@@ -1900,12 +2293,16 @@
 
 
         <div class="cta-heart">
+
           ❤️
+
         </div>
 
 
         <h2>
+
           Ready to make a moment?
+
         </h2>
 
 
@@ -1918,7 +2315,8 @@
 
 
         <a
-          href="/create"
+          id="finalCreateButton"
+          href="/login"
           class="primary"
         >
           Create an Invite ❤️
@@ -1942,19 +2340,381 @@
 
 
     <span>
+
       MOMENT ❤️
+
     </span>
 
 
     <span>
+
       Made for the moments that matter.
+
     </span>
 
 
   </footer>
 
 
+  <!-- ==========================================
+       LOGIN / AUTHENTICATION LOGIC
+  ========================================== -->
+
+  <script>
+
+    /* ==========================================
+       STORAGE KEY
+    ========================================== */
+
+    const USER_KEY =
+      "moment_user";
+
+
+    /* ==========================================
+       ELEMENTS
+    ========================================== */
+
+    const loginNav =
+      document.getElementById(
+        "loginNav"
+      );
+
+
+    const userNameNav =
+      document.getElementById(
+        "userNameNav"
+      );
+
+
+    const logoutNav =
+      document.getElementById(
+        "logoutNav"
+      );
+
+
+    const createNav =
+      document.getElementById(
+        "createNav"
+      );
+
+
+    const heroCreateButton =
+      document.getElementById(
+        "heroCreateButton"
+      );
+
+
+    const finalCreateButton =
+      document.getElementById(
+        "finalCreateButton"
+      );
+
+
+    /* ==========================================
+       GET LOGGED-IN USER
+    ========================================== */
+
+    function getLoggedInUser() {
+
+      try {
+
+        const stored =
+          localStorage.getItem(
+            USER_KEY
+          );
+
+
+        if (!stored) {
+
+          return null;
+
+        }
+
+
+        const user =
+          JSON.parse(
+            stored
+          );
+
+
+        if (
+          !user ||
+          !user.loggedIn
+        ) {
+
+          return null;
+
+        }
+
+
+        return user;
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Could not read login state:",
+          error
+        );
+
+        return null;
+
+      }
+
+    }
+
+
+    /* ==========================================
+       PROTECTED CREATE INVITE URL
+    ========================================== */
+
+    function getCreateUrl() {
+
+      const user =
+        getLoggedInUser();
+
+
+      if (
+        user &&
+        user.loggedIn
+      ) {
+
+        return "/create";
+
+      }
+
+
+      return "/login";
+
+    }
+
+
+    /* ==========================================
+       UPDATE CREATE LINKS
+    ========================================== */
+
+    function updateCreateLinks() {
+
+      const createUrl =
+        getCreateUrl();
+
+
+      createNav.href =
+        createUrl;
+
+
+      heroCreateButton.href =
+        createUrl;
+
+
+      finalCreateButton.href =
+        createUrl;
+
+    }
+
+
+    /* ==========================================
+       SHOW LOGGED-OUT NAVIGATION
+    ========================================== */
+
+    function showLoggedOutNavigation() {
+
+      loginNav.style.display =
+        "inline-flex";
+
+
+      userNameNav.style.display =
+        "none";
+
+
+      logoutNav.style.display =
+        "none";
+
+
+      loginNav.textContent =
+        "Login";
+
+    }
+
+
+    /* ==========================================
+       SHOW LOGGED-IN NAVIGATION
+    ========================================== */
+
+    function showLoggedInNavigation(
+      user
+    ) {
+
+      loginNav.style.display =
+        "none";
+
+
+      userNameNav.style.display =
+        "inline-flex";
+
+
+      logoutNav.style.display =
+        "inline-flex";
+
+
+      const name =
+        user.name &&
+        user.name.trim()
+          ? user.name.trim()
+          : "there";
+
+
+      userNameNav.textContent =
+        `Welcome, ${name} ❤️`;
+
+    }
+
+
+    /* ==========================================
+       UPDATE NAVIGATION
+    ========================================== */
+
+    function updateNavigation() {
+
+      const user =
+        getLoggedInUser();
+
+
+      if (
+        user &&
+        user.loggedIn
+      ) {
+
+        showLoggedInNavigation(
+          user
+        );
+
+      }
+
+      else {
+
+        showLoggedOutNavigation();
+
+      }
+
+
+      updateCreateLinks();
+
+    }
+
+
+    /* ==========================================
+       LOGOUT
+    ========================================== */
+
+    logoutNav.addEventListener(
+      "click",
+      () => {
+
+        localStorage.removeItem(
+          USER_KEY
+        );
+
+
+        updateNavigation();
+
+
+        /*
+         * After logout, send the user
+         * to the homepage in logged-out state.
+         */
+
+        window.location.href =
+          "/";
+
+      }
+    );
+
+
+    /* ==========================================
+       EXTRA CREATE PROTECTION
+    ========================================== */
+
+    function protectCreateClick(
+      event
+    ) {
+
+      const user =
+        getLoggedInUser();
+
+
+      /*
+       * User is logged in.
+       * Allow /create.
+       */
+
+      if (
+        user &&
+        user.loggedIn
+      ) {
+
+        return;
+
+      }
+
+
+      /*
+       * User is NOT logged in.
+       * Prevent /create and send
+       * them to the login page.
+       */
+
+      event.preventDefault();
+
+
+      window.location.href =
+        "/login";
+
+    }
+
+
+    createNav.addEventListener(
+      "click",
+      protectCreateClick
+    );
+
+
+    heroCreateButton.addEventListener(
+      "click",
+      protectCreateClick
+    );
+
+
+    finalCreateButton.addEventListener(
+      "click",
+      protectCreateClick
+    );
+
+
+    /* ==========================================
+       INITIAL PAGE CHECK
+    ========================================== */
+
+    updateNavigation();
+
+
+    /* ==========================================
+       KEEP STATE IN SYNC
+    ========================================== */
+
+    window.addEventListener(
+      "storage",
+      () => {
+
+        updateNavigation();
+
+      }
+    );
+
+  </script>
+
+
 </body>
 
 </html>
-```
