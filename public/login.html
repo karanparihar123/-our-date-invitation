@@ -10,7 +10,7 @@
     name="description"
     content="Moment — Login or create your account."
   >
-  <title>Login ❤️ — Moment</title>
+  <title>Login — Moment</title>
   <style>
     * {
       box-sizing: border-box;
@@ -178,9 +178,6 @@
       font-size: 26px;
       letter-spacing: -.6px;
     }
-    .logo-heart {
-      font-size: 20px;
-    }
     .back-link {
       color:
         rgba(255,255,255,.72);
@@ -263,32 +260,6 @@
     /* ==========================================
        HEADER
     ========================================== */
-    .heart-icon {
-      width: 65px;
-      height: 65px;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background:
-        rgba(255,255,255,.1);
-      border:
-        1px solid
-        rgba(255,255,255,.15);
-      font-size: 31px;
-      animation:
-        heartbeat 2.2s ease-in-out infinite;
-    }
-    @keyframes heartbeat {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.08);
-      }
-    }
     .heading {
       text-align: center;
     }
@@ -356,10 +327,8 @@
       color:
         rgba(255,255,255,.72);
     }
-    /* Password wrapper */
-    .password-wrapper {
+    .input-wrapper {
       position: relative;
-      width: 100%;
     }
     .field input {
       width: 100%;
@@ -380,9 +349,8 @@
         background .2s ease,
         box-shadow .2s ease;
     }
-    /* Give password input room for eye button */
-    .password-wrapper input {
-      padding-right: 52px;
+    .password-input {
+      padding-right: 52px !important;
     }
     .field input::placeholder {
       color:
@@ -398,48 +366,88 @@
         rgba(255,150,180,.1);
     }
     /* ==========================================
-       PASSWORD SHOW / HIDE BUTTON
+       PASSWORD TOGGLE
     ========================================== */
     .password-toggle {
       position: absolute;
       top: 50%;
-      right: 7px;
+      right: 10px;
       transform:
         translateY(-50%);
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 0;
-      border-radius: 10px;
-      background:
-        rgba(255,255,255,.06);
+      border-radius: 8px;
       color:
-        rgba(255,255,255,.7);
+        rgba(255,255,255,.62);
+      background: transparent;
       cursor: pointer;
-      font-size: 17px;
-      line-height: 1;
+      font-size: 18px;
       transition:
-        background .2s ease,
         color .2s ease,
-        transform .15s ease;
+        background .2s ease;
     }
     .password-toggle:hover {
-      background:
-        rgba(255,255,255,.12);
       color: #fff;
-    }
-    .password-toggle:active {
-      transform:
-        translateY(-50%)
-        scale(.94);
+      background:
+        rgba(255,255,255,.08);
     }
     .password-toggle:focus-visible {
       outline:
         2px solid
-        rgba(255,190,210,.75);
+        rgba(255,255,255,.7);
       outline-offset: 2px;
+    }
+    .eye-icon {
+      width: 18px;
+      height: 18px;
+      display: block;
+      position: relative;
+    }
+    .eye-icon::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: 4px;
+      width: 16px;
+      height: 10px;
+      border:
+        1.7px solid
+        currentColor;
+      border-radius:
+        80% 20% 80% 20% / 60% 40% 60% 40%;
+      transform:
+        rotate(45deg);
+    }
+    .eye-icon::after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      left: 7px;
+      top: 7px;
+    }
+    .eye-icon.hidden::before {
+      transform:
+        rotate(45deg);
+    }
+    .eye-icon.hidden {
+      opacity: .85;
+    }
+    .eye-icon.hidden::after {
+      width: 20px;
+      height: 1.5px;
+      border-radius: 0;
+      left: 0;
+      top: 9px;
+      background: currentColor;
+      transform:
+        rotate(-45deg);
     }
     /* ==========================================
        SUBMIT
@@ -528,9 +536,6 @@
       .logo {
         font-size: 23px;
       }
-      .logo-heart {
-        font-size: 18px;
-      }
       .back-link {
         padding:
           8px 10px;
@@ -552,9 +557,6 @@
   </style>
 </head>
 <body>
-  <!-- ==========================================
-       AMBIENT EFFECTS
-  ========================================== -->
   <div class="glow one"></div>
   <div class="glow two"></div>
   <div
@@ -567,18 +569,12 @@
     <span class="heart">❤️</span>
     <span class="heart">💗</span>
   </div>
-  <!-- ==========================================
-       NAVIGATION
-  ========================================== -->
   <nav class="nav">
     <a
       href="/"
       class="logo"
     >
       Moment
-      <span class="logo-heart">
-        ❤️
-      </span>
     </a>
     <a
       href="/"
@@ -587,14 +583,8 @@
       ← Back to Moment
     </a>
   </nav>
-  <!-- ==========================================
-       LOGIN PAGE
-  ========================================== -->
   <main class="page">
     <section class="card">
-      <div class="heart-icon">
-        ❤️
-      </div>
       <div class="heading">
         <h1 id="pageTitle">
           Welcome back.
@@ -604,9 +594,6 @@
           your moments.
         </p>
       </div>
-      <!-- ======================================
-           TABS
-      ====================================== -->
       <div class="tabs">
         <button
           type="button"
@@ -623,14 +610,10 @@
           Create account
         </button>
       </div>
-      <!-- ======================================
-           FORM
-      ====================================== -->
       <form
         id="authForm"
         novalidate
       >
-        <!-- NAME -->
         <div
           class="field"
           id="nameField"
@@ -647,7 +630,6 @@
             autocomplete="name"
           >
         </div>
-        <!-- EMAIL -->
         <div class="field">
           <label for="email">
             Email address
@@ -661,16 +643,16 @@
             required
           >
         </div>
-        <!-- PASSWORD -->
         <div class="field">
           <label for="password">
             Password
           </label>
-          <div class="password-wrapper">
+          <div class="input-wrapper">
             <input
               type="password"
               id="password"
               name="password"
+              class="password-input"
               placeholder="At least 6 characters"
               autocomplete="current-password"
               required
@@ -680,24 +662,24 @@
               class="password-toggle"
               id="passwordToggle"
               aria-label="Show password"
-              aria-pressed="false"
+              title="Show password"
             >
-              👁️
+              <span
+                class="eye-icon hidden"
+                id="eyeIcon"
+                aria-hidden="true"
+              ></span>
             </button>
           </div>
         </div>
-        <!-- SUBMIT -->
         <button
           type="submit"
           class="submit-button"
           id="submitButton"
         >
-          Login ❤️
+          Login
         </button>
       </form>
-      <!-- ======================================
-           MESSAGE
-      ====================================== -->
       <div
         id="message"
         class="message"
@@ -709,9 +691,6 @@
       </div>
     </section>
   </main>
-  <!-- ==========================================
-       SUPABASE
-  ========================================== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     /* ==========================================
@@ -737,112 +716,89 @@
        ELEMENTS
     ========================================== */
     const loginTab =
-      document.getElementById(
-        "loginTab"
-      );
+      document.getElementById("loginTab");
     const signupTab =
-      document.getElementById(
-        "signupTab"
-      );
+      document.getElementById("signupTab");
     const nameField =
-      document.getElementById(
-        "nameField"
-      );
+      document.getElementById("nameField");
     const nameInput =
-      document.getElementById(
-        "name"
-      );
+      document.getElementById("name");
     const emailInput =
-      document.getElementById(
-        "email"
-      );
+      document.getElementById("email");
     const passwordInput =
-      document.getElementById(
-        "password"
-      );
+      document.getElementById("password");
     const passwordToggle =
-      document.getElementById(
-        "passwordToggle"
-      );
+      document.getElementById("passwordToggle");
+    const eyeIcon =
+      document.getElementById("eyeIcon");
     const authForm =
-      document.getElementById(
-        "authForm"
-      );
+      document.getElementById("authForm");
     const submitButton =
-      document.getElementById(
-        "submitButton"
-      );
+      document.getElementById("submitButton");
     const message =
-      document.getElementById(
-        "message"
-      );
+      document.getElementById("message");
     const pageTitle =
-      document.getElementById(
-        "pageTitle"
-      );
+      document.getElementById("pageTitle");
     const pageSubtitle =
-      document.getElementById(
-        "pageSubtitle"
-      );
-    /* ==========================================
-       PASSWORD SHOW / HIDE
-    ========================================== */
-    passwordToggle.addEventListener(
-      "click",
-      () => {
-        const isPassword =
-          passwordInput.type ===
-          "password";
-        passwordInput.type =
-          isPassword
-            ? "text"
-            : "password";
-        passwordToggle.textContent =
-          isPassword
-            ? "🙈"
-            : "👁️";
-        passwordToggle.setAttribute(
-          "aria-label",
-          isPassword
-            ? "Hide password"
-            : "Show password"
-        );
-        passwordToggle.setAttribute(
-          "aria-pressed",
-          isPassword
-            ? "true"
-            : "false"
-        );
-      }
-    );
+      document.getElementById("pageSubtitle");
     /* ==========================================
        MODE
     ========================================== */
     let mode = "login";
-    function setMode(
-      newMode
-    ) {
+    /* ==========================================
+       PASSWORD VISIBILITY
+       
+       Open eye  = password visible
+       Closed eye = password masked
+    ========================================== */
+    let passwordVisible = false;
+    function updatePasswordVisibility() {
+      passwordInput.type =
+        passwordVisible
+          ? "text"
+          : "password";
+      if (passwordVisible) {
+        eyeIcon.classList.remove(
+          "hidden"
+        );
+        passwordToggle.setAttribute(
+          "aria-label",
+          "Hide password"
+        );
+        passwordToggle.setAttribute(
+          "title",
+          "Hide password"
+        );
+      }
+      else {
+        eyeIcon.classList.add(
+          "hidden"
+        );
+        passwordToggle.setAttribute(
+          "aria-label",
+          "Show password"
+        );
+        passwordToggle.setAttribute(
+          "title",
+          "Show password"
+        );
+      }
+    }
+    passwordToggle.addEventListener(
+      "click",
+      () => {
+        passwordVisible =
+          !passwordVisible;
+        updatePasswordVisibility();
+      }
+    );
+    /* ==========================================
+       MODE SWITCH
+    ========================================== */
+    function setMode(newMode) {
       mode = newMode;
       clearMessage();
-      /*
-       * Always hide the password
-       * when switching between tabs.
-       */
-      passwordInput.type =
-        "password";
-      passwordToggle.textContent =
-        "👁️";
-      passwordToggle.setAttribute(
-        "aria-label",
-        "Show password"
-      );
-      passwordToggle.setAttribute(
-        "aria-pressed",
-        "false"
-      );
-      if (
-        mode === "signup"
-      ) {
+      if (mode === "signup") {
         loginTab.classList.remove(
           "active"
         );
@@ -858,7 +814,7 @@
         pageSubtitle.textContent =
           "Make beautiful moments worth remembering.";
         submitButton.textContent =
-          "Create account ❤️";
+          "Create account";
         passwordInput.autocomplete =
           "new-password";
       }
@@ -878,25 +834,28 @@
         pageSubtitle.textContent =
           "Sign in to create and manage your moments.";
         submitButton.textContent =
-          "Login ❤️";
+          "Login";
         passwordInput.autocomplete =
           "current-password";
       }
+      /*
+       * Always reset password visibility
+       * when switching between Login and
+       * Create account.
+       */
+      passwordVisible = false;
+      updatePasswordVisibility();
     }
     loginTab.addEventListener(
       "click",
       () => {
-        setMode(
-          "login"
-        );
+        setMode("login");
       }
     );
     signupTab.addEventListener(
       "click",
       () => {
-        setMode(
-          "signup"
-        );
+        setMode("signup");
       }
     );
     /* ==========================================
@@ -923,19 +882,15 @@
     ========================================== */
     authForm.addEventListener(
       "submit",
-      async (
-        event
-      ) => {
+      async (event) => {
         event.preventDefault();
         clearMessage();
         const email =
-          emailInput.value
-            .trim();
+          emailInput.value.trim();
         const password =
           passwordInput.value;
         const name =
-          nameInput.value
-            .trim();
+          nameInput.value.trim();
         /* --------------------------------------
            VALIDATION
         -------------------------------------- */
@@ -947,9 +902,7 @@
           emailInput.focus();
           return;
         }
-        if (
-          !email.includes("@")
-        ) {
+        if (!email.includes("@")) {
           showMessage(
             "Please enter a valid email address.",
             "error"
@@ -957,9 +910,7 @@
           emailInput.focus();
           return;
         }
-        if (
-          password.length < 6
-        ) {
+        if (password.length < 6) {
           showMessage(
             "Password must be at least 6 characters.",
             "error"
@@ -991,9 +942,7 @@
           /* ====================================
              LOGIN
           ==================================== */
-          if (
-            mode === "login"
-          ) {
+          if (mode === "login") {
             const {
               data,
               error
@@ -1020,7 +969,7 @@
               );
             }
             showMessage(
-              "Login successful ❤️ Redirecting...",
+              "Login successful. Redirecting...",
               "success"
             );
             setTimeout(
@@ -1046,7 +995,7 @@
                 password,
                 options: {
                   data: {
-                    name: name,
+                    name,
                     full_name: name
                   }
                 }
@@ -1058,16 +1007,9 @@
             );
             throw error;
           }
-          /*
-           * If email confirmation is enabled
-           * in Supabase, session will be null
-           * until the user confirms their email.
-           */
-          if (
-            data?.session
-          ) {
+          if (data?.session) {
             showMessage(
-              "Account created successfully ❤️ Redirecting...",
+              "Account created successfully. Redirecting...",
               "success"
             );
             setTimeout(
@@ -1080,12 +1022,10 @@
           }
           else {
             showMessage(
-              "Account created ❤️ Please check your email to confirm your account, then log in.",
+              "Account created. Please check your email to confirm your account, then log in.",
               "success"
             );
-            setMode(
-              "login"
-            );
+            setMode("login");
           }
         }
         catch (error) {
@@ -1096,32 +1036,28 @@
           let errorMessage =
             error?.message ||
             "Something went wrong. Please try again.";
+          const normalizedError =
+            errorMessage.toLowerCase();
           if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "invalid login credentials"
-              )
+            normalizedError.includes(
+              "invalid login credentials"
+            )
           ) {
             errorMessage =
               "Incorrect email or password.";
           }
           if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "email not confirmed"
-              )
+            normalizedError.includes(
+              "email not confirmed"
+            )
           ) {
             errorMessage =
               "Please confirm your email before logging in.";
           }
           if (
-            errorMessage
-              .toLowerCase()
-              .includes(
-                "user already registered"
-              )
+            normalizedError.includes(
+              "user already registered"
+            )
           ) {
             errorMessage =
               "An account with this email already exists. Please log in.";
@@ -1136,8 +1072,8 @@
             false;
           submitButton.textContent =
             mode === "login"
-              ? "Login ❤️"
-              : "Create account ❤️";
+              ? "Login"
+              : "Create account";
         }
       }
     );
@@ -1163,10 +1099,6 @@
         if (
           data?.session?.user
         ) {
-          /*
-           * User is already logged in.
-           * Send them directly to create.
-           */
           window.location.href =
             "/create";
         }
@@ -1196,11 +1128,6 @@
             event === "SIGNED_IN" &&
             session?.user
           ) {
-            /*
-             * Avoid immediately redirecting
-             * while the normal login handler
-             * is already handling it.
-             */
             if (
               mode === "login"
             ) {
@@ -1213,6 +1140,7 @@
     /* ==========================================
        INITIALIZE
     ========================================== */
+    updatePasswordVisibility();
     checkExistingSession();
   </script>
 </body>
