@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en">
 
@@ -29,7 +28,6 @@
       box-sizing: border-box;
     }
 
-
     html,
     body {
       margin: 0;
@@ -38,9 +36,7 @@
       min-height: 100%;
     }
 
-
     body {
-
       min-height: 100vh;
       min-height: 100svh;
       min-height: 100dvh;
@@ -82,7 +78,6 @@
     ========================================== */
 
     .glow {
-
       position: fixed;
 
       width: 330px;
@@ -102,18 +97,14 @@
         glowMove 8s ease-in-out infinite alternate;
     }
 
-
     .glow.one {
-
       top: -120px;
       left: -100px;
 
       background: #ff7fa5;
     }
 
-
     .glow.two {
-
       right: -120px;
       bottom: -130px;
 
@@ -121,7 +112,6 @@
 
       animation-delay: 2s;
     }
-
 
     @keyframes glowMove {
 
@@ -145,7 +135,6 @@
     ========================================== */
 
     .hearts {
-
       position: fixed;
 
       inset: 0;
@@ -157,9 +146,7 @@
       z-index: 1;
     }
 
-
     .heart {
-
       position: absolute;
 
       bottom: -50px;
@@ -170,55 +157,43 @@
         rise linear infinite;
     }
 
-
     .heart:nth-child(1) {
-
       left: 8%;
       font-size: 18px;
       animation-duration: 10s;
     }
 
-
     .heart:nth-child(2) {
-
       left: 23%;
       font-size: 13px;
       animation-duration: 13s;
       animation-delay: 3s;
     }
 
-
     .heart:nth-child(3) {
-
       left: 48%;
       font-size: 20px;
       animation-duration: 11s;
       animation-delay: 1s;
     }
 
-
     .heart:nth-child(4) {
-
       left: 72%;
       font-size: 15px;
       animation-duration: 14s;
       animation-delay: 4s;
     }
 
-
     .heart:nth-child(5) {
-
       left: 91%;
       font-size: 19px;
       animation-duration: 12s;
       animation-delay: 2s;
     }
 
-
     @keyframes rise {
 
       0% {
-
         transform:
           translateY(0)
           rotate(0deg);
@@ -235,7 +210,6 @@
       }
 
       100% {
-
         transform:
           translateY(-115vh)
           rotate(35deg);
@@ -251,7 +225,6 @@
     ========================================== */
 
     .page {
-
       position: relative;
 
       z-index: 2;
@@ -267,13 +240,10 @@
       align-items: center;
       justify-content: center;
 
-      padding:
-        24px;
+      padding: 24px;
     }
 
-
     .wrapper {
-
       width:
         min(
           440px,
@@ -287,7 +257,6 @@
     ========================================== */
 
     .brand {
-
       text-align: center;
 
       font-family:
@@ -311,7 +280,6 @@
     ========================================== */
 
     .card {
-
       position: relative;
 
       padding:
@@ -347,9 +315,7 @@
         cardIn .7s ease-out;
     }
 
-
     .card::before {
-
       content: "";
 
       position: absolute;
@@ -366,11 +332,9 @@
       pointer-events: none;
     }
 
-
     @keyframes cardIn {
 
       from {
-
         opacity: 0;
 
         transform:
@@ -379,7 +343,6 @@
       }
 
       to {
-
         opacity: 1;
 
         transform:
@@ -395,7 +358,6 @@
     ========================================== */
 
     .login-heart {
-
       position: relative;
 
       z-index: 2;
@@ -431,7 +393,6 @@
         pulse 2s ease-in-out infinite;
     }
 
-
     @keyframes pulse {
 
       0%,100% {
@@ -450,7 +411,6 @@
     ========================================== */
 
     .title {
-
       position: relative;
 
       z-index: 2;
@@ -469,9 +429,7 @@
       font-weight: normal;
     }
 
-
     .subtitle {
-
       position: relative;
 
       z-index: 2;
@@ -501,7 +459,6 @@
     ========================================== */
 
     .tabs {
-
       position: relative;
 
       z-index: 2;
@@ -524,9 +481,7 @@
         rgba(255,255,255,.12);
     }
 
-
     .tab {
-
       flex: 1;
 
       border: 0;
@@ -552,9 +507,7 @@
         .2s ease;
     }
 
-
     .tab.active {
-
       background: #fff;
 
       color: #74153f;
@@ -570,21 +523,16 @@
     ========================================== */
 
     .form {
-
       position: relative;
 
       z-index: 2;
     }
 
-
     .field {
-
       margin-bottom: 17px;
     }
 
-
     .field label {
-
       display: block;
 
       margin-bottom: 7px;
@@ -600,9 +548,7 @@
       opacity: .7;
     }
 
-
     .field input {
-
       width: 100%;
 
       padding:
@@ -633,16 +579,12 @@
         box-shadow .2s ease;
     }
 
-
     .field input::placeholder {
-
       color:
         rgba(255,255,255,.38);
     }
 
-
     .field input:focus {
-
       border-color:
         rgba(255,255,255,.55);
 
@@ -660,7 +602,6 @@
     ========================================== */
 
     .submit-button {
-
       width: 100%;
 
       margin-top: 6px;
@@ -695,9 +636,7 @@
         box-shadow .2s ease;
     }
 
-
     .submit-button:hover {
-
       transform:
         translateY(-2px);
 
@@ -706,9 +645,7 @@
         rgba(0,0,0,.28);
     }
 
-
     .submit-button:active {
-
       transform:
         scale(.98);
     }
@@ -719,7 +656,6 @@
     ========================================== */
 
     .message {
-
       position: relative;
 
       z-index: 2;
@@ -740,16 +676,12 @@
       line-height: 1.5;
     }
 
-
     .message.error {
-
       color:
         #ffd0da;
     }
 
-
     .message.success {
-
       color:
         #eaffef;
     }
@@ -760,7 +692,6 @@
     ========================================== */
 
     .bottom-text {
-
       position: relative;
 
       z-index: 2;
@@ -778,9 +709,7 @@
       opacity: .58;
     }
 
-
     .back-link {
-
       color: #fff;
 
       text-decoration: none;
@@ -788,111 +717,10 @@
       opacity: .8;
     }
 
-
     .back-link:hover {
-
       opacity: 1;
 
       text-decoration: underline;
-    }
-
-
-    /* ==========================================
-       LOGGED IN STATE
-    ========================================== */
-
-    .logged-in {
-
-      text-align: center;
-    }
-
-
-    .logged-in-icon {
-
-      font-size: 55px;
-
-      margin-bottom: 12px;
-    }
-
-
-    .logged-in h2 {
-
-      margin: 0 0 10px;
-
-      font-weight: normal;
-    }
-
-
-    .logged-in p {
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-size: 14px;
-
-      line-height: 1.6;
-
-      opacity: .72;
-
-      margin-bottom: 24px;
-    }
-
-
-    .continue-button {
-
-      display: block;
-
-      width: 100%;
-
-      padding:
-        14px;
-
-      border-radius: 999px;
-
-      border: 0;
-
-      color: #74153f;
-
-      background: #fff;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-weight: 700;
-
-      cursor: pointer;
-
-      margin-bottom: 10px;
-    }
-
-
-    .logout-button {
-
-      display: block;
-
-      width: 100%;
-
-      padding:
-        13px;
-
-      border-radius: 999px;
-
-      color: #fff;
-
-      background:
-        rgba(255,255,255,.08);
-
-      border:
-        1px solid
-        rgba(255,255,255,.20);
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      cursor: pointer;
     }
 
 
@@ -901,7 +729,6 @@
     ========================================== */
 
     .hidden {
-
       display: none !important;
     }
 
@@ -913,13 +740,10 @@
     @media (max-width: 600px) {
 
       .page {
-
         padding: 16px;
       }
 
-
       .card {
-
         padding:
           32px 20px
           28px;
@@ -927,9 +751,7 @@
         border-radius: 26px;
       }
 
-
       .title {
-
         font-size:
           clamp(
             32px,
@@ -1199,50 +1021,6 @@
         </form>
 
 
-        <!-- ====================================
-             LOGGED IN VIEW
-        ===================================== -->
-
-        <div
-          id="loggedInView"
-          class="logged-in hidden"
-        >
-
-          <div class="logged-in-icon">
-            💖
-          </div>
-
-
-          <h2>
-            You're already logged in
-          </h2>
-
-
-          <p id="loggedInText">
-            Welcome back to Moment.
-          </p>
-
-
-          <button
-            id="continueButton"
-            class="continue-button"
-            type="button"
-          >
-            Continue to Moment ❤️
-          </button>
-
-
-          <button
-            id="logoutButton"
-            class="logout-button"
-            type="button"
-          >
-            Log out
-          </button>
-
-        </div>
-
-
       </section>
 
 
@@ -1270,6 +1048,78 @@
   <script>
 
     /* ==========================================
+       STORAGE KEYS
+    ========================================== */
+
+    const USER_KEY =
+      "moment_user";
+
+    const ACCOUNT_KEY =
+      "moment_account";
+
+
+    /* ==========================================
+       GET LOGGED IN USER
+    ========================================== */
+
+    function getLoggedInUser() {
+
+      try {
+
+        const stored =
+          localStorage.getItem(
+            USER_KEY
+          );
+
+        if (!stored) {
+          return null;
+        }
+
+        const user =
+          JSON.parse(stored);
+
+        if (
+          user &&
+          user.loggedIn === true
+        ) {
+          return user;
+        }
+
+        return null;
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Could not read logged-in user:",
+          error
+        );
+
+        return null;
+
+      }
+
+    }
+
+
+    /* ==========================================
+       IMPORTANT:
+       IF USER IS ALREADY LOGGED IN,
+       DO NOT SHOW LOGIN PAGE.
+    ========================================== */
+
+    const existingUser =
+      getLoggedInUser();
+
+    if (existingUser) {
+
+      window.location.replace("/");
+
+    }
+
+
+    /* ==========================================
        ELEMENTS
     ========================================== */
 
@@ -1278,71 +1128,30 @@
         "loginTab"
       );
 
-
     const signupTab =
       document.getElementById(
         "signupTab"
       );
-
 
     const loginForm =
       document.getElementById(
         "loginForm"
       );
 
-
     const signupForm =
       document.getElementById(
         "signupForm"
       );
-
-
-    const loggedInView =
-      document.getElementById(
-        "loggedInView"
-      );
-
 
     const loginMessage =
       document.getElementById(
         "loginMessage"
       );
 
-
     const signupMessage =
       document.getElementById(
         "signupMessage"
       );
-
-
-    const loggedInText =
-      document.getElementById(
-        "loggedInText"
-      );
-
-
-    const continueButton =
-      document.getElementById(
-        "continueButton"
-      );
-
-
-    const logoutButton =
-      document.getElementById(
-        "logoutButton"
-      );
-
-
-    /* ==========================================
-       STORAGE KEYS
-    ========================================== */
-
-    const USER_KEY =
-      "moment_user";
-
-
-    const ACCOUNT_KEY =
-      "moment_account";
 
 
     /* ==========================================
@@ -1468,12 +1277,10 @@
 
       };
 
-
       localStorage.setItem(
         ACCOUNT_KEY,
         JSON.stringify(account)
       );
-
 
       return account;
 
@@ -1493,13 +1300,9 @@
             ACCOUNT_KEY
           );
 
-
         if (!stored) {
-
           return null;
-
         }
-
 
         return JSON.parse(
           stored
@@ -1542,47 +1345,10 @@
 
       };
 
-
       localStorage.setItem(
         USER_KEY,
         JSON.stringify(user)
       );
-
-    }
-
-
-    /* ==========================================
-       GET LOGGED IN USER
-    ========================================== */
-
-    function getLoggedInUser() {
-
-      try {
-
-        const stored =
-          localStorage.getItem(
-            USER_KEY
-          );
-
-
-        if (!stored) {
-
-          return null;
-
-        }
-
-
-        return JSON.parse(
-          stored
-        );
-
-      }
-
-      catch (error) {
-
-        return null;
-
-      }
 
     }
 
@@ -1620,9 +1386,9 @@
           getAccount();
 
 
-        /*
-         * No account yet.
-         */
+        /* --------------------------------------
+           NO ACCOUNT
+        -------------------------------------- */
 
         if (!account) {
 
@@ -1637,9 +1403,9 @@
         }
 
 
-        /*
-         * Check email.
-         */
+        /* --------------------------------------
+           CHECK EMAIL
+        -------------------------------------- */
 
         if (
           email !==
@@ -1657,9 +1423,9 @@
         }
 
 
-        /*
-         * Check password.
-         */
+        /* --------------------------------------
+           CHECK PASSWORD
+        -------------------------------------- */
 
         if (
           password !==
@@ -1677,9 +1443,9 @@
         }
 
 
-        /*
-         * Login successful.
-         */
+        /* --------------------------------------
+           LOGIN SUCCESS
+        -------------------------------------- */
 
         setLoggedInUser(
           account
@@ -1696,8 +1462,9 @@
         setTimeout(
           () => {
 
-            window.location.href =
-              "/";
+            window.location.replace(
+              "/"
+            );
 
           },
           500
@@ -1753,9 +1520,9 @@
             .value;
 
 
-        /*
-         * Validate name.
-         */
+        /* --------------------------------------
+           VALIDATE NAME
+        -------------------------------------- */
 
         if (
           name.length < 2
@@ -1772,9 +1539,9 @@
         }
 
 
-        /*
-         * Validate email.
-         */
+        /* --------------------------------------
+           VALIDATE EMAIL
+        -------------------------------------- */
 
         const emailPattern =
           /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1797,9 +1564,9 @@
         }
 
 
-        /*
-         * Validate password.
-         */
+        /* --------------------------------------
+           VALIDATE PASSWORD
+        -------------------------------------- */
 
         if (
           password.length < 6
@@ -1816,9 +1583,9 @@
         }
 
 
-        /*
-         * Confirm password.
-         */
+        /* --------------------------------------
+           CONFIRM PASSWORD
+        -------------------------------------- */
 
         if (
           password !==
@@ -1836,9 +1603,9 @@
         }
 
 
-        /*
-         * Check existing account.
-         */
+        /* --------------------------------------
+           CHECK EXISTING ACCOUNT
+        -------------------------------------- */
 
         const existingAccount =
           getAccount();
@@ -1861,9 +1628,9 @@
         }
 
 
-        /*
-         * Save account.
-         */
+        /* --------------------------------------
+           SAVE ACCOUNT
+        -------------------------------------- */
 
         const account =
           saveAccount(
@@ -1873,9 +1640,9 @@
           );
 
 
-        /*
-         * Automatically log in.
-         */
+        /* --------------------------------------
+           AUTOMATIC LOGIN
+        -------------------------------------- */
 
         setLoggedInUser(
           account
@@ -1892,8 +1659,9 @@
         setTimeout(
           () => {
 
-            window.location.href =
-              "/";
+            window.location.replace(
+              "/"
+            );
 
           },
           700
@@ -1902,129 +1670,8 @@
       }
     );
 
-
-    /* ==========================================
-       CONTINUE
-    ========================================== */
-
-    continueButton.addEventListener(
-      "click",
-      () => {
-
-        window.location.href =
-          "/";
-
-      }
-    );
-
-
-    /* ==========================================
-       LOGOUT
-    ========================================== */
-
-    logoutButton.addEventListener(
-      "click",
-      () => {
-
-        localStorage.removeItem(
-          USER_KEY
-        );
-
-
-        showLoggedOutState();
-
-      }
-    );
-
-
-    /* ==========================================
-       SHOW LOGGED OUT STATE
-    ========================================== */
-
-    function showLoggedOutState() {
-
-      loggedInView.classList.add(
-        "hidden"
-      );
-
-      loginForm.classList.remove(
-        "hidden"
-      );
-
-      signupForm.classList.add(
-        "hidden"
-      );
-
-      loginTab.classList.add(
-        "active"
-      );
-
-      signupTab.classList.remove(
-        "active"
-      );
-
-      clearMessages();
-
-    }
-
-
-    /* ==========================================
-       SHOW LOGGED IN STATE
-    ========================================== */
-
-    function showLoggedInState(
-      user
-    ) {
-
-      loginForm.classList.add(
-        "hidden"
-      );
-
-      signupForm.classList.add(
-        "hidden"
-      );
-
-      loginTab.classList.remove(
-        "active"
-      );
-
-      signupTab.classList.remove(
-        "active"
-      );
-
-      loggedInView.classList.remove(
-        "hidden"
-      );
-
-
-      loggedInText.textContent =
-        `Welcome back, ${user.name}. Your moments are waiting for you. ❤️`;
-
-    }
-
-
-    /* ==========================================
-       INITIAL CHECK
-    ========================================== */
-
-    const loggedInUser =
-      getLoggedInUser();
-
-
-    if (
-      loggedInUser &&
-      loggedInUser.loggedIn
-    ) {
-
-      showLoggedInState(
-        loggedInUser
-      );
-
-    }
-
   </script>
 
 </body>
 
 </html>
-```
