@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 
@@ -11,6 +12,9 @@
   >
 
   <title>Moment ❤️ — Make it a moment</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
   <style>
@@ -1786,14 +1790,14 @@
     </div>
 
 
+    <!-- ========================================
+         LOGGED OUT NAV
+    ======================================== -->
+
     <div
       id="loggedOutNav"
       class="nav-actions"
     >
-
-      <!-- ====================================
-           LOGGED OUT NAV
-      ==================================== -->
 
       <a
         href="/login"
@@ -1814,14 +1818,14 @@
     </div>
 
 
+    <!-- ========================================
+         LOGGED IN NAV
+    ======================================== -->
+
     <div
       id="loggedInNav"
       class="nav-actions hidden"
     >
-
-      <!-- ====================================
-           LOGGED IN PROFILE MENU
-      ==================================== -->
 
       <div
         id="profileMenu"
@@ -1843,9 +1847,11 @@
             👤
           </span>
 
+
           <span id="profileButtonName">
             Profile
           </span>
+
 
           <span class="profile-arrow">
             ▼
@@ -1867,6 +1873,7 @@
             >
               Welcome back
             </div>
+
 
             <div
               id="profileEmail"
@@ -2494,17 +2501,33 @@
 
 
   <!-- ==========================================
-       LOGIN / PROFILE LOGIC
+       SUPABASE AUTHENTICATION
   ========================================== -->
 
   <script>
 
     /* ==========================================
-       STORAGE KEY
+       SUPABASE CONFIGURATION
     ========================================== */
 
-    const USER_KEY =
-      "moment_user";
+    const SUPABASE_URL =
+      "https://bvzyntkrmqwdszoduyjv.supabase.co";
+
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_A4gADA7QSShJeSFdbPcaOw_56Nh_XQW";
+
+
+    const {
+      createClient
+    } = window.supabase;
+
+
+    const supabaseClient =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
 
     /* ==========================================
@@ -2566,75 +2589,7 @@
 
 
     /* ==========================================
-       GET LOGGED IN USER
-    ========================================== */
-
-    function getLoggedInUser() {
-
-      try {
-
-        const stored =
-          localStorage.getItem(
-            USER_KEY
-          );
-
-
-        if (!stored) {
-
-          return null;
-
-        }
-
-
-        const user =
-          JSON.parse(
-            stored
-          );
-
-
-        if (
-          !user ||
-          user.loggedIn !== true
-        ) {
-
-          return null;
-
-        }
-
-
-        return user;
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Could not read logged-in user:",
-          error
-        );
-
-        return null;
-
-      }
-
-    }
-
-
-    /* ==========================================
-       CHECK LOGIN
-    ========================================== */
-
-    function isLoggedIn() {
-
-      return Boolean(
-        getLoggedInUser()
-      );
-
-    }
-
-
-    /* ==========================================
-       SHOW LOGGED OUT NAV
+       SHOW LOGGED OUT NAVIGATION
     ========================================== */
 
     function showLoggedOutNavigation() {
@@ -2643,9 +2598,11 @@
         "hidden"
       );
 
+
       loggedInNav.classList.add(
         "hidden"
       );
+
 
       closeProfileMenu();
 
@@ -2653,7 +2610,7 @@
 
 
     /* ==========================================
-       SHOW LOGGED IN NAV
+       SHOW LOGGED IN NAVIGATION
     ========================================== */
 
     function showLoggedInNavigation(
@@ -2664,13 +2621,21 @@
         "hidden"
       );
 
+
       loggedInNav.classList.remove(
         "hidden"
       );
 
 
+      const metadata =
+        user.user_metadata || {};
+
+
       const name =
-        user.name ||
+        metadata.full_name ||
+        metadata.name ||
+        metadata.display_name ||
+        user.email?.split("@")[0] ||
         "Profile";
 
 
@@ -2694,24 +2659,65 @@
 
 
     /* ==========================================
-       UPDATE NAVIGATION
+       UPDATE NAVIGATION FROM SUPABASE SESSION
     ========================================== */
 
-    function updateNavigation() {
+    async function updateNavigation() {
 
-      const user =
-        getLoggedInUser();
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.getSession();
 
 
-      if (user) {
+        if (error) {
 
-        showLoggedInNavigation(
-          user
-        );
+          console.error(
+            "Supabase session error:",
+            error
+          );
+
+
+          showLoggedOutNavigation();
+
+          return;
+
+        }
+
+
+        const session =
+          data?.session;
+
+
+        if (
+          session &&
+          session.user
+        ) {
+
+          showLoggedInNavigation(
+            session.user
+          );
+
+        }
+
+        else {
+
+          showLoggedOutNavigation();
+
+        }
 
       }
 
-      else {
+      catch (error) {
+
+        console.error(
+          "Could not check Supabase session:",
+          error
+        );
+
 
         showLoggedOutNavigation();
 
@@ -2763,6 +2769,7 @@
         "open"
       );
 
+
       profileButton.setAttribute(
         "aria-expanded",
         "true"
@@ -2780,6 +2787,7 @@
       profileMenu.classList.remove(
         "open"
       );
+
 
       profileButton.setAttribute(
         "aria-expanded",
@@ -2820,29 +2828,77 @@
 
         link.addEventListener(
           "click",
-          (event) => {
+          async (event) => {
 
             event.preventDefault();
 
 
-            if (isLoggedIn()) {
+            try {
 
-              /*
-               * Logged-in users can
-               * directly create an invite.
-               */
+              const {
+                data,
+                error
+              } =
+                await supabaseClient.auth.getSession();
 
-              window.location.href =
-                "/create";
+
+              if (error) {
+
+                console.error(
+                  "Could not check authentication:",
+                  error
+                );
+
+
+                window.location.href =
+                  "/login";
+
+
+                return;
+
+              }
+
+
+              const session =
+                data?.session;
+
+
+              if (
+                session &&
+                session.user
+              ) {
+
+                /*
+                 * User is authenticated.
+                 * Allow them to create an invite.
+                 */
+
+                window.location.href =
+                  "/create";
+
+              }
+
+              else {
+
+                /*
+                 * User is not authenticated.
+                 * Send them to login.
+                 */
+
+                window.location.href =
+                  "/login";
+
+              }
 
             }
 
-            else {
+            catch (error) {
 
-              /*
-               * Logged-out users must
-               * login before creating.
-               */
+              console.error(
+                "Authentication check failed:",
+                error
+              );
+
 
               window.location.href =
                 "/login";
@@ -2862,44 +2918,108 @@
 
     logoutButton.addEventListener(
       "click",
-      () => {
+      async () => {
 
-        /*
-         * Remove only the login session.
-         *
-         * moment_account remains untouched,
-         * so the user's account is still there
-         * when they log in again.
-         */
+        try {
 
-        localStorage.removeItem(
-          USER_KEY
-        );
+          logoutButton.disabled =
+            true;
 
 
-        closeProfileMenu();
+          const {
+            error
+          } =
+            await supabaseClient.auth.signOut();
 
 
-        updateNavigation();
+          if (error) {
+
+            console.error(
+              "Logout failed:",
+              error
+            );
+
+
+            alert(
+              "Could not log out. Please try again."
+            );
+
+
+            logoutButton.disabled =
+              false;
+
+
+            return;
+
+          }
+
+
+          /*
+           * Supabase automatically removes
+           * the authentication session.
+           */
+
+
+          closeProfileMenu();
+
+
+          showLoggedOutNavigation();
+
+
+        }
+
+        catch (error) {
+
+          console.error(
+            "Logout error:",
+            error
+          );
+
+
+          alert(
+            "Could not log out. Please try again."
+          );
+
+
+          logoutButton.disabled =
+            false;
+
+        }
 
       }
     );
 
 
     /* ==========================================
-       STORAGE EVENT
-       Handles login/logout from another tab.
+       SUPABASE AUTH STATE LISTENER
     ========================================== */
 
-    window.addEventListener(
-      "storage",
-      (event) => {
+    supabaseClient.auth.onAuthStateChange(
+      (
+        event,
+        session
+      ) => {
+
+        console.log(
+          "Supabase auth event:",
+          event
+        );
+
 
         if (
-          event.key === USER_KEY
+          session &&
+          session.user
         ) {
 
-          updateNavigation();
+          showLoggedInNavigation(
+            session.user
+          );
+
+        }
+
+        else {
+
+          showLoggedOutNavigation();
 
         }
 
@@ -2919,3 +3039,4 @@
 </body>
 
 </html>
+```
