@@ -7,22 +7,15 @@
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
+    content="width=device-width, initial-scale=1"
   >
 
   <meta
     name="description"
-    content="Moment — Create a beautiful invitation for someone special."
+    content="Moment — Make meaningful moments unforgettable."
   >
 
   <title>Moment ❤️ — Make it a moment</title>
-
-
-  <!-- ==========================================
-       SUPABASE
-  ========================================== -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
   <style>
@@ -98,14 +91,12 @@
         glowMove 9s ease-in-out infinite alternate;
     }
 
-
     .glow.one {
       background: #ff719b;
 
       top: -160px;
       left: -120px;
     }
-
 
     .glow.two {
       background: #ffb3ca;
@@ -115,7 +106,6 @@
 
       animation-delay: 3s;
     }
-
 
     @keyframes glowMove {
 
@@ -150,7 +140,6 @@
       z-index: 0;
     }
 
-
     .heart {
       position: absolute;
 
@@ -162,13 +151,11 @@
         floatUp linear infinite;
     }
 
-
     .heart:nth-child(1) {
       left: 7%;
       font-size: 18px;
       animation-duration: 11s;
     }
-
 
     .heart:nth-child(2) {
       left: 25%;
@@ -177,14 +164,12 @@
       animation-delay: 2s;
     }
 
-
     .heart:nth-child(3) {
       left: 50%;
       font-size: 22px;
       animation-duration: 10s;
       animation-delay: 4s;
     }
-
 
     .heart:nth-child(4) {
       left: 74%;
@@ -193,14 +178,12 @@
       animation-delay: 1s;
     }
 
-
     .heart:nth-child(5) {
       left: 91%;
       font-size: 20px;
       animation-duration: 12s;
       animation-delay: 5s;
     }
-
 
     @keyframes floatUp {
 
@@ -246,11 +229,9 @@
           calc(100% - 32px)
         );
 
-      margin:
-        0 auto;
+      margin: 0 auto;
 
-      padding:
-        20px 0;
+      padding: 20px 0;
 
       display: flex;
 
@@ -258,7 +239,6 @@
 
       justify-content: space-between;
     }
-
 
     .logo {
       font-family:
@@ -271,11 +251,9 @@
       letter-spacing: -.6px;
     }
 
-
     .logo-heart {
       font-size: 20px;
     }
-
 
     .nav-actions {
       display: flex;
@@ -291,14 +269,6 @@
     ========================================== */
 
     .login-button {
-      display: inline-flex;
-
-      align-items: center;
-      justify-content: center;
-
-      padding:
-        10px 12px;
-
       border: 0;
 
       background: transparent;
@@ -308,26 +278,22 @@
 
       font-size: 13px;
 
-      text-decoration: none;
+      padding:
+        10px 12px;
 
       cursor: pointer;
 
       transition:
-        color .2s ease,
-        transform .2s ease;
+        color .2s ease;
     }
-
 
     .login-button:hover {
       color: #fff;
-
-      transform:
-        translateY(-1px);
     }
 
 
     /* ==========================================
-       CREATE NAV BUTTON
+       CREATE BUTTON
     ========================================== */
 
     .create-nav {
@@ -364,7 +330,6 @@
         background .2s ease;
     }
 
-
     .create-nav:hover {
       transform:
         translateY(-2px);
@@ -375,287 +340,188 @@
 
 
     /* ==========================================
-       PROFILE MENU
+       USER MENU
     ========================================== */
 
-    .profile-menu {
+    .user-menu {
       position: relative;
     }
 
-
-    .profile-button {
+    .user-button {
       display: inline-flex;
 
       align-items: center;
 
-      justify-content: center;
-
       gap: 8px;
-
-      min-height: 40px;
-
-      padding:
-        8px 14px;
-
-      border-radius: 999px;
 
       border:
         1px solid
-        rgba(255,255,255,.22);
+        rgba(255,255,255,.2);
 
-      background:
-        rgba(255,255,255,.09);
+      border-radius: 999px;
+
+      padding:
+        9px 13px;
 
       color: #fff;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      font-size: 13px;
-
-      font-weight: 600;
-
-      cursor: pointer;
+      background:
+        rgba(255,255,255,.08);
 
       backdrop-filter:
         blur(12px);
 
-      transition:
-        background .2s ease,
-        transform .2s ease;
+      cursor: pointer;
+
+      font-size: 13px;
+
+      max-width: 220px;
     }
 
-
-    .profile-button:hover {
-      background:
-        rgba(255,255,255,.16);
-
-      transform:
-        translateY(-1px);
-    }
-
-
-    .profile-icon {
+    .user-avatar {
       width: 27px;
       height: 27px;
 
-      display: inline-flex;
+      border-radius: 50%;
+
+      display: flex;
 
       align-items: center;
       justify-content: center;
 
-      border-radius: 50%;
-
       background:
         rgba(255,255,255,.18);
 
-      font-size: 14px;
+      font-size: 12px;
+
+      flex-shrink: 0;
     }
 
+    .user-email {
+      max-width: 135px;
 
-    .profile-arrow {
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+    }
+
+    .user-chevron {
+      opacity: .55;
       font-size: 10px;
-
-      opacity: .65;
-
-      transition:
-        transform .2s ease;
     }
 
-
-    .profile-menu.open .profile-arrow {
-      transform:
-        rotate(180deg);
-    }
-
-
-    /* ==========================================
-       PROFILE DROPDOWN
-    ========================================== */
-
-    .profile-dropdown {
+    .user-dropdown {
       position: absolute;
 
-      top: calc(100% + 10px);
+      top:
+        calc(100% + 9px);
 
       right: 0;
 
-      width: 220px;
+      width: 210px;
 
-      padding: 8px;
-
-      border-radius: 18px;
+      padding: 7px;
 
       border:
         1px solid
-        rgba(255,255,255,.18);
+        rgba(255,255,255,.16);
+
+      border-radius: 17px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(65,18,51,.96),
-          rgba(38,10,30,.96)
+          rgba(60,12,47,.98),
+          rgba(24,7,23,.98)
         );
 
       box-shadow:
-        0 20px 55px
+        0 20px 50px
         rgba(0,0,0,.35);
 
       backdrop-filter:
-        blur(22px);
+        blur(18px);
 
-      -webkit-backdrop-filter:
-        blur(22px);
-
-      opacity: 0;
-
-      visibility: hidden;
-
-      transform:
-        translateY(-8px)
-        scale(.97);
-
-      transform-origin:
-        top right;
-
-      transition:
-        opacity .18s ease,
-        visibility .18s ease,
-        transform .18s ease;
+      display: none;
     }
 
-
-    .profile-menu.open .profile-dropdown {
-      opacity: 1;
-
-      visibility: visible;
-
-      transform:
-        translateY(0)
-        scale(1);
+    .user-dropdown.show {
+      display: block;
     }
 
-
-    .profile-header {
+    .dropdown-user {
       padding:
-        12px 12px
-        10px;
+        10px 11px 12px;
 
       border-bottom:
         1px solid
-        rgba(255,255,255,.10);
+        rgba(255,255,255,.09);
 
       margin-bottom: 5px;
     }
 
+    .dropdown-user-label {
+      font-size: 10px;
 
-    .profile-name {
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+      text-transform: uppercase;
 
-      font-size: 17px;
+      letter-spacing: 1.5px;
 
-      margin-bottom: 3px;
+      opacity: .4;
+
+      margin-bottom: 4px;
     }
 
+    .dropdown-user-email {
+      font-size: 12px;
 
-    .profile-email {
-      font-size: 11px;
+      opacity: .75;
 
-      color:
-        rgba(255,255,255,.48);
+      overflow: hidden;
 
-      overflow:
-        hidden;
+      text-overflow: ellipsis;
 
-      text-overflow:
-        ellipsis;
-
-      white-space:
-        nowrap;
+      white-space: nowrap;
     }
 
-
-    .profile-link {
-      display: flex;
-
-      align-items: center;
-
-      gap: 11px;
+    .dropdown-item {
+      display: block;
 
       width: 100%;
 
-      padding:
-        11px 12px;
+      border: 0;
 
-      border-radius: 11px;
+      background: transparent;
 
       color:
-        rgba(255,255,255,.82);
+        rgba(255,255,255,.78);
+
+      text-align: left;
+
+      padding:
+        10px 11px;
+
+      border-radius: 10px;
 
       text-decoration: none;
 
       font-size: 13px;
 
-      background:
-        transparent;
-
-      border: 0;
-
       cursor: pointer;
-
-      text-align: left;
-
-      transition:
-        background .18s ease,
-        color .18s ease;
     }
 
-
-    .profile-link:hover {
+    .dropdown-item:hover {
       background:
-        rgba(255,255,255,.09);
+        rgba(255,255,255,.08);
 
       color: #fff;
     }
 
-
-    .profile-link-icon {
-      width: 22px;
-
-      text-align: center;
-
-      font-size: 15px;
-    }
-
-
-    .profile-divider {
-      height: 1px;
-
-      margin:
-        6px 4px;
-
-      background:
-        rgba(255,255,255,.10);
-    }
-
-
-    .logout-link {
+    .dropdown-item.logout {
       color:
-        rgba(255,205,215,.82);
-    }
-
-
-    .logout-link:hover {
-      background:
-        rgba(255,100,130,.10);
-
-      color:
-        #ffd8e0;
+        #ffc4d3;
     }
 
 
@@ -674,8 +540,7 @@
           calc(100% - 32px)
         );
 
-      margin:
-        0 auto;
+      margin: 0 auto;
     }
 
 
@@ -702,12 +567,10 @@
         80px;
     }
 
-
     .hero-content {
       animation:
         heroIn .85s ease-out;
     }
-
 
     .eyebrow {
       display: inline-flex;
@@ -738,7 +601,6 @@
         rgba(255,255,255,.75);
     }
 
-
     .hero h1 {
       margin:
         22px 0
@@ -763,7 +625,6 @@
       letter-spacing: -4px;
     }
 
-
     .hero h1 span {
       display: block;
 
@@ -775,11 +636,11 @@
         );
 
       -webkit-background-clip: text;
+
       background-clip: text;
 
       color: transparent;
     }
-
 
     .hero p {
       max-width: 570px;
@@ -794,7 +655,6 @@
         rgba(255,255,255,.68);
     }
 
-
     .hero-actions {
       display: flex;
 
@@ -804,11 +664,6 @@
 
       flex-wrap: wrap;
     }
-
-
-    /* ==========================================
-       PRIMARY BUTTON
-    ========================================== */
 
     .primary {
       display: inline-flex;
@@ -833,6 +688,10 @@
 
       font-size: 14px;
 
+      border: 0;
+
+      cursor: pointer;
+
       box-shadow:
         0 14px 35px
         rgba(0,0,0,.22);
@@ -842,7 +701,6 @@
         box-shadow .2s ease;
     }
 
-
     .primary:hover {
       transform:
         translateY(-3px);
@@ -851,11 +709,6 @@
         0 18px 40px
         rgba(0,0,0,.28);
     }
-
-
-    /* ==========================================
-       SECONDARY BUTTON
-    ========================================== */
 
     .secondary {
       display: inline-flex;
@@ -889,7 +742,6 @@
         background .2s ease;
     }
 
-
     .secondary:hover {
       background:
         rgba(255,255,255,.13);
@@ -908,7 +760,6 @@
       animation:
         previewIn 1s ease-out .1s both;
     }
-
 
     .preview {
       position: relative;
@@ -961,7 +812,6 @@
         transform .35s ease;
     }
 
-
     .preview::before {
       content: "";
 
@@ -978,13 +828,11 @@
       pointer-events: none;
     }
 
-
     .preview:hover {
       transform:
         rotate(0deg)
         translateY(-6px);
     }
-
 
     .preview-label {
       font-size: 10px;
@@ -996,7 +844,6 @@
       opacity: .52;
     }
 
-
     .preview-heart {
       margin:
         24px 0;
@@ -1006,23 +853,6 @@
       animation:
         heartbeat 2.2s ease-in-out infinite;
     }
-
-
-    @keyframes heartbeat {
-
-      0%,
-      100% {
-        transform:
-          scale(1);
-      }
-
-      50% {
-        transform:
-          scale(1.08);
-      }
-
-    }
-
 
     .preview h2 {
       margin: 0;
@@ -1037,19 +867,16 @@
       font-size: 40px;
     }
 
-
     .preview-line {
       width: 55px;
 
       height: 1px;
 
-      margin:
-        20px 0;
+      margin: 20px 0;
 
       background:
         rgba(255,255,255,.4);
     }
-
 
     .preview-message {
       font-family:
@@ -1064,7 +891,6 @@
       opacity: .82;
     }
 
-
     .preview-from {
       margin-top: 24px;
 
@@ -1073,6 +899,23 @@
       opacity: .5;
     }
 
+
+    /* ==========================================
+       ANIMATIONS
+    ========================================== */
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+    }
 
     @keyframes heroIn {
 
@@ -1091,7 +934,6 @@
       }
 
     }
-
 
     @keyframes previewIn {
 
@@ -1123,13 +965,11 @@
         100px 0;
     }
 
-
     .section-header {
       max-width: 650px;
 
       margin-bottom: 45px;
     }
-
 
     .section-label {
       font-size: 10px;
@@ -1141,7 +981,6 @@
       color:
         rgba(255,255,255,.5);
     }
-
 
     .section h2 {
       margin:
@@ -1163,7 +1002,6 @@
 
       letter-spacing: -2px;
     }
-
 
     .section-header p {
       margin: 0;
@@ -1188,7 +1026,6 @@
       gap: 16px;
     }
 
-
     .step {
       padding: 30px;
 
@@ -1211,7 +1048,6 @@
         background .25s ease;
     }
 
-
     .step:hover {
       transform:
         translateY(-5px);
@@ -1219,7 +1055,6 @@
       background:
         rgba(255,255,255,.08);
     }
-
 
     .step-number {
       font-family:
@@ -1232,14 +1067,12 @@
       opacity: .42;
     }
 
-
     .step-icon {
       margin:
         25px 0 15px;
 
       font-size: 27px;
     }
-
 
     .step h3 {
       margin:
@@ -1254,7 +1087,6 @@
 
       font-weight: normal;
     }
-
 
     .step p {
       margin: 0;
@@ -1284,7 +1116,6 @@
       align-items: center;
     }
 
-
     .experience-copy p {
       color:
         rgba(255,255,255,.64);
@@ -1294,7 +1125,6 @@
       font-size: 16px;
     }
 
-
     .feature-list {
       display: grid;
 
@@ -1302,7 +1132,6 @@
 
       margin-top: 25px;
     }
-
 
     .feature {
       display: flex;
@@ -1316,7 +1145,6 @@
       color:
         rgba(255,255,255,.78);
     }
-
 
     .feature-dot {
       flex:
@@ -1337,7 +1165,7 @@
 
 
     /* ==========================================
-       MOMENT STORIES
+       STORIES
     ========================================== */
 
     .stories {
@@ -1348,7 +1176,6 @@
 
       gap: 16px;
     }
-
 
     .story {
       min-height: 245px;
@@ -1377,17 +1204,14 @@
         transform .25s ease;
     }
 
-
     .story:hover {
       transform:
         translateY(-5px);
     }
 
-
     .story-icon {
       font-size: 27px;
     }
-
 
     .story-text {
       margin:
@@ -1406,7 +1230,6 @@
         rgba(255,255,255,.9);
     }
 
-
     .story-label {
       font-size: 11px;
 
@@ -1418,7 +1241,7 @@
 
 
     /* ==========================================
-       FINAL CTA
+       CTA
     ========================================== */
 
     .cta {
@@ -1448,14 +1271,12 @@
         blur(18px);
     }
 
-
     .cta-heart {
       font-size: 38px;
 
       animation:
         heartbeat 2.2s ease-in-out infinite;
     }
-
 
     .cta h2 {
       margin:
@@ -1475,7 +1296,6 @@
 
       font-weight: normal;
     }
-
 
     .cta p {
       margin:
@@ -1506,8 +1326,7 @@
           calc(100% - 32px)
         );
 
-      margin:
-        0 auto;
+      margin: 0 auto;
 
       padding:
         0 0 35px;
@@ -1524,18 +1343,19 @@
       font-size: 11px;
     }
 
-
     footer span:first-child {
       letter-spacing: 2px;
     }
 
 
     /* ==========================================
-       HIDDEN
+       AUTH LOADING
     ========================================== */
 
-    .hidden {
-      display: none !important;
+    .auth-loading {
+      opacity: .55;
+
+      pointer-events: none;
     }
 
 
@@ -1543,12 +1363,7 @@
        MOBILE
     ========================================== */
 
-    @media (max-width: 800px) {
-
-      .nav {
-        padding-top: 16px;
-      }
-
+    @media(max-width:800px) {
 
       .hero {
         grid-template-columns: 1fr;
@@ -1560,38 +1375,31 @@
         gap: 50px;
       }
 
-
       .hero-content {
         text-align: center;
       }
-
 
       .hero p {
         margin: auto;
       }
 
-
       .hero-actions {
         justify-content: center;
       }
-
 
       .preview {
         min-height: 420px;
       }
 
-
       .steps {
         grid-template-columns: 1fr;
       }
-
 
       .experience {
         grid-template-columns: 1fr;
 
         gap: 35px;
       }
-
 
       .stories {
         grid-template-columns: 1fr;
@@ -1600,7 +1408,7 @@
     }
 
 
-    @media (max-width: 500px) {
+    @media(max-width:500px) {
 
       .nav,
       .container,
@@ -1609,21 +1417,17 @@
           calc(100% - 28px);
       }
 
-
       .logo {
         font-size: 23px;
       }
-
 
       .logo-heart {
         font-size: 18px;
       }
 
-
       .nav-actions {
         gap: 3px;
       }
-
 
       .login-button {
         padding:
@@ -1632,7 +1436,6 @@
         font-size: 12px;
       }
 
-
       .create-nav {
         padding:
           9px 12px;
@@ -1640,31 +1443,18 @@
         font-size: 12px;
       }
 
-
-      .profile-button {
+      .user-button {
         padding:
-          7px 10px;
-
-        font-size: 12px;
+          8px 9px;
       }
 
-
-      .profile-dropdown {
-        right: -4px;
-
-        width: 205px;
+      .user-email {
+        display: none;
       }
-
-
-      .profile-name {
-        font-size: 16px;
-      }
-
 
       .hero {
         padding-bottom: 55px;
       }
-
 
       .hero h1 {
         font-size:
@@ -1677,11 +1467,9 @@
         letter-spacing: -3px;
       }
 
-
       .hero p {
         font-size: 16px;
       }
-
 
       .hero-actions {
         flex-direction: column;
@@ -1689,28 +1477,23 @@
         width: 100%;
       }
 
-
       .primary,
       .secondary {
         width: 100%;
       }
 
-
       .preview {
         min-height: 405px;
       }
-
 
       .section {
         padding:
           75px 0;
       }
 
-
       .section h2 {
         letter-spacing: -1.5px;
       }
-
 
       .step {
         min-height: auto;
@@ -1718,11 +1501,9 @@
         padding: 25px;
       }
 
-
       .story {
         min-height: 215px;
       }
-
 
       .cta {
         padding:
@@ -1731,13 +1512,16 @@
         margin-bottom: 65px;
       }
 
-
       footer {
         flex-direction: column;
 
         text-align: center;
 
         align-items: center;
+      }
+
+      .user-dropdown {
+        right: -5px;
       }
 
     }
@@ -1759,23 +1543,15 @@
   <div class="glow two"></div>
 
 
-  <!-- ==========================================
-       FLOATING HEARTS
-  ========================================== -->
-
   <div
     class="hearts"
     aria-hidden="true"
   >
 
     <span class="heart">❤️</span>
-
     <span class="heart">💗</span>
-
     <span class="heart">💕</span>
-
     <span class="heart">❤️</span>
-
     <span class="heart">💗</span>
 
   </div>
@@ -1798,160 +1574,130 @@
     </div>
 
 
-    <!-- ========================================
-         LOGGED OUT NAV
-    ========================================= -->
-
     <div
-      id="loggedOutNav"
-      class="nav-actions hidden"
+      class="nav-actions"
+      id="navActions"
     >
 
-      <a
-        href="/login"
-        class="login-button"
-      >
-        Login
-      </a>
-
-
-      <a
-        href="/login"
-        class="create-nav"
-        data-create-invite
-      >
-        Create an Invite ❤️
-      </a>
-
-    </div>
-
-
-    <!-- ========================================
-         LOGGED IN NAV
-    ========================================= -->
-
-    <div
-      id="loggedInNav"
-      class="nav-actions hidden"
-    >
+      <!-- LOGGED OUT -->
 
       <div
-        id="profileMenu"
-        class="profile-menu"
+        id="loggedOutActions"
+        class="nav-actions"
       >
 
         <button
-          id="profileButton"
-          class="profile-button"
           type="button"
-          aria-haspopup="true"
-          aria-expanded="false"
+          class="login-button"
+          id="loginButton"
         >
-
-          <span
-            class="profile-icon"
-          >
-            👤
-          </span>
-
-
-          <span id="profileButtonName">
-            Profile
-          </span>
-
-
-          <span class="profile-arrow">
-            ▼
-          </span>
-
+          Login
         </button>
 
 
-        <!-- ==================================
-             PROFILE DROPDOWN
-        =================================== -->
-
-        <div
-          id="profileDropdown"
-          class="profile-dropdown"
+        <a
+          href="/create"
+          class="create-nav"
+          id="createNavButton"
         >
+          Create an Invite ❤️
+        </a>
 
-          <div class="profile-header">
-
-            <div
-              id="profileName"
-              class="profile-name"
-            >
-              Welcome back
-            </div>
+      </div>
 
 
-            <div
-              id="profileEmail"
-              class="profile-email"
-            >
-              user@example.com
-            </div>
+      <!-- LOGGED IN -->
 
-          </div>
+      <div
+        id="loggedInActions"
+        class="nav-actions"
+        style="display:none;"
+      >
 
-
-          <!-- MY MOMENTS -->
-
-          <a
-            href="/moments"
-            class="profile-link"
-          >
-
-            <span class="profile-link-icon">
-              💌
-            </span>
-
-            <span>
-              My Moments
-            </span>
-
-          </a>
-
-
-          <!-- EDIT PROFILE -->
-
-          <a
-            href="/profile"
-            class="profile-link"
-          >
-
-            <span class="profile-link-icon">
-              ✏️
-            </span>
-
-            <span>
-              Edit Profile
-            </span>
-
-          </a>
-
-
-          <div class="profile-divider"></div>
-
-
-          <!-- LOGOUT -->
+        <div class="user-menu">
 
           <button
-            id="logoutButton"
-            class="profile-link logout-link"
             type="button"
+            class="user-button"
+            id="userButton"
+            aria-expanded="false"
           >
 
-            <span class="profile-link-icon">
-              ↪
+            <span
+              class="user-avatar"
+              id="userAvatar"
+            >
+              ❤️
             </span>
 
-            <span>
-              Logout
+            <span
+              class="user-email"
+              id="userEmail"
+            >
+              Account
+            </span>
+
+            <span class="user-chevron">
+              ▼
             </span>
 
           </button>
+
+
+          <div
+            class="user-dropdown"
+            id="userDropdown"
+          >
+
+            <div class="dropdown-user">
+
+              <div class="dropdown-user-label">
+                Signed in as
+              </div>
+
+              <div
+                class="dropdown-user-email"
+                id="dropdownUserEmail"
+              >
+              </div>
+
+            </div>
+
+
+            <a
+              href="/create"
+              class="dropdown-item"
+            >
+              Create an Invite ❤️
+            </a>
+
+
+            <a
+              href="/"
+              class="dropdown-item"
+            >
+              My Moments
+            </a>
+
+
+            <a
+              href="#"
+              class="dropdown-item"
+              id="editProfileButton"
+            >
+              Edit Profile
+            </a>
+
+
+            <button
+              type="button"
+              class="dropdown-item logout"
+              id="logoutButton"
+            >
+              Logout
+            </button>
+
+          </div>
 
         </div>
 
@@ -1962,18 +1708,21 @@
   </nav>
 
 
+  <!-- ==========================================
+       MAIN
+  ========================================== -->
+
   <main>
 
 
-    <!-- ==========================================
+    <!-- ========================================
          HERO
-    ========================================== -->
+    ========================================= -->
 
     <section class="hero container">
 
 
       <div class="hero-content">
-
 
         <div class="eyebrow">
           Made for meaningful moments ❤️
@@ -2003,11 +1752,9 @@
 
         <div class="hero-actions">
 
-
           <a
-            href="/login"
-            class="primary"
-            data-create-invite
+            href="/create"
+            class="primary protected-create"
           >
             Create an Invite ❤️
           </a>
@@ -2020,21 +1767,16 @@
             See how it works
           </a>
 
-
         </div>
-
 
       </div>
 
 
-      <!-- ========================================
-           HERO PREVIEW
-      ========================================= -->
+      <!-- HERO PREVIEW -->
 
       <div class="preview-wrap">
 
         <div class="preview">
-
 
           <div class="preview-label">
             A little invitation
@@ -2063,14 +1805,14 @@
 
 
           <div class="preview-from">
-            From someone special ❤️
-          </div>
 
+            From someone special ❤️
+
+          </div>
 
         </div>
 
       </div>
-
 
     </section>
 
@@ -2084,9 +1826,7 @@
       class="section container"
     >
 
-
       <div class="section-header">
-
 
         <div class="section-label">
           Simple by design
@@ -2106,7 +1846,6 @@
 
         </p>
 
-
       </div>
 
 
@@ -2114,7 +1853,6 @@
 
 
         <article class="step">
-
 
           <div class="step-number">
             01
@@ -2139,12 +1877,10 @@
 
           </p>
 
-
         </article>
 
 
         <article class="step">
-
 
           <div class="step-number">
             02
@@ -2169,12 +1905,10 @@
 
           </p>
 
-
         </article>
 
 
         <article class="step">
-
 
           <div class="step-number">
             03
@@ -2199,12 +1933,10 @@
 
           </p>
 
-
         </article>
 
 
       </div>
-
 
     </section>
 
@@ -2215,12 +1947,10 @@
 
     <section class="section container">
 
-
       <div class="experience">
 
 
         <div class="experience-copy">
-
 
           <div class="section-label">
             More than a link
@@ -2283,15 +2013,12 @@
 
           </div>
 
-
         </div>
 
 
         <div class="preview-wrap">
 
-
           <div class="preview">
-
 
             <div class="preview-label">
               Your moment
@@ -2320,28 +2047,23 @@
               See you then. 🥰
             </div>
 
-
           </div>
-
 
         </div>
 
 
       </div>
 
-
     </section>
 
 
     <!-- ==========================================
-         MOMENT STORIES
+         STORIES
     ========================================== -->
 
     <section class="section container">
 
-
       <div class="section-header">
-
 
         <div class="section-label">
           The feeling we're creating
@@ -2360,7 +2082,6 @@
 
         </p>
 
-
       </div>
 
 
@@ -2368,7 +2089,6 @@
 
 
         <article class="story">
-
 
           <div class="story-icon">
             ❤️
@@ -2387,12 +2107,10 @@
             FOR THE FIRST DATE
           </div>
 
-
         </article>
 
 
         <article class="story">
-
 
           <div class="story-icon">
             💕
@@ -2411,12 +2129,10 @@
             FOR SOMEONE SPECIAL
           </div>
 
-
         </article>
 
 
         <article class="story">
-
 
           <div class="story-icon">
             🥰
@@ -2435,12 +2151,10 @@
             FOR THE MOMENT AFTER
           </div>
 
-
         </article>
 
 
       </div>
-
 
     </section>
 
@@ -2451,9 +2165,7 @@
 
     <section class="container">
 
-
       <div class="cta">
-
 
         <div class="cta-heart">
           ❤️
@@ -2474,16 +2186,13 @@
 
 
         <a
-          href="/login"
-          class="primary"
-          data-create-invite
+          href="/create"
+          class="primary protected-create"
         >
           Create an Invite ❤️
         </a>
 
-
       </div>
-
 
     </section>
 
@@ -2497,7 +2206,6 @@
 
   <footer>
 
-
     <span>
       MOMENT ❤️
     </span>
@@ -2507,13 +2215,15 @@
       Made for the moments that matter.
     </span>
 
-
   </footer>
 
 
   <!-- ==========================================
-       SUPABASE AUTH LOGIC
+       SUPABASE
   ========================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
   <script>
 
@@ -2522,22 +2232,23 @@
     ========================================== */
 
     const SUPABASE_URL =
-      "https://bvzyntkrmqwdszoduyjv.supabase.co";
+      "YOUR_SUPABASE_URL";
 
-
-    const SUPABASE_ANON_KEY =
-      "sb_publishable_A4gADA7QSShJeSFdbPcaOw_56Nh_XQW";
-
-
-    const {
-      createClient
-    } = window.supabase;
+    const SUPABASE_PUBLISHABLE_KEY =
+      "YOUR_SUPABASE_PUBLISHABLE_KEY";
 
 
     const supabaseClient =
-      createClient(
+      window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        SUPABASE_PUBLISHABLE_KEY,
+        {
+          auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true
+          }
+        }
       );
 
 
@@ -2545,266 +2256,126 @@
        ELEMENTS
     ========================================== */
 
-    const loggedOutNav =
+    const loggedOutActions =
       document.getElementById(
-        "loggedOutNav"
+        "loggedOutActions"
       );
 
-
-    const loggedInNav =
+    const loggedInActions =
       document.getElementById(
-        "loggedInNav"
+        "loggedInActions"
       );
 
-
-    const profileMenu =
+    const loginButton =
       document.getElementById(
-        "profileMenu"
+        "loginButton"
       );
 
-
-    const profileButton =
+    const createNavButton =
       document.getElementById(
-        "profileButton"
+        "createNavButton"
       );
 
-
-    const profileButtonName =
+    const userButton =
       document.getElementById(
-        "profileButtonName"
+        "userButton"
       );
 
-
-    const profileName =
+    const userDropdown =
       document.getElementById(
-        "profileName"
+        "userDropdown"
       );
 
-
-    const profileEmail =
+    const userEmail =
       document.getElementById(
-        "profileEmail"
+        "userEmail"
       );
 
+    const dropdownUserEmail =
+      document.getElementById(
+        "dropdownUserEmail"
+      );
+
+    const userAvatar =
+      document.getElementById(
+        "userAvatar"
+      );
 
     const logoutButton =
       document.getElementById(
         "logoutButton"
       );
 
-
-    const createInviteLinks =
-      document.querySelectorAll(
-        "[data-create-invite]"
+    const editProfileButton =
+      document.getElementById(
+        "editProfileButton"
       );
 
 
     /* ==========================================
-       SHOW LOGGED OUT NAVIGATION
+       INITIAL UI STATE
     ========================================== */
 
-    function showLoggedOutNavigation() {
+    function showLoggedOutUI() {
 
-      loggedOutNav.classList.remove(
-        "hidden"
-      );
+      loggedOutActions.style.display =
+        "flex";
 
+      loggedInActions.style.display =
+        "none";
 
-      loggedInNav.classList.add(
-        "hidden"
-      );
-
-
-      closeProfileMenu();
+      closeUserDropdown();
 
     }
 
 
-    /* ==========================================
-       SHOW LOGGED IN NAVIGATION
-    ========================================== */
-
-    function showLoggedInNavigation(
+    function showLoggedInUI(
       user
     ) {
 
-      loggedOutNav.classList.add(
-        "hidden"
-      );
+      loggedOutActions.style.display =
+        "none";
 
-
-      loggedInNav.classList.remove(
-        "hidden"
-      );
-
-
-      /*
-       * Supabase stores the signup name
-       * inside user_metadata.
-       */
-
-      const metadata =
-        user.user_metadata || {};
-
-
-      const name =
-        metadata.name ||
-        metadata.full_name ||
-        user.email?.split("@")[0] ||
-        "Profile";
+      loggedInActions.style.display =
+        "flex";
 
 
       const email =
-        user.email ||
-        "";
+        user?.email ||
+        "Account";
 
 
-      profileButtonName.textContent =
-        name;
-
-
-      profileName.textContent =
-        `Welcome, ${name}`;
-
-
-      profileEmail.textContent =
+      userEmail.textContent =
         email;
 
-    }
+
+      dropdownUserEmail.textContent =
+        email;
 
 
-    /* ==========================================
-       UPDATE NAVIGATION FROM SUPABASE SESSION
-    ========================================== */
-
-    async function updateNavigation() {
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient.auth.getSession();
+      const firstCharacter =
+        email
+          .charAt(0)
+          .toUpperCase();
 
 
-        if (error) {
-
-          console.error(
-            "Supabase session error:",
-            error
-          );
-
-
-          showLoggedOutNavigation();
-
-          return;
-
-        }
-
-
-        const session =
-          data?.session;
-
-
-        if (
-          session &&
-          session.user
-        ) {
-
-          showLoggedInNavigation(
-            session.user
-          );
-
-        }
-
-        else {
-
-          showLoggedOutNavigation();
-
-        }
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Could not check Supabase session:",
-          error
-        );
-
-
-        showLoggedOutNavigation();
-
-      }
+      userAvatar.textContent =
+        firstCharacter || "❤️";
 
     }
 
 
     /* ==========================================
-       PROFILE MENU TOGGLE
+       CLOSE DROPDOWN
     ========================================== */
 
-    profileButton.addEventListener(
-      "click",
-      (event) => {
+    function closeUserDropdown() {
 
-        event.stopPropagation();
-
-
-        const isOpen =
-          profileMenu.classList.contains(
-            "open"
-          );
-
-
-        if (isOpen) {
-
-          closeProfileMenu();
-
-        }
-
-        else {
-
-          openProfileMenu();
-
-        }
-
-      }
-    );
-
-
-    /* ==========================================
-       OPEN PROFILE MENU
-    ========================================== */
-
-    function openProfileMenu() {
-
-      profileMenu.classList.add(
-        "open"
+      userDropdown.classList.remove(
+        "show"
       );
 
-
-      profileButton.setAttribute(
-        "aria-expanded",
-        "true"
-      );
-
-    }
-
-
-    /* ==========================================
-       CLOSE PROFILE MENU
-    ========================================== */
-
-    function closeProfileMenu() {
-
-      profileMenu.classList.remove(
-        "open"
-      );
-
-
-      profileButton.setAttribute(
+      userButton.setAttribute(
         "aria-expanded",
         "false"
       );
@@ -2813,20 +2384,55 @@
 
 
     /* ==========================================
-       CLOSE PROFILE MENU OUTSIDE CLICK
+       USER DROPDOWN
     ========================================== */
+
+    userButton.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+        const isOpen =
+          userDropdown.classList.contains(
+            "show"
+          );
+
+
+        if (isOpen) {
+
+          closeUserDropdown();
+
+        }
+
+        else {
+
+          userDropdown.classList.add(
+            "show"
+          );
+
+          userButton.setAttribute(
+            "aria-expanded",
+            "true"
+          );
+
+        }
+
+      }
+    );
+
 
     document.addEventListener(
       "click",
       (event) => {
 
         if (
-          !profileMenu.contains(
-            event.target
+          !event.target.closest(
+            ".user-menu"
           )
         ) {
 
-          closeProfileMenu();
+          closeUserDropdown();
 
         }
 
@@ -2835,91 +2441,108 @@
 
 
     /* ==========================================
-       PROTECTED CREATE INVITE FLOW
+       LOGIN
     ========================================== */
 
-    createInviteLinks.forEach(
-      (link) => {
+    loginButton.addEventListener(
+      "click",
+      () => {
 
-        link.addEventListener(
-          "click",
-          async (event) => {
+        window.location.href =
+          "/login";
 
-            event.preventDefault();
+      }
+    );
 
 
-            try {
+    /* ==========================================
+       CREATE INVITE
+       AUTHENTICATION GUARD
+    ========================================== */
+
+    document
+      .querySelectorAll(
+        ".protected-create"
+      )
+      .forEach(
+        (button) => {
+
+          button.addEventListener(
+            "click",
+            async (event) => {
+
+              event.preventDefault();
+
 
               const {
                 data,
                 error
               } =
-                await supabaseClient.auth.getSession();
+                await supabaseClient
+                  .auth
+                  .getSession();
 
 
-              if (error) {
-
-                console.error(
-                  "Could not verify login:",
-                  error
-                );
-
+              if (
+                error ||
+                !data ||
+                !data.session
+              ) {
 
                 window.location.href =
                   "/login";
 
-
                 return;
 
               }
 
 
-              const session =
-                data?.session;
-
-
-              /* ==============================
-                 USER IS LOGGED IN
-              ============================== */
-
-              if (
-                session &&
-                session.user
-              ) {
-
-                window.location.href =
-                  "/create";
-
-
-                return;
-
-              }
-
-
-              /* ==============================
-                 USER IS NOT LOGGED IN
-              ============================== */
-
               window.location.href =
-                "/login";
+                "/create";
 
             }
+          );
 
-            catch (error) {
-
-              console.error(
-                "Create invite auth check failed:",
-                error
-              );
+        }
+      );
 
 
-              window.location.href =
-                "/login";
+    /* ==========================================
+       CREATE NAV BUTTON
+    ========================================== */
 
-            }
+    createNavButton.addEventListener(
+      "click",
+      async (event) => {
 
-          }
-        );
+        event.preventDefault();
+
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .auth
+            .getSession();
+
+
+        if (
+          error ||
+          !data ||
+          !data.session
+        ) {
+
+          window.location.href =
+            "/login";
+
+          return;
+
+        }
+
+
+        window.location.href =
+          "/create";
 
       }
     );
@@ -2933,51 +2556,27 @@
       "click",
       async () => {
 
-        try {
+        logoutButton.disabled =
+          true;
 
-          logoutButton.disabled =
-            true;
-
-
-          const {
-            error
-          } =
-            await supabaseClient.auth.signOut();
+        logoutButton.textContent =
+          "Logging out...";
 
 
-          if (error) {
-
-            console.error(
-              "Logout failed:",
-              error
-            );
-
-
-            logoutButton.disabled =
-              false;
+        const {
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signOut({
+              scope: "local"
+            });
 
 
-            return;
-
-          }
-
-
-          closeProfileMenu();
-
-
-          /*
-           * Supabase's auth state listener
-           * will update the navigation.
-           */
-
-          updateNavigation();
-
-        }
-
-        catch (error) {
+        if (error) {
 
           console.error(
-            "Unexpected logout error:",
+            "Logout failed:",
             error
           );
 
@@ -2985,34 +2584,88 @@
           logoutButton.disabled =
             false;
 
+          logoutButton.textContent =
+            "Logout";
+
+          return;
+
         }
+
+
+        closeUserDropdown();
+
+        showLoggedOutUI();
+
+        window.location.href =
+          "/";
 
       }
     );
 
 
     /* ==========================================
-       SUPABASE AUTH STATE LISTENER
+       EDIT PROFILE
     ========================================== */
 
-    supabaseClient.auth.onAuthStateChange(
-      (
-        event,
-        session
-      ) => {
+    editProfileButton.addEventListener(
+      "click",
+      (event) => {
 
-        console.log(
-          "Supabase auth event:",
-          event
-        );
+        event.preventDefault();
+
+        closeUserDropdown();
 
 
-        if (
-          session &&
-          session.user
-        ) {
+        /*
+         * Profile page can be connected here
+         * when /profile is implemented.
+         */
 
-          showLoggedInNavigation(
+        window.location.href =
+          "/profile";
+
+      }
+    );
+
+
+    /* ==========================================
+       LOAD CURRENT SESSION
+    ========================================== */
+
+    async function loadAuthState() {
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .auth
+            .getSession();
+
+
+        if (error) {
+
+          console.error(
+            "Could not load Supabase session:",
+            error
+          );
+
+          showLoggedOutUI();
+
+          return;
+
+        }
+
+
+        const session =
+          data?.session;
+
+
+        if (session?.user) {
+
+          showLoggedInUI(
             session.user
           );
 
@@ -3020,22 +2673,71 @@
 
         else {
 
-          showLoggedOutNavigation();
+          showLoggedOutUI();
 
         }
 
       }
-    );
+
+      catch (error) {
+
+        console.error(
+          "Authentication initialization failed:",
+          error
+        );
+
+        showLoggedOutUI();
+
+      }
+
+    }
+
+
+    /* ==========================================
+       AUTH STATE CHANGES
+    ========================================== */
+
+    supabaseClient
+      .auth
+      .onAuthStateChange(
+        (
+          event,
+          session
+        ) => {
+
+          console.log(
+            "Supabase auth event:",
+            event
+          );
+
+
+          if (
+            session?.user
+          ) {
+
+            showLoggedInUI(
+              session.user
+            );
+
+          }
+
+          else {
+
+            showLoggedOutUI();
+
+          }
+
+        }
+      );
 
 
     /* ==========================================
        INITIALIZE
     ========================================== */
 
-    updateNavigation();
+    loadAuthState();
 
   </script>
-
 
 </body>
 
