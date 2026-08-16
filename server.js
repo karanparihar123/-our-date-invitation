@@ -7,7 +7,13 @@ const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+
+/* ==========================================
+   CONFIGURATION
+========================================== */
+
+const PORT =
+  process.env.PORT || 3000;
 
 const DATABASE_URL =
   process.env.DATABASE_URL;
@@ -125,44 +131,17 @@ async function initDb() {
   ------------------------------------------ */
 
   await pool.query(`
-
     CREATE TABLE IF NOT EXISTS invitations (
-
       id SERIAL PRIMARY KEY,
-
-      invitation_code
-        VARCHAR(20)
-        UNIQUE
-        NOT NULL,
-
-      creator_user_id
-        UUID,
-
-      creator_name
-        TEXT
-        NOT NULL,
-
-      creator_email
-        TEXT,
-
-      recipient_name
-        TEXT
-        NOT NULL,
-
-      occasion
-        TEXT
-        NOT NULL,
-
-      message
-        TEXT,
-
-      created_at
-        TIMESTAMPTZ
-        NOT NULL
-        DEFAULT NOW()
-
+      invitation_code VARCHAR(20) UNIQUE NOT NULL,
+      creator_user_id UUID,
+      creator_name TEXT NOT NULL,
+      creator_email TEXT,
+      recipient_name TEXT NOT NULL,
+      occasion TEXT NOT NULL,
+      message TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
-
   `);
 
 
@@ -171,12 +150,8 @@ async function initDb() {
   ------------------------------------------ */
 
   await pool.query(`
-
     ALTER TABLE invitations
-
-    ADD COLUMN IF NOT EXISTS
-      creator_user_id UUID
-
+    ADD COLUMN IF NOT EXISTS creator_user_id UUID
   `);
 
 
@@ -185,28 +160,19 @@ async function initDb() {
   ------------------------------------------ */
 
   await pool.query(`
-
     ALTER TABLE invitations
-
-    ADD COLUMN IF NOT EXISTS
-      creator_email TEXT
-
+    ADD COLUMN IF NOT EXISTS creator_email TEXT
   `);
 
 
   /* ------------------------------------------
-     INDEX FOR MY MOMENTS
+     INDEX FOR USER INVITATIONS
   ------------------------------------------ */
 
   await pool.query(`
-
     CREATE INDEX IF NOT EXISTS
       invitations_creator_user_id_idx
-
-    ON invitations (
-      creator_user_id
-    )
-
+    ON invitations (creator_user_id)
   `);
 
 
@@ -215,29 +181,13 @@ async function initDb() {
   ------------------------------------------ */
 
   await pool.query(`
-
     CREATE TABLE IF NOT EXISTS responses (
-
       id SERIAL PRIMARY KEY,
-
-      invitation_code
-        VARCHAR(20),
-
-      answer
-        TEXT
-        NOT NULL,
-
-      selected_date
-        DATE
-        NOT NULL,
-
-      created_at
-        TIMESTAMPTZ
-        NOT NULL
-        DEFAULT NOW()
-
+      invitation_code VARCHAR(20),
+      answer TEXT NOT NULL,
+      selected_date DATE NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
-
   `);
 
 
@@ -246,12 +196,8 @@ async function initDb() {
   ------------------------------------------ */
 
   await pool.query(`
-
     ALTER TABLE responses
-
-    ADD COLUMN IF NOT EXISTS
-      invitation_code VARCHAR(20)
-
+    ADD COLUMN IF NOT EXISTS invitation_code VARCHAR(20)
   `);
 
 
@@ -282,27 +228,8 @@ app.use(
 
 
 /* ==========================================
-   SUPABASE AUTHENTICATION MIDDLEWARE
+   SUPABASE AUTH MIDDLEWARE
 ========================================== */
-
-/*
- * The browser sends:
- *
- * Authorization: Bearer <supabase-access-token>
- *
- * We verify that token with Supabase.
- *
- * IMPORTANT:
- * We do NOT trust:
- *
- * creatorEmail
- * creatorName
- *
- * from the browser for identity.
- *
- * The authenticated Supabase user
- * is the source of truth.
- */
 
 async function requireAuth(
   req,
@@ -388,11 +315,6 @@ async function requireAuth(
     }
 
 
-    /*
-     * Attach authenticated Supabase
-     * user to the request.
-     */
-
     req.user =
       data.user;
 
@@ -401,11 +323,11 @@ async function requireAuth(
 
   }
 
-  catch (err) {
+  catch (error) {
 
     console.error(
-      "Authentication error:",
-      err
+      "Authentication middleware error:",
+      error
     );
 
 
@@ -424,7 +346,7 @@ async function requireAuth(
 
 
 /* ==========================================
-   CURRENT USER
+   GET CURRENT USER
 ========================================== */
 
 app.get(
@@ -438,9 +360,13 @@ app.get(
         req.user;
 
 
+      const metadata =
+        user.user_metadata || {};
+
+
       const name =
-        user.user_metadata?.name ||
-        user.user_metadata?.full_name ||
+        metadata.name ||
+        metadata.full_name ||
         "";
 
 
@@ -464,11 +390,11 @@ app.get(
 
     }
 
-    catch (err) {
+    catch (error) {
 
       console.error(
         "Could not load current user:",
-        err
+        error
       );
 
 
@@ -490,13 +416,6 @@ app.get(
 /* ==========================================
    CREATE INVITATION
 ========================================== */
-
-/*
- * PROTECTED ROUTE
- *
- * Only authenticated Supabase
- * users can create invitations.
- */
 
 app.post(
   "/api/invitations",
@@ -520,7 +439,7 @@ app.post(
 
 
       /* --------------------------------------
-         AUTHENTICATED USER
+         AUTHENTICATED SUPABASE USER
       -------------------------------------- */
 
       const user =
@@ -531,35 +450,24 @@ app.post(
         user.id;
 
 
-      /*
-       * Email comes from Supabase,
-       * NOT from the browser.
-       */
-
       const creatorEmail =
         user.email || null;
 
 
-      /*
-       * Name comes primarily from
-       * Supabase metadata.
-       *
-       * We allow creatorName from the
-       * form as the invitation display
-       * name, but identity is still
-       * tied to creatorUserId.
-       */
+      const metadata =
+        user.user_metadata || {};
 
-      const authenticatedName =
-        user.user_metadata?.name ||
-        user.user_metadata?.full_name ||
+
+      const metadataName =
+        metadata.name ||
+        metadata.full_name ||
         "";
 
 
       const finalCreatorName =
         (
           creatorName ||
-          authenticatedName
+          metadataName
         ).trim();
 
 
@@ -658,13 +566,9 @@ app.post(
         const existing =
           await pool.query(
             `
-
               SELECT id
-
               FROM invitations
-
               WHERE invitation_code = $1
-
             `,
             [
               invitationCode
@@ -690,25 +594,15 @@ app.post(
 
       await pool.query(
         `
-
           INSERT INTO invitations (
-
             invitation_code,
-
             creator_user_id,
-
             creator_name,
-
             creator_email,
-
             recipient_name,
-
             occasion,
-
             message
-
           )
-
           VALUES (
             $1,
             $2,
@@ -718,7 +612,6 @@ app.post(
             $6,
             $7
           )
-
         `,
         [
 
@@ -774,14 +667,13 @@ app.post(
 
       });
 
-
     }
 
-    catch (err) {
+    catch (error) {
 
       console.error(
         "Could not create invitation:",
-        err
+        error
       );
 
 
@@ -804,14 +696,6 @@ app.post(
    MY MOMENTS
 ========================================== */
 
-/*
- * Returns only invitations belonging
- * to the currently authenticated user.
- *
- * This is the foundation for the
- * "My Moments" page.
- */
-
 app.get(
   "/api/my-moments",
   requireAuth,
@@ -826,27 +710,16 @@ app.get(
       const result =
         await pool.query(
           `
-
             SELECT
-
               invitation_code,
-
               creator_name,
-
               recipient_name,
-
               occasion,
-
               message,
-
               created_at
-
             FROM invitations
-
             WHERE creator_user_id = $1
-
             ORDER BY created_at DESC
-
           `,
           [
             creatorUserId
@@ -865,11 +738,11 @@ app.get(
 
     }
 
-    catch (err) {
+    catch (error) {
 
       console.error(
         "Could not load My Moments:",
-        err
+        error
       );
 
 
@@ -905,25 +778,15 @@ app.get(
       const result =
         await pool.query(
           `
-
             SELECT
-
               invitation_code,
-
               creator_name,
-
               recipient_name,
-
               occasion,
-
               message,
-
               created_at
-
             FROM invitations
-
             WHERE invitation_code = $1
-
           `,
           [
             code
@@ -948,22 +811,23 @@ app.get(
 
 
       /*
-       * creator_email and creator_user_id
-       * are intentionally NOT returned.
+       * Do not expose:
+       *
+       * creator_email
+       * creator_user_id
        */
 
       res.json(
         result.rows[0]
       );
 
-
     }
 
-    catch (err) {
+    catch (error) {
 
       console.error(
         "Could not load invitation:",
-        err
+        error
       );
 
 
@@ -1050,7 +914,7 @@ app.post(
 
 
       /* --------------------------------------
-         SERVER-SIDE DATE VALIDATION
+         INDIA TODAY
       -------------------------------------- */
 
       function getTodayIndia() {
@@ -1109,23 +973,16 @@ app.post(
 
       await pool.query(
         `
-
           INSERT INTO responses (
-
             invitation_code,
-
             answer,
-
             selected_date
-
           )
-
           VALUES (
             $1,
             $2,
             $3
           )
-
         `,
         [
 
@@ -1160,19 +1017,12 @@ app.post(
         const invitationResult =
           await pool.query(
             `
-
               SELECT
-
                 creator_email,
-
                 creator_name,
-
                 recipient_name
-
               FROM invitations
-
               WHERE invitation_code = $1
-
             `,
             [
               invitationCode
@@ -1369,7 +1219,6 @@ app.post(
 
           }
 
-
         }
 
         catch (emailError) {
@@ -1394,7 +1243,7 @@ app.post(
 
 
       /* --------------------------------------
-         RESPONSE TO BROWSER
+         RESPONSE
       -------------------------------------- */
 
       res.json({
@@ -1403,14 +1252,13 @@ app.post(
 
       });
 
-
     }
 
-    catch (err) {
+    catch (error) {
 
       console.error(
         "Could not save response:",
-        err
+        error
       );
 
 
@@ -1459,21 +1307,13 @@ app.get(
       const result =
         await pool.query(
           `
-
             SELECT
-
               invitation_code,
-
               answer,
-
               selected_date,
-
               created_at
-
             FROM responses
-
             ORDER BY created_at DESC
-
           `
         );
 
@@ -1482,14 +1322,13 @@ app.get(
         result.rows
       );
 
-
     }
 
-    catch (err) {
+    catch (error) {
 
       console.error(
         "Could not load responses:",
-        err
+        error
       );
 
 
@@ -1547,6 +1386,7 @@ app.get(
         "public",
         "index.html"
       )
+
     );
 
   }
@@ -1567,6 +1407,7 @@ app.get(
         "public",
         "login.html"
       )
+
     );
 
   }
@@ -1660,11 +1501,11 @@ initDb()
   })
 
   .catch(
-    err => {
+    error => {
 
       console.error(
         "Database initialization failed:",
-        err
+        error
       );
 
       process.exit(1);
