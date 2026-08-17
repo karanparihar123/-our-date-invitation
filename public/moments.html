@@ -1,0 +1,1625 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>My Moments ❤️</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      color: #fff;
+
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(255,255,255,.14),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 90% 80%,
+          rgba(255,100,150,.22),
+          transparent 30%
+        ),
+        linear-gradient(
+          145deg,
+          #160817 0%,
+          #3b0c2f 42%,
+          #761842 72%,
+          #d65c7d 100%
+        );
+    }
+
+
+    /* ==========================================
+       AMBIENT GLOW
+    ========================================== */
+
+    .glow {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(95px);
+      opacity: .2;
+      pointer-events: none;
+      z-index: 0;
+
+      animation:
+        glowMove 9s ease-in-out infinite alternate;
+    }
+
+    .glow.one {
+      background: #ff719b;
+      top: -130px;
+      left: -120px;
+    }
+
+    .glow.two {
+      background: #ffb8cf;
+      right: -150px;
+      bottom: -150px;
+      animation-delay: 3s;
+    }
+
+    @keyframes glowMove {
+
+      from {
+        transform:
+          translate(0,0)
+          scale(1);
+      }
+
+      to {
+        transform:
+          translate(35px,-20px)
+          scale(1.12);
+      }
+
+    }
+
+
+    /* ==========================================
+       FLOATING HEARTS
+    ========================================== */
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      opacity: 0;
+
+      animation:
+        floatUp linear infinite;
+    }
+
+    .heart:nth-child(1) {
+      left: 7%;
+      font-size: 18px;
+      animation-duration: 11s;
+    }
+
+    .heart:nth-child(2) {
+      left: 27%;
+      font-size: 14px;
+      animation-duration: 13s;
+      animation-delay: 2s;
+    }
+
+    .heart:nth-child(3) {
+      left: 50%;
+      font-size: 21px;
+      animation-duration: 10s;
+      animation-delay: 4s;
+    }
+
+    .heart:nth-child(4) {
+      left: 73%;
+      font-size: 16px;
+      animation-duration: 12s;
+      animation-delay: 1s;
+    }
+
+    .heart:nth-child(5) {
+      left: 91%;
+      font-size: 20px;
+      animation-duration: 14s;
+      animation-delay: 5s;
+    }
+
+    @keyframes floatUp {
+
+      0% {
+        transform:
+          translateY(0)
+          rotate(0deg);
+
+        opacity: 0;
+      }
+
+      15% {
+        opacity: .38;
+      }
+
+      80% {
+        opacity: .18;
+      }
+
+      100% {
+        transform:
+          translateY(-115vh)
+          rotate(35deg);
+
+        opacity: 0;
+      }
+
+    }
+
+
+    /* ==========================================
+       PAGE
+    ========================================== */
+
+    .page {
+      position: relative;
+      z-index: 2;
+
+      width:
+        min(
+          100%,
+          1050px
+        );
+
+      margin:
+        0 auto;
+    }
+
+
+    /* ==========================================
+       TOP BAR
+    ========================================== */
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 24px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .top-link {
+      color:
+        rgba(255,255,255,.68);
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      transition:
+        color .2s ease;
+    }
+
+    .top-link:hover {
+      color: #fff;
+    }
+
+
+    /* ==========================================
+       HEADER
+    ========================================== */
+
+    .header-card {
+      padding: 36px;
+
+      margin-bottom: 24px;
+
+      border-radius: 30px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.15);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.11),
+          rgba(255,255,255,.045)
+        );
+
+      backdrop-filter:
+        blur(18px);
+
+      box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.25);
+    }
+
+    .eyebrow {
+      margin-bottom: 10px;
+
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+
+      color:
+        rgba(255,255,255,.48);
+    }
+
+    .header-card h1 {
+      margin:
+        0 0 10px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          38px,
+          6vw,
+          56px
+        );
+
+      font-weight: normal;
+
+      letter-spacing: -2px;
+    }
+
+    .header-card h1 span {
+      color: #ffc0d2;
+    }
+
+    .header-card p {
+      margin: 0;
+
+      max-width: 650px;
+
+      color:
+        rgba(255,255,255,.6);
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+
+    /* ==========================================
+       CONTENT CARD
+    ========================================== */
+
+    .content-card {
+      padding: 30px;
+
+      border-radius: 30px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.15);
+
+      background:
+        rgba(255,255,255,.075);
+
+      backdrop-filter:
+        blur(20px);
+
+      box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.3);
+    }
+
+
+    /* ==========================================
+       STATES
+    ========================================== */
+
+    .state {
+      text-align: center;
+
+      padding:
+        70px 20px;
+    }
+
+    .state-icon {
+      width: 76px;
+      height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin:
+        0 auto 20px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.08);
+
+      border:
+        1px solid
+        rgba(255,255,255,.14);
+
+      font-size: 34px;
+    }
+
+    .state h2 {
+      margin:
+        0 0 10px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 30px;
+
+      font-weight: normal;
+    }
+
+    .state p {
+      margin:
+        0 auto;
+
+      max-width: 500px;
+
+      color:
+        rgba(255,255,255,.55);
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+
+    /* ==========================================
+       MOMENTS GRID
+    ========================================== */
+
+    .moments-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          2,
+          minmax(0, 1fr)
+        );
+
+      gap: 18px;
+    }
+
+
+    /* ==========================================
+       MOMENT CARD
+    ========================================== */
+
+    .moment-card {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      min-height: 300px;
+
+      padding: 25px;
+
+      border-radius: 24px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.13);
+
+      background:
+        rgba(20,5,20,.25);
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+    }
+
+    .moment-card:hover {
+      transform:
+        translateY(-4px);
+
+      border-color:
+        rgba(255,180,205,.3);
+
+      background:
+        rgba(255,255,255,.08);
+    }
+
+
+    .moment-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 20px;
+    }
+
+    .occasion {
+      display: inline-flex;
+
+      align-items: center;
+
+      min-height: 30px;
+
+      padding:
+        6px 11px;
+
+      border-radius: 999px;
+
+      color:
+        #ffd7e3;
+
+      background:
+        rgba(255,150,185,.12);
+
+      border:
+        1px solid
+        rgba(255,150,185,.18);
+
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .moment-date {
+      color:
+        rgba(255,255,255,.38);
+
+      font-size: 11px;
+
+      white-space: nowrap;
+    }
+
+
+    .moment-card h3 {
+      margin:
+        0 0 10px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 27px;
+
+      font-weight: normal;
+    }
+
+    .moment-card h3 span {
+      color: #ffc0d2;
+    }
+
+
+    .message {
+      flex: 1;
+
+      margin:
+        0 0 20px;
+
+      color:
+        rgba(255,255,255,.58);
+
+      font-size: 14px;
+
+      line-height: 1.7;
+
+      white-space: pre-wrap;
+
+      word-break: break-word;
+    }
+
+
+    .moment-code {
+      margin-bottom: 18px;
+
+      color:
+        rgba(255,255,255,.3);
+
+      font-size: 10px;
+
+      letter-spacing: 1px;
+    }
+
+
+    /* ==========================================
+       OPEN BUTTON
+    ========================================== */
+
+    .open-button {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+
+      min-height: 48px;
+
+      border-radius: 999px;
+
+      color: #74153f;
+
+      background: #fff;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.18);
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .open-button:hover {
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 14px 30px
+        rgba(0,0,0,.28);
+    }
+
+
+    /* ==========================================
+       CREATE BUTTON
+    ========================================== */
+
+    .create-button {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      min-height: 48px;
+
+      padding:
+        0 22px;
+
+      margin-top: 24px;
+
+      border-radius: 999px;
+
+      color: #74153f;
+
+      background: #fff;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .create-button:hover {
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 12px 28px
+        rgba(0,0,0,.25);
+    }
+
+
+    /* ==========================================
+       LOADING
+    ========================================== */
+
+    .loading-dot {
+      display: inline-block;
+
+      width: 8px;
+      height: 8px;
+
+      margin:
+        0 3px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.65);
+
+      animation:
+        loadingPulse 1.2s infinite ease-in-out;
+    }
+
+    .loading-dot:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .loading-dot:nth-child(3) {
+      animation-delay: .3s;
+    }
+
+    @keyframes loadingPulse {
+
+      0%,
+      60%,
+      100% {
+        transform: scale(.65);
+        opacity: .35;
+      }
+
+      30% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+    }
+
+
+    /* ==========================================
+       MOBILE
+    ========================================== */
+
+    @media(max-width:700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      .topbar {
+        margin-bottom: 18px;
+      }
+
+      .top-actions {
+        gap: 10px;
+      }
+
+      .top-link {
+        font-size: 12px;
+      }
+
+      .header-card {
+        padding: 28px 23px;
+        border-radius: 26px;
+      }
+
+      .content-card {
+        padding: 20px 16px;
+        border-radius: 26px;
+      }
+
+      .moments-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .moment-card {
+        min-height: 280px;
+      }
+
+    }
+
+
+    @media(max-width:430px) {
+
+      .logo {
+        font-size: 21px;
+      }
+
+      .top-link {
+        font-size: 11px;
+      }
+
+      .header-card h1 {
+        font-size: 40px;
+      }
+
+      .moment-card {
+        padding: 21px;
+      }
+
+      .moment-top {
+        flex-direction: column;
+        gap: 9px;
+      }
+
+      .moment-date {
+        white-space: normal;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+
+  <div class="hearts">
+
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+    <span class="heart">💕</span>
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+
+  </div>
+
+
+  <main class="page">
+
+
+    <!-- ==========================================
+         TOP BAR
+    ========================================== -->
+
+    <header class="topbar">
+
+      <div class="logo">
+        Moment ❤️
+      </div>
+
+      <nav class="top-actions">
+
+        <a
+          href="/create"
+          class="top-link"
+        >
+          Create Moment
+        </a>
+
+        <a
+          href="/profile"
+          class="top-link"
+        >
+          Edit Profile
+        </a>
+
+        <a
+          href="/"
+          class="top-link"
+        >
+          Home
+        </a>
+
+      </nav>
+
+    </header>
+
+
+    <!-- ==========================================
+         HEADER
+    ========================================== -->
+
+    <section class="header-card">
+
+      <div class="eyebrow">
+        Your little memories
+      </div>
+
+      <h1>
+        My <span>Moments.</span>
+      </h1>
+
+      <p>
+        Every invitation you've created,
+        all in one place. Open a moment,
+        share it again, or create something
+        new.
+      </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         CONTENT
+    ========================================== -->
+
+    <section class="content-card">
+
+      <!-- LOADING -->
+
+      <div
+        id="loadingState"
+        class="state"
+      >
+
+        <div class="state-icon">
+
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+
+        </div>
+
+        <h2>
+          Loading your moments...
+        </h2>
+
+        <p>
+          Just a second. We're finding
+          the little moments you've created.
+        </p>
+
+      </div>
+
+
+      <!-- LOGIN -->
+
+      <div
+        id="loginState"
+        class="state"
+        style="display:none;"
+      >
+
+        <div class="state-icon">
+          🔐
+        </div>
+
+        <h2>
+          Login required
+        </h2>
+
+        <p>
+          Please log in to see the moments
+          you've created.
+        </p>
+
+        <a
+          href="/login?return=%2Fmoments"
+          class="create-button"
+        >
+          Login to continue
+        </a>
+
+      </div>
+
+
+      <!-- ERROR -->
+
+      <div
+        id="errorState"
+        class="state"
+        style="display:none;"
+      >
+
+        <div class="state-icon">
+          !
+        </div>
+
+        <h2>
+          Something went wrong
+        </h2>
+
+        <p id="errorText">
+          We couldn't load your moments.
+          Please try again.
+        </p>
+
+        <button
+          type="button"
+          id="retryButton"
+          class="create-button"
+          style="border:0;cursor:pointer;"
+        >
+          Try again
+        </button>
+
+      </div>
+
+
+      <!-- EMPTY -->
+
+      <div
+        id="emptyState"
+        class="state"
+        style="display:none;"
+      >
+
+        <div class="state-icon">
+          ❤️
+        </div>
+
+        <h2>
+          No moments yet.
+        </h2>
+
+        <p>
+          You haven't created an invitation
+          yet. Your first little moment
+          is waiting.
+        </p>
+
+        <a
+          href="/create"
+          class="create-button"
+        >
+          Create your first moment
+        </a>
+
+      </div>
+
+
+      <!-- MOMENTS -->
+
+      <div
+        id="momentsGrid"
+        class="moments-grid"
+        style="display:none;"
+      ></div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /* ==========================================
+       DOM
+    ========================================== */
+
+    const loadingState =
+      document.getElementById(
+        "loadingState"
+      );
+
+    const loginState =
+      document.getElementById(
+        "loginState"
+      );
+
+    const errorState =
+      document.getElementById(
+        "errorState"
+      );
+
+    const emptyState =
+      document.getElementById(
+        "emptyState"
+      );
+
+    const momentsGrid =
+      document.getElementById(
+        "momentsGrid"
+      );
+
+    const errorText =
+      document.getElementById(
+        "errorText"
+      );
+
+    const retryButton =
+      document.getElementById(
+        "retryButton"
+      );
+
+
+    /* ==========================================
+       STATE HELPERS
+    ========================================== */
+
+    function hideAllStates() {
+
+      loadingState.style.display =
+        "none";
+
+      loginState.style.display =
+        "none";
+
+      errorState.style.display =
+        "none";
+
+      emptyState.style.display =
+        "none";
+
+      momentsGrid.style.display =
+        "none";
+
+    }
+
+
+    function showLoading() {
+
+      hideAllStates();
+
+      loadingState.style.display =
+        "block";
+
+    }
+
+
+    function showLogin() {
+
+      hideAllStates();
+
+      loginState.style.display =
+        "block";
+
+    }
+
+
+    function showError(
+      message
+    ) {
+
+      hideAllStates();
+
+      errorText.textContent =
+        message ||
+        "We couldn't load your moments.";
+
+      errorState.style.display =
+        "block";
+
+    }
+
+
+    function showEmpty() {
+
+      hideAllStates();
+
+      emptyState.style.display =
+        "block";
+
+    }
+
+
+    /* ==========================================
+       DATE FORMAT
+    ========================================== */
+
+    function formatDate(
+      value
+    ) {
+
+      if (!value) {
+        return "";
+      }
+
+      const date =
+        new Date(value);
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
+        return "";
+
+      }
+
+      return date.toLocaleDateString(
+        "en-IN",
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    /* ==========================================
+       ESCAPE HTML
+    ========================================== */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* ==========================================
+       CREATE MOMENT CARD
+    ========================================== */
+
+    function createMomentCard(
+      moment
+    ) {
+
+      const code =
+        moment.invitation_code;
+
+
+      const recipient =
+        escapeHtml(
+          moment.recipient_name
+        );
+
+
+      const occasion =
+        escapeHtml(
+          moment.occasion
+        );
+
+
+      const message =
+        escapeHtml(
+          moment.message ||
+          "No message added."
+        );
+
+
+      const createdAt =
+        escapeHtml(
+          formatDate(
+            moment.created_at
+          )
+        );
+
+
+      const url =
+        "/i/" +
+        encodeURIComponent(
+          code
+        );
+
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      card.className =
+        "moment-card";
+
+
+      card.innerHTML = `
+
+        <div class="moment-top">
+
+          <div class="occasion">
+            ${occasion}
+          </div>
+
+          <div class="moment-date">
+            ${createdAt}
+          </div>
+
+        </div>
+
+
+        <h3>
+          For <span>${recipient}</span>
+        </h3>
+
+
+        <p class="message">
+          ${message}
+        </p>
+
+
+        <div class="moment-code">
+          Moment · ${escapeHtml(code)}
+        </div>
+
+
+        <a
+          href="${url}"
+          class="open-button"
+        >
+          Open Invitation
+        </a>
+
+      `;
+
+
+      return card;
+
+    }
+
+
+    /* ==========================================
+       LOAD MOMENTS
+    ========================================== */
+
+    async function loadMoments() {
+
+      showLoading();
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/my-moments",
+            {
+              method: "GET",
+              credentials: "same-origin",
+              headers: {
+                "Accept":
+                  "application/json"
+              }
+            }
+          );
+
+
+        /*
+         * 401 means the Supabase access token
+         * wasn't supplied to this API request.
+         *
+         * The current server expects:
+         *
+         * Authorization: Bearer <token>
+         *
+         * However, if your authentication is
+         * handled entirely by Supabase on the
+         * frontend, the browser does NOT
+         * automatically add that header.
+         *
+         * We therefore try to find the Supabase
+         * auth token in localStorage.
+         */
+
+        if (
+          response.status === 401
+        ) {
+
+          const token =
+            getSupabaseAccessToken();
+
+
+          if (token) {
+
+            const retryResponse =
+              await fetch(
+                "/api/my-moments",
+                {
+                  method: "GET",
+                  credentials: "same-origin",
+                  headers: {
+                    "Accept":
+                      "application/json",
+
+                    "Authorization":
+                      "Bearer " +
+                      token
+                  }
+                }
+              );
+
+
+            if (
+              retryResponse.status === 401
+            ) {
+
+              showLogin();
+
+              return;
+
+            }
+
+
+            if (
+              !retryResponse.ok
+            ) {
+
+              const data =
+                await retryResponse
+                  .json()
+                  .catch(
+                    () => ({})
+                  );
+
+              throw new Error(
+                data.error ||
+                "Could not load your moments."
+              );
+
+            }
+
+
+            const data =
+              await retryResponse.json();
+
+
+            renderMoments(
+              data.moments || []
+            );
+
+            return;
+
+          }
+
+
+          showLogin();
+
+          return;
+
+        }
+
+
+        if (
+          !response.ok
+        ) {
+
+          const data =
+            await response
+              .json()
+              .catch(
+                () => ({})
+              );
+
+          throw new Error(
+            data.error ||
+            "Could not load your moments."
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        renderMoments(
+          data.moments || []
+        );
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "My Moments error:",
+          error
+        );
+
+
+        showError(
+          error.message ||
+          "Could not load your moments."
+        );
+
+      }
+
+    }
+
+
+    /* ==========================================
+       SUPABASE TOKEN
+    ========================================== */
+
+    function getSupabaseAccessToken() {
+
+      try {
+
+        for (
+          let i = 0;
+          i < localStorage.length;
+          i++
+        ) {
+
+          const key =
+            localStorage.key(i);
+
+
+          if (
+            !key ||
+            !key.startsWith("sb-") ||
+            !key.endsWith("-auth-token")
+          ) {
+
+            continue;
+
+          }
+
+
+          const raw =
+            localStorage.getItem(key);
+
+
+          if (!raw) {
+            continue;
+          }
+
+
+          const parsed =
+            JSON.parse(raw);
+
+
+          if (
+            parsed &&
+            parsed.access_token
+          ) {
+
+            return parsed.access_token;
+
+          }
+
+        }
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "Could not find Supabase token:",
+          error
+        );
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* ==========================================
+       RENDER
+    ========================================== */
+
+    function renderMoments(
+      moments
+    ) {
+
+      if (
+        !Array.isArray(moments) ||
+        moments.length === 0
+      ) {
+
+        showEmpty();
+
+        return;
+
+      }
+
+
+      hideAllStates();
+
+
+      momentsGrid.innerHTML =
+        "";
+
+
+      moments.forEach(
+        moment => {
+
+          momentsGrid.appendChild(
+            createMomentCard(
+              moment
+            )
+          );
+
+        }
+      );
+
+
+      momentsGrid.style.display =
+        "grid";
+
+    }
+
+
+    /* ==========================================
+       RETRY
+    ========================================== */
+
+    retryButton.addEventListener(
+      "click",
+      () => {
+
+        loadMoments();
+
+      }
+    );
+
+
+    /* ==========================================
+       PAGE LOAD
+    ========================================== */
+
+    loadMoments();
+
+
+    /* ==========================================
+       PAGE VISIBILITY
+    ========================================== */
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if (
+          document.visibilityState ===
+          "visible"
+        ) {
+
+          loadMoments();
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
