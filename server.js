@@ -875,6 +875,19 @@ app.get(
         req.user.id;
 
 
+      /*
+       * Get every invitation belonging to the
+       * logged-in user.
+       *
+       * For each invitation we also get the
+       * LATEST response, if one exists.
+       *
+       * Important:
+       * We aggregate the responses first so
+       * one invitation can NEVER appear multiple
+       * times because of multiple responses.
+       */
+
       const result =
         await pool.query(
           `
@@ -887,12 +900,13 @@ app.get(
               i.created_at,
 
               r.answer AS response_answer,
-              r.selected_date,
+              r.selected_date AS response_date,
               r.created_at AS response_created_at
 
             FROM invitations i
 
             LEFT JOIN LATERAL (
+
               SELECT
                 answer,
                 selected_date,
@@ -900,18 +914,22 @@ app.get(
 
               FROM responses
 
-              WHERE invitation_code =
+              WHERE
+                responses.invitation_code =
                 i.invitation_code
 
-              ORDER BY created_at DESC
+              ORDER BY
+                responses.created_at DESC
 
               LIMIT 1
 
-            ) r ON true
+            ) r ON TRUE
 
-            WHERE i.creator_user_id = $1
+            WHERE
+              i.creator_user_id = $1
 
-            ORDER BY i.created_at DESC
+            ORDER BY
+              i.created_at DESC
           `,
           [
             creatorUserId
@@ -919,12 +937,91 @@ app.get(
         );
 
 
+      /*
+       * Return a clean structure to moments.html.
+       */
+
+      const moments =
+        result.rows.map(
+          row => ({
+
+            invitation_code:
+              row.invitation_code,
+
+            creator_name:
+              row.creator_name,
+
+            recipient_name:
+              row.recipient_name,
+
+            occasion:
+              row.occasion,
+
+            message:
+              row.message,
+
+            created_at:
+              row.created_at,
+
+            /*
+             * No response yet
+             */
+
+            responded:
+              Boolean(
+                row.response_answer
+              ),
+
+            response_answer:
+              row.response_answer || null,
+
+            response_date:
+              row.response_date || null,
+
+            response_created_at:
+              row.response_created_at || null
+
+          })
+        );
+
+
+      console.log(
+        "My Moments loaded:",
+        {
+          userId:
+            creatorUserId,
+
+          count:
+            moments.length,
+
+          moments:
+            moments.map(
+              moment => ({
+                code:
+                  moment.invitation_code,
+
+                recipient:
+                  moment.recipient_name,
+
+                responded:
+                  moment.responded,
+
+                answer:
+                  moment.response_answer,
+
+                date:
+                  moment.response_date
+              })
+            )
+        }
+      );
+
+
       res.json({
 
         ok: true,
 
-        moments:
-          result.rows
+        moments
 
       });
 
@@ -941,8 +1038,10 @@ app.get(
       res
         .status(500)
         .json({
+
           error:
             "Could not load your moments."
+
         });
 
     }
