@@ -6,19 +6,25 @@ const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 
-/* =========================================================
+
+/* ==========================================
    CONFIGURATION
-========================================================= */
+========================================== */
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+  process.env.PORT || 3000;
 
-const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_URL =
+  process.env.DATABASE_URL;
 
-const ADMIN_KEY = process.env.ADMIN_KEY;
+const ADMIN_KEY =
+  process.env.ADMIN_KEY;
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const RESEND_API_KEY =
+  process.env.RESEND_API_KEY;
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_URL =
+  process.env.SUPABASE_URL;
 
 const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY;
@@ -27,12 +33,17 @@ const SUPABASE_SERVICE_ROLE_KEY =
   process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 
-/* =========================================================
+/* ==========================================
    ENVIRONMENT CHECKS
-========================================================= */
+========================================== */
 
 if (!DATABASE_URL) {
   console.error("DATABASE_URL is missing.");
+  process.exit(1);
+}
+
+if (!RESEND_API_KEY) {
+  console.error("RESEND_API_KEY is missing.");
   process.exit(1);
 }
 
@@ -51,119 +62,85 @@ if (!SUPABASE_SERVICE_ROLE_KEY) {
   process.exit(1);
 }
 
-if (!RESEND_API_KEY) {
-  console.error("RESEND_API_KEY is missing.");
-  process.exit(1);
-}
 
-
-/* =========================================================
+/* ==========================================
    DATABASE
-========================================================= */
+========================================== */
 
-const pool = new Pool({
-  connectionString: DATABASE_URL,
+const pool =
+  new Pool({
+    connectionString:
+      DATABASE_URL,
 
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? {
-          rejectUnauthorized: false
-        }
-      : false
-});
-
-
-/* =========================================================
-   SUPABASE CLIENT
-========================================================= */
-
-/*
- * Normal Supabase client.
- *
- * Used to verify access tokens sent from
- * the frontend.
- */
-
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+    ssl:
+      process.env.NODE_ENV === "production"
+        ? {
+            rejectUnauthorized: false
+          }
+        : false
+  });
 
 
-/*
- * Admin Supabase client.
- *
- * SERVICE ROLE KEY MUST NEVER BE SENT
- * TO THE FRONTEND.
- */
+/* ==========================================
+   SUPABASE AUTH CLIENT
+========================================== */
 
-const supabaseAdmin = createClient(
-  SUPABASE_URL,
-  SUPABASE_SERVICE_ROLE_KEY
-);
+const supabase =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
 
-/* =========================================================
+/* ==========================================
+   SUPABASE ADMIN CLIENT
+========================================== */
+
+const supabaseAdmin =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY
+  );
+
+
+/* ==========================================
    RESEND
-========================================================= */
+========================================== */
 
-const resend = new Resend(
-  RESEND_API_KEY
-);
-
-
-/* =========================================================
-   MIDDLEWARE
-========================================================= */
-
-app.use(express.json());
-
-app.use(
-  express.static(
-    path.join(__dirname, "public")
-  )
-);
+const resend =
+  new Resend(
+    RESEND_API_KEY
+  );
 
 
-/* =========================================================
+/* ==========================================
    DATABASE INITIALIZATION
-========================================================= */
+========================================== */
 
 async function initDb() {
 
-  /*
-   * INVITATIONS
-   */
+  /* ------------------------------------------
+     INVITATIONS TABLE
+  ------------------------------------------ */
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS invitations (
       id SERIAL PRIMARY KEY,
-
-      invitation_code VARCHAR(20)
-        UNIQUE NOT NULL,
-
+      invitation_code VARCHAR(20) UNIQUE NOT NULL,
       creator_user_id UUID,
-
       creator_name TEXT NOT NULL,
-
       creator_email TEXT,
-
       recipient_name TEXT NOT NULL,
-
       occasion TEXT NOT NULL,
-
       message TEXT,
-
-      created_at TIMESTAMPTZ
-        NOT NULL DEFAULT NOW()
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
 
 
-  /*
-   * Make sure old installations also
-   * receive creator_user_id.
-   */
+  /* ------------------------------------------
+     OLD DATABASE COMPATIBILITY
+  ------------------------------------------ */
 
   await pool.query(`
     ALTER TABLE invitations
@@ -171,20 +148,15 @@ async function initDb() {
   `);
 
 
-  /*
-   * Make sure old installations also
-   * receive creator_email.
-   */
-
   await pool.query(`
     ALTER TABLE invitations
     ADD COLUMN IF NOT EXISTS creator_email TEXT
   `);
 
 
-  /*
-   * Index for My Moments.
-   */
+  /* ------------------------------------------
+     INVITATION USER INDEX
+  ------------------------------------------ */
 
   await pool.query(`
     CREATE INDEX IF NOT EXISTS
@@ -193,30 +165,24 @@ async function initDb() {
   `);
 
 
-  /*
-   * RESPONSES
-   */
+  /* ------------------------------------------
+     RESPONSES TABLE
+  ------------------------------------------ */
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS responses (
       id SERIAL PRIMARY KEY,
-
       invitation_code VARCHAR(20),
-
       answer TEXT NOT NULL,
-
       selected_date DATE NOT NULL,
-
-      created_at TIMESTAMPTZ
-        NOT NULL DEFAULT NOW()
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
 
 
-  /*
-   * Make sure old installations also
-   * receive invitation_code.
-   */
+  /* ------------------------------------------
+     OLD DATABASE COMPATIBILITY
+  ------------------------------------------ */
 
   await pool.query(`
     ALTER TABLE responses
@@ -224,26 +190,46 @@ async function initDb() {
   `);
 
 
+  /* ------------------------------------------
+     RESPONSE INDEX
+  ------------------------------------------ */
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS
+      responses_invitation_code_idx
+    ON responses (invitation_code)
+  `);
+
+
   console.log(
     "Database initialized successfully."
   );
+
 }
 
 
-/* =========================================================
-   SUPABASE AUTHENTICATION MIDDLEWARE
-========================================================= */
+/* ==========================================
+   MIDDLEWARE
+========================================== */
 
-/*
- * Every protected API route uses this middleware.
- *
- * Frontend sends:
- *
- * Authorization: Bearer ACCESS_TOKEN
- *
- * Supabase verifies that token and gives us
- * the authenticated user.
- */
+app.use(
+  express.json()
+);
+
+
+app.use(
+  express.static(
+    path.join(
+      __dirname,
+      "public"
+    )
+  )
+);
+
+
+/* ==========================================
+   SUPABASE AUTH MIDDLEWARE
+========================================== */
 
 async function requireAuth(
   req,
@@ -257,26 +243,20 @@ async function requireAuth(
       req.headers.authorization;
 
 
-    /*
-     * Authorization header missing.
-     */
-
     if (
       !authorization ||
       !authorization.startsWith("Bearer ")
     ) {
 
-      return res.status(401).json({
-        error:
-          "You must be logged in."
-      });
+      return res
+        .status(401)
+        .json({
+          error:
+            "You must be logged in."
+        });
 
     }
 
-
-    /*
-     * Extract token.
-     */
 
     const accessToken =
       authorization.substring(7);
@@ -284,17 +264,15 @@ async function requireAuth(
 
     if (!accessToken) {
 
-      return res.status(401).json({
-        error:
-          "Invalid authentication token."
-      });
+      return res
+        .status(401)
+        .json({
+          error:
+            "Invalid authentication token."
+        });
 
     }
 
-
-    /*
-     * Ask Supabase to verify the token.
-     */
 
     const {
       data,
@@ -304,10 +282,6 @@ async function requireAuth(
         accessToken
       );
 
-
-    /*
-     * Invalid / expired token.
-     */
 
     if (
       error ||
@@ -320,20 +294,19 @@ async function requireAuth(
         error
       );
 
-      return res.status(401).json({
-        error:
-          "Your login session is invalid or expired."
-      });
+
+      return res
+        .status(401)
+        .json({
+          error:
+            "Your login session is invalid or expired."
+        });
 
     }
 
 
-    /*
-     * Store authenticated user
-     * on the request.
-     */
-
-    req.user = data.user;
+    req.user =
+      data.user;
 
 
     next();
@@ -347,18 +320,22 @@ async function requireAuth(
       error
     );
 
-    return res.status(401).json({
-      error:
-        "Authentication failed."
-    });
+
+    return res
+      .status(401)
+      .json({
+        error:
+          "Authentication failed."
+      });
 
   }
+
 }
 
 
-/* =========================================================
+/* ==========================================
    GET CURRENT USER
-========================================================= */
+========================================== */
 
 app.get(
   "/api/me",
@@ -408,12 +385,13 @@ app.get(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not load user."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not load user."
+        });
 
     }
 
@@ -421,10 +399,9 @@ app.get(
 );
 
 
-/* =========================================================
-   EDIT PROFILE
+/* ==========================================
    GET PROFILE
-========================================================= */
+========================================== */
 
 app.get(
   "/api/profile",
@@ -474,12 +451,13 @@ app.get(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not load profile."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not load profile."
+        });
 
     }
 
@@ -487,10 +465,9 @@ app.get(
 );
 
 
-/* =========================================================
-   EDIT PROFILE
+/* ==========================================
    UPDATE PROFILE
-========================================================= */
+========================================== */
 
 app.put(
   "/api/profile",
@@ -505,65 +482,47 @@ app.put(
         req.body || {};
 
 
-      /*
-       * Clean name.
-       */
-
       const finalName =
         typeof name === "string"
           ? name.trim()
           : "";
 
 
-      /*
-       * Validation.
-       */
-
       if (!finalName) {
 
-        return res.status(400).json({
-
-          error:
-            "Please enter your name."
-
-        });
-
-      }
-
-
-      if (
-        finalName.length < 2
-      ) {
-
-        return res.status(400).json({
-
-          error:
-            "Name must contain at least 2 characters."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please enter your name."
+          });
 
       }
 
 
-      if (
-        finalName.length > 100
-      ) {
+      if (finalName.length < 2) {
 
-        return res.status(400).json({
-
-          error:
-            "Name is too long."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Name must contain at least 2 characters."
+          });
 
       }
 
 
-      /*
-       * Update Supabase user metadata.
-       *
-       * Existing metadata is preserved.
-       */
+      if (finalName.length > 100) {
+
+        return res
+          .status(400)
+          .json({
+            error:
+              "Name is too long."
+          });
+
+      }
+
 
       const {
         data,
@@ -574,7 +533,8 @@ app.put(
           {
             user_metadata: {
               ...(req.user.user_metadata || {}),
-              name: finalName
+              name:
+                finalName
             }
           }
         );
@@ -587,19 +547,16 @@ app.put(
           error
         );
 
-        return res.status(500).json({
 
-          error:
-            "Could not update your profile."
-
-        });
+        return res
+          .status(500)
+          .json({
+            error:
+              "Could not update your profile."
+          });
 
       }
 
-
-      /*
-       * Return updated profile.
-       */
 
       res.json({
 
@@ -630,12 +587,13 @@ app.put(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not update your profile."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not update your profile."
+        });
 
     }
 
@@ -643,9 +601,9 @@ app.put(
 );
 
 
-/* =========================================================
+/* ==========================================
    CREATE INVITATION
-========================================================= */
+========================================== */
 
 app.post(
   "/api/invitations",
@@ -662,10 +620,6 @@ app.post(
       } =
         req.body || {};
 
-
-      /*
-       * Authenticated Supabase user.
-       */
 
       const user =
         req.user;
@@ -696,9 +650,9 @@ app.post(
         ).trim();
 
 
-      /*
-       * Validation.
-       */
+      /* --------------------------------------
+         VALIDATION
+      -------------------------------------- */
 
       if (
         !finalCreatorName ||
@@ -707,12 +661,12 @@ app.post(
         !occasion
       ) {
 
-        return res.status(400).json({
-
-          error:
-            "Please complete all required fields."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please complete all required fields."
+          });
 
       }
 
@@ -721,12 +675,12 @@ app.post(
         finalCreatorName.length < 2
       ) {
 
-        return res.status(400).json({
-
-          error:
-            "Please enter a valid creator name."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please enter a valid creator name."
+          });
 
       }
 
@@ -735,12 +689,12 @@ app.post(
         recipientName.trim().length < 1
       ) {
 
-        return res.status(400).json({
-
-          error:
-            "Please enter the recipient name."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please enter the recipient name."
+          });
 
       }
 
@@ -749,22 +703,21 @@ app.post(
         occasion.trim().length < 1
       ) {
 
-        return res.status(400).json({
-
-          error:
-            "Please select an occasion."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please select an occasion."
+          });
 
       }
 
 
-      /*
-       * Generate invitation code.
-       */
+      /* --------------------------------------
+         GENERATE UNIQUE INVITATION CODE
+      -------------------------------------- */
 
       let invitationCode;
-
       let isUnique = false;
 
 
@@ -800,9 +753,9 @@ app.post(
       }
 
 
-      /*
-       * Save invitation.
-       */
+      /* --------------------------------------
+         SAVE INVITATION
+      -------------------------------------- */
 
       await pool.query(
         `
@@ -827,17 +780,11 @@ app.post(
         `,
         [
           invitationCode,
-
           creatorUserId,
-
           finalCreatorName,
-
           creatorEmail,
-
           recipientName.trim(),
-
           occasion.trim(),
-
           message
             ? message.trim()
             : null
@@ -845,9 +792,9 @@ app.post(
       );
 
 
-      /*
-       * Share URL.
-       */
+      /* --------------------------------------
+         CREATE SHAREABLE URL
+      -------------------------------------- */
 
       const invitationUrl =
         `${req.protocol}://${req.get("host")}/i/${invitationCode}`;
@@ -882,12 +829,13 @@ app.post(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not create invitation."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not create invitation."
+        });
 
     }
 
@@ -895,9 +843,26 @@ app.post(
 );
 
 
-/* =========================================================
+/* ==========================================
    MY MOMENTS
-========================================================= */
+========================================== */
+
+/*
+ * IMPORTANT FIX
+ *
+ * Previously this endpoint only selected
+ * from invitations.
+ *
+ * That meant My Moments had no idea whether
+ * an invitation had been answered.
+ *
+ * We now use a LATERAL query to get ONLY
+ * the latest response for each invitation.
+ *
+ * This prevents multiple response records
+ * from making the same invitation appear
+ * multiple times.
+ */
 
 app.get(
   "/api/my-moments",
@@ -905,16 +870,6 @@ app.get(
   async (req, res) => {
 
     try {
-
-      /*
-       * IMPORTANT:
-       *
-       * We do NOT accept a user ID from
-       * the frontend.
-       *
-       * We get it directly from the
-       * authenticated Supabase user.
-       */
 
       const creatorUserId =
         req.user.id;
@@ -924,15 +879,39 @@ app.get(
         await pool.query(
           `
             SELECT
-              invitation_code,
-              creator_name,
-              recipient_name,
-              occasion,
-              message,
-              created_at
-            FROM invitations
-            WHERE creator_user_id = $1
-            ORDER BY created_at DESC
+              i.invitation_code,
+              i.creator_name,
+              i.recipient_name,
+              i.occasion,
+              i.message,
+              i.created_at,
+
+              r.answer AS response_answer,
+              r.selected_date,
+              r.created_at AS response_created_at
+
+            FROM invitations i
+
+            LEFT JOIN LATERAL (
+              SELECT
+                answer,
+                selected_date,
+                created_at
+
+              FROM responses
+
+              WHERE invitation_code =
+                i.invitation_code
+
+              ORDER BY created_at DESC
+
+              LIMIT 1
+
+            ) r ON true
+
+            WHERE i.creator_user_id = $1
+
+            ORDER BY i.created_at DESC
           `,
           [
             creatorUserId
@@ -958,12 +937,13 @@ app.get(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not load your moments."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not load your moments."
+        });
 
     }
 
@@ -971,9 +951,9 @@ app.get(
 );
 
 
-/* =========================================================
-   GET SINGLE INVITATION
-========================================================= */
+/* ==========================================
+   GET PERSONALIZED INVITATION
+========================================== */
 
 app.get(
   "/api/invitations/:code",
@@ -995,7 +975,9 @@ app.get(
               occasion,
               message,
               created_at
+
             FROM invitations
+
             WHERE invitation_code = $1
           `,
           [
@@ -1008,22 +990,15 @@ app.get(
         result.rows.length === 0
       ) {
 
-        return res.status(404).json({
-
-          error:
-            "Invitation not found."
-
-        });
+        return res
+          .status(404)
+          .json({
+            error:
+              "Invitation not found."
+          });
 
       }
 
-
-      /*
-       * Do not expose:
-       *
-       * creator_email
-       * creator_user_id
-       */
 
       res.json(
         result.rows[0]
@@ -1038,12 +1013,13 @@ app.get(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not load invitation."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not load invitation."
+        });
 
     }
 
@@ -1051,9 +1027,26 @@ app.get(
 );
 
 
-/* =========================================================
-   SAVE INVITATION RESPONSE
-========================================================= */
+/* ==========================================
+   SAVE DATE RESPONSE
+========================================== */
+
+/*
+ * IMPORTANT FIX
+ *
+ * Previously every submission created
+ * another row in responses.
+ *
+ * Now:
+ *
+ * 1. We verify the invitation exists.
+ * 2. If a response already exists, we UPDATE
+ *    the latest response.
+ * 3. If no response exists, we INSERT one.
+ *
+ * This prevents repeated submissions from
+ * creating endless response rows.
+ */
 
 app.post(
   "/api/response",
@@ -1069,46 +1062,97 @@ app.post(
         req.body || {};
 
 
-      /*
-       * Validate answer.
-       */
+      /* --------------------------------------
+         BASIC VALIDATION
+      -------------------------------------- */
 
       if (
         !["yes", "no"].includes(answer) ||
-        !date
+        !date ||
+        !invitationCode
       ) {
 
-        return res.status(400).json({
-
-          error:
-            "Invalid response."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Invalid response."
+          });
 
       }
 
 
-      /*
-       * Validate date.
-       */
+      /* --------------------------------------
+         DATE FORMAT
+      -------------------------------------- */
 
       if (
         !/^\d{4}-\d{2}-\d{2}$/.test(date)
       ) {
 
-        return res.status(400).json({
-
-          error:
-            "Invalid date format."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Invalid date format."
+          });
 
       }
 
 
-      /*
-       * Get today's date in India.
-       */
+      /* --------------------------------------
+         FIND INVITATION
+      -------------------------------------- */
+
+      const invitationResult =
+        await pool.query(
+          `
+            SELECT
+              creator_email,
+              creator_name,
+              recipient_name
+
+            FROM invitations
+
+            WHERE invitation_code = $1
+          `,
+          [
+            invitationCode
+          ]
+        );
+
+
+      if (
+        invitationResult.rows.length === 0
+      ) {
+
+        return res
+          .status(404)
+          .json({
+            error:
+              "Invitation not found."
+          });
+
+      }
+
+
+      const invitation =
+        invitationResult.rows[0];
+
+
+      const creatorEmail =
+        invitation.creator_email;
+
+      const creatorName =
+        invitation.creator_name;
+
+      const recipientName =
+        invitation.recipient_name;
+
+
+      /* --------------------------------------
+         INDIA TODAY
+      -------------------------------------- */
 
       function getTodayIndia() {
 
@@ -1146,98 +1190,137 @@ app.post(
         date < todayIndia
       ) {
 
-        return res.status(400).json({
-
-          error:
-            "Please choose today or a future date."
-
-        });
+        return res
+          .status(400)
+          .json({
+            error:
+              "Please choose today or a future date."
+          });
 
       }
 
 
-      /*
-       * Save response.
-       */
+      /* --------------------------------------
+         CHECK EXISTING RESPONSE
+      -------------------------------------- */
 
-      await pool.query(
-        `
-          INSERT INTO responses (
-            invitation_code,
+      const existingResponse =
+        await pool.query(
+          `
+            SELECT
+              id
+
+            FROM responses
+
+            WHERE invitation_code = $1
+
+            ORDER BY created_at DESC
+
+            LIMIT 1
+          `,
+          [
+            invitationCode
+          ]
+        );
+
+
+      let responseId = null;
+
+
+      /* --------------------------------------
+         UPDATE EXISTING RESPONSE
+      -------------------------------------- */
+
+      if (
+        existingResponse.rows.length > 0
+      ) {
+
+        responseId =
+          existingResponse.rows[0].id;
+
+
+        await pool.query(
+          `
+            UPDATE responses
+
+            SET
+              answer = $1,
+              selected_date = $2,
+              created_at = NOW()
+
+            WHERE id = $3
+          `,
+          [
             answer,
-            selected_date
-          )
-          VALUES (
-            $1,
-            $2,
-            $3
-          )
-        `,
-        [
-          invitationCode || null,
-          answer,
-          date
-        ]
-      );
+            date,
+            responseId
+          ]
+        );
+
+      }
 
 
-      /*
-       * Find creator.
-       */
+      /* --------------------------------------
+         CREATE NEW RESPONSE
+      -------------------------------------- */
 
-      let creatorEmail = null;
+      else {
 
-      let creatorName = null;
-
-      let recipientName = null;
-
-
-      if (invitationCode) {
-
-        const invitationResult =
+        const inserted =
           await pool.query(
             `
-              SELECT
-                creator_email,
-                creator_name,
-                recipient_name
-              FROM invitations
-              WHERE invitation_code = $1
+              INSERT INTO responses (
+                invitation_code,
+                answer,
+                selected_date
+              )
+
+              VALUES (
+                $1,
+                $2,
+                $3
+              )
+
+              RETURNING id
             `,
             [
-              invitationCode
+              invitationCode,
+              answer,
+              date
             ]
           );
 
 
-        if (
-          invitationResult.rows.length > 0
-        ) {
-
-          creatorEmail =
-            invitationResult.rows[0]
-              .creator_email;
-
-          creatorName =
-            invitationResult.rows[0]
-              .creator_name;
-
-          recipientName =
-            invitationResult.rows[0]
-              .recipient_name;
-
-        }
+        responseId =
+          inserted.rows[0].id;
 
       }
 
 
-      /*
-       * Format date.
-       */
+      /* --------------------------------------
+         LOG RESPONSE
+      -------------------------------------- */
+
+      console.log(
+        "Response received:",
+        {
+          invitationCode,
+          answer,
+          date,
+          creatorEmail,
+          responseId
+        }
+      );
+
+
+      /* --------------------------------------
+         FORMAT DATE
+      -------------------------------------- */
 
       const formattedDate =
         new Date(
-          date + "T00:00:00"
+          date +
+          "T00:00:00"
         ).toLocaleDateString(
           "en-IN",
           {
@@ -1256,11 +1339,14 @@ app.post(
         );
 
 
-      /*
-       * Send email.
-       */
+      /* ======================================
+         SEND EMAIL TO CREATOR
+      ====================================== */
 
-      if (creatorEmail) {
+      if (
+        creatorEmail &&
+        answer === "yes"
+      ) {
 
         try {
 
@@ -1281,6 +1367,7 @@ app.post(
                 "❤️ Your Date Has Been Booked!",
 
               html: `
+
                 <div style="
                   font-family: Arial, sans-serif;
                   max-width: 600px;
@@ -1292,7 +1379,7 @@ app.post(
                 ">
 
                   <h1 style="color:#941f5a;">
-                    It's a date!
+                    💖 It's a date!
                   </h1>
 
                   <p style="font-size:18px;">
@@ -1303,7 +1390,7 @@ app.post(
                     }
 
                     just booked a date
-                    with you.
+                    with you. 🥰
 
                   </p>
 
@@ -1316,6 +1403,7 @@ app.post(
 
                     <p style="font-size:16px;">
 
+                      📅
                       <strong>
                         Date
                       </strong>
@@ -1334,15 +1422,20 @@ app.post(
                   </div>
 
                   <p>
+
                     Your invitation has
-                    officially been responded to.
+                    officially been responded to. ❤️
+
                   </p>
 
                   <p>
-                    Booked through Moment.
+
+                    Booked through Moment ❤️
+
                   </p>
 
                 </div>
+
               `
             });
 
@@ -1355,6 +1448,7 @@ app.post(
             );
 
           }
+
           else {
 
             console.log(
@@ -1377,9 +1471,131 @@ app.post(
 
       }
 
+      else if (
+        creatorEmail &&
+        answer === "no"
+      ) {
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await resend.emails.send({
+
+              from:
+                "Our Date Invitation <onboarding@resend.dev>",
+
+              to: [
+                creatorEmail
+              ],
+
+              subject:
+                "Moment invitation response",
+
+              html: `
+
+                <div style="
+                  font-family: Arial, sans-serif;
+                  max-width: 600px;
+                  margin: auto;
+                  padding: 30px;
+                  text-align: center;
+                  background: #fff5f7;
+                  border-radius: 20px;
+                ">
+
+                  <h1 style="color:#941f5a;">
+                    Moment Response
+                  </h1>
+
+                  <p style="font-size:18px;">
+
+                    ${
+                      recipientName ||
+                      "Someone"
+                    }
+
+                    has responded to your
+                    invitation.
+
+                  </p>
+
+                  <p style="font-size:20px;">
+
+                    They didn't accept the date.
+
+                  </p>
+
+                  <p>
+
+                    Responded through Moment.
+
+                  </p>
+
+                </div>
+
+              `
+            });
+
+
+          if (error) {
+
+            console.error(
+              "RESEND ERROR:",
+              error
+            );
+
+          }
+
+          else {
+
+            console.log(
+              "RESEND SUCCESS:",
+              data
+            );
+
+          }
+
+        }
+
+        catch (emailError) {
+
+          console.error(
+            "RESEND EXCEPTION:",
+            emailError
+          );
+
+        }
+
+      }
+
+      else {
+
+        console.warn(
+          "NO CREATOR EMAIL FOUND FOR INVITATION:",
+          invitationCode
+        );
+
+      }
+
+
+      /* --------------------------------------
+         RESPONSE TO BROWSER
+      -------------------------------------- */
 
       res.json({
-        ok: true
+
+        ok: true,
+
+        invitationCode,
+
+        answer,
+
+        selectedDate:
+          date
+
       });
 
     }
@@ -1391,12 +1607,13 @@ app.post(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not save response."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not save response."
+        });
 
     }
 
@@ -1404,9 +1621,9 @@ app.post(
 );
 
 
-/* =========================================================
-   ADMIN RESPONSES
-========================================================= */
+/* ==========================================
+   VIEW SAVED RESPONSES
+========================================== */
 
 app.get(
   "/api/responses",
@@ -1417,12 +1634,12 @@ app.get(
       req.query.key !== ADMIN_KEY
     ) {
 
-      return res.status(401).json({
-
-        error:
-          "Unauthorized."
-
-      });
+      return res
+        .status(401)
+        .json({
+          error:
+            "Unauthorized."
+        });
 
     }
 
@@ -1437,7 +1654,9 @@ app.get(
               answer,
               selected_date,
               created_at
+
             FROM responses
+
             ORDER BY created_at DESC
           `
         );
@@ -1456,12 +1675,13 @@ app.get(
         error
       );
 
-      res.status(500).json({
 
-        error:
-          "Could not load responses."
-
-      });
+      res
+        .status(500)
+        .json({
+          error:
+            "Could not load responses."
+        });
 
     }
 
@@ -1469,162 +1689,9 @@ app.get(
 );
 
 
-/* =========================================================
-   WEBSITE ROUTES
-========================================================= */
-
-
-/*
- * HOME
- */
-
-app.get(
-  "/",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "index.html"
-      )
-    );
-
-  }
-);
-
-
-/*
- * LOGIN
- */
-
-app.get(
-  "/login",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "login.html"
-      )
-    );
-
-  }
-);
-
-
-/*
- * REGISTER
- *
- * Currently points to login.html
- * because your current authentication
- * page handles registration as well.
- */
-
-app.get(
-  "/register",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "login.html"
-      )
-    );
-
-  }
-);
-
-
-/*
- * CREATE
- */
-
-app.get(
-  "/create",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "create.html"
-      )
-    );
-
-  }
-);
-
-
-/*
- * MY MOMENTS
- */
-
-app.get(
-  "/moments",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "moments.html"
-      )
-    );
-
-  }
-);
-
-
-/*
- * EDIT PROFILE
- */
-
-app.get(
-  "/profile",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "profile.html"
-      )
-    );
-
-  }
-);
-
-
-/*
- * INVITATION
- */
-
-app.get(
-  "/invitation",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "invitation.html"
-      )
-    );
-
-  }
-);
-
-
-/*
- * PERSONALIZED INVITATION
- *
- * Example:
- *
- * /i/abc12345
- */
+/* ==========================================
+   PERSONALIZED INVITATION PAGE
+========================================== */
 
 app.get(
   "/i/:code",
@@ -1642,9 +1709,154 @@ app.get(
 );
 
 
-/* =========================================================
+/* ==========================================
+   WEBSITE ROUTES
+========================================== */
+
+
+/* ------------------------------------------
+   LANDING PAGE
+------------------------------------------ */
+
+app.get(
+  "/",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "index.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   LOGIN PAGE
+------------------------------------------ */
+
+app.get(
+  "/login",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "login.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   REGISTER PAGE
+------------------------------------------ */
+
+app.get(
+  "/register",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "login.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   INVITATION PAGE
+------------------------------------------ */
+
+app.get(
+  "/invitation",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "invitation.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   CREATE PAGE
+------------------------------------------ */
+
+app.get(
+  "/create",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "create.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   MY MOMENTS PAGE
+------------------------------------------ */
+
+app.get(
+  "/moments",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "moments.html"
+      )
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   EDIT PROFILE PAGE
+------------------------------------------ */
+
+app.get(
+  "/profile",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "profile.html"
+      )
+    );
+
+  }
+);
+
+
+/* ==========================================
    START SERVER
-========================================================= */
+========================================== */
 
 initDb()
 
@@ -1656,7 +1868,7 @@ initDb()
       () => {
 
         console.log(
-          `Moment server running on port ${PORT}`
+          `Running on ${PORT}`
         );
 
       }
@@ -1676,4 +1888,3 @@ initDb()
 
     }
   );
-
