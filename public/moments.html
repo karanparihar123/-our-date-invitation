@@ -10,7 +10,13 @@
     content="width=device-width, initial-scale=1"
   >
 
+  <meta
+    name="description"
+    content="Your Moment invitations."
+  >
+
   <title>My Moments ❤️</title>
+
 
   <style>
 
@@ -25,7 +31,6 @@
     body {
       margin: 0;
       min-height: 100vh;
-      padding: 24px;
 
       font-family:
         Arial,
@@ -36,15 +41,17 @@
 
       background:
         radial-gradient(
-          circle at 15% 10%,
-          rgba(255,255,255,.14),
+          circle at 10% 5%,
+          rgba(255,255,255,.13),
           transparent 25%
         ),
+
         radial-gradient(
-          circle at 90% 80%,
-          rgba(255,100,150,.22),
+          circle at 90% 85%,
+          rgba(255,100,150,.20),
           transparent 30%
         ),
+
         linear-gradient(
           145deg,
           #160817 0%,
@@ -52,6 +59,8 @@
           #761842 72%,
           #d65c7d 100%
         );
+
+      overflow-x: hidden;
     }
 
 
@@ -61,28 +70,37 @@
 
     .glow {
       position: fixed;
-      width: 320px;
-      height: 320px;
+
+      width: 330px;
+      height: 330px;
+
       border-radius: 50%;
-      filter: blur(95px);
-      opacity: .2;
+
+      filter: blur(100px);
+
+      opacity: .20;
+
       pointer-events: none;
+
       z-index: 0;
 
       animation:
-        glowMove 9s ease-in-out infinite alternate;
+        glowMove 10s ease-in-out infinite alternate;
     }
 
     .glow.one {
-      background: #ff719b;
-      top: -130px;
+      top: -140px;
       left: -120px;
+
+      background: #ff719b;
     }
 
     .glow.two {
-      background: #ffb8cf;
       right: -150px;
       bottom: -150px;
+
+      background: #ffb8cf;
+
       animation-delay: 3s;
     }
 
@@ -109,15 +127,21 @@
 
     .hearts {
       position: fixed;
+
       inset: 0;
+
       overflow: hidden;
+
       pointer-events: none;
+
       z-index: 0;
     }
 
     .heart {
       position: absolute;
+
       bottom: -40px;
+
       opacity: 0;
 
       animation:
@@ -125,36 +149,36 @@
     }
 
     .heart:nth-child(1) {
-      left: 7%;
-      font-size: 18px;
-      animation-duration: 11s;
+      left: 8%;
+      font-size: 17px;
+      animation-duration: 12s;
     }
 
     .heart:nth-child(2) {
       left: 27%;
-      font-size: 14px;
-      animation-duration: 13s;
+      font-size: 13px;
+      animation-duration: 14s;
       animation-delay: 2s;
     }
 
     .heart:nth-child(3) {
-      left: 50%;
-      font-size: 21px;
-      animation-duration: 10s;
+      left: 51%;
+      font-size: 20px;
+      animation-duration: 11s;
       animation-delay: 4s;
     }
 
     .heart:nth-child(4) {
-      left: 73%;
-      font-size: 16px;
-      animation-duration: 12s;
+      left: 74%;
+      font-size: 15px;
+      animation-duration: 13s;
       animation-delay: 1s;
     }
 
     .heart:nth-child(5) {
       left: 91%;
-      font-size: 20px;
-      animation-duration: 14s;
+      font-size: 19px;
+      animation-duration: 15s;
       animation-delay: 5s;
     }
 
@@ -169,11 +193,11 @@
       }
 
       15% {
-        opacity: .38;
+        opacity: .32;
       }
 
       80% {
-        opacity: .18;
+        opacity: .15;
       }
 
       100% {
@@ -193,29 +217,36 @@
 
     .page {
       position: relative;
+
       z-index: 2;
 
       width:
         min(
           100%,
-          1050px
+          1120px
         );
 
       margin:
         0 auto;
+
+      padding:
+        28px 24px
+        70px;
     }
 
 
     /* ==========================================
-       TOP BAR
+       NAVIGATION
     ========================================== */
 
     .topbar {
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
 
-      margin-bottom: 28px;
+      margin-bottom: 55px;
     }
 
     .logo {
@@ -224,18 +255,20 @@
         "Times New Roman",
         serif;
 
-      font-size: 24px;
+      font-size: 25px;
     }
 
-    .top-actions {
+    .nav {
       display: flex;
+
       align-items: center;
-      gap: 18px;
+
+      gap: 22px;
     }
 
-    .top-link {
+    .nav a {
       color:
-        rgba(255,255,255,.68);
+        rgba(255,255,255,.60);
 
       text-decoration: none;
 
@@ -245,55 +278,57 @@
         color .2s ease;
     }
 
-    .top-link:hover {
+    .nav a:hover {
       color: #fff;
+    }
+
+    .nav .create-link {
+      padding:
+        10px 17px;
+
+      border-radius: 999px;
+
+      color: #74153f;
+
+      background: #fff;
+
+      font-weight: 700;
+    }
+
+    .nav .create-link:hover {
+      color: #74153f;
+
+      transform:
+        translateY(-1px);
     }
 
 
     /* ==========================================
-       HEADER
+       HERO
     ========================================== */
 
-    .header-card {
-      padding: 36px;
+    .hero {
+      max-width: 760px;
 
-      margin-bottom: 24px;
-
-      border-radius: 30px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.15);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.11),
-          rgba(255,255,255,.045)
-        );
-
-      backdrop-filter:
-        blur(18px);
-
-      box-shadow:
-        0 30px 80px
-        rgba(0,0,0,.25);
+      margin-bottom: 36px;
     }
 
     .eyebrow {
-      margin-bottom: 10px;
-
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
+      margin-bottom: 13px;
 
       color:
-        rgba(255,255,255,.48);
+        rgba(255,255,255,.46);
+
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
     }
 
-    .header-card h1 {
+    .hero h1 {
       margin:
-        0 0 10px;
+        0 0 15px;
 
       font-family:
         Georgia,
@@ -302,75 +337,526 @@
 
       font-size:
         clamp(
-          38px,
-          6vw,
-          56px
+          48px,
+          7vw,
+          74px
         );
 
       font-weight: normal;
 
-      letter-spacing: -2px;
+      line-height: .98;
+
+      letter-spacing: -3px;
     }
 
-    .header-card h1 span {
+    .hero h1 span {
       color: #ffc0d2;
     }
 
-    .header-card p {
+    .hero p {
       margin: 0;
 
       max-width: 650px;
 
       color:
-        rgba(255,255,255,.6);
+        rgba(255,255,255,.58);
 
-      font-size: 14px;
+      font-size: 15px;
 
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
 
     /* ==========================================
-       CONTENT CARD
+       STATS
     ========================================== */
 
-    .content-card {
-      padding: 30px;
+    .stats {
+      display: grid;
 
-      border-radius: 30px;
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 13px;
+
+      margin-bottom: 42px;
+    }
+
+    .stat {
+      padding:
+        18px 20px;
 
       border:
         1px solid
-        rgba(255,255,255,.15);
+        rgba(255,255,255,.12);
+
+      border-radius: 20px;
 
       background:
-        rgba(255,255,255,.075);
+        rgba(255,255,255,.065);
+
+      backdrop-filter:
+        blur(16px);
+    }
+
+    .stat-number {
+      margin-bottom: 5px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 27px;
+    }
+
+    .stat-label {
+      color:
+        rgba(255,255,255,.43);
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+    }
+
+
+    /* ==========================================
+       SECTION HEADER
+    ========================================== */
+
+    .section-header {
+      display: flex;
+
+      align-items: flex-end;
+
+      justify-content: space-between;
+
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 28px;
+
+      font-weight: normal;
+    }
+
+    .section-count {
+      color:
+        rgba(255,255,255,.38);
+
+      font-size: 12px;
+    }
+
+
+    /* ==========================================
+       MOMENTS GRID
+    ========================================== */
+
+    .moments-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 18px;
+    }
+
+
+    /* ==========================================
+       MOMENT CARD
+    ========================================== */
+
+    .moment-card {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 26px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.13);
+
+      border-radius: 25px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.095),
+          rgba(255,255,255,.045)
+        );
 
       backdrop-filter:
         blur(20px);
 
       box-shadow:
-        0 30px 80px
-        rgba(0,0,0,.3);
+        0 22px 60px
+        rgba(0,0,0,.18);
+
+      transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+
+      animation:
+        cardIn .55s ease both;
+    }
+
+    .moment-card:hover {
+      transform:
+        translateY(-5px);
+
+      border-color:
+        rgba(255,255,255,.23);
+
+      box-shadow:
+        0 28px 70px
+        rgba(0,0,0,.28);
+    }
+
+    .moment-card::after {
+      content: "";
+
+      position: absolute;
+
+      width: 180px;
+      height: 180px;
+
+      right: -100px;
+      top: -100px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,140,180,.13);
+
+      filter:
+        blur(35px);
+
+      pointer-events: none;
+    }
+
+    @keyframes cardIn {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
+
     }
 
 
     /* ==========================================
-       STATES
+       CARD TOP
     ========================================== */
 
-    .state {
-      text-align: center;
+    .card-top {
+      display: flex;
 
-      padding:
-        70px 20px;
+      align-items: center;
+
+      justify-content: space-between;
+
+      margin-bottom: 22px;
     }
 
-    .state-icon {
+    .occasion {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      padding:
+        7px 11px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.09);
+
+      border:
+        1px solid
+        rgba(255,255,255,.10);
+
+      color:
+        rgba(255,255,255,.72);
+
+      font-size: 11px;
+
+      letter-spacing: .5px;
+    }
+
+    .occasion-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: #ffabc5;
+
+      box-shadow:
+        0 0 10px
+        rgba(255,170,200,.7);
+    }
+
+    .card-date {
+      color:
+        rgba(255,255,255,.38);
+
+      font-size: 11px;
+    }
+
+
+    /* ==========================================
+       CARD CONTENT
+    ========================================== */
+
+    .card-label {
+      margin-bottom: 7px;
+
+      color:
+        rgba(255,255,255,.42);
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.7px;
+    }
+
+    .recipient {
+      margin: 0 0 15px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 32px;
+
+      font-weight: normal;
+
+      line-height: 1.1;
+    }
+
+    .recipient span {
+      color: #ffc0d2;
+    }
+
+    .message {
+      min-height: 50px;
+
+      margin: 0 0 22px;
+
+      color:
+        rgba(255,255,255,.60);
+
+      font-size: 14px;
+
+      line-height: 1.65;
+
+      display:
+        -webkit-box;
+
+      -webkit-line-clamp: 3;
+
+      -webkit-box-orient:
+        vertical;
+
+      overflow: hidden;
+    }
+
+
+    /* ==========================================
+       STATUS
+    ========================================== */
+
+    .status {
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      margin-bottom: 22px;
+
+      padding:
+        10px 12px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.055);
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      color:
+        rgba(255,255,255,.56);
+
+      font-size: 11px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+
+      flex: 0 0 auto;
+
+      border-radius: 50%;
+
+      background: #ffc0d2;
+    }
+
+    .status.booked {
+      color:
+        #ffd9e5;
+
+      background:
+        rgba(255,120,160,.10);
+    }
+
+    .status.booked .status-dot {
+      background: #ff8eae;
+
+      box-shadow:
+        0 0 10px
+        rgba(255,120,160,.6);
+    }
+
+
+    /* ==========================================
+       CARD FOOTER
+    ========================================== */
+
+    .card-footer {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 12px;
+
+      padding-top: 17px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.08);
+    }
+
+    .code {
+      color:
+        rgba(255,255,255,.31);
+
+      font-size: 10px;
+
+      letter-spacing: .6px;
+    }
+
+    .actions {
+      display: flex;
+
+      gap: 8px;
+    }
+
+    .action-button {
+      min-height: 38px;
+
+      padding:
+        0 13px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.13);
+
+      color:
+        rgba(255,255,255,.78);
+
+      background:
+        rgba(255,255,255,.065);
+
+      cursor: pointer;
+
+      font-size: 11px;
+
+      font-weight: 600;
+
+      transition:
+        background .2s ease,
+        transform .2s ease;
+    }
+
+    .action-button:hover {
+      background:
+        rgba(255,255,255,.13);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .action-button.primary {
+      border: 0;
+
+      color: #74153f;
+
+      background: #fff;
+    }
+
+
+    /* ==========================================
+       EMPTY STATE
+    ========================================== */
+
+    .empty {
+      display: none;
+
+      padding:
+        65px 30px;
+
+      text-align: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.12);
+
+      border-radius: 28px;
+
+      background:
+        rgba(255,255,255,.055);
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .empty-icon {
       width: 76px;
       height: 76px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -384,12 +870,12 @@
 
       border:
         1px solid
-        rgba(255,255,255,.14);
+        rgba(255,255,255,.12);
 
-      font-size: 34px;
+      font-size: 32px;
     }
 
-    .state h2 {
+    .empty h2 {
       margin:
         0 0 10px;
 
@@ -403,225 +889,21 @@
       font-weight: normal;
     }
 
-    .state p {
-      margin:
-        0 auto;
+    .empty p {
+      max-width: 420px;
 
-      max-width: 500px;
+      margin:
+        0 auto 25px;
 
       color:
-        rgba(255,255,255,.55);
+        rgba(255,255,255,.52);
 
-      font-size: 14px;
+      font-size: 13px;
 
       line-height: 1.7;
     }
 
-
-    /* ==========================================
-       MOMENTS GRID
-    ========================================== */
-
-    .moments-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          2,
-          minmax(0, 1fr)
-        );
-
-      gap: 18px;
-    }
-
-
-    /* ==========================================
-       MOMENT CARD
-    ========================================== */
-
-    .moment-card {
-      position: relative;
-
-      display: flex;
-      flex-direction: column;
-
-      min-height: 300px;
-
-      padding: 25px;
-
-      border-radius: 24px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.13);
-
-      background:
-        rgba(20,5,20,.25);
-
-      transition:
-        transform .2s ease,
-        border-color .2s ease,
-        background .2s ease;
-    }
-
-    .moment-card:hover {
-      transform:
-        translateY(-4px);
-
-      border-color:
-        rgba(255,180,205,.3);
-
-      background:
-        rgba(255,255,255,.08);
-    }
-
-
-    .moment-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-
-      gap: 15px;
-
-      margin-bottom: 20px;
-    }
-
-    .occasion {
-      display: inline-flex;
-
-      align-items: center;
-
-      min-height: 30px;
-
-      padding:
-        6px 11px;
-
-      border-radius: 999px;
-
-      color:
-        #ffd7e3;
-
-      background:
-        rgba(255,150,185,.12);
-
-      border:
-        1px solid
-        rgba(255,150,185,.18);
-
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .moment-date {
-      color:
-        rgba(255,255,255,.38);
-
-      font-size: 11px;
-
-      white-space: nowrap;
-    }
-
-
-    .moment-card h3 {
-      margin:
-        0 0 10px;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: 27px;
-
-      font-weight: normal;
-    }
-
-    .moment-card h3 span {
-      color: #ffc0d2;
-    }
-
-
-    .message {
-      flex: 1;
-
-      margin:
-        0 0 20px;
-
-      color:
-        rgba(255,255,255,.58);
-
-      font-size: 14px;
-
-      line-height: 1.7;
-
-      white-space: pre-wrap;
-
-      word-break: break-word;
-    }
-
-
-    .moment-code {
-      margin-bottom: 18px;
-
-      color:
-        rgba(255,255,255,.3);
-
-      font-size: 10px;
-
-      letter-spacing: 1px;
-    }
-
-
-    /* ==========================================
-       OPEN BUTTON
-    ========================================== */
-
-    .open-button {
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      width: 100%;
-
-      min-height: 48px;
-
-      border-radius: 999px;
-
-      color: #74153f;
-
-      background: #fff;
-
-      text-decoration: none;
-
-      font-size: 14px;
-
-      font-weight: 700;
-
-      box-shadow:
-        0 10px 25px
-        rgba(0,0,0,.18);
-
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-    }
-
-    .open-button:hover {
-      transform:
-        translateY(-2px);
-
-      box-shadow:
-        0 14px 30px
-        rgba(0,0,0,.28);
-    }
-
-
-    /* ==========================================
-       CREATE BUTTON
-    ========================================== */
-
-    .create-button {
+    .empty-button {
       display: inline-flex;
 
       align-items: center;
@@ -632,8 +914,6 @@
       padding:
         0 22px;
 
-      margin-top: 24px;
-
       border-radius: 999px;
 
       color: #74153f;
@@ -642,22 +922,9 @@
 
       text-decoration: none;
 
-      font-size: 14px;
+      font-size: 13px;
 
       font-weight: 700;
-
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-    }
-
-    .create-button:hover {
-      transform:
-        translateY(-2px);
-
-      box-shadow:
-        0 12px 28px
-        rgba(0,0,0,.25);
     }
 
 
@@ -665,46 +932,89 @@
        LOADING
     ========================================== */
 
-    .loading-dot {
-      display: inline-block;
+    .loading {
+      padding:
+        70px 20px;
 
-      width: 8px;
-      height: 8px;
+      text-align: center;
+
+      color:
+        rgba(255,255,255,.45);
+
+      font-size: 13px;
+    }
+
+    .loader {
+      width: 28px;
+      height: 28px;
 
       margin:
-        0 3px;
+        0 auto 15px;
 
       border-radius: 50%;
 
-      background:
-        rgba(255,255,255,.65);
+      border:
+        2px solid
+        rgba(255,255,255,.14);
+
+      border-top-color:
+        rgba(255,255,255,.8);
 
       animation:
-        loadingPulse 1.2s infinite ease-in-out;
+        spin .8s linear infinite;
     }
 
-    .loading-dot:nth-child(2) {
-      animation-delay: .15s;
-    }
-
-    .loading-dot:nth-child(3) {
-      animation-delay: .3s;
-    }
-
-    @keyframes loadingPulse {
-
-      0%,
-      60%,
-      100% {
-        transform: scale(.65);
-        opacity: .35;
+    @keyframes spin {
+      to {
+        transform:
+          rotate(360deg);
       }
+    }
 
-      30% {
-        transform: scale(1);
-        opacity: 1;
-      }
 
+    /* ==========================================
+       ERROR
+    ========================================== */
+
+    .error {
+      display: none;
+
+      padding:
+        18px;
+
+      border-radius: 16px;
+
+      border:
+        1px solid
+        rgba(255,100,130,.22);
+
+      background:
+        rgba(255,60,100,.10);
+
+      color:
+        #ffd5df;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+      text-align: center;
+    }
+
+
+    /* ==========================================
+       FOOTER
+    ========================================== */
+
+    footer {
+      margin-top: 60px;
+
+      text-align: center;
+
+      color:
+        rgba(255,255,255,.25);
+
+      font-size: 11px;
     }
 
 
@@ -712,70 +1022,78 @@
        MOBILE
     ========================================== */
 
-    @media(max-width:700px) {
+    @media(max-width:800px) {
 
-      body {
-        padding: 16px;
+      .page {
+        padding:
+          22px 17px
+          50px;
       }
 
       .topbar {
-        margin-bottom: 18px;
-      }
-
-      .top-actions {
-        gap: 10px;
-      }
-
-      .top-link {
-        font-size: 12px;
-      }
-
-      .header-card {
-        padding: 28px 23px;
-        border-radius: 26px;
-      }
-
-      .content-card {
-        padding: 20px 16px;
-        border-radius: 26px;
+        margin-bottom: 42px;
       }
 
       .moments-grid {
         grid-template-columns: 1fr;
       }
 
-      .moment-card {
-        min-height: 280px;
-      }
-
     }
 
 
-    @media(max-width:430px) {
+    @media(max-width:550px) {
 
-      .logo {
-        font-size: 21px;
+      .nav {
+        gap: 12px;
       }
 
-      .top-link {
-        font-size: 11px;
+      .nav a:not(.create-link) {
+        display: none;
       }
 
-      .header-card h1 {
-        font-size: 40px;
+      .hero h1 {
+        font-size: 52px;
+
+        letter-spacing: -2px;
+      }
+
+      .stats {
+        gap: 8px;
+      }
+
+      .stat {
+        padding:
+          15px 12px;
+      }
+
+      .stat-number {
+        font-size: 23px;
+      }
+
+      .stat-label {
+        font-size: 9px;
       }
 
       .moment-card {
-        padding: 21px;
+        padding: 22px;
       }
 
-      .moment-top {
+      .recipient {
+        font-size: 29px;
+      }
+
+      .card-footer {
+        align-items: flex-start;
+
         flex-direction: column;
-        gap: 9px;
       }
 
-      .moment-date {
-        white-space: normal;
+      .actions {
+        width: 100%;
+      }
+
+      .action-button {
+        flex: 1;
       }
 
     }
@@ -786,6 +1104,11 @@
 
 
 <body>
+
+
+  <!-- ==========================================
+       AMBIENT
+  ========================================== -->
 
   <div class="glow one"></div>
   <div class="glow two"></div>
@@ -805,49 +1128,43 @@
   <main class="page">
 
 
-    <!-- ==========================================
-         TOP BAR
-    ========================================== -->
+    <!-- ========================================
+         NAVIGATION
+    ======================================== -->
 
-    <header class="topbar">
+    <nav class="topbar">
 
       <div class="logo">
         Moment ❤️
       </div>
 
-      <nav class="top-actions">
+      <div class="nav">
 
-        <a
-          href="/create"
-          class="top-link"
-        >
-          Create Moment
+        <a href="/">
+          Home
         </a>
 
-        <a
-          href="/profile"
-          class="top-link"
-        >
+        <a href="/profile">
           Edit Profile
         </a>
 
         <a
-          href="/"
-          class="top-link"
+          href="/create"
+          class="create-link"
         >
-          Home
+          + Create Moment
         </a>
 
-      </nav>
+      </div>
 
-    </header>
+    </nav>
 
 
-    <!-- ==========================================
-         HEADER
-    ========================================== -->
+    <!-- ========================================
+         HERO
+    ======================================== -->
 
-    <section class="header-card">
+    <section class="hero">
 
       <div class="eyebrow">
         Your little memories
@@ -867,144 +1184,158 @@
     </section>
 
 
-    <!-- ==========================================
-         CONTENT
-    ========================================== -->
+    <!-- ========================================
+         STATS
+    ======================================== -->
 
-    <section class="content-card">
+    <section
+      id="stats"
+      class="stats"
+    >
 
-      <!-- LOADING -->
+      <div class="stat">
 
-      <div
-        id="loadingState"
-        class="state"
-      >
-
-        <div class="state-icon">
-
-          <span class="loading-dot"></span>
-          <span class="loading-dot"></span>
-          <span class="loading-dot"></span>
-
-        </div>
-
-        <h2>
-          Loading your moments...
-        </h2>
-
-        <p>
-          Just a second. We're finding
-          the little moments you've created.
-        </p>
-
-      </div>
-
-
-      <!-- LOGIN -->
-
-      <div
-        id="loginState"
-        class="state"
-        style="display:none;"
-      >
-
-        <div class="state-icon">
-          🔐
-        </div>
-
-        <h2>
-          Login required
-        </h2>
-
-        <p>
-          Please log in to see the moments
-          you've created.
-        </p>
-
-        <a
-          href="/login?return=%2Fmoments"
-          class="create-button"
+        <div
+          id="totalCount"
+          class="stat-number"
         >
-          Login to continue
-        </a>
-
-      </div>
-
-
-      <!-- ERROR -->
-
-      <div
-        id="errorState"
-        class="state"
-        style="display:none;"
-      >
-
-        <div class="state-icon">
-          !
+          —
         </div>
 
-        <h2>
-          Something went wrong
-        </h2>
-
-        <p id="errorText">
-          We couldn't load your moments.
-          Please try again.
-        </p>
-
-        <button
-          type="button"
-          id="retryButton"
-          class="create-button"
-          style="border:0;cursor:pointer;"
-        >
-          Try again
-        </button>
-
-      </div>
-
-
-      <!-- EMPTY -->
-
-      <div
-        id="emptyState"
-        class="state"
-        style="display:none;"
-      >
-
-        <div class="state-icon">
-          ❤️
+        <div class="stat-label">
+          Moments
         </div>
 
-        <h2>
-          No moments yet.
-        </h2>
+      </div>
 
-        <p>
-          You haven't created an invitation
-          yet. Your first little moment
-          is waiting.
-        </p>
 
-        <a
-          href="/create"
-          class="create-button"
+      <div class="stat">
+
+        <div
+          id="waitingCount"
+          class="stat-number"
         >
-          Create your first moment
-        </a>
+          —
+        </div>
+
+        <div class="stat-label">
+          Awaiting response
+        </div>
 
       </div>
 
 
-      <!-- MOMENTS -->
+      <div class="stat">
 
-      <div
-        id="momentsGrid"
-        class="moments-grid"
-        style="display:none;"
-      ></div>
+        <div
+          id="bookedCount"
+          class="stat-number"
+        >
+          —
+        </div>
+
+        <div class="stat-label">
+          Booked
+        </div>
+
+      </div>
 
     </section>
+
+
+    <!-- ========================================
+         SECTION HEADER
+    ======================================== -->
+
+    <div class="section-header">
+
+      <h2 class="section-title">
+        Your moments
+      </h2>
+
+      <div
+        id="sectionCount"
+        class="section-count"
+      >
+        Loading...
+      </div>
+
+    </div>
+
+
+    <!-- ========================================
+         LOADING
+    ======================================== -->
+
+    <div
+      id="loading"
+      class="loading"
+    >
+
+      <div class="loader"></div>
+
+      Loading your moments...
+
+    </div>
+
+
+    <!-- ========================================
+         ERROR
+    ======================================== -->
+
+    <div
+      id="error"
+      class="error"
+    ></div>
+
+
+    <!-- ========================================
+         MOMENTS
+    ======================================== -->
+
+    <div
+      id="momentsGrid"
+      class="moments-grid"
+    ></div>
+
+
+    <!-- ========================================
+         EMPTY
+    ======================================== -->
+
+    <section
+      id="empty"
+      class="empty"
+    >
+
+      <div class="empty-icon">
+        💌
+      </div>
+
+      <h2>
+        Nothing here yet.
+      </h2>
+
+      <p>
+        Your first little moment is
+        waiting to be created. Make
+        something special for someone
+        who matters.
+      </p>
+
+      <a
+        href="/create"
+        class="empty-button"
+      >
+        Create your first Moment ❤️
+      </a>
+
+    </section>
+
+
+    <footer>
+      Made with a little heart by Moment.
+    </footer>
 
   </main>
 
@@ -1012,27 +1343,17 @@
   <script>
 
     /* ==========================================
-       DOM
+       ELEMENTS
     ========================================== */
 
-    const loadingState =
+    const loading =
       document.getElementById(
-        "loadingState"
+        "loading"
       );
 
-    const loginState =
+    const errorBox =
       document.getElementById(
-        "loginState"
-      );
-
-    const errorState =
-      document.getElementById(
-        "errorState"
-      );
-
-    const emptyState =
-      document.getElementById(
-        "emptyState"
+        "error"
       );
 
     const momentsGrid =
@@ -1040,101 +1361,280 @@
         "momentsGrid"
       );
 
-    const errorText =
+    const empty =
       document.getElementById(
-        "errorText"
+        "empty"
       );
 
-    const retryButton =
+    const totalCount =
       document.getElementById(
-        "retryButton"
+        "totalCount"
+      );
+
+    const waitingCount =
+      document.getElementById(
+        "waitingCount"
+      );
+
+    const bookedCount =
+      document.getElementById(
+        "bookedCount"
+      );
+
+    const sectionCount =
+      document.getElementById(
+        "sectionCount"
       );
 
 
     /* ==========================================
-       STATE HELPERS
+       AUTHENTICATION
     ========================================== */
 
-    function hideAllStates() {
+    function getAuthToken() {
 
-      loadingState.style.display =
-        "none";
-
-      loginState.style.display =
-        "none";
-
-      errorState.style.display =
-        "none";
-
-      emptyState.style.display =
-        "none";
-
-      momentsGrid.style.display =
-        "none";
-
-    }
+      const keys = [
+        "momentUser",
+        "loggedInUser",
+        "moment_user"
+      ];
 
 
-    function showLoading() {
+      for (
+        const key of keys
+      ) {
 
-      hideAllStates();
+        try {
 
-      loadingState.style.display =
-        "block";
-
-    }
-
-
-    function showLogin() {
-
-      hideAllStates();
-
-      loginState.style.display =
-        "block";
-
-    }
+          const raw =
+            localStorage.getItem(
+              key
+            );
 
 
-    function showError(
-      message
-    ) {
-
-      hideAllStates();
-
-      errorText.textContent =
-        message ||
-        "We couldn't load your moments.";
-
-      errorState.style.display =
-        "block";
-
-    }
+          if (!raw) {
+            continue;
+          }
 
 
-    function showEmpty() {
+          const user =
+            JSON.parse(raw);
 
-      hideAllStates();
 
-      emptyState.style.display =
-        "block";
+          if (
+            user &&
+            typeof user === "object"
+          ) {
+
+            const token =
+              user.access_token ||
+              user.accessToken ||
+              null;
+
+
+            if (token) {
+              return token;
+            }
+
+          }
+
+        }
+
+        catch(error) {
+
+          console.warn(
+            "Could not read auth state:",
+            error
+          );
+
+        }
+
+      }
+
+
+      /*
+       * Supabase session fallback.
+       */
+
+      try {
+
+        for (
+          let i = 0;
+          i < localStorage.length;
+          i++
+        ) {
+
+          const key =
+            localStorage.key(i);
+
+
+          if (
+            !key ||
+            !key.startsWith("sb-") ||
+            !key.endsWith("-auth-token")
+          ) {
+
+            continue;
+          }
+
+
+          const raw =
+            localStorage.getItem(
+              key
+            );
+
+
+          if (!raw) {
+            continue;
+          }
+
+
+          const session =
+            JSON.parse(raw);
+
+
+          if (
+            session &&
+            session.access_token
+          ) {
+
+            return session.access_token;
+
+          }
+
+        }
+
+      }
+
+      catch(error) {
+
+        console.warn(
+          "Could not read Supabase session:",
+          error
+        );
+
+      }
+
+
+      return null;
 
     }
 
 
     /* ==========================================
-       DATE FORMAT
+       API REQUEST
+    ========================================== */
+
+    async function apiRequest(
+      url,
+      options = {}
+    ) {
+
+      const token =
+        getAuthToken();
+
+
+      const headers = {
+
+        ...(options.headers || {})
+
+      };
+
+
+      if (
+        token
+      ) {
+
+        headers.Authorization =
+          "Bearer " +
+          token;
+
+      }
+
+
+      const response =
+        await fetch(
+          url,
+          {
+            ...options,
+            headers
+          }
+        );
+
+
+      let data = null;
+
+
+      try {
+
+        data =
+          await response.json();
+
+      }
+
+      catch(error) {
+
+        data = null;
+
+      }
+
+
+      if (
+        response.status === 401
+      ) {
+
+        window.location.href =
+          "/login?return=" +
+          encodeURIComponent(
+            "/moments"
+          );
+
+        throw new Error(
+          "Please log in again."
+        );
+
+      }
+
+
+      if (
+        !response.ok
+      ) {
+
+        throw new Error(
+          data?.error ||
+          "Something went wrong."
+        );
+
+      }
+
+
+      return data;
+
+    }
+
+
+    /* ==========================================
+       FORMAT DATE
     ========================================== */
 
     function formatDate(
-      value
+      dateValue
     ) {
 
-      if (!value) {
+      if (
+        !dateValue
+      ) {
+
         return "";
+
       }
 
+
       const date =
-        new Date(value);
+        new Date(
+          dateValue
+        );
+
 
       if (
         Number.isNaN(
@@ -1146,10 +1646,11 @@
 
       }
 
+
       return date.toLocaleDateString(
         "en-IN",
         {
-          day: "numeric",
+          day: "2-digit",
           month: "short",
           year: "numeric"
         }
@@ -1194,49 +1695,138 @@
 
 
     /* ==========================================
-       CREATE MOMENT CARD
+       COPY LINK
+    ========================================== */
+
+    async function copyMomentLink(
+      code,
+      button
+    ) {
+
+      const url =
+        window.location.origin +
+        "/i/" +
+        code;
+
+
+      try {
+
+        await navigator.clipboard.writeText(
+          url
+        );
+
+
+        const original =
+          button.textContent;
+
+
+        button.textContent =
+          "Copied!";
+
+
+        setTimeout(
+          () => {
+
+            button.textContent =
+              original;
+
+          },
+          1800
+        );
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "Copy failed:",
+          error
+        );
+
+
+        button.textContent =
+          "Copy failed";
+
+
+        setTimeout(
+          () => {
+
+            button.textContent =
+              "Copy Link";
+
+          },
+          1800
+        );
+
+      }
+
+    }
+
+
+    /* ==========================================
+       CREATE CARD
     ========================================== */
 
     function createMomentCard(
-      moment
+      moment,
+      index
     ) {
 
       const code =
-        moment.invitation_code;
-
-
-      const recipient =
-        escapeHtml(
-          moment.recipient_name
-        );
+        moment.invitation_code ||
+        "";
 
 
       const occasion =
-        escapeHtml(
-          moment.occasion
-        );
+        moment.occasion ||
+        "Special Moment";
+
+
+      const recipient =
+        moment.recipient_name ||
+        "Someone special";
 
 
       const message =
-        escapeHtml(
-          moment.message ||
-          "No message added."
-        );
+        moment.message ||
+        "A little moment made just for you.";
 
 
       const createdAt =
-        escapeHtml(
-          formatDate(
-            moment.created_at
-          )
+        formatDate(
+          moment.created_at
         );
 
 
-      const url =
-        "/i/" +
-        encodeURIComponent(
-          code
-        );
+      /*
+       * Response information will be added
+       * automatically when the backend starts
+       * returning response data.
+       */
+
+      const isBooked =
+        moment.response &&
+        moment.response.answer ===
+          "yes";
+
+
+      let statusText =
+        "Waiting for response";
+
+
+      if (
+        isBooked
+      ) {
+
+        statusText =
+          moment.response.selected_date
+            ? "Date booked · " +
+              formatDate(
+                moment.response.selected_date
+              )
+            : "Date booked";
+
+      }
 
 
       const card =
@@ -1249,44 +1839,126 @@
         "moment-card";
 
 
+      card.style.animationDelay =
+        `${index * 80}ms`;
+
+
       card.innerHTML = `
 
-        <div class="moment-top">
+        <div class="card-top">
 
           <div class="occasion">
-            ${occasion}
+
+            <span class="occasion-dot"></span>
+
+            ${escapeHtml(occasion)}
+
           </div>
 
-          <div class="moment-date">
-            ${createdAt}
+          <div class="card-date">
+
+            ${escapeHtml(createdAt)}
+
           </div>
 
         </div>
 
 
-        <h3>
-          For <span>${recipient}</span>
+        <div class="card-label">
+          For someone special
+        </div>
+
+
+        <h3 class="recipient">
+
+          For
+          <span>
+            ${escapeHtml(recipient)}
+          </span>
+
         </h3>
 
 
         <p class="message">
-          ${message}
+
+          ${escapeHtml(message)}
+
         </p>
 
 
-        <div class="moment-code">
-          Moment · ${escapeHtml(code)}
+        <div
+          class="status ${
+            isBooked
+              ? "booked"
+              : ""
+          }"
+        >
+
+          <span class="status-dot"></span>
+
+          ${escapeHtml(statusText)}
+
         </div>
 
 
-        <a
-          href="${url}"
-          class="open-button"
-        >
-          Open Invitation
-        </a>
+        <div class="card-footer">
+
+          <div class="code">
+
+            Moment ·
+            ${escapeHtml(code)}
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              type="button"
+              class="action-button"
+              data-copy="${escapeHtml(code)}"
+            >
+              Copy Link
+            </button>
+
+
+            <a
+              href="/i/${encodeURIComponent(code)}"
+              class="action-button primary"
+              style="
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                text-decoration:none;
+              "
+            >
+              Open Invitation
+            </a>
+
+          </div>
+
+        </div>
 
       `;
+
+
+      const copyButton =
+        card.querySelector(
+          "[data-copy]"
+        );
+
+
+      copyButton.addEventListener(
+        "click",
+        () => {
+
+          copyMomentLink(
+            code,
+            copyButton
+          );
+
+        }
+      );
 
 
       return card;
@@ -1300,145 +1972,103 @@
 
     async function loadMoments() {
 
-      showLoading();
+      loading.style.display =
+        "block";
+
+      errorBox.style.display =
+        "none";
+
+      momentsGrid.innerHTML =
+        "";
+
+      empty.style.display =
+        "none";
 
 
       try {
 
-        const response =
-          await fetch(
-            "/api/my-moments",
-            {
-              method: "GET",
-              credentials: "same-origin",
-              headers: {
-                "Accept":
-                  "application/json"
-              }
-            }
+        const data =
+          await apiRequest(
+            "/api/my-moments"
           );
 
 
+        const moments =
+          Array.isArray(
+            data.moments
+          )
+            ? data.moments
+            : [];
+
+
+        loading.style.display =
+          "none";
+
+
+        totalCount.textContent =
+          moments.length;
+
+
         /*
-         * 401 means the Supabase access token
-         * wasn't supplied to this API request.
-         *
-         * The current server expects:
-         *
-         * Authorization: Bearer <token>
-         *
-         * However, if your authentication is
-         * handled entirely by Supabase on the
-         * frontend, the browser does NOT
-         * automatically add that header.
-         *
-         * We therefore try to find the Supabase
-         * auth token in localStorage.
+         * Until response information is
+         * returned by the backend, every
+         * moment is considered waiting.
          */
 
+        const booked =
+          moments.filter(
+            moment =>
+              moment.response &&
+              moment.response.answer ===
+                "yes"
+          ).length;
+
+
+        const waiting =
+          moments.length -
+          booked;
+
+
+        bookedCount.textContent =
+          booked;
+
+
+        waitingCount.textContent =
+          waiting;
+
+
+        sectionCount.textContent =
+          moments.length === 1
+            ? "1 moment"
+            : `${moments.length} moments`;
+
+
         if (
-          response.status === 401
+          moments.length === 0
         ) {
 
-          const token =
-            getSupabaseAccessToken();
-
-
-          if (token) {
-
-            const retryResponse =
-              await fetch(
-                "/api/my-moments",
-                {
-                  method: "GET",
-                  credentials: "same-origin",
-                  headers: {
-                    "Accept":
-                      "application/json",
-
-                    "Authorization":
-                      "Bearer " +
-                      token
-                  }
-                }
-              );
-
-
-            if (
-              retryResponse.status === 401
-            ) {
-
-              showLogin();
-
-              return;
-
-            }
-
-
-            if (
-              !retryResponse.ok
-            ) {
-
-              const data =
-                await retryResponse
-                  .json()
-                  .catch(
-                    () => ({})
-                  );
-
-              throw new Error(
-                data.error ||
-                "Could not load your moments."
-              );
-
-            }
-
-
-            const data =
-              await retryResponse.json();
-
-
-            renderMoments(
-              data.moments || []
-            );
-
-            return;
-
-          }
-
-
-          showLogin();
+          empty.style.display =
+            "block";
 
           return;
 
         }
 
 
-        if (
-          !response.ok
-        ) {
+        moments.forEach(
+          (
+            moment,
+            index
+          ) => {
 
-          const data =
-            await response
-              .json()
-              .catch(
-                () => ({})
-              );
+            momentsGrid.appendChild(
+              createMomentCard(
+                moment,
+                index
+              )
+            );
 
-          throw new Error(
-            data.error ||
-            "Could not load your moments."
-          );
-
-        }
-
-
-        const data =
-          await response.json();
-
-
-        renderMoments(
-          data.moments || []
+          }
         );
 
       }
@@ -1446,149 +2076,30 @@
       catch(error) {
 
         console.error(
-          "My Moments error:",
+          "Could not load moments:",
           error
         );
 
 
-        showError(
+        loading.style.display =
+          "none";
+
+
+        errorBox.textContent =
           error.message ||
-          "Could not load your moments."
-        );
+          "Could not load your moments.";
+
+
+        errorBox.style.display =
+          "block";
+
+
+        sectionCount.textContent =
+          "";
 
       }
 
     }
-
-
-    /* ==========================================
-       SUPABASE TOKEN
-    ========================================== */
-
-    function getSupabaseAccessToken() {
-
-      try {
-
-        for (
-          let i = 0;
-          i < localStorage.length;
-          i++
-        ) {
-
-          const key =
-            localStorage.key(i);
-
-
-          if (
-            !key ||
-            !key.startsWith("sb-") ||
-            !key.endsWith("-auth-token")
-          ) {
-
-            continue;
-
-          }
-
-
-          const raw =
-            localStorage.getItem(key);
-
-
-          if (!raw) {
-            continue;
-          }
-
-
-          const parsed =
-            JSON.parse(raw);
-
-
-          if (
-            parsed &&
-            parsed.access_token
-          ) {
-
-            return parsed.access_token;
-
-          }
-
-        }
-
-      }
-
-      catch(error) {
-
-        console.error(
-          "Could not find Supabase token:",
-          error
-        );
-
-      }
-
-
-      return null;
-
-    }
-
-
-    /* ==========================================
-       RENDER
-    ========================================== */
-
-    function renderMoments(
-      moments
-    ) {
-
-      if (
-        !Array.isArray(moments) ||
-        moments.length === 0
-      ) {
-
-        showEmpty();
-
-        return;
-
-      }
-
-
-      hideAllStates();
-
-
-      momentsGrid.innerHTML =
-        "";
-
-
-      moments.forEach(
-        moment => {
-
-          momentsGrid.appendChild(
-            createMomentCard(
-              moment
-            )
-          );
-
-        }
-      );
-
-
-      momentsGrid.style.display =
-        "grid";
-
-    }
-
-
-    /* ==========================================
-       RETRY
-    ========================================== */
-
-    retryButton.addEventListener(
-      "click",
-      () => {
-
-        loadMoments();
-
-      }
-    );
 
 
     /* ==========================================
@@ -1599,8 +2110,18 @@
 
 
     /* ==========================================
-       PAGE VISIBILITY
+       REFRESH WHEN PAGE RETURNS
     ========================================== */
+
+    window.addEventListener(
+      "pageshow",
+      () => {
+
+        loadMoments();
+
+      }
+    );
+
 
     document.addEventListener(
       "visibilitychange",
