@@ -1,3 +1,4 @@
+```javascript
 const express = require("express");
 const { Pool } = require("pg");
 const path = require("path");
@@ -28,6 +29,18 @@ const SUPABASE_URL =
 
 const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY;
+
+/*
+ * IMPORTANT:
+ *
+ * This key is SERVER ONLY.
+ *
+ * Never put SUPABASE_SERVICE_ROLE_KEY
+ * inside any HTML or frontend JavaScript.
+ */
+
+const SUPABASE_SERVICE_ROLE_KEY =
+  process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 
 /* ==========================================
@@ -78,6 +91,17 @@ if (!SUPABASE_ANON_KEY) {
 }
 
 
+if (!SUPABASE_SERVICE_ROLE_KEY) {
+
+  console.error(
+    "SUPABASE_SERVICE_ROLE_KEY is missing."
+  );
+
+  process.exit(1);
+
+}
+
+
 /* ==========================================
    DATABASE
 ========================================== */
@@ -99,13 +123,30 @@ const pool =
 
 
 /* ==========================================
-   SUPABASE
+   SUPABASE AUTH CLIENT
 ========================================== */
 
 const supabase =
   createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
+  );
+
+
+/* ==========================================
+   SUPABASE ADMIN CLIENT
+========================================== */
+
+/*
+ * Used ONLY on the server for operations
+ * that require administrative permissions,
+ * such as updating user metadata.
+ */
+
+const supabaseAdmin =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY
   );
 
 
@@ -403,6 +444,237 @@ app.get(
 
           error:
             "Could not load user."
+
+        });
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   GET PROFILE
+========================================== */
+
+app.get(
+  "/api/profile",
+  requireAuth,
+  async (req, res) => {
+
+    try {
+
+      const user =
+        req.user;
+
+
+      const metadata =
+        user.user_metadata || {};
+
+
+      const name =
+        metadata.name ||
+        metadata.full_name ||
+        "";
+
+
+      res.json({
+
+        ok: true,
+
+        profile: {
+
+          id:
+            user.id,
+
+          email:
+            user.email || "",
+
+          name
+
+        }
+
+      });
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Could not load profile:",
+        error
+      );
+
+
+      res
+        .status(500)
+        .json({
+
+          error:
+            "Could not load profile."
+
+        });
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   UPDATE PROFILE
+========================================== */
+
+app.put(
+  "/api/profile",
+  requireAuth,
+  async (req, res) => {
+
+    try {
+
+      const {
+        name
+      } =
+        req.body || {};
+
+
+      const finalName =
+        typeof name === "string"
+          ? name.trim()
+          : "";
+
+
+      /* --------------------------------------
+         VALIDATION
+      -------------------------------------- */
+
+      if (!finalName) {
+
+        return res
+          .status(400)
+          .json({
+
+            error:
+              "Please enter your name."
+
+          });
+
+      }
+
+
+      if (
+        finalName.length < 2
+      ) {
+
+        return res
+          .status(400)
+          .json({
+
+            error:
+              "Name must contain at least 2 characters."
+
+          });
+
+      }
+
+
+      if (
+        finalName.length > 100
+      ) {
+
+        return res
+          .status(400)
+          .json({
+
+            error:
+              "Name is too long."
+
+          });
+
+      }
+
+
+      /* --------------------------------------
+         UPDATE SUPABASE USER
+      -------------------------------------- */
+
+      const {
+        data,
+        error
+      } =
+        await supabaseAdmin.auth.admin.updateUserById(
+          req.user.id,
+          {
+            user_metadata: {
+              ...(
+                req.user.user_metadata || {}
+              ),
+              name: finalName
+            }
+          }
+        );
+
+
+      if (error) {
+
+        console.error(
+          "Supabase profile update error:",
+          error
+        );
+
+
+        return res
+          .status(500)
+          .json({
+
+            error:
+              "Could not update your profile."
+
+          });
+
+      }
+
+
+      /* --------------------------------------
+         RESPONSE
+      -------------------------------------- */
+
+      res.json({
+
+        ok: true,
+
+        profile: {
+
+          id:
+            data.user.id,
+
+          email:
+            data.user.email || "",
+
+          name:
+            data.user.user_metadata?.name ||
+            finalName
+
+        }
+
+      });
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Could not update profile:",
+        error
+      );
+
+
+      res
+        .status(500)
+        .json({
+
+          error:
+            "Could not update your profile."
 
         });
 
@@ -1136,7 +1408,7 @@ app.post(
                 ">
 
                   <h1 style="color:#941f5a;">
-                    💖 It's a date!
+                    It's a date!
                   </h1>
 
                   <p style="font-size:18px;">
@@ -1147,7 +1419,7 @@ app.post(
                     }
 
                     just booked a date
-                    with you. 🥰
+                    with you.
 
                   </p>
 
@@ -1160,7 +1432,6 @@ app.post(
 
                     <p style="font-size:16px;">
 
-                      📅
                       <strong>
                         Date
                       </strong>
@@ -1181,13 +1452,13 @@ app.post(
                   <p>
 
                     Your invitation has
-                    officially been responded to. ❤️
+                    officially been responded to.
 
                   </p>
 
                   <p>
 
-                    Booked through Moment ❤️
+                    Booked through Moment.
 
                   </p>
 
@@ -1476,6 +1747,48 @@ app.get(
 );
 
 
+/* ------------------------------------------
+   MY MOMENTS PAGE
+------------------------------------------ */
+
+app.get(
+  "/moments",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "moments.html"
+      )
+
+    );
+
+  }
+);
+
+
+/* ------------------------------------------
+   EDIT PROFILE PAGE
+------------------------------------------ */
+
+app.get(
+  "/profile",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "profile.html"
+      )
+
+    );
+
+  }
+);
+
+
 /* ==========================================
    START SERVER
 ========================================== */
@@ -1511,3 +1824,4 @@ initDb()
 
     }
   );
+```
