@@ -1,4 +1,3 @@
-```javascript
 const express = require("express");
 const { Pool } = require("pg");
 const path = require("path");
@@ -7,187 +6,164 @@ const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 
-
-/* ==========================================
+/* =========================================================
    CONFIGURATION
-========================================== */
+========================================================= */
 
-const PORT =
-  process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-const DATABASE_URL =
-  process.env.DATABASE_URL;
+const DATABASE_URL = process.env.DATABASE_URL;
 
-const ADMIN_KEY =
-  process.env.ADMIN_KEY;
+const ADMIN_KEY = process.env.ADMIN_KEY;
 
-const RESEND_API_KEY =
-  process.env.RESEND_API_KEY;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
-const SUPABASE_URL =
-  process.env.SUPABASE_URL;
+const SUPABASE_URL = process.env.SUPABASE_URL;
 
 const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY;
-
-/*
- * IMPORTANT:
- *
- * This key is SERVER ONLY.
- *
- * Never put SUPABASE_SERVICE_ROLE_KEY
- * inside any HTML or frontend JavaScript.
- */
 
 const SUPABASE_SERVICE_ROLE_KEY =
   process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 
-/* ==========================================
+/* =========================================================
    ENVIRONMENT CHECKS
-========================================== */
+========================================================= */
 
 if (!DATABASE_URL) {
-
-  console.error(
-    "DATABASE_URL is missing."
-  );
-
+  console.error("DATABASE_URL is missing.");
   process.exit(1);
-
 }
-
-
-if (!RESEND_API_KEY) {
-
-  console.error(
-    "RESEND_API_KEY is missing."
-  );
-
-  process.exit(1);
-
-}
-
 
 if (!SUPABASE_URL) {
-
-  console.error(
-    "SUPABASE_URL is missing."
-  );
-
+  console.error("SUPABASE_URL is missing.");
   process.exit(1);
-
 }
-
 
 if (!SUPABASE_ANON_KEY) {
-
-  console.error(
-    "SUPABASE_ANON_KEY is missing."
-  );
-
+  console.error("SUPABASE_ANON_KEY is missing.");
   process.exit(1);
-
 }
-
 
 if (!SUPABASE_SERVICE_ROLE_KEY) {
-
-  console.error(
-    "SUPABASE_SERVICE_ROLE_KEY is missing."
-  );
-
+  console.error("SUPABASE_SERVICE_ROLE_KEY is missing.");
   process.exit(1);
+}
 
+if (!RESEND_API_KEY) {
+  console.error("RESEND_API_KEY is missing.");
+  process.exit(1);
 }
 
 
-/* ==========================================
+/* =========================================================
    DATABASE
-========================================== */
+========================================================= */
 
-const pool =
-  new Pool({
+const pool = new Pool({
+  connectionString: DATABASE_URL,
 
-    connectionString:
-      DATABASE_URL,
-
-    ssl:
-      process.env.NODE_ENV === "production"
-        ? {
-            rejectUnauthorized: false
-          }
-        : false
-
-  });
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? {
+          rejectUnauthorized: false
+        }
+      : false
+});
 
 
-/* ==========================================
-   SUPABASE AUTH CLIENT
-========================================== */
-
-const supabase =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
-
-
-/* ==========================================
-   SUPABASE ADMIN CLIENT
-========================================== */
+/* =========================================================
+   SUPABASE CLIENT
+========================================================= */
 
 /*
- * Used ONLY on the server for operations
- * that require administrative permissions,
- * such as updating user metadata.
+ * Normal Supabase client.
+ *
+ * Used to verify access tokens sent from
+ * the frontend.
  */
 
-const supabaseAdmin =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_SERVICE_ROLE_KEY
-  );
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 
-/* ==========================================
+/*
+ * Admin Supabase client.
+ *
+ * SERVICE ROLE KEY MUST NEVER BE SENT
+ * TO THE FRONTEND.
+ */
+
+const supabaseAdmin = createClient(
+  SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY
+);
+
+
+/* =========================================================
    RESEND
-========================================== */
+========================================================= */
 
-const resend =
-  new Resend(
-    RESEND_API_KEY
-  );
+const resend = new Resend(
+  RESEND_API_KEY
+);
 
 
-/* ==========================================
+/* =========================================================
+   MIDDLEWARE
+========================================================= */
+
+app.use(express.json());
+
+app.use(
+  express.static(
+    path.join(__dirname, "public")
+  )
+);
+
+
+/* =========================================================
    DATABASE INITIALIZATION
-========================================== */
+========================================================= */
 
 async function initDb() {
 
-  /* ------------------------------------------
-     INVITATIONS TABLE
-  ------------------------------------------ */
+  /*
+   * INVITATIONS
+   */
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS invitations (
       id SERIAL PRIMARY KEY,
-      invitation_code VARCHAR(20) UNIQUE NOT NULL,
+
+      invitation_code VARCHAR(20)
+        UNIQUE NOT NULL,
+
       creator_user_id UUID,
+
       creator_name TEXT NOT NULL,
+
       creator_email TEXT,
+
       recipient_name TEXT NOT NULL,
+
       occasion TEXT NOT NULL,
+
       message TEXT,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+
+      created_at TIMESTAMPTZ
+        NOT NULL DEFAULT NOW()
     )
   `);
 
 
-  /* ------------------------------------------
-     ADD CREATOR USER ID TO OLD DATABASES
-  ------------------------------------------ */
+  /*
+   * Make sure old installations also
+   * receive creator_user_id.
+   */
 
   await pool.query(`
     ALTER TABLE invitations
@@ -195,9 +171,10 @@ async function initDb() {
   `);
 
 
-  /* ------------------------------------------
-     ADD CREATOR EMAIL TO OLD DATABASES
-  ------------------------------------------ */
+  /*
+   * Make sure old installations also
+   * receive creator_email.
+   */
 
   await pool.query(`
     ALTER TABLE invitations
@@ -205,9 +182,9 @@ async function initDb() {
   `);
 
 
-  /* ------------------------------------------
-     INDEX FOR USER INVITATIONS
-  ------------------------------------------ */
+  /*
+   * Index for My Moments.
+   */
 
   await pool.query(`
     CREATE INDEX IF NOT EXISTS
@@ -216,24 +193,30 @@ async function initDb() {
   `);
 
 
-  /* ------------------------------------------
-     RESPONSES TABLE
-  ------------------------------------------ */
+  /*
+   * RESPONSES
+   */
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS responses (
       id SERIAL PRIMARY KEY,
+
       invitation_code VARCHAR(20),
+
       answer TEXT NOT NULL,
+
       selected_date DATE NOT NULL,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+
+      created_at TIMESTAMPTZ
+        NOT NULL DEFAULT NOW()
     )
   `);
 
 
-  /* ------------------------------------------
-     ADD INVITATION CODE TO OLD DATABASES
-  ------------------------------------------ */
+  /*
+   * Make sure old installations also
+   * receive invitation_code.
+   */
 
   await pool.query(`
     ALTER TABLE responses
@@ -244,32 +227,23 @@ async function initDb() {
   console.log(
     "Database initialized successfully."
   );
-
 }
 
 
-/* ==========================================
-   MIDDLEWARE
-========================================== */
+/* =========================================================
+   SUPABASE AUTHENTICATION MIDDLEWARE
+========================================================= */
 
-app.use(
-  express.json()
-);
-
-
-app.use(
-  express.static(
-    path.join(
-      __dirname,
-      "public"
-    )
-  )
-);
-
-
-/* ==========================================
-   SUPABASE AUTH MIDDLEWARE
-========================================== */
+/*
+ * Every protected API route uses this middleware.
+ *
+ * Frontend sends:
+ *
+ * Authorization: Bearer ACCESS_TOKEN
+ *
+ * Supabase verifies that token and gives us
+ * the authenticated user.
+ */
 
 async function requireAuth(
   req,
@@ -283,44 +257,44 @@ async function requireAuth(
       req.headers.authorization;
 
 
+    /*
+     * Authorization header missing.
+     */
+
     if (
       !authorization ||
-      !authorization.startsWith(
-        "Bearer "
-      )
+      !authorization.startsWith("Bearer ")
     ) {
 
-      return res
-        .status(401)
-        .json({
-
-          error:
-            "You must be logged in."
-
-        });
+      return res.status(401).json({
+        error:
+          "You must be logged in."
+      });
 
     }
 
 
+    /*
+     * Extract token.
+     */
+
     const accessToken =
-      authorization.substring(
-        7
-      );
+      authorization.substring(7);
 
 
     if (!accessToken) {
 
-      return res
-        .status(401)
-        .json({
-
-          error:
-            "Invalid authentication token."
-
-        });
+      return res.status(401).json({
+        error:
+          "Invalid authentication token."
+      });
 
     }
 
+
+    /*
+     * Ask Supabase to verify the token.
+     */
 
     const {
       data,
@@ -330,6 +304,10 @@ async function requireAuth(
         accessToken
       );
 
+
+    /*
+     * Invalid / expired token.
+     */
 
     if (
       error ||
@@ -342,21 +320,20 @@ async function requireAuth(
         error
       );
 
-
-      return res
-        .status(401)
-        .json({
-
-          error:
-            "Your login session is invalid or expired."
-
-        });
+      return res.status(401).json({
+        error:
+          "Your login session is invalid or expired."
+      });
 
     }
 
 
-    req.user =
-      data.user;
+    /*
+     * Store authenticated user
+     * on the request.
+     */
+
+    req.user = data.user;
 
 
     next();
@@ -370,24 +347,18 @@ async function requireAuth(
       error
     );
 
-
-    return res
-      .status(401)
-      .json({
-
-        error:
-          "Authentication failed."
-
-      });
+    return res.status(401).json({
+      error:
+        "Authentication failed."
+    });
 
   }
-
 }
 
 
-/* ==========================================
+/* =========================================================
    GET CURRENT USER
-========================================== */
+========================================================= */
 
 app.get(
   "/api/me",
@@ -437,15 +408,12 @@ app.get(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not load user."
 
-          error:
-            "Could not load user."
-
-        });
+      });
 
     }
 
@@ -453,9 +421,10 @@ app.get(
 );
 
 
-/* ==========================================
+/* =========================================================
+   EDIT PROFILE
    GET PROFILE
-========================================== */
+========================================================= */
 
 app.get(
   "/api/profile",
@@ -505,15 +474,12 @@ app.get(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not load profile."
 
-          error:
-            "Could not load profile."
-
-        });
+      });
 
     }
 
@@ -521,9 +487,10 @@ app.get(
 );
 
 
-/* ==========================================
+/* =========================================================
+   EDIT PROFILE
    UPDATE PROFILE
-========================================== */
+========================================================= */
 
 app.put(
   "/api/profile",
@@ -538,26 +505,28 @@ app.put(
         req.body || {};
 
 
+      /*
+       * Clean name.
+       */
+
       const finalName =
         typeof name === "string"
           ? name.trim()
           : "";
 
 
-      /* --------------------------------------
-         VALIDATION
-      -------------------------------------- */
+      /*
+       * Validation.
+       */
 
       if (!finalName) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Please enter your name."
+          error:
+            "Please enter your name."
 
-          });
+        });
 
       }
 
@@ -566,14 +535,12 @@ app.put(
         finalName.length < 2
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Name must contain at least 2 characters."
+          error:
+            "Name must contain at least 2 characters."
 
-          });
+        });
 
       }
 
@@ -582,21 +549,21 @@ app.put(
         finalName.length > 100
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Name is too long."
+          error:
+            "Name is too long."
 
-          });
+        });
 
       }
 
 
-      /* --------------------------------------
-         UPDATE SUPABASE USER
-      -------------------------------------- */
+      /*
+       * Update Supabase user metadata.
+       *
+       * Existing metadata is preserved.
+       */
 
       const {
         data,
@@ -606,9 +573,7 @@ app.put(
           req.user.id,
           {
             user_metadata: {
-              ...(
-                req.user.user_metadata || {}
-              ),
+              ...(req.user.user_metadata || {}),
               name: finalName
             }
           }
@@ -622,22 +587,19 @@ app.put(
           error
         );
 
+        return res.status(500).json({
 
-        return res
-          .status(500)
-          .json({
+          error:
+            "Could not update your profile."
 
-            error:
-              "Could not update your profile."
-
-          });
+        });
 
       }
 
 
-      /* --------------------------------------
-         RESPONSE
-      -------------------------------------- */
+      /*
+       * Return updated profile.
+       */
 
       res.json({
 
@@ -668,15 +630,12 @@ app.put(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not update your profile."
 
-          error:
-            "Could not update your profile."
-
-        });
+      });
 
     }
 
@@ -684,9 +643,9 @@ app.put(
 );
 
 
-/* ==========================================
+/* =========================================================
    CREATE INVITATION
-========================================== */
+========================================================= */
 
 app.post(
   "/api/invitations",
@@ -696,22 +655,17 @@ app.post(
     try {
 
       const {
-
         creatorName,
-
         recipientName,
-
         occasion,
-
         message
-
       } =
         req.body || {};
 
 
-      /* --------------------------------------
-         AUTHENTICATED SUPABASE USER
-      -------------------------------------- */
+      /*
+       * Authenticated Supabase user.
+       */
 
       const user =
         req.user;
@@ -742,9 +696,9 @@ app.post(
         ).trim();
 
 
-      /* --------------------------------------
-         VALIDATION
-      -------------------------------------- */
+      /*
+       * Validation.
+       */
 
       if (
         !finalCreatorName ||
@@ -753,14 +707,12 @@ app.post(
         !occasion
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Please complete all required fields."
+          error:
+            "Please complete all required fields."
 
-          });
+        });
 
       }
 
@@ -769,14 +721,12 @@ app.post(
         finalCreatorName.length < 2
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Please enter a valid creator name."
+          error:
+            "Please enter a valid creator name."
 
-          });
+        });
 
       }
 
@@ -785,14 +735,12 @@ app.post(
         recipientName.trim().length < 1
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Please enter the recipient name."
+          error:
+            "Please enter the recipient name."
 
-          });
+        });
 
       }
 
@@ -801,26 +749,23 @@ app.post(
         occasion.trim().length < 1
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Please select an occasion."
+          error:
+            "Please select an occasion."
 
-          });
+        });
 
       }
 
 
-      /* --------------------------------------
-         GENERATE UNIQUE INVITATION CODE
-      -------------------------------------- */
+      /*
+       * Generate invitation code.
+       */
 
       let invitationCode;
 
-      let isUnique =
-        false;
+      let isUnique = false;
 
 
       while (!isUnique) {
@@ -828,10 +773,7 @@ app.post(
         invitationCode =
           Math.random()
             .toString(36)
-            .substring(
-              2,
-              10
-            );
+            .substring(2, 10);
 
 
         const existing =
@@ -851,17 +793,16 @@ app.post(
           existing.rows.length === 0
         ) {
 
-          isUnique =
-            true;
+          isUnique = true;
 
         }
 
       }
 
 
-      /* --------------------------------------
-         SAVE INVITATION
-      -------------------------------------- */
+      /*
+       * Save invitation.
+       */
 
       await pool.query(
         `
@@ -885,7 +826,6 @@ app.post(
           )
         `,
         [
-
           invitationCode,
 
           creatorUserId,
@@ -901,14 +841,13 @@ app.post(
           message
             ? message.trim()
             : null
-
         ]
       );
 
 
-      /* --------------------------------------
-         CREATE SHAREABLE URL
-      -------------------------------------- */
+      /*
+       * Share URL.
+       */
 
       const invitationUrl =
         `${req.protocol}://${req.get("host")}/i/${invitationCode}`;
@@ -917,13 +856,9 @@ app.post(
       console.log(
         "Invitation created:",
         {
-
           invitationCode,
-
           creatorUserId,
-
           creatorEmail
-
         }
       );
 
@@ -947,15 +882,12 @@ app.post(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not create invitation."
 
-          error:
-            "Could not create invitation."
-
-        });
+      });
 
     }
 
@@ -963,9 +895,9 @@ app.post(
 );
 
 
-/* ==========================================
+/* =========================================================
    MY MOMENTS
-========================================== */
+========================================================= */
 
 app.get(
   "/api/my-moments",
@@ -973,6 +905,16 @@ app.get(
   async (req, res) => {
 
     try {
+
+      /*
+       * IMPORTANT:
+       *
+       * We do NOT accept a user ID from
+       * the frontend.
+       *
+       * We get it directly from the
+       * authenticated Supabase user.
+       */
 
       const creatorUserId =
         req.user.id;
@@ -1016,15 +958,12 @@ app.get(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not load your moments."
 
-          error:
-            "Could not load your moments."
-
-        });
+      });
 
     }
 
@@ -1032,9 +971,9 @@ app.get(
 );
 
 
-/* ==========================================
-   GET PERSONALIZED INVITATION
-========================================== */
+/* =========================================================
+   GET SINGLE INVITATION
+========================================================= */
 
 app.get(
   "/api/invitations/:code",
@@ -1069,14 +1008,12 @@ app.get(
         result.rows.length === 0
       ) {
 
-        return res
-          .status(404)
-          .json({
+        return res.status(404).json({
 
-            error:
-              "Invitation not found."
+          error:
+            "Invitation not found."
 
-          });
+        });
 
       }
 
@@ -1101,15 +1038,12 @@ app.get(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not load invitation."
 
-          error:
-            "Could not load invitation."
-
-        });
+      });
 
     }
 
@@ -1117,9 +1051,9 @@ app.get(
 );
 
 
-/* ==========================================
-   SAVE DATE RESPONSE
-========================================== */
+/* =========================================================
+   SAVE INVITATION RESPONSE
+========================================================= */
 
 app.post(
   "/api/response",
@@ -1128,65 +1062,53 @@ app.post(
     try {
 
       const {
-
         answer,
-
         date,
-
         invitationCode
-
       } =
         req.body || {};
 
 
-      /* --------------------------------------
-         BASIC VALIDATION
-      -------------------------------------- */
+      /*
+       * Validate answer.
+       */
 
       if (
-        !["yes", "no"].includes(
-          answer
-        ) ||
+        !["yes", "no"].includes(answer) ||
         !date
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Invalid response."
+          error:
+            "Invalid response."
 
-          });
+        });
 
       }
 
 
-      /* --------------------------------------
-         DATE FORMAT VALIDATION
-      -------------------------------------- */
+      /*
+       * Validate date.
+       */
 
       if (
-        !/^\d{4}-\d{2}-\d{2}$/.test(
-          date
-        )
+        !/^\d{4}-\d{2}-\d{2}$/.test(date)
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Invalid date format."
+          error:
+            "Invalid date format."
 
-          });
+        });
 
       }
 
 
-      /* --------------------------------------
-         INDIA TODAY
-      -------------------------------------- */
+      /*
+       * Get today's date in India.
+       */
 
       function getTodayIndia() {
 
@@ -1194,7 +1116,6 @@ app.post(
           new Intl.DateTimeFormat(
             "en-CA",
             {
-
               timeZone:
                 "Asia/Kolkata",
 
@@ -1206,7 +1127,6 @@ app.post(
 
               day:
                 "2-digit"
-
             }
           );
 
@@ -1226,21 +1146,19 @@ app.post(
         date < todayIndia
       ) {
 
-        return res
-          .status(400)
-          .json({
+        return res.status(400).json({
 
-            error:
-              "Please choose today or a future date."
+          error:
+            "Please choose today or a future date."
 
-          });
+        });
 
       }
 
 
-      /* --------------------------------------
-         SAVE RESPONSE
-      -------------------------------------- */
+      /*
+       * Save response.
+       */
 
       await pool.query(
         `
@@ -1256,34 +1174,25 @@ app.post(
           )
         `,
         [
-
           invitationCode || null,
-
           answer,
-
           date
-
         ]
       );
 
 
-      /* --------------------------------------
-         FIND CREATOR
-      -------------------------------------- */
+      /*
+       * Find creator.
+       */
 
-      let creatorEmail =
-        null;
+      let creatorEmail = null;
 
-      let creatorName =
-        null;
+      let creatorName = null;
 
-      let recipientName =
-        null;
+      let recipientName = null;
 
 
-      if (
-        invitationCode
-      ) {
+      if (invitationCode) {
 
         const invitationResult =
           await pool.query(
@@ -1322,34 +1231,16 @@ app.post(
       }
 
 
-      console.log(
-        "Response received:",
-        {
-
-          invitationCode,
-
-          answer,
-
-          date,
-
-          creatorEmail
-
-        }
-      );
-
-
-      /* --------------------------------------
-         FORMAT DATE
-      -------------------------------------- */
+      /*
+       * Format date.
+       */
 
       const formattedDate =
         new Date(
-          date +
-          "T00:00:00"
+          date + "T00:00:00"
         ).toLocaleDateString(
           "en-IN",
           {
-
             weekday:
               "long",
 
@@ -1361,27 +1252,21 @@ app.post(
 
             day:
               "numeric"
-
           }
         );
 
 
-      /* ======================================
-         SEND EMAIL TO CREATOR
-      ====================================== */
+      /*
+       * Send email.
+       */
 
-      if (
-        creatorEmail
-      ) {
+      if (creatorEmail) {
 
         try {
 
           const {
-
             data,
-
             error
-
           } =
             await resend.emails.send({
 
@@ -1396,7 +1281,6 @@ app.post(
                 "❤️ Your Date Has Been Booked!",
 
               html: `
-
                 <div style="
                   font-family: Arial, sans-serif;
                   max-width: 600px;
@@ -1450,28 +1334,20 @@ app.post(
                   </div>
 
                   <p>
-
                     Your invitation has
                     officially been responded to.
-
                   </p>
 
                   <p>
-
                     Booked through Moment.
-
                   </p>
 
                 </div>
-
               `
-
             });
 
 
-          if (
-            error
-          ) {
+          if (error) {
 
             console.error(
               "RESEND ERROR:",
@@ -1479,7 +1355,6 @@ app.post(
             );
 
           }
-
           else {
 
             console.log(
@@ -1502,24 +1377,9 @@ app.post(
 
       }
 
-      else {
-
-        console.warn(
-          "NO CREATOR EMAIL FOUND FOR INVITATION:",
-          invitationCode
-        );
-
-      }
-
-
-      /* --------------------------------------
-         RESPONSE
-      -------------------------------------- */
 
       res.json({
-
         ok: true
-
       });
 
     }
@@ -1531,15 +1391,12 @@ app.post(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not save response."
 
-          error:
-            "Could not save response."
-
-        });
+      });
 
     }
 
@@ -1547,9 +1404,9 @@ app.post(
 );
 
 
-/* ==========================================
-   VIEW SAVED RESPONSES
-========================================== */
+/* =========================================================
+   ADMIN RESPONSES
+========================================================= */
 
 app.get(
   "/api/responses",
@@ -1560,14 +1417,12 @@ app.get(
       req.query.key !== ADMIN_KEY
     ) {
 
-      return res
-        .status(401)
-        .json({
+      return res.status(401).json({
 
-          error:
-            "Unauthorized."
+        error:
+          "Unauthorized."
 
-        });
+      });
 
     }
 
@@ -1601,15 +1456,12 @@ app.get(
         error
       );
 
+      res.status(500).json({
 
-      res
-        .status(500)
-        .json({
+        error:
+          "Could not load responses."
 
-          error:
-            "Could not load responses."
-
-        });
+      });
 
     }
 
@@ -1617,9 +1469,162 @@ app.get(
 );
 
 
-/* ==========================================
-   PERSONALIZED INVITATION PAGE
-========================================== */
+/* =========================================================
+   WEBSITE ROUTES
+========================================================= */
+
+
+/*
+ * HOME
+ */
+
+app.get(
+  "/",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "index.html"
+      )
+    );
+
+  }
+);
+
+
+/*
+ * LOGIN
+ */
+
+app.get(
+  "/login",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "login.html"
+      )
+    );
+
+  }
+);
+
+
+/*
+ * REGISTER
+ *
+ * Currently points to login.html
+ * because your current authentication
+ * page handles registration as well.
+ */
+
+app.get(
+  "/register",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "login.html"
+      )
+    );
+
+  }
+);
+
+
+/*
+ * CREATE
+ */
+
+app.get(
+  "/create",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "create.html"
+      )
+    );
+
+  }
+);
+
+
+/*
+ * MY MOMENTS
+ */
+
+app.get(
+  "/moments",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "moments.html"
+      )
+    );
+
+  }
+);
+
+
+/*
+ * EDIT PROFILE
+ */
+
+app.get(
+  "/profile",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "profile.html"
+      )
+    );
+
+  }
+);
+
+
+/*
+ * INVITATION
+ */
+
+app.get(
+  "/invitation",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "invitation.html"
+      )
+    );
+
+  }
+);
+
+
+/*
+ * PERSONALIZED INVITATION
+ *
+ * Example:
+ *
+ * /i/abc12345
+ */
 
 app.get(
   "/i/:code",
@@ -1637,161 +1642,9 @@ app.get(
 );
 
 
-/* ==========================================
-   WEBSITE ROUTES
-========================================== */
-
-
-/* ------------------------------------------
-   LANDING PAGE
------------------------------------------- */
-
-app.get(
-  "/",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "index.html"
-      )
-
-    );
-
-  }
-);
-
-
-/* ------------------------------------------
-   LOGIN PAGE
------------------------------------------- */
-
-app.get(
-  "/login",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "login.html"
-      )
-
-    );
-
-  }
-);
-
-
-/* ------------------------------------------
-   REGISTER PAGE
------------------------------------------- */
-
-app.get(
-  "/register",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "login.html"
-      )
-
-    );
-
-  }
-);
-
-
-/* ------------------------------------------
-   INVITATION PAGE
------------------------------------------- */
-
-app.get(
-  "/invitation",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "invitation.html"
-      )
-
-    );
-
-  }
-);
-
-
-/* ------------------------------------------
-   CREATE PAGE
------------------------------------------- */
-
-app.get(
-  "/create",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "create.html"
-      )
-
-    );
-
-  }
-);
-
-
-/* ------------------------------------------
-   MY MOMENTS PAGE
------------------------------------------- */
-
-app.get(
-  "/moments",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "moments.html"
-      )
-
-    );
-
-  }
-);
-
-
-/* ------------------------------------------
-   EDIT PROFILE PAGE
------------------------------------------- */
-
-app.get(
-  "/profile",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "public",
-        "profile.html"
-      )
-
-    );
-
-  }
-);
-
-
-/* ==========================================
+/* =========================================================
    START SERVER
-========================================== */
+========================================================= */
 
 initDb()
 
@@ -1803,11 +1656,10 @@ initDb()
       () => {
 
         console.log(
-          `Running on ${PORT}`
+          `Moment server running on port ${PORT}`
         );
 
       }
-
     );
 
   })
@@ -1824,4 +1676,3 @@ initDb()
 
     }
   );
-```
