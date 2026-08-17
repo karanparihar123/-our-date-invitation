@@ -1,43 +1,63 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
+
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
+
   <meta
     name="description"
     content="Moment — Login or create your account."
   >
-  <title>Login — Moment</title>
+
+  <title>Moment ❤️ — Login</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
   <style>
+
     * {
       box-sizing: border-box;
     }
-    html,
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
     body {
       margin: 0;
-      min-height: 100%;
-    }
-    body {
       min-height: 100vh;
+      overflow-x: hidden;
+
       font-family:
         Arial,
         Helvetica,
         sans-serif;
+
       color: #fff;
+
       background:
         radial-gradient(
           circle at 15% 10%,
           rgba(255,255,255,.12),
           transparent 25%
         ),
+
         radial-gradient(
-          circle at 90% 80%,
+          circle at 90% 75%,
           rgba(255,105,150,.18),
           transparent 30%
         ),
+
         linear-gradient(
           145deg,
           #160817 0%,
@@ -45,1104 +65,1331 @@
           #761842 72%,
           #d65c7d 100%
         );
-      overflow-x: hidden;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    /* ==========================================
-       AMBIENT GLOW
-    ========================================== */
+
+
     .glow {
       position: fixed;
+
       width: 360px;
       height: 360px;
+
       border-radius: 50%;
+
       filter: blur(100px);
+
       opacity: .18;
+
       pointer-events: none;
+
       z-index: 0;
+
       animation:
         glowMove 9s ease-in-out infinite alternate;
     }
+
+
     .glow.one {
       background: #ff719b;
+
       top: -160px;
       left: -120px;
     }
+
+
     .glow.two {
       background: #ffb3ca;
+
       right: -150px;
       bottom: -150px;
+
       animation-delay: 3s;
     }
+
+
     @keyframes glowMove {
+
       from {
         transform:
           translate(0,0)
           scale(1);
       }
+
       to {
         transform:
           translate(35px,-20px)
           scale(1.15);
       }
+
     }
-    /* ==========================================
-       FLOATING HEARTS
-    ========================================== */
+
+
     .hearts {
       position: fixed;
+
       inset: 0;
+
       overflow: hidden;
+
       pointer-events: none;
+
       z-index: 0;
     }
+
+
     .heart {
       position: absolute;
+
       bottom: -50px;
+
       opacity: 0;
+
       animation:
         floatUp linear infinite;
     }
+
+
     .heart:nth-child(1) {
       left: 7%;
       font-size: 18px;
       animation-duration: 11s;
     }
+
+
     .heart:nth-child(2) {
       left: 25%;
       font-size: 14px;
       animation-duration: 14s;
       animation-delay: 2s;
     }
+
+
     .heart:nth-child(3) {
       left: 50%;
       font-size: 22px;
       animation-duration: 10s;
       animation-delay: 4s;
     }
+
+
     .heart:nth-child(4) {
       left: 74%;
       font-size: 16px;
       animation-duration: 13s;
       animation-delay: 1s;
     }
+
+
     .heart:nth-child(5) {
       left: 91%;
       font-size: 20px;
       animation-duration: 12s;
       animation-delay: 5s;
     }
+
+
     @keyframes floatUp {
+
       0% {
         transform:
           translateY(0)
           rotate(0deg);
+
         opacity: 0;
       }
+
       15% {
         opacity: .38;
       }
+
       80% {
         opacity: .2;
       }
+
       100% {
         transform:
           translateY(-115vh)
           rotate(35deg);
+
         opacity: 0;
       }
+
     }
-    /* ==========================================
-       NAVIGATION
-    ========================================== */
-    .nav {
-      position: relative;
-      z-index: 10;
-      width:
-        min(
-          1100px,
-          calc(100% - 32px)
-        );
-      margin: 0 auto;
-      padding: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      color: #fff;
-      text-decoration: none;
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-      font-size: 26px;
-      letter-spacing: -.6px;
-    }
-    .back-link {
-      color:
-        rgba(255,255,255,.72);
-      text-decoration: none;
-      font-size: 13px;
-      padding:
-        9px 13px;
-      border-radius: 999px;
-      border:
-        1px solid
-        rgba(255,255,255,.15);
-      background:
-        rgba(255,255,255,.06);
-      transition:
-        background .2s ease,
-        color .2s ease;
-    }
-    .back-link:hover {
-      color: #fff;
-      background:
-        rgba(255,255,255,.12);
-    }
-    /* ==========================================
-       PAGE
-    ========================================== */
+
+
     .page {
       position: relative;
+
       z-index: 2;
-      min-height:
-        calc(100vh - 80px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding:
-        30px 16px 70px;
-    }
-    /* ==========================================
-       CARD
-    ========================================== */
-    .card {
+
       width:
         min(
           430px,
-          100%
+          calc(100% - 30px)
         );
-      padding:
-        38px 34px;
-      border-radius: 30px;
-      border:
-        1px solid
-        rgba(255,255,255,.18);
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.15),
-          rgba(255,255,255,.055)
-        );
-      backdrop-filter:
-        blur(22px);
-      box-shadow:
-        0 35px 90px
-        rgba(0,0,0,.38);
-      animation:
-        cardIn .65s ease-out;
     }
-    @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform:
-          translateY(25px)
-          scale(.98);
-      }
-      to {
-        opacity: 1;
-        transform:
-          translateY(0)
-          scale(1);
-      }
-    }
-    /* ==========================================
-       HEADER
-    ========================================== */
-    .heading {
+
+
+    .logo {
       text-align: center;
-    }
-    .heading h1 {
-      margin:
-        0 0 10px;
+
+      margin-bottom: 22px;
+
       font-family:
         Georgia,
         "Times New Roman",
         serif;
-      font-size: 42px;
-      font-weight: normal;
-      letter-spacing: -1.8px;
+
+      font-size: 30px;
     }
-    .heading p {
-      margin: 0;
+
+
+    .card {
+      padding: 35px 30px;
+
+      border-radius: 30px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.14),
+          rgba(255,255,255,.055)
+        );
+
+      backdrop-filter:
+        blur(22px);
+
+      -webkit-backdrop-filter:
+        blur(22px);
+
+      box-shadow:
+        0 35px 90px
+        rgba(0,0,0,.38);
+    }
+
+
+    .card h1 {
+      margin:
+        0 0 10px;
+
+      text-align: center;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-weight: normal;
+
+      font-size: 38px;
+    }
+
+
+    .subtitle {
+      margin:
+        0 0 28px;
+
+      text-align: center;
+
       color:
-        rgba(255,255,255,.62);
+        rgba(255,255,255,.58);
+
       font-size: 14px;
+
       line-height: 1.6;
     }
-    /* ==========================================
-       TABS
-    ========================================== */
+
+
     .tabs {
       display: grid;
-      grid-template-columns:
-        1fr 1fr;
+
+      grid-template-columns: 1fr 1fr;
+
       gap: 5px;
-      margin:
-        30px 0 25px;
+
       padding: 5px;
-      border-radius: 14px;
+
+      margin-bottom: 25px;
+
+      border-radius: 999px;
+
       background:
-        rgba(0,0,0,.16);
+        rgba(255,255,255,.07);
     }
+
+
     .tab {
       border: 0;
-      border-radius: 10px;
-      padding: 11px;
+
+      padding: 10px;
+
+      border-radius: 999px;
+
+      background: transparent;
+
       color:
         rgba(255,255,255,.55);
-      background: transparent;
+
       cursor: pointer;
+
       font-size: 13px;
-      font-weight: 600;
+
       transition:
         background .2s ease,
         color .2s ease;
     }
+
+
     .tab.active {
-      color: #74153f;
-      background: #fff;
+      background:
+        rgba(255,255,255,.15);
+
+      color: #fff;
     }
-    /* ==========================================
-       FORM
-    ========================================== */
+
+
     .field {
       margin-bottom: 17px;
     }
+
+
     .field label {
       display: block;
+
       margin-bottom: 7px;
-      font-size: 12px;
+
       color:
-        rgba(255,255,255,.72);
+        rgba(255,255,255,.7);
+
+      font-size: 12px;
     }
-    .input-wrapper {
-      position: relative;
-    }
+
+
     .field input {
       width: 100%;
-      height: 48px;
+
       padding:
-        0 15px;
+        13px 14px;
+
       border-radius: 13px;
+
       border:
         1px solid
-        rgba(255,255,255,.14);
+        rgba(255,255,255,.15);
+
       outline: none;
-      color: #fff;
+
       background:
-        rgba(0,0,0,.16);
+        rgba(255,255,255,.07);
+
+      color: #fff;
+
       font-size: 14px;
+
       transition:
         border .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
-    }
-    .password-input {
-      padding-right: 52px !important;
-    }
-    .field input::placeholder {
-      color:
-        rgba(255,255,255,.3);
-    }
-    .field input:focus {
-      border-color:
-        rgba(255,190,210,.7);
-      background:
-        rgba(0,0,0,.22);
-      box-shadow:
-        0 0 0 3px
-        rgba(255,150,180,.1);
-    }
-    /* ==========================================
-       PASSWORD TOGGLE
-    ========================================== */
-    .password-toggle {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform:
-        translateY(-50%);
-      width: 34px;
-      height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      border-radius: 8px;
-      color:
-        rgba(255,255,255,.62);
-      background: transparent;
-      cursor: pointer;
-      font-size: 18px;
-      transition:
-        color .2s ease,
         background .2s ease;
     }
-    .password-toggle:hover {
-      color: #fff;
+
+
+    .field input::placeholder {
+      color:
+        rgba(255,255,255,.35);
+    }
+
+
+    .field input:focus {
+      border-color:
+        rgba(255,190,210,.6);
+
       background:
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.10);
     }
-    .password-toggle:focus-visible {
-      outline:
-        2px solid
-        rgba(255,255,255,.7);
-      outline-offset: 2px;
-    }
-    .eye-icon {
-      width: 18px;
-      height: 18px;
-      display: block;
-      position: relative;
-    }
-    .eye-icon::before {
-      content: "";
-      position: absolute;
-      left: 1px;
-      top: 4px;
-      width: 16px;
-      height: 10px;
-      border:
-        1.7px solid
-        currentColor;
-      border-radius:
-        80% 20% 80% 20% / 60% 40% 60% 40%;
-      transform:
-        rotate(45deg);
-    }
-    .eye-icon::after {
-      content: "";
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: currentColor;
-      left: 7px;
-      top: 7px;
-    }
-    .eye-icon.hidden::before {
-      transform:
-        rotate(45deg);
-    }
-    .eye-icon.hidden {
-      opacity: .85;
-    }
-    .eye-icon.hidden::after {
-      width: 20px;
-      height: 1.5px;
-      border-radius: 0;
-      left: 0;
-      top: 9px;
-      background: currentColor;
-      transform:
-        rotate(-45deg);
-    }
-    /* ==========================================
-       SUBMIT
-    ========================================== */
-    .submit-button {
+
+
+    .primary {
       width: 100%;
+
       min-height: 50px;
-      margin-top: 8px;
+
       border: 0;
+
       border-radius: 999px;
+
       background: #fff;
+
       color: #74153f;
+
       font-size: 14px;
+
       font-weight: 700;
+
       cursor: pointer;
+
       box-shadow:
         0 14px 35px
         rgba(0,0,0,.22);
+
       transition:
         transform .2s ease,
-        box-shadow .2s ease,
-        opacity .2s ease;
+        box-shadow .2s ease;
     }
-    .submit-button:hover:not(:disabled) {
+
+
+    .primary:hover {
       transform:
         translateY(-2px);
+
       box-shadow:
         0 18px 40px
         rgba(0,0,0,.28);
     }
-    .submit-button:disabled {
-      cursor: not-allowed;
+
+
+    .primary:disabled {
       opacity: .6;
+
+      cursor: not-allowed;
+
+      transform: none;
     }
-    /* ==========================================
-       MESSAGE
-    ========================================== */
+
+
     .message {
-      display: none;
-      margin-top: 16px;
-      padding:
-        12px 14px;
-      border-radius: 12px;
-      font-size: 13px;
+      min-height: 20px;
+
+      margin-top: 15px;
+
+      text-align: center;
+
+      font-size: 12px;
+
       line-height: 1.5;
-      text-align: center;
-    }
-    .message.show {
-      display: block;
-    }
-    .message.error {
-      color: #ffd5df;
-      background:
-        rgba(180,30,80,.18);
-      border:
-        1px solid
-        rgba(255,130,165,.2);
-    }
-    .message.success {
-      color: #e4ffe9;
-      background:
-        rgba(50,150,90,.16);
-      border:
-        1px solid
-        rgba(130,255,170,.18);
-    }
-    /* ==========================================
-       FOOTER TEXT
-    ========================================== */
-    .small-text {
-      margin-top: 22px;
-      text-align: center;
+
       color:
-        rgba(255,255,255,.4);
-      font-size: 11px;
-      line-height: 1.6;
+        rgba(255,255,255,.65);
     }
-    /* ==========================================
-       MOBILE
-    ========================================== */
-    @media(max-width:500px) {
-      .nav {
-        width:
-          calc(100% - 28px);
-      }
-      .logo {
-        font-size: 23px;
-      }
-      .back-link {
-        padding:
-          8px 10px;
-        font-size: 12px;
-      }
-      .page {
-        padding:
-          20px 14px 50px;
-      }
+
+
+    .message.error {
+      color:
+        #ffd1da;
+    }
+
+
+    .message.success {
+      color:
+        #d5ffd9;
+    }
+
+
+    .back-link {
+      display: block;
+
+      margin-top: 22px;
+
+      text-align: center;
+
+      color:
+        rgba(255,255,255,.5);
+
+      font-size: 12px;
+
+      text-decoration: none;
+    }
+
+
+    .back-link:hover {
+      color: #fff;
+    }
+
+
+    .hidden {
+      display: none !important;
+    }
+
+
+    @media (max-width: 500px) {
+
       .card {
         padding:
           30px 22px;
-        border-radius: 25px;
       }
-      .heading h1 {
-        font-size: 36px;
+
+
+      .card h1 {
+        font-size: 34px;
       }
+
     }
+
   </style>
+
 </head>
+
+
 <body>
+
+
   <div class="glow one"></div>
+
   <div class="glow two"></div>
+
+
   <div
     class="hearts"
     aria-hidden="true"
   >
+
     <span class="heart">❤️</span>
     <span class="heart">💗</span>
     <span class="heart">💕</span>
     <span class="heart">❤️</span>
     <span class="heart">💗</span>
+
   </div>
-  <nav class="nav">
-    <a
-      href="/"
-      class="logo"
-    >
-      Moment
-    </a>
-    <a
-      href="/"
-      class="back-link"
-    >
-      ← Back to Moment
-    </a>
-  </nav>
-  <main class="page">
-    <section class="card">
-      <div class="heading">
-        <h1 id="pageTitle">
-          Welcome back.
-        </h1>
-        <p id="pageSubtitle">
-          Sign in to create and manage
-          your moments.
-        </p>
-      </div>
+
+
+  <div class="page">
+
+
+    <div class="logo">
+      Moment ❤️
+    </div>
+
+
+    <div class="card">
+
+
+      <h1 id="pageTitle">
+        Welcome back.
+      </h1>
+
+
+      <p
+        id="pageSubtitle"
+        class="subtitle"
+      >
+        Sign in to create your next little moment.
+      </p>
+
+
       <div class="tabs">
+
         <button
-          type="button"
-          class="tab active"
           id="loginTab"
+          class="tab active"
+          type="button"
         >
           Login
         </button>
+
+
         <button
-          type="button"
-          class="tab"
           id="signupTab"
+          class="tab"
+          type="button"
         >
           Create account
         </button>
+
       </div>
+
+
+      <!-- LOGIN FORM -->
+
       <form
-        id="authForm"
-        novalidate
+        id="loginForm"
       >
-        <div
-          class="field"
-          id="nameField"
-          style="display:none;"
-        >
-          <label for="name">
-            Your name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="e.g. Karan"
-            autocomplete="name"
-          >
-        </div>
+
         <div class="field">
-          <label for="email">
-            Email address
+
+          <label for="loginEmail">
+            Email
           </label>
+
           <input
+            id="loginEmail"
             type="email"
-            id="email"
-            name="email"
             placeholder="you@example.com"
             autocomplete="email"
             required
           >
+
         </div>
+
+
         <div class="field">
-          <label for="password">
+
+          <label for="loginPassword">
             Password
           </label>
-          <div class="input-wrapper">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="password-input"
-              placeholder="At least 6 characters"
-              autocomplete="current-password"
-              required
-            >
-            <button
-              type="button"
-              class="password-toggle"
-              id="passwordToggle"
-              aria-label="Show password"
-              title="Show password"
-            >
-              <span
-                class="eye-icon hidden"
-                id="eyeIcon"
-                aria-hidden="true"
-              ></span>
-            </button>
-          </div>
+
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Your password"
+            autocomplete="current-password"
+            required
+          >
+
         </div>
+
+
         <button
+          id="loginButton"
+          class="primary"
           type="submit"
-          class="submit-button"
-          id="submitButton"
         >
-          Login
+          Login ❤️
         </button>
+
+
+        <div
+          id="loginMessage"
+          class="message"
+        ></div>
+
       </form>
-      <div
-        id="message"
-        class="message"
-      ></div>
-      <div class="small-text">
-        Your account is securely managed by Supabase.
-        <br>
-        Your information is never displayed on invitations.
-      </div>
-    </section>
-  </main>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+      <!-- SIGNUP FORM -->
+
+      <form
+        id="signupForm"
+        class="hidden"
+      >
+
+        <div class="field">
+
+          <label for="signupName">
+            Name
+          </label>
+
+          <input
+            id="signupName"
+            type="text"
+            placeholder="Your name"
+            autocomplete="name"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="signupEmail">
+            Email
+          </label>
+
+          <input
+            id="signupEmail"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="signupPassword">
+            Password
+          </label>
+
+          <input
+            id="signupPassword"
+            type="password"
+            placeholder="Create a password"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+        </div>
+
+
+        <button
+          id="signupButton"
+          class="primary"
+          type="submit"
+        >
+          Create account ❤️
+        </button>
+
+
+        <div
+          id="signupMessage"
+          class="message"
+        ></div>
+
+      </form>
+
+
+      <a
+        href="/"
+        class="back-link"
+      >
+        ← Back to Moment
+      </a>
+
+
+    </div>
+
+  </div>
+
+
   <script>
+
     /* ==========================================
        SUPABASE CONFIGURATION
     ========================================== */
+
     const SUPABASE_URL =
       "https://bvzyntkrmqwdszoduyjv.supabase.co";
+
+
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_A4gADA7QSShJeSFdbPcaOw_56Nh_XQW";
+
+
+    const {
+      createClient
+    } = window.supabase;
+
+
     const supabaseClient =
-      window.supabase.createClient(
+      createClient(
         SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY,
-        {
-          auth: {
-            persistSession: true,
-            autoRefreshToken: true,
-            detectSessionInUrl: true
-          }
-        }
+        SUPABASE_PUBLISHABLE_KEY
       );
+
+
     /* ==========================================
        ELEMENTS
     ========================================== */
+
     const loginTab =
-      document.getElementById("loginTab");
+      document.getElementById(
+        "loginTab"
+      );
+
+
     const signupTab =
-      document.getElementById("signupTab");
-    const nameField =
-      document.getElementById("nameField");
-    const nameInput =
-      document.getElementById("name");
-    const emailInput =
-      document.getElementById("email");
-    const passwordInput =
-      document.getElementById("password");
-    const passwordToggle =
-      document.getElementById("passwordToggle");
-    const eyeIcon =
-      document.getElementById("eyeIcon");
-    const authForm =
-      document.getElementById("authForm");
-    const submitButton =
-      document.getElementById("submitButton");
-    const message =
-      document.getElementById("message");
+      document.getElementById(
+        "signupTab"
+      );
+
+
+    const loginForm =
+      document.getElementById(
+        "loginForm"
+      );
+
+
+    const signupForm =
+      document.getElementById(
+        "signupForm"
+      );
+
+
+    const loginButton =
+      document.getElementById(
+        "loginButton"
+      );
+
+
+    const signupButton =
+      document.getElementById(
+        "signupButton"
+      );
+
+
+    const loginMessage =
+      document.getElementById(
+        "loginMessage"
+      );
+
+
+    const signupMessage =
+      document.getElementById(
+        "signupMessage"
+      );
+
+
     const pageTitle =
-      document.getElementById("pageTitle");
+      document.getElementById(
+        "pageTitle"
+      );
+
+
     const pageSubtitle =
-      document.getElementById("pageSubtitle");
+      document.getElementById(
+        "pageSubtitle"
+      );
+
+
     /* ==========================================
-       MODE
+       TAB SWITCHING
     ========================================== */
-    let mode = "login";
-    /* ==========================================
-       PASSWORD VISIBILITY
-       
-       Open eye  = password visible
-       Closed eye = password masked
-    ========================================== */
-    let passwordVisible = false;
-    function updatePasswordVisibility() {
-      passwordInput.type =
-        passwordVisible
-          ? "text"
-          : "password";
-      if (passwordVisible) {
-        eyeIcon.classList.remove(
-          "hidden"
-        );
-        passwordToggle.setAttribute(
-          "aria-label",
-          "Hide password"
-        );
-        passwordToggle.setAttribute(
-          "title",
-          "Hide password"
-        );
-      }
-      else {
-        eyeIcon.classList.add(
-          "hidden"
-        );
-        passwordToggle.setAttribute(
-          "aria-label",
-          "Show password"
-        );
-        passwordToggle.setAttribute(
-          "title",
-          "Show password"
-        );
-      }
+
+    function showLogin() {
+
+      loginTab.classList.add(
+        "active"
+      );
+
+      signupTab.classList.remove(
+        "active"
+      );
+
+
+      loginForm.classList.remove(
+        "hidden"
+      );
+
+      signupForm.classList.add(
+        "hidden"
+      );
+
+
+      pageTitle.textContent =
+        "Welcome back.";
+
+
+      pageSubtitle.textContent =
+        "Sign in to create your next little moment.";
+
+
+      clearMessages();
+
     }
-    passwordToggle.addEventListener(
-      "click",
-      () => {
-        passwordVisible =
-          !passwordVisible;
-        updatePasswordVisibility();
-      }
-    );
-    /* ==========================================
-       MODE SWITCH
-    ========================================== */
-    function setMode(newMode) {
-      mode = newMode;
-      clearMessage();
-      if (mode === "signup") {
-        loginTab.classList.remove(
-          "active"
-        );
-        signupTab.classList.add(
-          "active"
-        );
-        nameField.style.display =
-          "block";
-        nameInput.required =
-          true;
-        pageTitle.textContent =
-          "Create your account.";
-        pageSubtitle.textContent =
-          "Make beautiful moments worth remembering.";
-        submitButton.textContent =
-          "Create account";
-        passwordInput.autocomplete =
-          "new-password";
-      }
-      else {
-        signupTab.classList.remove(
-          "active"
-        );
-        loginTab.classList.add(
-          "active"
-        );
-        nameField.style.display =
-          "none";
-        nameInput.required =
-          false;
-        pageTitle.textContent =
-          "Welcome back.";
-        pageSubtitle.textContent =
-          "Sign in to create and manage your moments.";
-        submitButton.textContent =
-          "Login";
-        passwordInput.autocomplete =
-          "current-password";
-      }
-      /*
-       * Always reset password visibility
-       * when switching between Login and
-       * Create account.
-       */
-      passwordVisible = false;
-      updatePasswordVisibility();
+
+
+    function showSignup() {
+
+      signupTab.classList.add(
+        "active"
+      );
+
+      loginTab.classList.remove(
+        "active"
+      );
+
+
+      signupForm.classList.remove(
+        "hidden"
+      );
+
+      loginForm.classList.add(
+        "hidden"
+      );
+
+
+      pageTitle.textContent =
+        "Create your account.";
+
+
+      pageSubtitle.textContent =
+        "Make your first little moment.";
+
+
+      clearMessages();
+
     }
+
+
     loginTab.addEventListener(
       "click",
-      () => {
-        setMode("login");
-      }
+      showLogin
     );
+
+
     signupTab.addEventListener(
       "click",
-      () => {
-        setMode("signup");
-      }
+      showSignup
     );
+
+
     /* ==========================================
-       MESSAGE HELPERS
+       MESSAGES
     ========================================== */
-    function showMessage(
-      text,
-      type
-    ) {
-      message.textContent =
-        text;
-      message.className =
-        "message show " +
-        type;
-    }
-    function clearMessage() {
-      message.textContent =
-        "";
-      message.className =
+
+    function clearMessages() {
+
+      loginMessage.textContent = "";
+      signupMessage.textContent = "";
+
+      loginMessage.className =
         "message";
+
+      signupMessage.className =
+        "message";
+
     }
+
+
+    function showLoginError(
+      message
+    ) {
+
+      loginMessage.textContent =
+        message;
+
+      loginMessage.className =
+        "message error";
+
+    }
+
+
+    function showSignupError(
+      message
+    ) {
+
+      signupMessage.textContent =
+        message;
+
+      signupMessage.className =
+        "message error";
+
+    }
+
+
+    function showSignupSuccess(
+      message
+    ) {
+
+      signupMessage.textContent =
+        message;
+
+      signupMessage.className =
+        "message success";
+
+    }
+
+
     /* ==========================================
-       FORM SUBMIT
+       LOGIN
     ========================================== */
-    authForm.addEventListener(
+
+    loginForm.addEventListener(
       "submit",
       async (event) => {
+
         event.preventDefault();
-        clearMessage();
+
+        clearMessages();
+
+
         const email =
-          emailInput.value.trim();
+          document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+
         const password =
-          passwordInput.value;
-        const name =
-          nameInput.value.trim();
-        /* --------------------------------------
-           VALIDATION
-        -------------------------------------- */
-        if (!email) {
-          showMessage(
-            "Please enter your email address.",
-            "error"
-          );
-          emailInput.focus();
-          return;
-        }
-        if (!email.includes("@")) {
-          showMessage(
-            "Please enter a valid email address.",
-            "error"
-          );
-          emailInput.focus();
-          return;
-        }
-        if (password.length < 6) {
-          showMessage(
-            "Password must be at least 6 characters.",
-            "error"
-          );
-          passwordInput.focus();
-          return;
-        }
-        if (
-          mode === "signup" &&
-          name.length < 2
-        ) {
-          showMessage(
-            "Please enter your name.",
-            "error"
-          );
-          nameInput.focus();
-          return;
-        }
-        /* --------------------------------------
-           LOADING
-        -------------------------------------- */
-        submitButton.disabled =
-          true;
-        submitButton.textContent =
-          mode === "login"
-            ? "Logging in..."
-            : "Creating account...";
+          document
+            .getElementById("loginPassword")
+            .value;
+
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+          "Logging in...";
+
+
         try {
-          /* ====================================
-             LOGIN
-          ==================================== */
-          if (mode === "login") {
-            const {
-              data,
-              error
-            } =
-              await supabaseClient
-                .auth
-                .signInWithPassword({
-                  email,
-                  password
-                });
-            if (error) {
-              console.error(
-                "Login error:",
-                error
-              );
-              throw error;
-            }
-            if (
-              !data ||
-              !data.session
-            ) {
-              throw new Error(
-                "Login succeeded but no session was created."
-              );
-            }
-            showMessage(
-              "Login successful. Redirecting...",
-              "success"
-            );
-            setTimeout(
-              () => {
-                window.location.href =
-                  "/create";
-              },
-              700
-            );
-            return;
-          }
-          /* ====================================
-             SIGN UP
-          ==================================== */
+
           const {
             data,
             error
           } =
-            await supabaseClient
-              .auth
-              .signUp({
-                email,
-                password,
-                options: {
-                  data: {
-                    name,
-                    full_name: name
-                  }
-                }
-              });
+            await supabaseClient.auth.signInWithPassword({
+              email,
+              password
+            });
+
+
           if (error) {
+
             console.error(
-              "Signup error:",
+              "Login failed:",
               error
             );
-            throw error;
-          }
-          if (data?.session) {
-            showMessage(
-              "Account created successfully. Redirecting...",
-              "success"
+
+
+            showLoginError(
+              error.message ||
+              "Unable to log in. Please check your details."
             );
-            setTimeout(
-              () => {
-                window.location.href =
-                  "/create";
-              },
-              900
-            );
+
+
+            loginButton.disabled =
+              false;
+
+            loginButton.textContent =
+              "Login ❤️";
+
+            return;
+
           }
+
+
+          /*
+           * Login was explicitly performed
+           * by the user.
+           *
+           * Therefore we can take them to
+           * the Create Invitation page.
+           */
+
+          if (
+            data?.session &&
+            data?.user
+          ) {
+
+            window.location.href =
+              "/create";
+
+          }
+
           else {
-            showMessage(
-              "Account created. Please check your email to confirm your account, then log in.",
-              "success"
+
+            showLoginError(
+              "Login completed, but no session was created."
             );
-            setMode("login");
+
+
+            loginButton.disabled =
+              false;
+
+            loginButton.textContent =
+              "Login ❤️";
+
           }
+
         }
+
         catch (error) {
+
           console.error(
-            "Authentication error:",
+            "Login error:",
             error
           );
-          let errorMessage =
-            error?.message ||
-            "Something went wrong. Please try again.";
-          const normalizedError =
-            errorMessage.toLowerCase();
-          if (
-            normalizedError.includes(
-              "invalid login credentials"
-            )
-          ) {
-            errorMessage =
-              "Incorrect email or password.";
-          }
-          if (
-            normalizedError.includes(
-              "email not confirmed"
-            )
-          ) {
-            errorMessage =
-              "Please confirm your email before logging in.";
-          }
-          if (
-            normalizedError.includes(
-              "user already registered"
-            )
-          ) {
-            errorMessage =
-              "An account with this email already exists. Please log in.";
-          }
-          showMessage(
-            errorMessage,
-            "error"
+
+
+          showLoginError(
+            "Something went wrong. Please try again."
           );
-        }
-        finally {
-          submitButton.disabled =
+
+
+          loginButton.disabled =
             false;
-          submitButton.textContent =
-            mode === "login"
-              ? "Login"
-              : "Create account";
+
+          loginButton.textContent =
+            "Login ❤️";
+
         }
+
       }
     );
+
+
     /* ==========================================
-       CHECK EXISTING SESSION
+       SIGN UP
     ========================================== */
+
+    signupForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        clearMessages();
+
+
+        const name =
+          document
+            .getElementById("signupName")
+            .value
+            .trim();
+
+
+        const email =
+          document
+            .getElementById("signupEmail")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("signupPassword")
+            .value;
+
+
+        signupButton.disabled = true;
+
+        signupButton.textContent =
+          "Creating account...";
+
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth.signUp({
+
+              email,
+
+              password,
+
+              options: {
+
+                data: {
+
+                  full_name: name
+
+                }
+
+              }
+
+            });
+
+
+          if (error) {
+
+            console.error(
+              "Signup failed:",
+              error
+            );
+
+
+            showSignupError(
+              error.message ||
+              "Unable to create your account."
+            );
+
+
+            signupButton.disabled =
+              false;
+
+            signupButton.textContent =
+              "Create account ❤️";
+
+            return;
+
+          }
+
+
+          /*
+           * Depending on the Supabase
+           * email-confirmation configuration,
+           * signup may or may not return
+           * an active session.
+           */
+
+          if (
+            data?.session &&
+            data?.user
+          ) {
+
+            window.location.href =
+              "/create";
+
+            return;
+
+          }
+
+
+          /*
+           * Email confirmation is required.
+           */
+
+          showSignupSuccess(
+            "Account created. Please check your email to confirm your account, then log in."
+          );
+
+
+          signupButton.disabled =
+            false;
+
+          signupButton.textContent =
+            "Create account ❤️";
+
+
+          setTimeout(
+            () => {
+
+              showLogin();
+
+              document
+                .getElementById("loginEmail")
+                .value = email;
+
+            },
+            1800
+          );
+
+        }
+
+        catch (error) {
+
+          console.error(
+            "Signup error:",
+            error
+          );
+
+
+          showSignupError(
+            "Something went wrong. Please try again."
+          );
+
+
+          signupButton.disabled =
+            false;
+
+          signupButton.textContent =
+            "Create account ❤️";
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       IMPORTANT:
+       DO NOT REDIRECT EXISTING SESSION
+       ========================================== */
+
     async function checkExistingSession() {
+
       try {
+
         const {
           data,
           error
         } =
-          await supabaseClient
-            .auth
-            .getSession();
+          await supabaseClient.auth.getSession();
+
+
         if (error) {
+
           console.error(
-            "Session check failed:",
+            "Could not check existing session:",
             error
           );
+
           return;
+
         }
+
+
+        /*
+         * IMPORTANT:
+         *
+         * If the user is already logged in
+         * and opens /login, we DO NOT redirect
+         * them to /create.
+         *
+         * They should remain on the login page.
+         *
+         * This prevents:
+         *
+         * /create
+         *    ↓ Back
+         * /login
+         *    ↓ existing session
+         * /create
+         *
+         * redirect loop.
+         */
+
+        const session =
+          data?.session;
+
+
         if (
-          data?.session?.user
+          session &&
+          session.user
         ) {
-          window.location.href =
-            "/create";
+
+          console.log(
+            "Existing Supabase session detected. Staying on login page."
+          );
+
         }
+
       }
+
       catch (error) {
+
         console.error(
-          "Could not check session:",
+          "Existing session check failed:",
           error
         );
+
       }
+
     }
+
+
     /* ==========================================
        AUTH STATE LISTENER
-    ========================================== */
-    supabaseClient
-      .auth
-      .onAuthStateChange(
-        (
-          event,
-          session
-        ) => {
-          console.log(
-            "Supabase auth event:",
-            event
-          );
-          if (
-            event === "SIGNED_IN" &&
-            session?.user
-          ) {
-            if (
-              mode === "login"
-            ) {
-              window.location.href =
-                "/create";
-            }
-          }
-        }
-      );
+       ========================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+      (
+        event,
+        session
+      ) => {
+
+        console.log(
+          "Supabase auth event:",
+          event
+        );
+
+
+        /*
+         * Do NOT redirect here.
+         *
+         * The login page must not automatically
+         * redirect an already-authenticated user
+         * to /create.
+         *
+         * Navigation happens only after an
+         * explicit successful Login or Signup.
+         */
+
+      }
+    );
+
+
     /* ==========================================
        INITIALIZE
-    ========================================== */
-    updatePasswordVisibility();
-    checkExistingSession();
-  </script>
-</body>
-</html>
+       ========================================== */
 
+    checkExistingSession();
+
+  </script>
+
+
+</body>
+
+</html>
