@@ -17,7 +17,6 @@
 
   <title>My Moments ❤️</title>
 
-
   <style>
 
     * {
@@ -275,7 +274,8 @@
       font-size: 13px;
 
       transition:
-        color .2s ease;
+        color .2s ease,
+        transform .2s ease;
     }
 
     .nav a:hover {
@@ -575,6 +575,8 @@
 
       justify-content: space-between;
 
+      gap: 10px;
+
       margin-bottom: 22px;
     }
 
@@ -623,6 +625,8 @@
         rgba(255,255,255,.38);
 
       font-size: 11px;
+
+      white-space: nowrap;
     }
 
 
@@ -734,6 +738,9 @@
 
       background:
         rgba(255,120,160,.10);
+
+      border-color:
+        rgba(255,140,180,.16);
     }
 
     .status.booked .status-dot {
@@ -1105,14 +1112,8 @@
 
 <body>
 
-
-  <!-- ==========================================
-       AMBIENT
-  ========================================== -->
-
   <div class="glow one"></div>
   <div class="glow two"></div>
-
 
   <div class="hearts">
 
@@ -1263,10 +1264,6 @@
     </div>
 
 
-    <!-- ========================================
-         LOADING
-    ======================================== -->
-
     <div
       id="loading"
       class="loading"
@@ -1279,29 +1276,17 @@
     </div>
 
 
-    <!-- ========================================
-         ERROR
-    ======================================== -->
-
     <div
       id="error"
       class="error"
     ></div>
 
 
-    <!-- ========================================
-         MOMENTS
-    ======================================== -->
-
     <div
       id="momentsGrid"
       class="moments-grid"
     ></div>
 
-
-    <!-- ========================================
-         EMPTY
-    ======================================== -->
 
     <section
       id="empty"
@@ -1764,6 +1749,77 @@
 
 
     /* ==========================================
+       RESPONSE STATUS
+    ========================================== */
+
+    function getMomentResponse(
+      moment
+    ) {
+
+      /*
+       * Primary format expected from the
+       * corrected backend.
+       */
+
+      if (
+        moment.response_answer
+      ) {
+
+        return {
+
+          answer:
+            String(
+              moment.response_answer
+            ).toLowerCase(),
+
+          selectedDate:
+            moment.selected_date ||
+            null
+
+        };
+
+      }
+
+
+      /*
+       * Backwards compatibility with an
+       * older nested response format.
+       */
+
+      if (
+        moment.response &&
+        typeof moment.response === "object"
+      ) {
+
+        return {
+
+          answer:
+            String(
+              moment.response.answer ||
+              ""
+            ).toLowerCase(),
+
+          selectedDate:
+            moment.response.selected_date ||
+            null
+
+        };
+
+      }
+
+
+      return {
+
+        answer: "",
+
+        selectedDate: null
+
+      };
+
+    }
+
+
+    /* ==========================================
        CREATE CARD
     ========================================== */
 
@@ -1799,15 +1855,17 @@
 
 
       /*
-       * Response information will be added
-       * automatically when the backend starts
-       * returning response data.
+       * Read response from backend.
        */
 
+      const response =
+        getMomentResponse(
+          moment
+        );
+
+
       const isBooked =
-        moment.response &&
-        moment.response.answer ===
-          "yes";
+        response.answer === "yes";
 
 
       let statusText =
@@ -1819,10 +1877,10 @@
       ) {
 
         statusText =
-          moment.response.selected_date
+          response.selectedDate
             ? "Date booked · " +
               formatDate(
-                moment.response.selected_date
+                response.selectedDate
               )
             : "Date booked";
 
@@ -1837,6 +1895,10 @@
 
       card.className =
         "moment-card";
+
+
+      card.dataset.code =
+        code;
 
 
       card.style.animationDelay =
@@ -1948,17 +2010,23 @@
         );
 
 
-      copyButton.addEventListener(
-        "click",
-        () => {
+      if (
+        copyButton
+      ) {
 
-          copyMomentLink(
-            code,
-            copyButton
-          );
+        copyButton.addEventListener(
+          "click",
+          () => {
 
-        }
-      );
+            copyMomentLink(
+              code,
+              copyButton
+            );
+
+          }
+        );
+
+      }
 
 
       return card;
@@ -1967,16 +2035,58 @@
 
 
     /* ==========================================
+       LOAD LOCK
+    ========================================== */
+
+    let isLoadingMoments =
+      false;
+
+
+    let lastLoadedMoments =
+      null;
+
+
+    /* ==========================================
        LOAD MOMENTS
     ========================================== */
 
-    async function loadMoments() {
+    async function loadMoments(
+      force = false
+    ) {
+
+      /*
+       * IMPORTANT:
+       *
+       * Prevent multiple simultaneous
+       * API calls from pageshow /
+       * visibilitychange from rendering
+       * duplicate cards.
+       */
+
+      if (
+        isLoadingMoments
+      ) {
+
+        return;
+
+      }
+
+
+      isLoadingMoments =
+        true;
+
 
       loading.style.display =
         "block";
 
       errorBox.style.display =
         "none";
+
+
+      /*
+       * Clear the old cards exactly once
+       * before rendering the new result.
+       */
 
       momentsGrid.innerHTML =
         "";
@@ -2001,31 +2111,97 @@
             : [];
 
 
+        /*
+         * Prevent duplicate invitation cards
+         * even if the backend accidentally
+         * returns the same invitation twice.
+         *
+         * invitation_code is unique in the
+         * database, so it is the safest key.
+         */
+
+        const uniqueMoments =
+          [];
+
+
+        const seenCodes =
+          new Set();
+
+
+        for (
+          const moment of moments
+        ) {
+
+          const code =
+            String(
+              moment.invitation_code ||
+              ""
+            ).trim();
+
+
+          if (
+            code &&
+            seenCodes.has(code)
+          ) {
+
+            continue;
+
+          }
+
+
+          if (
+            code
+          ) {
+
+            seenCodes.add(code);
+
+          }
+
+
+          uniqueMoments.push(
+            moment
+          );
+
+        }
+
+
+        lastLoadedMoments =
+          uniqueMoments;
+
+
         loading.style.display =
           "none";
 
 
         totalCount.textContent =
-          moments.length;
+          uniqueMoments.length;
 
 
         /*
-         * Until response information is
-         * returned by the backend, every
-         * moment is considered waiting.
+         * Count actual booked invitations.
          */
 
         const booked =
-          moments.filter(
-            moment =>
-              moment.response &&
-              moment.response.answer ===
+          uniqueMoments.filter(
+            moment => {
+
+              const response =
+                getMomentResponse(
+                  moment
+                );
+
+
+              return (
+                response.answer ===
                 "yes"
+              );
+
+            }
           ).length;
 
 
         const waiting =
-          moments.length -
+          uniqueMoments.length -
           booked;
 
 
@@ -2038,13 +2214,13 @@
 
 
         sectionCount.textContent =
-          moments.length === 1
+          uniqueMoments.length === 1
             ? "1 moment"
-            : `${moments.length} moments`;
+            : `${uniqueMoments.length} moments`;
 
 
         if (
-          moments.length === 0
+          uniqueMoments.length === 0
         ) {
 
           empty.style.display =
@@ -2055,7 +2231,7 @@
         }
 
 
-        moments.forEach(
+        uniqueMoments.forEach(
           (
             moment,
             index
@@ -2099,29 +2275,48 @@
 
       }
 
+      finally {
+
+        isLoadingMoments =
+          false;
+
+      }
+
     }
 
 
     /* ==========================================
-       PAGE LOAD
+       INITIAL LOAD
     ========================================== */
 
     loadMoments();
 
 
     /* ==========================================
-       REFRESH WHEN PAGE RETURNS
+       PAGE RETURN
     ========================================== */
 
     window.addEventListener(
       "pageshow",
       () => {
 
+        /*
+         * pageshow fires when returning from
+         * browser history / bfcache.
+         *
+         * The loading lock prevents it from
+         * creating duplicate cards.
+         */
+
         loadMoments();
 
       }
     );
 
+
+    /* ==========================================
+       VISIBILITY CHANGE
+    ========================================== */
 
     document.addEventListener(
       "visibilitychange",
