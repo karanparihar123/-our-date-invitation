@@ -875,19 +875,6 @@ app.get(
         req.user.id;
 
 
-      /*
-       * Get every invitation belonging to the
-       * logged-in user.
-       *
-       * For each invitation we also get the
-       * LATEST response, if one exists.
-       *
-       * Important:
-       * We aggregate the responses first so
-       * one invitation can NEVER appear multiple
-       * times because of multiple responses.
-       */
-
       const result =
         await pool.query(
           `
@@ -923,7 +910,7 @@ app.get(
 
               LIMIT 1
 
-            ) r ON TRUE
+            ) r ON true
 
             WHERE
               i.creator_user_id = $1
@@ -937,84 +924,44 @@ app.get(
         );
 
 
-      /*
-       * Return a clean structure to moments.html.
-       */
-
       const moments =
         result.rows.map(
-          row => ({
+          moment => ({
 
             invitation_code:
-              row.invitation_code,
+              moment.invitation_code,
 
             creator_name:
-              row.creator_name,
+              moment.creator_name,
 
             recipient_name:
-              row.recipient_name,
+              moment.recipient_name,
 
             occasion:
-              row.occasion,
+              moment.occasion,
 
             message:
-              row.message,
+              moment.message,
 
             created_at:
-              row.created_at,
+              moment.created_at,
 
-            /*
-             * No response yet
-             */
+            response:
+              moment.response_answer
+                ? {
+                    answer:
+                      moment.response_answer,
 
-            responded:
-              Boolean(
-                row.response_answer
-              ),
+                    selected_date:
+                      moment.response_date,
 
-            response_answer:
-              row.response_answer || null,
-
-            response_date:
-              row.response_date || null,
-
-            response_created_at:
-              row.response_created_at || null
+                    created_at:
+                      moment.response_created_at
+                  }
+                : null
 
           })
         );
-
-
-      console.log(
-        "My Moments loaded:",
-        {
-          userId:
-            creatorUserId,
-
-          count:
-            moments.length,
-
-          moments:
-            moments.map(
-              moment => ({
-                code:
-                  moment.invitation_code,
-
-                recipient:
-                  moment.recipient_name,
-
-                responded:
-                  moment.responded,
-
-                answer:
-                  moment.response_answer,
-
-                date:
-                  moment.response_date
-              })
-            )
-        }
-      );
 
 
       res.json({
@@ -1048,7 +995,6 @@ app.get(
 
   }
 );
-
 
 /* ==========================================
    GET PERSONALIZED INVITATION
