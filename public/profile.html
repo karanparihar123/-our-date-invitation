@@ -1,0 +1,1933 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Manage your Moment profile."
+  >
+
+  <title>Edit Profile ❤️</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      color: #fff;
+
+      background:
+        radial-gradient(
+          circle at 10% 5%,
+          rgba(255,255,255,.13),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 90% 85%,
+          rgba(255,100,150,.20),
+          transparent 30%
+        ),
+        linear-gradient(
+          145deg,
+          #160817 0%,
+          #3b0c2f 42%,
+          #761842 72%,
+          #d65c7d 100%
+        );
+
+      overflow-x: hidden;
+    }
+
+
+    /* ==========================================
+       AMBIENT GLOW
+    ========================================== */
+
+    .glow {
+      position: fixed;
+
+      width: 330px;
+      height: 330px;
+
+      border-radius: 50%;
+
+      filter: blur(100px);
+
+      opacity: .20;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      animation:
+        glowMove 10s ease-in-out infinite alternate;
+    }
+
+    .glow.one {
+      top: -140px;
+      left: -120px;
+
+      background: #ff719b;
+    }
+
+    .glow.two {
+      right: -150px;
+      bottom: -150px;
+
+      background: #ffb8cf;
+
+      animation-delay: 3s;
+    }
+
+    @keyframes glowMove {
+
+      from {
+        transform:
+          translate(0,0)
+          scale(1);
+      }
+
+      to {
+        transform:
+          translate(35px,-20px)
+          scale(1.12);
+      }
+
+    }
+
+
+    /* ==========================================
+       FLOATING HEARTS
+    ========================================== */
+
+    .hearts {
+      position: fixed;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+
+      bottom: -40px;
+
+      opacity: 0;
+
+      animation:
+        floatUp linear infinite;
+    }
+
+    .heart:nth-child(1) {
+      left: 8%;
+      font-size: 17px;
+      animation-duration: 12s;
+    }
+
+    .heart:nth-child(2) {
+      left: 27%;
+      font-size: 13px;
+      animation-duration: 14s;
+      animation-delay: 2s;
+    }
+
+    .heart:nth-child(3) {
+      left: 51%;
+      font-size: 20px;
+      animation-duration: 11s;
+      animation-delay: 4s;
+    }
+
+    .heart:nth-child(4) {
+      left: 74%;
+      font-size: 15px;
+      animation-duration: 13s;
+      animation-delay: 1s;
+    }
+
+    .heart:nth-child(5) {
+      left: 91%;
+      font-size: 19px;
+      animation-duration: 15s;
+      animation-delay: 5s;
+    }
+
+    @keyframes floatUp {
+
+      0% {
+        transform:
+          translateY(0)
+          rotate(0deg);
+
+        opacity: 0;
+      }
+
+      15% {
+        opacity: .32;
+      }
+
+      80% {
+        opacity: .15;
+      }
+
+      100% {
+        transform:
+          translateY(-115vh)
+          rotate(35deg);
+
+        opacity: 0;
+      }
+
+    }
+
+
+    /* ==========================================
+       PAGE
+    ========================================== */
+
+    .page {
+      position: relative;
+
+      z-index: 2;
+
+      width:
+        min(
+          100%,
+          900px
+        );
+
+      margin:
+        0 auto;
+
+      padding:
+        28px 24px
+        70px;
+    }
+
+
+    /* ==========================================
+       NAVIGATION
+    ========================================== */
+
+    .topbar {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      margin-bottom: 65px;
+    }
+
+    .logo {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 25px;
+    }
+
+    .nav {
+      display: flex;
+
+      align-items: center;
+
+      gap: 22px;
+    }
+
+    .nav a {
+      color:
+        rgba(255,255,255,.60);
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      transition:
+        color .2s ease;
+    }
+
+    .nav a:hover {
+      color: #fff;
+    }
+
+    .nav .moments-link {
+      padding:
+        10px 17px;
+
+      border-radius: 999px;
+
+      color: #74153f;
+
+      background: #fff;
+
+      font-weight: 700;
+    }
+
+
+    /* ==========================================
+       HERO
+    ========================================== */
+
+    .hero {
+      margin-bottom: 35px;
+    }
+
+    .eyebrow {
+      margin-bottom: 13px;
+
+      color:
+        rgba(255,255,255,.46);
+
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin:
+        0 0 15px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          48px,
+          7vw,
+          70px
+        );
+
+      font-weight: normal;
+
+      line-height: .98;
+
+      letter-spacing: -3px;
+    }
+
+    .hero h1 span {
+      color: #ffc0d2;
+    }
+
+    .hero p {
+      margin: 0;
+
+      max-width: 600px;
+
+      color:
+        rgba(255,255,255,.58);
+
+      font-size: 15px;
+
+      line-height: 1.75;
+    }
+
+
+    /* ==========================================
+       PROFILE CARD
+    ========================================== */
+
+    .profile-card {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 34px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.14);
+
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.105),
+          rgba(255,255,255,.045)
+        );
+
+      backdrop-filter:
+        blur(22px);
+
+      box-shadow:
+        0 28px 80px
+        rgba(0,0,0,.24);
+    }
+
+    .profile-card::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+      height: 220px;
+
+      right: -120px;
+      top: -120px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,130,175,.14);
+
+      filter:
+        blur(40px);
+
+      pointer-events: none;
+    }
+
+
+    /* ==========================================
+       PROFILE HEADER
+    ========================================== */
+
+    .profile-header {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 20px;
+
+      padding-bottom: 30px;
+
+      margin-bottom: 30px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.09);
+    }
+
+    .avatar {
+
+      width: 72px;
+      height: 72px;
+
+      flex: 0 0 auto;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffb3c9,
+          #ff709d
+        );
+
+      color: #70133e;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 30px;
+
+      box-shadow:
+        0 10px 30px
+        rgba(255,100,150,.25);
+    }
+
+    .profile-header h2 {
+
+      margin:
+        0 0 5px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 27px;
+
+      font-weight: normal;
+    }
+
+    .profile-header p {
+
+      margin: 0;
+
+      color:
+        rgba(255,255,255,.42);
+
+      font-size: 12px;
+    }
+
+
+    /* ==========================================
+       FORM
+    ========================================== */
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+
+      display: block;
+
+      margin-bottom: 9px;
+
+      color:
+        rgba(255,255,255,.56);
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+    }
+
+    .input {
+
+      width: 100%;
+
+      height: 54px;
+
+      padding:
+        0 17px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.13);
+
+      border-radius: 15px;
+
+      outline: none;
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.065);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 14px;
+
+      transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .input::placeholder {
+      color:
+        rgba(255,255,255,.28);
+    }
+
+    .input:focus {
+
+      border-color:
+        rgba(255,180,205,.55);
+
+      background:
+        rgba(255,255,255,.085);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(255,150,185,.08);
+    }
+
+    .input.readonly {
+
+      color:
+        rgba(255,255,255,.40);
+
+      cursor: not-allowed;
+
+      background:
+        rgba(255,255,255,.035);
+    }
+
+    .field-note {
+
+      margin-top: 8px;
+
+      color:
+        rgba(255,255,255,.30);
+
+      font-size: 10px;
+    }
+
+
+    /* ==========================================
+       STATUS
+    ========================================== */
+
+    .message-box {
+
+      display: none;
+
+      margin-bottom: 20px;
+
+      padding:
+        13px 15px;
+
+      border-radius: 13px;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+    }
+
+    .message-box.success {
+
+      color:
+        #ffdce7;
+
+      background:
+        rgba(255,120,160,.10);
+
+      border:
+        1px solid
+        rgba(255,150,180,.18);
+    }
+
+    .message-box.error {
+
+      color:
+        #ffd5df;
+
+      background:
+        rgba(255,60,100,.10);
+
+      border:
+        1px solid
+        rgba(255,100,130,.22);
+    }
+
+
+    /* ==========================================
+       ACTIONS
+    ========================================== */
+
+    .form-actions {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding-top: 10px;
+    }
+
+    .save-button {
+
+      min-height: 50px;
+
+      padding:
+        0 25px;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      color: #74153f;
+
+      background: #fff;
+
+      cursor: pointer;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
+    }
+
+    .save-button:hover {
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.18);
+    }
+
+    .save-button:disabled {
+
+      cursor: wait;
+
+      opacity: .55;
+
+      transform: none;
+
+    }
+
+    .logout-button {
+
+      min-height: 45px;
+
+      padding:
+        0 18px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.12);
+
+      border-radius: 999px;
+
+      color:
+        rgba(255,255,255,.58);
+
+      background:
+        rgba(255,255,255,.045);
+
+      cursor: pointer;
+
+      font-size: 12px;
+
+      transition:
+        background .2s ease,
+        color .2s ease;
+    }
+
+    .logout-button:hover {
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.09);
+    }
+
+
+    /* ==========================================
+       LOADING
+    ========================================== */
+
+    .loading {
+
+      padding:
+        70px 20px;
+
+      text-align: center;
+
+      color:
+        rgba(255,255,255,.45);
+
+      font-size: 13px;
+    }
+
+    .loader {
+
+      width: 28px;
+      height: 28px;
+
+      margin:
+        0 auto 15px;
+
+      border-radius: 50%;
+
+      border:
+        2px solid
+        rgba(255,255,255,.14);
+
+      border-top-color:
+        rgba(255,255,255,.8);
+
+      animation:
+        spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+
+      to {
+        transform:
+          rotate(360deg);
+      }
+
+    }
+
+
+    /* ==========================================
+       FOOTER
+    ========================================== */
+
+    footer {
+
+      margin-top: 55px;
+
+      text-align: center;
+
+      color:
+        rgba(255,255,255,.25);
+
+      font-size: 11px;
+    }
+
+
+    /* ==========================================
+       MOBILE
+    ========================================== */
+
+    @media(max-width:600px) {
+
+      .page {
+
+        padding:
+          22px 17px
+          50px;
+
+      }
+
+      .topbar {
+
+        margin-bottom: 45px;
+
+      }
+
+      .nav {
+
+        gap: 10px;
+
+      }
+
+      .nav a:not(.moments-link) {
+
+        display: none;
+
+      }
+
+      .hero h1 {
+
+        font-size: 52px;
+
+        letter-spacing: -2px;
+
+      }
+
+      .profile-card {
+
+        padding: 24px 20px;
+
+        border-radius: 23px;
+
+      }
+
+      .profile-header {
+
+        align-items: flex-start;
+
+      }
+
+      .avatar {
+
+        width: 60px;
+        height: 60px;
+
+        font-size: 25px;
+
+      }
+
+      .profile-header h2 {
+
+        font-size: 23px;
+
+      }
+
+      .form-actions {
+
+        align-items: stretch;
+
+        flex-direction: column-reverse;
+
+      }
+
+      .save-button,
+      .logout-button {
+
+        width: 100%;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ==========================================
+       AMBIENT
+  ========================================== -->
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+
+  <div class="hearts">
+
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+    <span class="heart">💕</span>
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+
+  </div>
+
+
+  <main class="page">
+
+
+    <!-- ========================================
+         NAVIGATION
+    ======================================== -->
+
+    <nav class="topbar">
+
+      <div class="logo">
+        Moment ❤️
+      </div>
+
+      <div class="nav">
+
+        <a href="/">
+          Home
+        </a>
+
+        <a href="/moments">
+          My Moments
+        </a>
+
+        <a
+          href="/moments"
+          class="moments-link"
+        >
+          Back to Moments
+        </a>
+
+      </div>
+
+    </nav>
+
+
+    <!-- ========================================
+         HERO
+    ======================================== -->
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        A little about you
+      </div>
+
+      <h1>
+        Edit <span>Profile.</span>
+      </h1>
+
+      <p>
+        Keep your Moment profile up to date.
+        Your name is used when you create
+        invitations for someone special.
+      </p>
+
+    </section>
+
+
+    <!-- ========================================
+         PROFILE
+    ======================================== -->
+
+    <section
+      id="loading"
+      class="loading"
+    >
+
+      <div class="loader"></div>
+
+      Loading your profile...
+
+    </section>
+
+
+    <section
+      id="profileCard"
+      class="profile-card"
+      style="display:none;"
+    >
+
+
+      <!-- PROFILE HEADER -->
+
+      <div class="profile-header">
+
+        <div
+          id="avatar"
+          class="avatar"
+        >
+          M
+        </div>
+
+        <div>
+
+          <h2 id="profileName">
+            Your Profile
+          </h2>
+
+          <p>
+            This is your personal Moment account.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- MESSAGE -->
+
+      <div
+        id="messageBox"
+        class="message-box"
+      ></div>
+
+
+      <!-- FORM -->
+
+      <form id="profileForm">
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="name"
+          >
+            Your name
+          </label>
+
+          <input
+            id="name"
+            class="input"
+            type="text"
+            maxlength="100"
+            autocomplete="name"
+            placeholder="Enter your name"
+            required
+          >
+
+          <div class="field-note">
+            This name will appear as the creator of your Moments.
+          </div>
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="email"
+          >
+            Email address
+          </label>
+
+          <input
+            id="email"
+            class="input readonly"
+            type="email"
+            readonly
+          >
+
+          <div class="field-note">
+            Your email address is managed by your login provider.
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            id="logoutButton"
+            class="logout-button"
+          >
+            Log out
+          </button>
+
+          <button
+            type="submit"
+            id="saveButton"
+            class="save-button"
+          >
+            Save Changes
+          </button>
+
+        </div>
+
+
+      </form>
+
+    </section>
+
+
+    <footer>
+      Made with a little heart by Moment.
+    </footer>
+
+
+  </main>
+
+
+  <script>
+
+
+    /* ==========================================
+       ELEMENTS
+    ========================================== */
+
+    const loading =
+      document.getElementById(
+        "loading"
+      );
+
+    const profileCard =
+      document.getElementById(
+        "profileCard"
+      );
+
+    const profileForm =
+      document.getElementById(
+        "profileForm"
+      );
+
+    const nameInput =
+      document.getElementById(
+        "name"
+      );
+
+    const emailInput =
+      document.getElementById(
+        "email"
+      );
+
+    const avatar =
+      document.getElementById(
+        "avatar"
+      );
+
+    const profileName =
+      document.getElementById(
+        "profileName"
+      );
+
+    const messageBox =
+      document.getElementById(
+        "messageBox"
+      );
+
+    const saveButton =
+      document.getElementById(
+        "saveButton"
+      );
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+
+    /* ==========================================
+       AUTH TOKEN
+    ========================================== */
+
+    function getAuthToken() {
+
+      const keys = [
+        "momentUser",
+        "loggedInUser",
+        "moment_user"
+      ];
+
+
+      for (
+        const key of keys
+      ) {
+
+        try {
+
+          const raw =
+            localStorage.getItem(
+              key
+            );
+
+
+          if (!raw) {
+            continue;
+          }
+
+
+          const user =
+            JSON.parse(raw);
+
+
+          if (
+            user &&
+            typeof user === "object"
+          ) {
+
+            const token =
+              user.access_token ||
+              user.accessToken ||
+              null;
+
+
+            if (token) {
+              return token;
+            }
+
+          }
+
+        }
+
+        catch(error) {
+
+          console.warn(
+            "Could not read auth state:",
+            error
+          );
+
+        }
+
+      }
+
+
+      /*
+       * Supabase session fallback.
+       */
+
+      try {
+
+        for (
+          let i = 0;
+          i < localStorage.length;
+          i++
+        ) {
+
+          const key =
+            localStorage.key(i);
+
+
+          if (
+            !key ||
+            !key.startsWith("sb-") ||
+            !key.endsWith("-auth-token")
+          ) {
+
+            continue;
+          }
+
+
+          const raw =
+            localStorage.getItem(
+              key
+            );
+
+
+          if (!raw) {
+            continue;
+          }
+
+
+          const session =
+            JSON.parse(raw);
+
+
+          if (
+            session &&
+            session.access_token
+          ) {
+
+            return session.access_token;
+
+          }
+
+        }
+
+      }
+
+      catch(error) {
+
+        console.warn(
+          "Could not read Supabase session:",
+          error
+        );
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* ==========================================
+       API REQUEST
+    ========================================== */
+
+    async function apiRequest(
+      url,
+      options = {}
+    ) {
+
+      const token =
+        getAuthToken();
+
+
+      if (!token) {
+
+        window.location.href =
+          "/login?return=" +
+          encodeURIComponent(
+            "/profile"
+          );
+
+        throw new Error(
+          "Please log in."
+        );
+
+      }
+
+
+      const headers = {
+
+        ...(options.headers || {}),
+
+        Authorization:
+          "Bearer " +
+          token
+
+      };
+
+
+      if (
+        options.body &&
+        !headers["Content-Type"]
+      ) {
+
+        headers["Content-Type"] =
+          "application/json";
+
+      }
+
+
+      const response =
+        await fetch(
+          url,
+          {
+            ...options,
+            headers
+          }
+        );
+
+
+      let data = null;
+
+
+      try {
+
+        data =
+          await response.json();
+
+      }
+
+      catch(error) {
+
+        data = null;
+
+      }
+
+
+      if (
+        response.status === 401
+      ) {
+
+        clearLocalAuth();
+
+
+        window.location.href =
+          "/login?return=" +
+          encodeURIComponent(
+            "/profile"
+          );
+
+
+        throw new Error(
+          "Your session has expired."
+        );
+
+      }
+
+
+      if (
+        !response.ok
+      ) {
+
+        throw new Error(
+          data?.error ||
+          "Something went wrong."
+        );
+
+      }
+
+
+      return data;
+
+    }
+
+
+    /* ==========================================
+       CLEAR AUTH
+    ========================================== */
+
+    function clearLocalAuth() {
+
+      const keys = [
+        "momentUser",
+        "loggedInUser",
+        "moment_user"
+      ];
+
+
+      keys.forEach(
+        key => {
+
+          try {
+
+            localStorage.removeItem(
+              key
+            );
+
+          }
+
+          catch(error) {}
+
+        }
+      );
+
+
+      /*
+       * Remove Supabase auth entries.
+       */
+
+      try {
+
+        const keysToRemove = [];
+
+        for (
+          let i = 0;
+          i < localStorage.length;
+          i++
+        ) {
+
+          const key =
+            localStorage.key(i);
+
+
+          if (
+            key &&
+            key.startsWith("sb-") &&
+            key.endsWith("-auth-token")
+          ) {
+
+            keysToRemove.push(
+              key
+            );
+
+          }
+
+        }
+
+
+        keysToRemove.forEach(
+          key => {
+
+            localStorage.removeItem(
+              key
+            );
+
+          }
+        );
+
+      }
+
+      catch(error) {}
+
+    }
+
+
+    /* ==========================================
+       SHOW MESSAGE
+    ========================================== */
+
+    function showMessage(
+      message,
+      type
+    ) {
+
+      messageBox.textContent =
+        message;
+
+      messageBox.className =
+        "message-box " +
+        type;
+
+      messageBox.style.display =
+        "block";
+
+    }
+
+
+    function hideMessage() {
+
+      messageBox.style.display =
+        "none";
+
+    }
+
+
+    /* ==========================================
+       UPDATE AVATAR
+    ========================================== */
+
+    function updateAvatar(
+      name
+    ) {
+
+      const cleanName =
+        String(
+          name || ""
+        ).trim();
+
+
+      if (!cleanName) {
+
+        avatar.textContent =
+          "M";
+
+        return;
+
+      }
+
+
+      avatar.textContent =
+        cleanName
+          .charAt(0)
+          .toUpperCase();
+
+    }
+
+
+    /* ==========================================
+       LOAD PROFILE
+    ========================================== */
+
+    async function loadProfile() {
+
+      try {
+
+        const data =
+          await apiRequest(
+            "/api/profile"
+          );
+
+
+        const profile =
+          data.profile || {};
+
+
+        const name =
+          profile.name || "";
+
+
+        nameInput.value =
+          name;
+
+
+        emailInput.value =
+          profile.email || "";
+
+
+        profileName.textContent =
+          name ||
+          "Your Profile";
+
+
+        updateAvatar(
+          name
+        );
+
+
+        loading.style.display =
+          "none";
+
+
+        profileCard.style.display =
+          "block";
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "Could not load profile:",
+          error
+        );
+
+
+        loading.style.display =
+          "none";
+
+        showMessage(
+          error.message ||
+          "Could not load your profile.",
+          "error"
+        );
+
+        profileCard.style.display =
+          "block";
+
+      }
+
+    }
+
+
+    /* ==========================================
+       SAVE PROFILE
+    ========================================== */
+
+    profileForm.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        hideMessage();
+
+
+        const name =
+          nameInput.value.trim();
+
+
+        if (!name) {
+
+          showMessage(
+            "Please enter your name.",
+            "error"
+          );
+
+          nameInput.focus();
+
+          return;
+
+        }
+
+
+        if (name.length < 2) {
+
+          showMessage(
+            "Name must contain at least 2 characters.",
+            "error"
+          );
+
+          nameInput.focus();
+
+          return;
+
+        }
+
+
+        if (name.length > 100) {
+
+          showMessage(
+            "Name is too long.",
+            "error"
+          );
+
+          nameInput.focus();
+
+          return;
+
+        }
+
+
+        const originalText =
+          saveButton.textContent;
+
+
+        saveButton.disabled =
+          true;
+
+        saveButton.textContent =
+          "Saving...";
+
+
+        try {
+
+          const data =
+            await apiRequest(
+              "/api/profile",
+              {
+
+                method:
+                  "PUT",
+
+                body:
+                  JSON.stringify({
+                    name
+                  })
+
+              }
+            );
+
+
+          const profile =
+            data.profile || {};
+
+
+          const savedName =
+            profile.name ||
+            name;
+
+
+          nameInput.value =
+            savedName;
+
+
+          profileName.textContent =
+            savedName;
+
+
+          updateAvatar(
+            savedName
+          );
+
+
+          showMessage(
+            "Your profile has been updated successfully. ❤️",
+            "success"
+          );
+
+
+          /*
+           * Keep local user data in sync
+           * when the old login system stores it.
+           */
+
+          const keys = [
+            "momentUser",
+            "loggedInUser",
+            "moment_user"
+          ];
+
+
+          keys.forEach(
+            key => {
+
+              try {
+
+                const raw =
+                  localStorage.getItem(
+                    key
+                  );
+
+
+                if (!raw) {
+                  return;
+                }
+
+
+                const user =
+                  JSON.parse(raw);
+
+
+                if (
+                  user &&
+                  typeof user === "object"
+                ) {
+
+                  user.name =
+                    savedName;
+
+
+                  if (
+                    user.user_metadata
+                  ) {
+
+                    user.user_metadata.name =
+                      savedName;
+
+                  }
+
+
+                  localStorage.setItem(
+                    key,
+                    JSON.stringify(user)
+                  );
+
+                }
+
+              }
+
+              catch(error) {}
+
+            }
+          );
+
+        }
+
+        catch(error) {
+
+          console.error(
+            "Could not save profile:",
+            error
+          );
+
+
+          showMessage(
+            error.message ||
+            "Could not update your profile.",
+            "error"
+          );
+
+        }
+
+        finally {
+
+          saveButton.disabled =
+            false;
+
+          saveButton.textContent =
+            originalText;
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       LIVE AVATAR PREVIEW
+    ========================================== */
+
+    nameInput.addEventListener(
+      "input",
+      () => {
+
+        const name =
+          nameInput.value.trim();
+
+
+        profileName.textContent =
+          name ||
+          "Your Profile";
+
+
+        updateAvatar(
+          name
+        );
+
+      }
+    );
+
+
+    /* ==========================================
+       LOGOUT
+    ========================================== */
+
+    logoutButton.addEventListener(
+      "click",
+      () => {
+
+        const confirmed =
+          window.confirm(
+            "Are you sure you want to log out?"
+          );
+
+
+        if (!confirmed) {
+          return;
+        }
+
+
+        clearLocalAuth();
+
+
+        window.location.href =
+          "/login";
+
+      }
+    );
+
+
+    /* ==========================================
+       PAGE LOAD
+    ========================================== */
+
+    loadProfile();
+
+  </script>
+
+</body>
+
+</html>
