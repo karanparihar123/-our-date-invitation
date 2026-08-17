@@ -523,6 +523,22 @@
         rgba(0,0,0,.28);
     }
 
+    /*
+     * Booked cards get a slightly warmer glow.
+     */
+
+    .moment-card.booked-card {
+      border-color:
+        rgba(255,170,195,.22);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,155,185,.12),
+          rgba(255,255,255,.045)
+        );
+    }
+
     .moment-card::after {
       content: "";
 
@@ -625,8 +641,6 @@
         rgba(255,255,255,.38);
 
       font-size: 11px;
-
-      white-space: nowrap;
     }
 
 
@@ -689,6 +703,83 @@
       overflow: hidden;
     }
 
+    .booked-message {
+      color:
+        #ffd9e5;
+    }
+
+
+    /* ==========================================
+       BOOKED DATE HIGHLIGHT
+    ========================================== */
+
+    .booked-date {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin:
+        0 0 20px;
+
+      padding:
+        14px 15px;
+
+      border-radius: 16px;
+
+      border:
+        1px solid
+        rgba(255,150,180,.16);
+
+      background:
+        rgba(255,120,160,.08);
+    }
+
+    .booked-date-icon {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      flex: 0 0 auto;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.09);
+
+      font-size: 18px;
+    }
+
+    .booked-date-label {
+      margin-bottom: 3px;
+
+      color:
+        rgba(255,255,255,.38);
+
+      font-size: 9px;
+
+      letter-spacing: 1.4px;
+
+      text-transform: uppercase;
+    }
+
+    .booked-date-value {
+      color:
+        #ffd6e2;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 16px;
+    }
+
 
     /* ==========================================
        STATUS
@@ -740,7 +831,7 @@
         rgba(255,120,160,.10);
 
       border-color:
-        rgba(255,140,180,.16);
+        rgba(255,140,175,.14);
     }
 
     .status.booked .status-dot {
@@ -813,7 +904,8 @@
 
       transition:
         background .2s ease,
-        transform .2s ease;
+        transform .2s ease,
+        border-color .2s ease;
     }
 
     .action-button:hover {
@@ -830,6 +922,12 @@
       color: #74153f;
 
       background: #fff;
+    }
+
+    .action-button.booked-primary {
+      color: #74153f;
+
+      background: #ffd9e5;
     }
 
 
@@ -972,10 +1070,12 @@
     }
 
     @keyframes spin {
+
       to {
         transform:
           rotate(360deg);
       }
+
     }
 
 
@@ -1006,6 +1106,199 @@
       line-height: 1.5;
 
       text-align: center;
+    }
+
+
+    /* ==========================================
+       BOOKING MODAL
+    ========================================== */
+
+    .booking-modal {
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 1000;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 20px;
+
+      background:
+        rgba(10,3,12,.72);
+
+      backdrop-filter:
+        blur(12px);
+    }
+
+    .booking-modal.show {
+      display: flex;
+    }
+
+    .booking-modal-card {
+      position: relative;
+
+      width:
+        min(
+          100%,
+          460px
+        );
+
+      padding: 30px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.14);
+
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.13),
+          rgba(255,255,255,.06)
+        );
+
+      box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.4);
+
+      color: #fff;
+
+      animation:
+        modalIn .25s ease;
+    }
+
+    @keyframes modalIn {
+
+      from {
+        opacity: 0;
+        transform:
+          translateY(12px)
+          scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+    .close-modal {
+      position: absolute;
+
+      top: 16px;
+      right: 16px;
+
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.12);
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.07);
+
+      color: #fff;
+
+      cursor: pointer;
+
+      font-size: 17px;
+    }
+
+    .modal-eyebrow {
+      margin-bottom: 12px;
+
+      color:
+        rgba(255,255,255,.4);
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+    }
+
+    .booking-modal-card h2 {
+      margin:
+        0 0 8px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 34px;
+
+      font-weight: normal;
+    }
+
+    .modal-subtitle {
+      margin:
+        0 0 25px;
+
+      color:
+        rgba(255,255,255,.55);
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+    .modal-detail {
+      padding:
+        18px 20px;
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,.06);
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      margin-bottom: 12px;
+    }
+
+    .modal-detail-label {
+      margin-bottom: 7px;
+
+      color:
+        rgba(255,255,255,.38);
+
+      font-size: 9px;
+
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
+    }
+
+    .modal-detail-value {
+      color:
+        #ffd6e2;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 20px;
     }
 
 
@@ -1103,6 +1396,14 @@
         flex: 1;
       }
 
+      .booking-modal-card {
+        padding: 25px 21px;
+      }
+
+      .booking-modal-card h2 {
+        font-size: 30px;
+      }
+
     }
 
   </style>
@@ -1112,8 +1413,15 @@
 
 <body>
 
+
+  <!-- ==========================================
+       AMBIENT
+  ========================================== -->
+
   <div class="glow one"></div>
+
   <div class="glow two"></div>
+
 
   <div class="hearts">
 
@@ -1138,6 +1446,7 @@
       <div class="logo">
         Moment ❤️
       </div>
+
 
       <div class="nav">
 
@@ -1264,6 +1573,10 @@
     </div>
 
 
+    <!-- ========================================
+         LOADING
+    ======================================== -->
+
     <div
       id="loading"
       class="loading"
@@ -1276,17 +1589,29 @@
     </div>
 
 
+    <!-- ========================================
+         ERROR
+    ======================================== -->
+
     <div
       id="error"
       class="error"
     ></div>
 
 
+    <!-- ========================================
+         MOMENTS
+    ======================================== -->
+
     <div
       id="momentsGrid"
       class="moments-grid"
     ></div>
 
+
+    <!-- ========================================
+         EMPTY
+    ======================================== -->
 
     <section
       id="empty"
@@ -1316,6 +1641,75 @@
       </a>
 
     </section>
+
+
+    <!-- ========================================
+         BOOKING DETAILS MODAL
+    ======================================== -->
+
+    <div
+      id="bookingModal"
+      class="booking-modal"
+    >
+
+      <div class="booking-modal-card">
+
+        <button
+          id="closeBookingModal"
+          type="button"
+          class="close-modal"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+
+        <div class="modal-eyebrow">
+          Your Moment
+        </div>
+
+
+        <h2>
+          It's a date! ❤️
+        </h2>
+
+
+        <p
+          id="bookingModalSubtitle"
+          class="modal-subtitle"
+        ></p>
+
+
+        <div class="modal-detail">
+
+          <div class="modal-detail-label">
+            Booked date
+          </div>
+
+          <div
+            id="bookingModalDate"
+            class="modal-detail-value"
+          ></div>
+
+        </div>
+
+
+        <div class="modal-detail">
+
+          <div class="modal-detail-label">
+            Invitation for
+          </div>
+
+          <div
+            id="bookingModalRecipient"
+            class="modal-detail-value"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
 
 
     <footer>
@@ -1369,6 +1763,36 @@
     const sectionCount =
       document.getElementById(
         "sectionCount"
+      );
+
+
+    /* ==========================================
+       BOOKING MODAL ELEMENTS
+    ========================================== */
+
+    const bookingModal =
+      document.getElementById(
+        "bookingModal"
+      );
+
+    const closeBookingModalButton =
+      document.getElementById(
+        "closeBookingModal"
+      );
+
+    const bookingModalSubtitle =
+      document.getElementById(
+        "bookingModalSubtitle"
+      );
+
+    const bookingModalDate =
+      document.getElementById(
+        "bookingModalDate"
+      );
+
+    const bookingModalRecipient =
+      document.getElementById(
+        "bookingModalRecipient"
       );
 
 
@@ -1615,6 +2039,54 @@
       }
 
 
+      /*
+       * PostgreSQL DATE values are
+       * YYYY-MM-DD.
+       *
+       * Add local noon so the displayed
+       * date cannot shift backward because
+       * of timezone conversion.
+       */
+
+      if (
+        /^\d{4}-\d{2}-\d{2}$/.test(
+          String(dateValue)
+        )
+      ) {
+
+        const [
+          year,
+          month,
+          day
+        ] =
+          String(
+            dateValue
+          ).split("-");
+
+
+        const date =
+          new Date(
+            Number(year),
+            Number(month) - 1,
+            Number(day),
+            12,
+            0,
+            0
+          );
+
+
+        return date.toLocaleDateString(
+          "en-IN",
+          {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+          }
+        );
+
+      }
+
+
       const date =
         new Date(
           dateValue
@@ -1749,74 +2221,122 @@
 
 
     /* ==========================================
-       RESPONSE STATUS
+       OPEN BOOKING MODAL
     ========================================== */
 
-    function getMomentResponse(
+    function openBookingModal(
       moment
     ) {
 
-      /*
-       * Primary format expected from the
-       * corrected backend.
-       */
-
-      if (
-        moment.response_answer
-      ) {
-
-        return {
-
-          answer:
-            String(
-              moment.response_answer
-            ).toLowerCase(),
-
-          selectedDate:
-            moment.selected_date ||
-            null
-
-        };
-
+      if (!bookingModal) {
+        return;
       }
 
 
-      /*
-       * Backwards compatibility with an
-       * older nested response format.
-       */
+      const recipient =
+        moment.recipient_name ||
+        "Someone special";
 
-      if (
+
+      const bookedDate =
         moment.response &&
-        typeof moment.response === "object"
-      ) {
-
-        return {
-
-          answer:
-            String(
-              moment.response.answer ||
-              ""
-            ).toLowerCase(),
-
-          selectedDate:
-            moment.response.selected_date ||
-            null
-
-        };
-
-      }
+        moment.response.selected_date
+          ? formatDate(
+              moment.response.selected_date
+            )
+          : "Date booked";
 
 
-      return {
+      bookingModalSubtitle.textContent =
+        `${recipient} has accepted your invitation.`;
 
-        answer: "",
+      bookingModalDate.textContent =
+        bookedDate;
 
-        selectedDate: null
+      bookingModalRecipient.textContent =
+        recipient;
 
-      };
+
+      bookingModal.classList.add(
+        "show"
+      );
+
+
+      document.body.style.overflow =
+        "hidden";
 
     }
+
+
+    /* ==========================================
+       CLOSE BOOKING MODAL
+    ========================================== */
+
+    function closeBookingModal() {
+
+      if (!bookingModal) {
+        return;
+      }
+
+
+      bookingModal.classList.remove(
+        "show"
+      );
+
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+
+    if (
+      closeBookingModalButton
+    ) {
+
+      closeBookingModalButton.addEventListener(
+        "click",
+        closeBookingModal
+      );
+
+    }
+
+
+    if (bookingModal) {
+
+      bookingModal.addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target ===
+            bookingModal
+          ) {
+
+            closeBookingModal();
+
+          }
+
+        }
+      );
+
+    }
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeBookingModal();
+
+        }
+
+      }
+    );
 
 
     /* ==========================================
@@ -1855,34 +2375,33 @@
 
 
       /*
-       * Read response from backend.
+       * RESPONSE
        */
 
       const response =
-        getMomentResponse(
-          moment
-        );
+        moment.response ||
+        null;
 
 
       const isBooked =
-        response.answer === "yes";
+        response &&
+        response.answer ===
+          "yes";
 
 
-      let statusText =
-        "Waiting for response";
+      let bookedDate =
+        "";
 
 
       if (
-        isBooked
+        isBooked &&
+        response.selected_date
       ) {
 
-        statusText =
-          response.selectedDate
-            ? "Date booked · " +
-              formatDate(
-                response.selectedDate
-              )
-            : "Date booked";
+        bookedDate =
+          formatDate(
+            response.selected_date
+          );
 
       }
 
@@ -1894,115 +2413,258 @@
 
 
       card.className =
-        "moment-card";
-
-
-      card.dataset.code =
-        code;
+        "moment-card" +
+        (
+          isBooked
+            ? " booked-card"
+            : ""
+        );
 
 
       card.style.animationDelay =
         `${index * 80}ms`;
 
 
-      card.innerHTML = `
+      /*
+       * BOOKED CARD
+       */
 
-        <div class="card-top">
+      if (isBooked) {
 
-          <div class="occasion">
+        card.innerHTML = `
 
-            <span class="occasion-dot"></span>
+          <div class="card-top">
 
-            ${escapeHtml(occasion)}
+            <div class="occasion">
+
+              <span class="occasion-dot"></span>
+
+              ${escapeHtml(occasion)}
+
+            </div>
+
+            <div class="card-date">
+
+              Created
+              ${escapeHtml(createdAt)}
+
+            </div>
 
           </div>
 
-          <div class="card-date">
 
-            ${escapeHtml(createdAt)}
+          <div class="card-label">
+
+            A little memory
 
           </div>
 
-        </div>
+
+          <h3 class="recipient">
+
+            For
+
+            <span>
+              ${escapeHtml(recipient)}
+            </span>
+
+          </h3>
 
 
-        <div class="card-label">
-          For someone special
-        </div>
+          <p class="message booked-message">
 
+            It's a date! ❤️
 
-        <h3 class="recipient">
-
-          For
-          <span>
             ${escapeHtml(recipient)}
-          </span>
+            has chosen a date with you.
 
-        </h3>
-
-
-        <p class="message">
-
-          ${escapeHtml(message)}
-
-        </p>
+          </p>
 
 
-        <div
-          class="status ${
-            isBooked
-              ? "booked"
-              : ""
-          }"
-        >
+          <div class="booked-date">
 
-          <span class="status-dot"></span>
+            <div class="booked-date-icon">
+              📅
+            </div>
 
-          ${escapeHtml(statusText)}
+            <div>
 
-        </div>
+              <div class="booked-date-label">
+                Your date
+              </div>
 
+              <div class="booked-date-value">
 
-        <div class="card-footer">
+                ${escapeHtml(
+                  bookedDate ||
+                  "Date booked"
+                )}
 
-          <div class="code">
+              </div>
 
-            Moment ·
-            ${escapeHtml(code)}
+            </div>
 
           </div>
 
 
-          <div class="actions">
+          <div class="status booked">
 
-            <button
-              type="button"
-              class="action-button"
-              data-copy="${escapeHtml(code)}"
-            >
-              Copy Link
-            </button>
+            <span class="status-dot"></span>
 
-
-            <a
-              href="/i/${encodeURIComponent(code)}"
-              class="action-button primary"
-              style="
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                text-decoration:none;
-              "
-            >
-              Open Invitation
-            </a>
+            ${
+              bookedDate
+                ? `Date booked · ${escapeHtml(bookedDate)}`
+                : "Date booked"
+            }
 
           </div>
 
-        </div>
 
-      `;
+          <div class="card-footer">
 
+            <div class="code">
+
+              Moment ·
+              ${escapeHtml(code)}
+
+            </div>
+
+
+            <div class="actions">
+
+              <button
+                type="button"
+                class="action-button"
+                data-copy="${escapeHtml(code)}"
+              >
+                Copy Link
+              </button>
+
+
+              <button
+                type="button"
+                class="action-button primary booked-primary"
+                data-view-booking="true"
+              >
+                View Booking
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+
+      /*
+       * AWAITING RESPONSE CARD
+       */
+
+      else {
+
+        card.innerHTML = `
+
+          <div class="card-top">
+
+            <div class="occasion">
+
+              <span class="occasion-dot"></span>
+
+              ${escapeHtml(occasion)}
+
+            </div>
+
+            <div class="card-date">
+
+              ${escapeHtml(createdAt)}
+
+            </div>
+
+          </div>
+
+
+          <div class="card-label">
+
+            For someone special
+
+          </div>
+
+
+          <h3 class="recipient">
+
+            For
+
+            <span>
+              ${escapeHtml(recipient)}
+            </span>
+
+          </h3>
+
+
+          <p class="message">
+
+            ${escapeHtml(message)}
+
+          </p>
+
+
+          <div class="status">
+
+            <span class="status-dot"></span>
+
+            Awaiting response
+
+          </div>
+
+
+          <div class="card-footer">
+
+            <div class="code">
+
+              Moment ·
+              ${escapeHtml(code)}
+
+            </div>
+
+
+            <div class="actions">
+
+              <button
+                type="button"
+                class="action-button"
+                data-copy="${escapeHtml(code)}"
+              >
+                Copy Link
+              </button>
+
+
+              <a
+                href="/i/${encodeURIComponent(code)}"
+                class="action-button primary"
+                style="
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  text-decoration:none;
+                "
+              >
+                Open Invitation
+              </a>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+
+      /* ======================================
+         COPY BUTTON
+      ====================================== */
 
       const copyButton =
         card.querySelector(
@@ -2010,9 +2672,7 @@
         );
 
 
-      if (
-        copyButton
-      ) {
+      if (copyButton) {
 
         copyButton.addEventListener(
           "click",
@@ -2029,64 +2689,51 @@
       }
 
 
+      /* ======================================
+         VIEW BOOKING
+      ====================================== */
+
+      const bookingButton =
+        card.querySelector(
+          "[data-view-booking]"
+        );
+
+
+      if (
+        bookingButton &&
+        isBooked
+      ) {
+
+        bookingButton.addEventListener(
+          "click",
+          () => {
+
+            openBookingModal(
+              moment
+            );
+
+          }
+        );
+
+      }
+
+
       return card;
 
     }
 
 
     /* ==========================================
-       LOAD LOCK
-    ========================================== */
-
-    let isLoadingMoments =
-      false;
-
-
-    let lastLoadedMoments =
-      null;
-
-
-    /* ==========================================
        LOAD MOMENTS
     ========================================== */
 
-    async function loadMoments(
-      force = false
-    ) {
-
-      /*
-       * IMPORTANT:
-       *
-       * Prevent multiple simultaneous
-       * API calls from pageshow /
-       * visibilitychange from rendering
-       * duplicate cards.
-       */
-
-      if (
-        isLoadingMoments
-      ) {
-
-        return;
-
-      }
-
-
-      isLoadingMoments =
-        true;
-
+    async function loadMoments() {
 
       loading.style.display =
         "block";
 
       errorBox.style.display =
         "none";
-
-
-      /*
-       * Clear the old cards exactly once
-       * before rendering the new result.
-       */
 
       momentsGrid.innerHTML =
         "";
@@ -2111,97 +2758,42 @@
             : [];
 
 
-        /*
-         * Prevent duplicate invitation cards
-         * even if the backend accidentally
-         * returns the same invitation twice.
-         *
-         * invitation_code is unique in the
-         * database, so it is the safest key.
-         */
-
-        const uniqueMoments =
-          [];
-
-
-        const seenCodes =
-          new Set();
-
-
-        for (
-          const moment of moments
-        ) {
-
-          const code =
-            String(
-              moment.invitation_code ||
-              ""
-            ).trim();
-
-
-          if (
-            code &&
-            seenCodes.has(code)
-          ) {
-
-            continue;
-
-          }
-
-
-          if (
-            code
-          ) {
-
-            seenCodes.add(code);
-
-          }
-
-
-          uniqueMoments.push(
-            moment
-          );
-
-        }
-
-
-        lastLoadedMoments =
-          uniqueMoments;
-
-
         loading.style.display =
           "none";
 
 
+        /*
+         * TOTAL
+         */
+
         totalCount.textContent =
-          uniqueMoments.length;
+          moments.length;
 
 
         /*
-         * Count actual booked invitations.
+         * BOOKED
          */
 
         const booked =
-          uniqueMoments.filter(
+          moments.filter(
             moment => {
 
-              const response =
-                getMomentResponse(
-                  moment
-                );
-
-
               return (
-                response.answer ===
-                "yes"
+                moment.response &&
+                moment.response.answer ===
+                  "yes"
               );
 
             }
           ).length;
 
 
+        /*
+         * WAITING
+         */
+
         const waiting =
-          uniqueMoments.length -
+          moments.length -
           booked;
 
 
@@ -2214,13 +2806,17 @@
 
 
         sectionCount.textContent =
-          uniqueMoments.length === 1
+          moments.length === 1
             ? "1 moment"
-            : `${uniqueMoments.length} moments`;
+            : `${moments.length} moments`;
 
+
+        /*
+         * EMPTY
+         */
 
         if (
-          uniqueMoments.length === 0
+          moments.length === 0
         ) {
 
           empty.style.display =
@@ -2231,7 +2827,11 @@
         }
 
 
-        uniqueMoments.forEach(
+        /*
+         * RENDER
+         */
+
+        moments.forEach(
           (
             moment,
             index
@@ -2275,64 +2875,14 @@
 
       }
 
-      finally {
-
-        isLoadingMoments =
-          false;
-
-      }
-
     }
 
 
     /* ==========================================
-       INITIAL LOAD
+       PAGE LOAD
     ========================================== */
 
     loadMoments();
-
-
-    /* ==========================================
-       PAGE RETURN
-    ========================================== */
-
-    window.addEventListener(
-      "pageshow",
-      () => {
-
-        /*
-         * pageshow fires when returning from
-         * browser history / bfcache.
-         *
-         * The loading lock prevents it from
-         * creating duplicate cards.
-         */
-
-        loadMoments();
-
-      }
-    );
-
-
-    /* ==========================================
-       VISIBILITY CHANGE
-    ========================================== */
-
-    document.addEventListener(
-      "visibilitychange",
-      () => {
-
-        if (
-          document.visibilityState ===
-          "visible"
-        ) {
-
-          loadMoments();
-
-        }
-
-      }
-    );
 
   </script>
 
